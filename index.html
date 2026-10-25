@@ -975,7 +975,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 
 
   // ---------- Holdopstilling (holdledere) ----------
-  var LU = { team: null, mi: null, sel: null, selKey: '', q: '', onlyTeam: false };
+  var LU = { team: null, mi: null, sel: null, selKey: '', q: '', onlyTeam: false, eligible: true, hideNo: false };
   function isLeader(label) {
     var r = ME && ME.token && ME.role;
     if (!r || !r.leader) return false;
@@ -1021,6 +1021,27 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     var m = {};
     Object.keys(REG.map).forEach(function (k) { var i = k.lastIndexOf('|'); if (k.slice(0, i) === eid) m[k.slice(i + 1)] = REG.map[k]; });
     return m;
+  }
+  // Spilleberettigelse ud fra rangliste-kategoriens aldersgruppe
+  function playerAges(p) {
+    var a = {};
+    ((p && p.profile && p.profile.rankings) || []).forEach(function (r) { var m = /^\s*(U\d{2}|SEN(?:\+\d{2})?)/.exec(r.category || ''); if (m) a[m[1]] = 1; });
+    return Object.keys(a);
+  }
+  function eligibility(t, pid) {
+    var p = D.players[pid], ages = playerAges(p);
+    if (!ages.length) return { ok: true, unknown: true, why: 'ukendt alder' };
+    var tm = /^U(\d{2})/.exec(t.label);
+    if (tm) {
+      var max = +tm[1];
+      var young = ages.filter(function (a) { return /^U\d{2}$/.test(a); }).map(function (a) { return +a.slice(1); });
+      if (!young.length) return { ok: false, why: 'senior' };
+      var best = Math.max.apply(null, young);
+      if (best > max) return { ok: false, why: 'U' + best + ' — for gammel' };
+      return { ok: true, why: best < max ? 'U' + ('0' + best).slice(-2) + ' — må spille op' : 'U' + max };
+    }
+    var adult = ages.some(function (a) { return /^SEN/.test(a) || a === 'U17' || a === 'U19'; });
+    return adult ? { ok: true, why: ages.indexOf('SEN') >= 0 ? 'senior' : ages.join('/') + ' — må spille senior' } : { ok: false, why: ages.join('/') + ' — for ung' };
   }
   function lineupFor(m) { return (REG.lineups || {})[matchEid(m)] || null; }
   function stPill(st) { return '<span class="st st-' + esc(st) + '">' + ({ udkast: 'Udkast', klar: 'Klar til indtastning', indtastet: 'Indtastet på badmintonplayer' }[st] || esc(st)) + '</span>'; }
@@ -1091,24 +1112,34 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (tAge) D.ids.forEach(function (id) { if (playerLevels(D.players[id]).some(function (k) { return k.split(' ')[0] === tAge; })) roster[id] = 1; });
     var q = LU.q.toLowerCase().trim();
     var order = { ja: 0, maaske: 1, none: 2, nej: 3 };
+    var hidden = 0;
     var ids = Object.keys(cands).filter(function (id) {
       if (LU.sel[id]) return true;
+      if (LU.eligible && !eligibility(t, id).ok) { hidden++; return false; }
+      if (LU.hideNo && av[id] && av[id].s === 'nej') { hidden++; return false; }
       if (LU.onlyTeam && !roster[id] && !av[id]) return false;
       return !q || cands[id].toLowerCase().indexOf(q) >= 0 || (D.players[id] && D.players[id].teams.join(' ').toLowerCase().indexOf(q) >= 0);
     }).sort(function (a, b) {
       var sa = av[a] ? av[a].s : 'none', sb = av[b] ? av[b].s : 'none';
       return ((LU.sel[b] ? 1 : 0) - (LU.sel[a] ? 1 : 0)) || (order[sa] - order[sb]) || ((roster[b] ? 1 : 0) - (roster[a] ? 1 : 0)) || cands[a].localeCompare(cands[b], 'da');
     });
+    h += '<div class="chips" role="group" aria-label="Filtre">' +
+      '<button class="chip" aria-pressed="' + LU.eligible + '" data-lufilter="eligible">Kun spilleberettigede</button>' +
+      '<button class="chip" aria-pressed="' + LU.hideNo + '" data-lufilter="hideNo">Skjul dem der ikke kan</button></div>';
     h += '<div class="card search"><input id="luQ" type="search" value="' + esc(LU.q) + '" placeholder="Søg spiller" aria-label="Søg spiller" autocomplete="off"></div>' +
       '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="luOnly"' + (LU.onlyTeam ? ' checked' : '') + '> Kun holdets spillere' + (tAge ? ' (' + tAge + ')' : '') + ' og dem der har svaret</label>';
     h += ids.map(function (id) {
       var st = av[id] ? av[id].s : 'none', p = D.players[id];
       var lvl = p ? playerLevels(p).join(', ') : '';
-      var sub = [p ? p.teams.join(', ') : 'Ikke i spillerlisten', lvl].filter(String).join(' · ');
+      var el = eligibility(t, id);
+      var sub = [p ? p.teams.join(', ') : 'Ikke i spillerlisten', lvl, (el.ok ? (el.unknown ? '? ' : '') : '✕ ') + el.why].filter(String).join(' · ');
       return '<button class="pick" aria-pressed="' + (!!LU.sel[id]) + '" data-pick="' + esc(id) + '"><span class="box">' + (LU.sel[id] ? '✓' : '') + '</span>' +
         '<span class="col"><b style="font-size:14px">' + esc(cands[id]) + (roster[id] ? '' : '') + '</b><span class="xs ellip">' + esc(sub) + '</span></span>' +
         '<span class="st av-' + st + '">' + ({ ja: 'Kan', maaske: 'Måske', nej: 'Kan ikke', none: 'Intet svar' }[st]) + '</span></button>';
     }).join('');
+    if (hidden) h += '<p class="note">' + hidden + ' spiller' + (hidden === 1 ? '' : 'e') + ' skjult af filtrene.</p>';
+    var notOk = Object.keys(LU.sel).filter(function (id) { return !eligibility(t, id).ok; });
+    if (notOk.length) h += '<div class="warn">' + notOk.map(function (id) { return esc(LU.sel[id]); }).join(', ') + ' er udtaget, men ser ikke ud til at være spilleberettiget til ' + esc(t.label) + '.</div>';
     var n = Object.keys(LU.sel).length;
     h += '<div class="savebar"><span><b>' + n + '</b> udtaget</span><button class="rb" id="luSave"' + (n ? '' : ' disabled') + '>Gem og lav opstilling ›</button></div>';
     return h;
@@ -1360,10 +1391,11 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel]');
     if (!b) return;
     if (b.dataset.tuage) { TU.age = b.dataset.tuage; if (!b.dataset.go) { route(true); return; } }
     if (b.dataset.pick) { var pid = b.dataset.pick; if (LU.sel[pid]) delete LU.sel[pid]; else LU.sel[pid] = (D.players[pid] ? D.players[pid].name : (availMap(matchEid(D.teams[LU.team].matches[LU.mi]))[pid] || {}).n || pid); route(true); return; }
+    if (b.dataset.lufilter) { LU[b.dataset.lufilter] = !LU[b.dataset.lufilter]; route(true); return; }
     if (b.dataset.lustatus) { UI.luStatus = b.dataset.lustatus; document.querySelectorAll('[data-lustatus]').forEach(function (x) { x.setAttribute('aria-selected', x === b); }); return; }
     if (b.dataset.admpick) { ADM.pick = b.dataset.admpick === '__new' ? { id: '__new', name: 'Ny holdleder' } : { id: b.dataset.admpick, name: D.players[b.dataset.admpick].name }; var ke = (ADM.data.emails || {})[ADM.pick.id] || []; ADM.email = ke[0] || ''; ADM.teams = {}; route(true); return; }
     if (b.dataset.admedit !== undefined) { var L = ADM.data.leaders[+b.dataset.admedit]; ADM.pick = { id: '__edit', name: L.name || L.email }; ADM.email = L.email; ADM.teams = {}; L.teams.forEach(function (x) { ADM.teams[x] = 1; }); route(true); return; }
