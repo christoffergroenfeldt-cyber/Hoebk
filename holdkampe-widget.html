@@ -1,0 +1,61 @@
+<!-- HØBK holdkampe-widget
+     Indsæt i et Joomla "Custom"-modul eller en artikel (editor: "Toggle editor"/kode-visning).
+     Data: data/holdkampe.json i github.com/christoffergroenfeldt-cyber/Hoebk
+     (repoet skal være offentligt, for at raw.githubusercontent.com kan læses fra siden) -->
+<div id="hoebk-holdkampe" style="font-family:Inter,system-ui,sans-serif;color:#0E2236;max-width:1200px;margin:0 auto">
+  <p style="color:#4A5866">Henter holdkampe…</p>
+</div>
+<script>
+(function () {
+  var DATA_URL = "https://raw.githubusercontent.com/christoffergroenfeldt-cyber/Hoebk/main/data/holdkampe.json";
+  var root = document.getElementById("hoebk-holdkampe");
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function fmt(d, t) {
+    var p = d.split("-"), dt = new Date(+p[0], +p[1] - 1, +p[2]);
+    return dt.toLocaleDateString("da-DK", { weekday: "short", day: "numeric", month: "short" }) + (t ? " kl. " + t : "");
+  }
+  function isUs(name) { return /hørsholm|høbk/i.test(name || ""); }
+  function outcome(m) {
+    if (!m.played) return "";
+    var s = m.result.split("-").map(Number), home = isUs(m.home);
+    var us = home ? s[0] : s[1], them = home ? s[1] : s[0];
+    return us > them ? "V" : us < them ? "T" : "U";
+  }
+  var badge = { V: "#D4F25A", T: "#F3D6D2", U: "#E7ECF1" };
+  fetch(DATA_URL, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (data) {
+    var today = new Date().toISOString().slice(0, 10), h = "";
+    h += '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px;margin-bottom:16px">' +
+         '<h2 style="margin:0;font-size:32px;font-weight:800">Holdkampe ' + esc(data.season) + '/' + (+data.season + 1) + '</h2>' +
+         '<span style="font-size:13px;color:#4A5866">Opdateret ' + new Date(data.updated).toLocaleString("da-DK") +
+         ' · kilde: badmintonplayer.dk</span></div>';
+    h += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px">';
+    data.teams.forEach(function (t) {
+      var next = t.matches.filter(function (m) { return !m.played && m.date >= today; }).slice(0, 3);
+      var last = t.matches.filter(function (m) { return m.played; }).slice(-3).reverse();
+      h += '<article style="background:#fff;border:1px solid #E2E5DC;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px">' +
+           '<div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">' +
+           '<h3 style="margin:0;font-size:20px;font-weight:800">' + esc(t.name) + '</h3>' +
+           '<a href="' + esc(t.standingUrl) + '" target="_blank" rel="noopener" style="font-size:14px;font-weight:600;color:#0E2236">Stilling ↗</a></div>';
+      h += '<div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4A5866">Næste kampe</div>';
+      h += next.length ? next.map(function (m) {
+        return '<div style="display:flex;justify-content:space-between;gap:8px;font-size:14px"><span>' + esc(m.home) + ' – ' + esc(m.away) +
+               '</span><span style="white-space:nowrap;color:#4A5866">' + fmt(m.date, m.time) + '</span></div>'; }).join("")
+        : '<div style="font-size:14px;color:#4A5866">Ingen planlagte kampe</div>';
+      h += '<div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4A5866;margin-top:4px">Seneste resultater</div>';
+      h += last.length ? last.map(function (m) {
+        var o = outcome(m);
+        return '<a href="' + esc(m.url || t.url) + '" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;color:#0E2236;text-decoration:none">' +
+               '<span>' + esc(m.home) + ' – ' + esc(m.away) + '</span><span style="display:flex;gap:8px;align-items:center;white-space:nowrap">' +
+               '<strong>' + esc(m.result) + '</strong>' + (o ? '<span style="background:' + badge[o] + ';border-radius:6px;padding:2px 7px;font-size:12px;font-weight:700">' + o + '</span>' : '') +
+               '</span></a>'; }).join("")
+        : '<div style="font-size:14px;color:#4A5866">Ingen resultater endnu</div>';
+      h += '<a href="' + esc(t.url) + '" target="_blank" rel="noopener" style="font-size:14px;font-weight:600;color:#0E2236;margin-top:4px">Alle kampe på badmintonplayer.dk ↗</a></article>';
+    });
+    h += '</div>';
+    root.innerHTML = h;
+  }).catch(function () {
+    root.innerHTML = '<p>Kunne ikke hente holdkampe. Se dem på <a href="https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#6,2026,,,,,,1151," target="_blank" rel="noopener">badmintonplayer.dk</a>.</p>';
+  });
+})();
+</script>
