@@ -254,6 +254,10 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     var main = p.teams.slice().sort(function (a, b) { return (n[b] || 0) - (n[a] || 0); })[0];
     return teamColor(main);
   }
+  function hasRank(p) { var pr = p.profile || {}; return !!((pr.rankings && pr.rankings.length) || pr.level); }
+  // Filter i spillerlisten (huskes på telefonen)
+  var PF = { alle: ['Alle', function () { return true; }], spillet: ['Har spillet', function (p) { return p.played > 0; }],
+             rang: ['Har rangering', hasRank], uden: ['Uden rangering', function (p) { return !hasRank(p); }] };
   function isActive(p) {   // har spillet holdkamp i år eller har et niveau/rangliste på badmintonplayer.dk
     var pr = p.profile || {};
     return !!(p.played || (pr.rankings && pr.rankings.length) || pr.level);
@@ -460,22 +464,26 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   }
 
   function viewSpillere() {
-    setTab('spillere'); setHeader('Spillere', D.ids.filter(function (id) { return isActive(D.players[id]); }).length + ' aktive spillere · ' + updTxt(), false);
+    if (!UI.pf) { try { UI.pf = localStorage.getItem('hoebk_pf') || 'alle'; } catch (e) { UI.pf = 'alle'; } }
+    if (!PF[UI.pf]) UI.pf = 'alle';
+    setTab('spillere'); setHeader('Spillere', D.ids.length + ' spillere i klubben · ' + updTxt(), false);
     return (isLeader() ? '<button class="rb ja" aria-pressed="true" style="min-height:44px" data-go="#/udtag">Udtag spillere til næste holdkamp ›</button>' : '') +
       '<label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
       '<input id="q" type="search" value="' + esc(UI.q) + '" placeholder="Søg spiller eller hold" aria-label="Søg spiller eller hold" autocomplete="off"></label>' +
+      '<div class="chips regchips" role="group" aria-label="Filtrér spillere">' + Object.keys(PF).map(function (k) {
+        var n = D.ids.filter(function (id) { return PF[k][1](D.players[id]); }).length;
+        return '<button class="chip" data-pf="' + k + '" aria-pressed="' + (UI.pf === k) + '">' + PF[k][0] + ' <span class="xs">' + n + '</span></button>'; }).join('') + '</div>' +
       '<div id="plist" class="col" style="gap:6px"></div>';
   }
   function renderPlayerList() {
     var q = UI.q.toLowerCase().trim();
-    var inactive = D.ids.filter(function (id) { return !isActive(D.players[id]); }).length;
     var list = D.ids.filter(function (id) { var p = D.players[id];
-      if (!UI.showInactive && !q && !isActive(p)) return false;   // ved søgning vises alle
+      if (!PF[UI.pf][1](p)) return false;
       return !q || p.name.toLowerCase().indexOf(q) >= 0 || teamsTxt(p).toLowerCase().indexOf(q) >= 0; })
       .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); });
     var el = document.getElementById('plist'); if (!el) return;
     el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="lbl">' + list.length + ' spillere</span>' + colorLegend() + '</div>' +
-      (inactive && !q ? '<button class="pl xs" data-act="inactive" style="align-self:flex-start">' + (UI.showInactive ? 'Skjul ' + inactive + ' uden niveau og holdkampe' : 'Vis også ' + inactive + ' uden niveau og holdkampe') + '</button>' : '') + list.map(function (id, i) {
+      list.map(function (id, i) {
       var p = D.players[id];
       return '<button class="card row" style="min-height:54px;padding:8px 12px" data-go="#/spiller/' + esc(id) + '">' +
         '<span class="av" style="width:36px;height:36px;font-size:12px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
@@ -1754,7 +1762,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf]');
     if (!b) return;
     if (b.dataset.tuage) { TU.age = b.dataset.tuage; if (!b.dataset.go) { route(true); return; } }
     if (b.dataset.pick) { var pid = b.dataset.pick; if (LU.sel[pid]) delete LU.sel[pid]; else LU.sel[pid] = (D.players[pid] ? D.players[pid].name : (availMap(matchEid(D.teams[LU.team].matches[LU.mi]))[pid] || {}).n || pid); route(true); return; }
@@ -1789,7 +1797,11 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       }
       ME = null; saveMe(); UI.step = 'name'; toast('Du er logget ud'); route(); return;
     }
-    if (b.dataset.act === 'inactive') { UI.showInactive = !UI.showInactive; renderPlayerList(); return; }
+    if (b.dataset.pf) {
+      UI.pf = b.dataset.pf; try { localStorage.setItem('hoebk_pf', UI.pf); } catch (e2) {}
+      document.querySelectorAll('[data-pf]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.pf === UI.pf); });
+      renderPlayerList(); return;
+    }
     if (b.dataset.act === 'pushon') { pushOn(); return; }
     if (b.dataset.act === 'pushoff') { pushOff(); return; }
     if (b.dataset.group) {

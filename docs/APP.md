@@ -29,7 +29,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/kalender/<view>/<YYYY-MM-DD>` | Calendar; `view` = `dag`, `uge`, `maaned`, `aar` |
 | `#/tilmeld` | Min side (login flow when logged out): notifications, followed teams/tournaments, tournaments for your level, training, and at the bottom upcoming matches of the teams you follow (with availability buttons) |
 | `#/rangliste` | Club ranking with metric and All/Senior/Youth filters |
-| `#/spillere` | Player search |
+| `#/spillere` | Player search with filter chips *Alle / Har spillet / Har rangering / Uden rangering* (remembered, `hoebk_pf`) |
 | `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id), incl. *Turneringer for dit niveau* |
 | `#/turneringer` | All upcoming individual tournaments, chips per age group, sections per level (Elite, Mester, A–D) |
 | `#/turnering/<id>` | One tournament: dates, entry deadline, classes per day, Hørsholm players whose level fits |
