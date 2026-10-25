@@ -10,6 +10,7 @@ One self-contained file: HTML, CSS and vanilla JavaScript, no build step and no 
 | `data/spillere.json` | Players, stats, rankings, club ranking | yes |
 | `data/traening.json` | Weekly training in calendar and Min side | no (calendar shows matches only) |
 | `config.json` | `registrationUrl` — turns login on | no (Min side shows "Login åbner snart") |
+| `data/turneringer.json` | Individual tournaments | no (tournament screens say it isn't fetched yet) |
 | Apps Script `?action=status` | Who's coming (live) | falls back to `data/tilmeldinger.json` |
 
 Requests add `?t=<minute>` so phones never show data older than a minute.
@@ -27,7 +28,9 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/tilmeld` | Min side (login flow when logged out) |
 | `#/rangliste` | Club ranking with metric and All/Senior/Youth filters |
 | `#/spillere` | Player search |
-| `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id) |
+| `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id), incl. *Turneringer for dit niveau* |
+| `#/turneringer` | All upcoming individual tournaments, chips per age group, sections per level (Elite, Mester, A–D) |
+| `#/turnering/<id>` | One tournament: dates, entry deadline, classes per day, Hørsholm players whose level fits |
 
 Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth). A team not listed there goes last — add new team labels to `ORDER` when a new division appears.
 
@@ -37,6 +40,13 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 - Colours by division: Senior blue `#2F6FB3`, 4-player light blue `#7FD3F7`, Motion orange `#E58A2E`, Youth navy `#0E2236`, training dashed grey.
 - Month cells use short labels (`SHORT` map: DS, S2, 4S, MOT E…) and show training as `3×` (three groups train that day).
 - Year view runs August–July (the badminton season).
+- **Turneringer** toggle (off by default) adds individual tournaments in purple (`--tour #7A4FC9`) on every day they run; a level filter (e.g. *SEN A*) and a link to the tournament list appear when it's on. *Kun turneringer* in the team filter hides everything else.
+
+## Individual tournaments
+
+- The list (`#/turneringer`) shows upcoming tournaments for one age group at a time, grouped by level; a tournament with classes on several levels appears under each. *Vis afholdte* includes past ones.
+- The player profile and Min side show upcoming tournaments matching the player's level, taken from their ranking category (see [DATA.md](DATA.md)); the matching classes are highlighted.
+- The entry deadline shows as *Frist 12. nov* while open and *Lukket* after.
 
 ## Club ranking
 

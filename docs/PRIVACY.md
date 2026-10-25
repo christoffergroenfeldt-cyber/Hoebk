@@ -19,6 +19,7 @@ The repo is **public**, so everything committed to it can be read by anyone. Thi
 - **Player numbers** (e.g. `060718-01`) — they contain the date of birth. `strip_private()` removes them and any field named like player number, birth date, email or phone from profiles before saving or debugging.
 - **Team leaders' contact details** shown on match pages on badmintonplayer.dk — only game rows are parsed.
 - **"Linked user accounts"** section of player profiles — skipped.
+- **Dates of birth** from badmintonplayer.dk's per-player season plan — that filter is never used; tournaments are fetched for the whole country and matched in the app.
 - Emails in GitHub — the sync endpoint returns answers without emails.
 
 ## Children and young players

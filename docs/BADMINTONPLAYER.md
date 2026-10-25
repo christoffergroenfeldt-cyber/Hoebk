@@ -94,16 +94,32 @@ Note the capital **`Html`**. Sections in the HTML:
 
 The response may contain a player number like `060718-01`, which encodes the date of birth. `strip_private()` removes any such pattern and any field named like playernumber/birth/email/phone before anything is saved or dumped.
 
+## GetSeasonPlan — individual tournaments
+
+```
+POST …/WebService1.asmx/GetSeasonPlan
+{ "callbackcontextkey": "…", "seasonid": "2026", "regionids": null, "agegroupids": null, "classids": null,
+  "strfrom": "", "strto": "", "strweekno": "", "strweekno2": "", "georegionids": null, "clubid": null,
+  "disciplines": null, "playerid": null, "birthdate": null, "age": null, "points": null, "gender": null,
+  "publicseasonplan": true, "showleague": false, "selectclientfunction": null, "page": 0 }
+→ { "d": { "html": "<table class='dbfseasonplan'>…" } }
+```
+
+- 100 tournaments per page; links `ShowPage(n)` give the page numbers. The fetcher walks the pages and de-duplicates by tournament id (pages overlap).
+- Table: `tr.grouphdr` = month heading ("august 2026"); `tr.row` = tournament with `td.week`, `td.date` (day(s), e.g. `15.‑16.` with U+2011, then the entry deadline `30-07`), `td.title` (organiser), `td.classlist` (nested `table.classtable`: `td.classdate` "lø 15‑sø 16" + `td.classnames` "U15&nbsp;A,B,C"), `td.links` (`DeltagerListe/<id>`).
+- **Do not use the `playerid` filter.** It is imprecise (a SEN C/D player also gets German U19 elite tournaments) and the response embeds the player's **date of birth** in a print link. The app matches levels itself instead.
+- Other methods exist on the same service (`GetTournamentEvents`, `SearchTournamentClass`, `SearchTournamentMatches`, `SearchTournamentResults`, `GetRankingListPlayers`…) — listed by `GET …/WebService1.asmx/js`. Not used yet.
+
 ## Being polite
 
 - 1.2 s pause between calls (`PAUSE`), 30 s timeout, 2 retries.
-- A full run is roughly 1 + 13 teams + ~40 played matches + 13 pools + ~70 profiles ≈ 140 calls ≈ 3 minutes.
+- A full run is roughly 1 + 13 teams + ~40 played matches + 13 pools + ~70 profiles + ~5 season-plan pages ≈ 145 calls ≈ 3–4 minutes.
 - Browser-like `User-Agent` and `Referer` headers.
 
 ## When it breaks
 
 1. Run the workflow manually with **debug** ticked (Actions → HØBK holdkampe → Run workflow).
-2. The run pushes a sanitised copy of the raw pages to the `diag` branch (club, pool and team pages, senior match pages and adult profiles only; emails, phone numbers and player numbers masked).
+2. The run pushes a sanitised copy of the raw pages to the `diag` branch (club, pool and team pages, senior match pages and adult profiles only; emails, phone numbers, player numbers and print-link parameters masked). For tournament pages there is a separate manual workflow, *Undersøg badmintonplayer.dk (diag)* (`discover_turneringer.py`).
 3. Compare the HTML with the tables above and adjust the parser (`parse_club_teams`, `parse_matches`, `parse_games`, `parse_standings`, `parse_profile`).
 4. **Delete the `diag` branch afterwards** — the repo is public.
 

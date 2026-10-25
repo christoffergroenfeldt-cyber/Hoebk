@@ -4,7 +4,8 @@
 
 | Workflow | File | Schedule (UTC) | Does |
 |---|---|---|---|
-| **HØBK holdkampe** | `.github/workflows/holdkampe.yml` | `17 5 * * *` (≈06:17 Danish winter time) and `37 20 * * 0,6` (Sat + Sun ≈21:37) | Runs `fetch_holdkampe.py --club 1151 --pulje 19102:5 --profiles`, commits `data/holdkampe.json` + `data/spillere.json` |
+| **HØBK holdkampe** | `.github/workflows/holdkampe.yml` | `17 5 * * *` (≈06:17 Danish winter time) and `37 20 * * 0,6` (Sat + Sun ≈21:37) | Runs `fetch_holdkampe.py --club 1151 --pulje 19102:5 --profiles --tournaments`, commits `data/holdkampe.json`, `data/spillere.json`, `data/turneringer.json` |
+| Undersøg badmintonplayer.dk (diag) | `.github/workflows/discover.yml` | manual only | Saves masked raw tournament pages to the `diag` branch for parser work |
 | **HØBK tilmeldinger → SQLite** | `.github/workflows/tilmeldinger.yml` | `*/15 * * * *` | Runs `sync_tilmeldinger.py`, commits `data/hoebk.db` + `data/tilmeldinger.json` |
 | pages build and deployment | (GitHub's own) | after every commit to `main` | Publishes the app |
 
@@ -41,6 +42,7 @@ GitHub stores secret names in upper case — `secrets.BRUGER` reads the secret c
 | `--pulje LG:AG` | – | Extra pool to include, e.g. `19102:5` (fallback if a team is missing) |
 | `--out` | `holdkampe.json` | Output; `spillere.json` is written next to it |
 | `--profiles` | off | Fetch player profiles/rankings |
+| `--tournaments` | off | Fetch the national tournament season plan to `turneringer.json` |
 | `--no-lineups` | off | Skip match lineups (much faster, no player stats) |
 | `--names` | `full` | `first` = first names only |
 | `--login` | `auto` | `always` / `never` / `auto` (only if no teams without login) |

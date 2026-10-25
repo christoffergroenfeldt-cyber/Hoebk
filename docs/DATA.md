@@ -93,6 +93,29 @@ Written by `fetch_holdkampe.py --profiles`. Includes every Hørsholm player who 
 
 `clubRanking` is sorted by games won, then win %, then points, then name.
 
+## `data/turneringer.json` — individual tournaments (whole country)
+
+Written by `fetch_holdkampe.py --tournaments` from badmintonplayer.dk's season plan. Contains no player data.
+
+```jsonc
+{
+  "updated": "…", "season": "2026", "source": "badmintonplayer.dk sæsonplan",
+  "levels": ["E", "M", "A", "B", "C", "D"],        // Elite, Mester, A … D
+  "tournaments": [
+    { "id": "115651",                               // tournament id on badmintonplayer.dk
+      "start": "2026-08-15", "end": "2026-08-16", "week": "33",
+      "deadline": "2026-07-30",                     // entry deadline
+      "organiser": "Hørsholm",                      // organising club / tournament name
+      "classes": [
+        { "raw": "U15 A,B,C", "ages": ["U15"], "levels": ["A","B","C"], "days": "lø 15-sø 16" },
+        { "raw": "U17/U19 B,C,D", "ages": ["U17","U19"], "levels": ["B","C","D"], "days": "lø 15" } ] } ]
+}
+```
+
+Classes the parser can't split (e.g. `E-M*-række`, `Andet X`) keep only `raw` with empty `ages`/`levels`; they are shown but never matched to a level. The season plan has no venue or address — only the organiser.
+
+**Level matching** happens in the app: a player's level comes from the category of their national rankings in `spillere.json` (`"SEN C-D"` → `SEN C` and `SEN D`; `"U15 M"` → `U15 M`). A tournament fits when one of its classes has the same age group and one of those levels.
+
 ## `data/traening.json` — training schedule (edited by hand)
 
 ```jsonc

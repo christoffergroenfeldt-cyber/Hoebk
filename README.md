@@ -13,6 +13,7 @@ Web app and data pipeline for **Hørsholm Badminton Klub**. It shows every Hørs
 | **Kalender** | Day / week / month / season view of all matches and weekly training, filter by team |
 | **Min side** | Log in with a code sent by email; answer *Kan spille / Måske / Kan ikke* for matches and *Kommer / Kommer ikke* for training |
 | **Rangliste** | Club ranking across all teams: games won, win %, total points, average per game; All / Senior / Youth |
+| **Turneringer** | All individual tournaments in Denmark grouped by level; matching ones on each player's profile; optional layer in the calendar |
 | **Spillere** | Search every player → profile with stats, national rankings (single/double/mix), results by discipline, every game this season |
 
 ## How it fits together
@@ -40,6 +41,7 @@ Everything runs on free services: GitHub Actions and Pages (free for public repo
 | `apps-script/Code.gs` | Google Apps Script: email codes, sessions, registrations |
 | `data/holdkampe.json` | Teams, matches, lineups, standings (generated) |
 | `data/spillere.json` | Players, stats, rankings, club ranking (generated) |
+| `data/turneringer.json` | Individual tournaments, whole country (generated) |
 | `data/traening.json` | Weekly training times, season dates, holidays (**edited by hand**) |
 | `data/tilmeldinger.json`, `data/hoebk.db` | Registrations (generated once login is set up) |
 | `holdkampe-widget.html` | Optional snippet for the old Joomla site |
