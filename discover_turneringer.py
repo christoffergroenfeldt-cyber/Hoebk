@@ -1,26 +1,23 @@
 #!/usr/bin/env python3
 """
-discover_turneringer.py — engangs-undersøgelse af badmintonplayer.dk's turneringsdel.
-Gemmer rå sider i diag/ så parseren til individuelle turneringer kan skrives mod rigtig HTML.
-
-Henter:
-  - web servicens metodeliste (WebService1.asmx/js) — viser hvilke funktioner siden kalder
-  - alle /DBF/Turnering/...-sider der linkes til fra menuen, og deres scripts
-Kontaktoplysninger (mail/telefon) og spillernumre maskeres før noget gemmes.
+discover_turneringer.py — undersøgelse af badmintonplayer.dk's turneringsdel (sæsonplan).
+Kalder GetSeasonPlan på et par måder og gemmer svarene i diag/ (maskeret), så parseren
+til individuelle turneringer kan skrives mod rigtige data.
 """
+import json
 import os
 import re
 import sys
-import urllib.parse
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fetch_holdkampe as f  # genbruger http(), cookies og headers
 
 OUT = "diag"
+EP = f.BASE + "/SportsResults/Components/WebService1.asmx/"
 MASK = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "[EMAIL]"),
         (re.compile(r"(?<!\d)(?:\+45\s?)?(?:\d{2}\s?){3}\d{2}(?!\d)"), "[TLF]"),
-        (re.compile(r"\b\d{6}-\d{2}\b"), "[SPILLERNR]"),
-        (re.compile(r'(name="__[A-Z]+"[^>]*value=")[^"]*'), r"\1[STRIPPED]")]
+        (re.compile(r"\b\d{6}-\d{2}\b"), "[SPILLERNR]")]
 
 
 def save(name, text):
@@ -32,43 +29,52 @@ def save(name, text):
     print(f"  gemt {name} ({len(text)} tegn)")
 
 
-def get(url):
+def call(method, payload):
+    data = json.dumps(payload).encode("utf-8")
     try:
-        status, final, body = f.http(url, extra_headers={"Accept": "text/html,*/*"})
-        return final, body
+        status, final, body = f.http(EP + method, data=data, extra_headers={
+            "Content-Type": "application/json; charset=utf-8", "X-Requested-With": "XMLHttpRequest",
+            "Referer": f.BASE + "/DBF/Turnering/SaesonPlan/"})
+        return body
     except Exception as e:  # noqa
-        print(f"  FEJL {url}: {e}")
-        return url, ""
+        return json.dumps({"error": str(e), "body": getattr(e, "read", lambda: b"")().decode("utf-8", "replace")[:3000]})
+
+
+def seasonplan(token, **kw):
+    p = {"callbackcontextkey": token, "seasonid": "2026", "regionids": None, "agegroupids": None, "classids": None,
+         "strfrom": "", "strto": "", "strweekno": "", "strweekno2": "", "georegionids": None, "clubid": None,
+         "disciplines": None, "playerid": None, "birthdate": None, "age": None, "points": None, "gender": None,
+         "publicseasonplan": True, "showleague": False, "selectclientfunction": None, "page": 0}
+    p.update(kw)
+    return call("GetSeasonPlan", p)
 
 
 def main():
-    final, start = get(f.TOKEN_PAGE)
-    save("start_holdturnering.html", start)
-    _, js = get(f.BASE + "/SportsResults/Components/WebService1.asmx/js")
-    save("webservice1_asmx.js", js)
-    methods = sorted(set(re.findall(r"(\w+)\s*:\s*function\s*\(", js)))
-    print("Metoder i WebService1:", ", ".join(methods))
-    save("webservice1_methods.txt", "\n".join(methods))
+    _, final, page = f.http(f.BASE + "/DBF/Turnering/SaesonPlan/", extra_headers={"Accept": "text/html"})
+    save("saesonplan_page.html", page)
+    m = re.search(r"SR_CallbackContext\s*=\s*'([^']*)'", page)
+    token = m.group(1) if m else f.get_token()
 
-    links = set()
-    for href in re.findall(r'href="([^"]+)"', start):
-        if re.search(r"/Turnering|Kalender|Turneringer", href, re.I) and "HoldTurnering" not in href:
-            links.add(urllib.parse.urljoin(final, href.split("#")[0]))
-    for extra in ["/DBF/Turnering/", "/DBF/Turnering/Turneringskalender/", "/DBF/Turnering/VisTurnering/"]:
-        links.add(f.BASE + extra)
-    print("Turnering-sider:", sorted(links))
-    for i, url in enumerate(sorted(links)):
-        final_u, body = get(url)
-        if not body:
+    # Ét voksen-spiller-id fra vores egne data (kun voksne gemmes i diag)
+    adult = ""
+    try:
+        sp = json.load(open("data/spillere.json", encoding="utf-8"))
+        adult = next(p["id"] for p in sp["players"] if p.get("adult") and p["id"])
+    except Exception as e:  # noqa
+        print("ingen spillere.json:", e)
+
+    tests = [
+        ("all_2026", {}),
+        ("all_2026_page1", {"page": 1}),
+        ("club_1151", {"clubid": "1151"}),
+        ("player_adult", {"playerid": adult} if adult else None),
+        ("dates", {"strfrom": "01-11-2026", "strto": "31-12-2026"}),
+    ]
+    for name, kw in tests:
+        if kw is None:
             continue
-        slug = re.sub(r"[^a-z0-9]+", "_", urllib.parse.urlparse(final_u).path.lower()).strip("_")[:60] or "root"
-        save(f"page_{i:02d}_{slug}.html", body)
-        for src in re.findall(r'<script[^>]+src="([^"]+)"', body):
-            if re.search(r"turner|tournament|sportsresult|calendar|kalender", src, re.I):
-                s_url = urllib.parse.urljoin(final_u, src)
-                _, sjs = get(s_url)
-                if sjs:
-                    save("script_" + re.sub(r"[^a-z0-9]+", "_", src.lower())[-60:] + ".js", sjs)
+        time.sleep(1.2)
+        save(f"seasonplan_{name}.json", seasonplan(token, **kw))
 
 
 if __name__ == "__main__":
