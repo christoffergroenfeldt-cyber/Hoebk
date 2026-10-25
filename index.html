@@ -331,7 +331,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       }).join('') + '</div>';
     if (UI.seg === 'kampe') {
       h += t.matches.map(function (m, mi) {
-        var where = (m.isHome ? 'Hjemme' : 'Ude') + (!m.played && !m.isHome && driveShort(m) ? ' · ' + driveShort(m) : '') + ' · ' + m.venue + (m.walkover ? ' · ' + m.walkover : '');
+        var where = (m.isHome ? 'Hjemme' : 'Ude') + (!m.played && driveShort(m) ? ' · ' + driveShort(m) : '') + ' · ' + m.venue + (m.walkover ? ' · ' + m.walkover : '');
         var inner = '<span class="col"><b style="font-size:13px">' + dTxt(m.date) + '</b><span class="xs">' + esc(m.time || '') + '</span></span>' +
           '<span class="col"><span style="font-weight:600;font-size:14px">' + (m.isHome ? 'mod ' : '@ ') + esc(m.opponent) + '</span><span class="xs ellip">' + esc(where) + '</span></span>' +
           '<span class="score" style="background:' + (m.played ? oBg(m.outcome) : 'var(--soft)') + '">' + (m.played ? esc(m.result) : regChip(matchEid(m))) + '</span>';
@@ -562,7 +562,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   function driveTxt(m) {
     var tr = m && m.travel;
     if (!tr || typeof tr.min !== 'number') return '';
-    return tr.min <= 3 ? 'Hjemmebane' : 'ca. ' + minTxt(tr.min) + ' i bil';
+    return tr.min <= 3 ? 'I Hørsholm-hallen' : 'ca. ' + minTxt(tr.min) + ' i bil';
   }
   function driveShort(m) { var tr = m && m.travel; return tr && typeof tr.min === 'number' && tr.min > 3 ? 'ca. ' + minTxt(tr.min) : ''; }
   function mapsDest(m) {
@@ -858,7 +858,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       t.matches.forEach(function (m, mi) {
         var c = teamColor(t.label);
         add({ kind: 'match', date: m.date, time: m.time || '', team: t.label, teamName: t.name, title: (m.isHome ? 'mod ' : '@ ') + m.opponent,
-              home: m.isHome, place: (!m.played && !m.isHome && driveShort(m) ? driveShort(m) + ' · ' : '') + m.venue, result: m.played ? m.result : '', outcome: m.outcome || '', bg: c.bg, fg: c.fg,
+              home: m.isHome, place: (!m.played && driveShort(m) ? driveShort(m) + ' · ' : '') + m.venue, result: m.played ? m.result : '', outcome: m.outcome || '', bg: c.bg, fg: c.fg,
               go: '#/hold/' + ti + '/kamp/' + mi, eid: matchEid(m) });
       });
     });
@@ -1179,7 +1179,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       var label = u.t.label + ' ' + (u.m.isHome ? 'mod ' : '@ ') + u.m.opponent + ' ' + u.m.date;
       return '<div class="evwrap" style="border-left-color:' + teamColor(u.t.label).bg + '"><button class="evtop" data-go="#/hold/' + u.ti + '/kamp/' + u.mi + '">' +
         '<span class="col"><b style="font-size:13px">' + dTxt(u.m.date) + '</b><span class="xs">' + esc(u.m.time || '') + '</span></span>' +
-        '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.t.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((!u.m.isHome && driveShort(u.m) ? driveShort(u.m) + ' · ' : '') + u.m.venue) + '</span></span>' +
+        '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.t.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveShort(u.m) ? driveShort(u.m) + ' · ' : '') + u.m.venue) + '</span></span>' +
         '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' + regBlock('match', matchEid(u.m), label, false) + '</div>';
     }).join('') : '<p class="empty">Ingen kommende kampe for dine hold.</p>';
     h += pushBlock();
