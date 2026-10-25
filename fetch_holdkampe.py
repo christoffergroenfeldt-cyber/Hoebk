@@ -164,6 +164,28 @@ def strip_private(obj):
     return obj
 
 
+def parse_profile(fragment):
+    """GetPlayerProfile-HTML → niveau, ranglister (single/double/mix), licens.
+    Sektionen 'Tilknyttede brugerkonti' springes bevidst over."""
+    out = {"level": "", "rankings": [], "license": ""}
+    m = re.search(r"Tilmeldingsniveau ved s[^<]*</h3>\s*</td>\s*<td>\s*<h3>\s*([^<]+)</h3>", fragment, re.I)
+    if m:
+        out["level"] = text(m.group(1))
+    sec = re.search(r"<h2>\s*Ranglister\s*</h2>(.*?)(?:<h2>|$)", fragment, re.S | re.I)
+    if sec:
+        for row in re.split(r"<tr\b[^>]*>", sec.group(1))[1:]:
+            cells = [text(c) for c in re.findall(r"<td\b[^>]*>(.*?)(?=<td\b|</tr>|<tr\b|</table>|$)", row, re.S | re.I)]
+            if len(cells) >= 6 and cells[0].lower().startswith("rangliste"):
+                out["rankings"].append({
+                    "list": cells[0].replace("Rangliste ", "").strip(),   # Single / Double / Mix
+                    "category": cells[2], "points": cells[3], "matches": cells[4], "placement": cells[5],
+                })
+    lic = re.search(r"<h2>\s*Spillerlicens\s*</h2>\s*([^<]*)", fragment, re.I)
+    if lic:
+        out["license"] = text(lic.group(1))
+    return out
+
+
 def parse_tables(fragment):
     """Generisk: hver <table> med nærmeste overskrift før den → {'title', 'rows': [[celler]]}."""
     out = []
@@ -632,8 +654,24 @@ def main():
                     })
     for pl in players.values():
         pl["games"].sort(key=lambda x: x["date"], reverse=True)
+        real = [x for x in pl["games"] if x["sets"]]          # kampe med sætcifre (ikke W.O.)
         pl["played"] = len(pl["games"])
         pl["won"] = sum(1 for x in pl["games"] if x["won"])
+        pl["lost"] = pl["played"] - pl["won"]
+        pl["winPct"] = round(100 * pl["won"] / pl["played"]) if pl["played"] else 0
+        pl["pointsFor"] = sum(a for x in real for a, b in x["sets"])
+        pl["pointsAgainst"] = sum(b for x in real for a, b in x["sets"])
+        pl["avgPoints"] = round(pl["pointsFor"] / len(real), 1) if real else 0
+        pl["avgDiff"] = round((pl["pointsFor"] - pl["pointsAgainst"]) / len(real), 1) if real else 0
+        pl["setsWon"] = sum(1 for x in real for a, b in x["sets"] if a > b)
+        pl["setsLost"] = sum(1 for x in real for a, b in x["sets"] if b > a)
+        by_disc = {}
+        for x in pl["games"]:
+            k = re.sub(r"^\d+\.\s*", "", x["discipline"])
+            d = by_disc.setdefault(k, {"played": 0, "won": 0})
+            d["played"] += 1
+            d["won"] += 1 if x["won"] else 0
+        pl["byDiscipline"] = by_disc
 
     if opts.profiles:
         print(f"Henter profiler for {len(players)} spillere …")
@@ -649,15 +687,18 @@ def main():
             prof = strip_private(prof)
             dump(f"player_{'a' if pl['adult'] else 'y'}_{pl['id']}.json",
                  json.dumps(prof, ensure_ascii=False, indent=1))
-            html_part = prof.get("html", "") if isinstance(prof, dict) else ""
-            pl["profile"] = {
-                "fields": {k: v for k, v in prof.items() if k != "html" and not isinstance(v, (dict, list))},
-                "tables": parse_tables(html_part),
-            }
+            html_part = (prof.get("Html") or prof.get("html") or "") if isinstance(prof, dict) else ""
+            pl["profile"] = parse_profile(html_part)
 
     players_out = sorted(players.values(), key=lambda p: p["name"])
+    # Klubrangliste: flest vundne kampe; ved lighed højest sejrsprocent, så flest point
+    ranked = sorted(players_out, key=lambda p: (-p["won"], -p["winPct"], -p["pointsFor"], p["name"]))
+    club_ranking = [{"rank": i + 1, "id": p["id"], "name": p["name"], "teams": p["teams"],
+                     "played": p["played"], "won": p["won"], "winPct": p["winPct"],
+                     "pointsFor": p["pointsFor"], "avgPoints": p["avgPoints"], "avgDiff": p["avgDiff"]}
+                    for i, p in enumerate(ranked)]
     pdata = {"updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-             "season": opts.season, "players": players_out}
+             "season": opts.season, "clubRanking": club_ranking, "players": players_out}
     p_out = os.path.join(os.path.dirname(opts.out) or ".", "spillere.json")
     with open(p_out, "w", encoding="utf-8") as f:
         json.dump(pdata, f, ensure_ascii=False, indent=1)
