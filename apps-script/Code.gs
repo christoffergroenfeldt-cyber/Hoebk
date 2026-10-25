@@ -2,8 +2,8 @@
  * HØBK tilmeldinger — modtager til appen (login med kode på e-mail).
  *
  * Opsætning (én gang):
- *  1. Opret et Google Sheet (fx "HØBK tilmeldinger") med klubbens Google-konto.
- *  2. Udvidelser → Apps Script → erstat indholdet med denne fil → Gem.
+ *  1. Gå til script.google.com → Nyt projekt (eller: et Google Sheet → Udvidelser → Apps Script).
+ *  2. Erstat indholdet med denne fil → Gem. (Står scriptet alene, opretter setup() selv arket.)
  *  3. Vælg funktionen "setup" i menuen øverst → Kør → godkend adgang (Sheets + send e-mail).
  *     Loggen viser en NØGLE — gem den som GitHub-secret REG_KEY.
  *  4. Implementer → Ny implementering → Type: Webapp
@@ -37,8 +37,21 @@ var SHEETS = {
 };
 var CODE_MINUTES = 15, MAX_CODES_PER_HOUR = 4, MAX_TRIES = 5, SESSION_DAYS = 365;
 
+// Virker både når scriptet er oprettet fra et Google Sheet (Udvidelser → Apps Script)
+// og som selvstændigt projekt på script.google.com — så opretter setup() selv arket.
+function ss_() {
+  var active = null;
+  try { active = SpreadsheetApp.getActiveSpreadsheet(); } catch (e) { active = null; }
+  if (active) return active;
+  var props = PropertiesService.getScriptProperties(), id = props.getProperty('SHEET_ID');
+  if (id) return SpreadsheetApp.openById(id);
+  var created = SpreadsheetApp.create('HØBK tilmeldinger');
+  props.setProperty('SHEET_ID', created.getId());
+  return created;
+}
+
 function setup() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = ss_();
   Object.keys(SHEETS).forEach(function (name) {
     var sh = ss.getSheetByName(name) || ss.insertSheet(name);
     if (sh.getLastRow() === 0) {
@@ -51,12 +64,15 @@ function setup() {
   var key = props.getProperty('KEY');
   if (!key) { key = Utilities.getUuid().replace(/-/g, ''); props.setProperty('KEY', key); }
   Logger.log('NØGLE til GitHub-secret REG_KEY: ' + key);
+  // Fjern standardfanen "Ark1"/"Sheet1" hvis arket lige er oprettet og fanen er tom
+  ['Ark1', 'Sheet1'].forEach(function (n) { var x = ss.getSheetByName(n); if (x && x.getLastRow() === 0 && ss.getSheets().length > 1) ss.deleteSheet(x); });
+  Logger.log('Google Sheet: ' + ss.getUrl());
   Logger.log('E-mails tilbage i dag (Google-kvote): ' + MailApp.getRemainingDailyQuota());
 }
 
 // ---------- hjælpere ----------
 function json_(obj) { return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON); }
-function sh_(name) { var s = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name); if (!s) { setup(); s = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name); } return s; }
+function sh_(name) { var s = ss_().getSheetByName(name); if (!s) { setup(); s = ss_().getSheetByName(name); } return s; }
 function clean_(s, max) { return String(s == null ? '' : s).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max); }
 function safe_(s) { return /^[=+\-@]/.test(s) ? "'" + s : s; }   // undgå formel-injektion i Sheets
 function hash_(s) {
