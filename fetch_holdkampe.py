@@ -59,7 +59,7 @@ SET_RE = re.compile(r"\b(\d{1,2})\s*-\s*(\d{1,2})\b")
 DISC_RE = re.compile(r"^\s*(\d+)\.?\s*(HS|DS|HD|DD|MD|XD)\b", re.I)
 SHOW_RE = re.compile(r"ShowStanding\(([^)]*)\)")
 ANCHOR_RE = re.compile(r"<a\b[^>]*ShowStanding\(([^)]*)\)[^>]*>(.*?)</a>", re.S | re.I)
-PLAYER_A_RE = re.compile(r"<a\b[^>]*href=\"[^\"]*VisSpiller[^\"]*#(\d+)[^\"]*\"[^>]*>(.*?)</a>", re.S | re.I)
+PLAYER_A_RE = re.compile(r"<a\b[^>]*href=[\"'][^\"']*VisSpiller[^\"']*#(\d+)[^\"']*[\"'][^>]*>(.*?)</a>", re.S | re.I)
 ROW_RE = re.compile(r"<tr\b[^>]*>(.*?)</tr>", re.S | re.I)
 CELL_RE = re.compile(r"<t[dh]\b[^>]*>(.*?)</t[dh]>", re.S | re.I)
 TAG_RE = re.compile(r"<[^>]+>")
@@ -343,40 +343,45 @@ def parse_matches(fragment, team_id=""):
 
 
 def parse_games(fragment):
-    """subPage 5 → enkeltkampe: disciplin, spillere pr. side, sætcifre, vinder.
-    Kun rækker med en disciplin (1. HS, 2. DD …) læses — holdlederens
-    kontaktoplysninger på samme side gemmes aldrig."""
+    """subPage 5 → enkeltkampe fra tabellen 'matchresultschema'.
+    Pr. række: discipline | player (hjemme) | player/playerwinner (ude) | result × sæt | wo.
+    Kun disse rækker læses — holdledernes kontaktoplysninger øverst gemmes aldrig."""
     games = []
     for row in ROW_RE.findall(fragment):
-        cells_html = CELL_RE.findall(row)
-        if not cells_html:
-            continue
-        cells = [text(c) for c in cells_html]
-        disc = next((DISC_RE.match(c) for c in cells if DISC_RE.match(c)), None)
+        c = cells_by_class(row)
+        disc_cell = next((t for cls, t, _ in c if cls == "discipline"), "")
+        disc = DISC_RE.match(disc_cell)
         if not disc:
             continue
-        discipline = f"{disc.group(1)}. {disc.group(2).upper()}"
-        players = [(pid, text(n)) for pid, n in PLAYER_A_RE.findall(row)]
-        per_side = 2 if disc.group(2).upper() in ("HD", "DD", "MD", "XD") else 1
-        home_p = players[:per_side]
-        away_p = players[per_side:per_side * 2]
+        sides = [(cls, raw) for cls, _, raw in c if cls in ("player", "playerwinner")]
+        def players(raw):
+            return [{"id": pid, "name": text(n)} for pid, n in PLAYER_A_RE.findall(raw)]
+        home = players(sides[0][1]) if len(sides) > 0 else []
+        away = players(sides[1][1]) if len(sides) > 1 else []
         sets = []
-        for c in cells:
-            if DISC_RE.match(c):
-                continue
-            for a, b in SET_RE.findall(c):
-                a, b = int(a), int(b)
-                if max(a, b) >= 11:   # sætcifre, ikke fx "1-0"
-                    sets.append([a, b])
-        home_sets = sum(1 for a, b in sets if a > b)
-        away_sets = sum(1 for a, b in sets if b > a)
-        winner = "home" if home_sets > away_sets else "away" if away_sets > home_sets else None
+        for cls, t, _ in c:
+            if cls == "result":
+                m = SET_RE.search(t)
+                if m:
+                    sets.append([int(m.group(1)), int(m.group(2))])
+        winner = None
+        if len(sides) > 1:
+            if sides[0][0] == "playerwinner":
+                winner = "home"
+            elif sides[1][0] == "playerwinner":
+                winner = "away"
+        if winner is None and sets:
+            hs = sum(1 for a, b in sets if a > b)
+            as_ = sum(1 for a, b in sets if b > a)
+            winner = "home" if hs > as_ else "away" if as_ > hs else None
+        wo = next((t for cls, t, _ in c if cls == "wo"), "")
         games.append({
-            "discipline": discipline,
-            "home": [{"id": p, "name": n} for p, n in home_p],
-            "away": [{"id": p, "name": n} for p, n in away_p],
+            "discipline": f"{disc.group(1)}. {disc.group(2).upper()}",
+            "home": home,
+            "away": away,
             "sets": sets,
             "winner": winner,
+            "walkover": wo,
         })
     return games
 
@@ -393,7 +398,9 @@ def build_roster(matches, style):
             for p in g[side]:
                 key = p["id"] or p["name"]
                 r = roster.setdefault(key, {"id": p["id"], "name": short_name(p["name"], style),
-                                            "games": 0, "won": 0, "disciplines": []})
+                                            "games": 0, "won": 0, "disciplines": [],
+                                            "url": (f"https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#{p['id']}"
+                                                    if p["id"] else "")})
                 r["games"] += 1
                 if g["winner"] == side:
                     r["won"] += 1
