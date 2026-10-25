@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T16:41:04+00:00",
+ "updated": "2026-10-25T16:48:51+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -13,6 +13,10 @@
  "tournaments": [
   {
    "id": "119825",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-10",
@@ -40,6 +44,10 @@
   },
   {
    "id": "118392",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-15",
@@ -73,6 +81,10 @@
   },
   {
    "id": "115651",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-15",
@@ -119,6 +131,10 @@
   },
   {
    "id": "115477",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-15",
@@ -151,6 +167,10 @@
   },
   {
    "id": "117972",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-15",
@@ -196,6 +216,10 @@
   },
   {
    "id": "119128",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-15",
@@ -261,6 +285,10 @@
   },
   {
    "id": "115844",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-15",
@@ -302,6 +330,10 @@
   },
   {
    "id": "119093",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-15",
@@ -375,6 +407,10 @@
   },
   {
    "id": "118110",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-21",
@@ -406,6 +442,10 @@
   },
   {
    "id": "116621",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -487,6 +527,10 @@
   },
   {
    "id": "116111",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -539,6 +583,10 @@
   },
   {
    "id": "118347",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -570,6 +618,10 @@
   },
   {
    "id": "118206",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -602,6 +654,10 @@
   },
   {
    "id": "117285",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -653,6 +709,10 @@
   },
   {
    "id": "115855",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -698,6 +758,10 @@
   },
   {
    "id": "119675",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -729,6 +793,10 @@
   },
   {
    "id": "116892",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -776,6 +844,10 @@
   },
   {
    "id": "119394",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -819,6 +891,10 @@
   },
   {
    "id": "118730",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -900,6 +976,10 @@
   },
   {
    "id": "118511",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -964,6 +1044,10 @@
   },
   {
    "id": "115846",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -1005,6 +1089,10 @@
   },
   {
    "id": "116667",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-22",
@@ -1056,6 +1144,10 @@
   },
   {
    "id": "119223",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-28",
@@ -1087,6 +1179,10 @@
   },
   {
    "id": "115342",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-08-29",
@@ -1121,6 +1217,10 @@
   },
   {
    "id": "116024",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-05",
@@ -1220,6 +1320,10 @@
   },
   {
    "id": "116530",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-05",
@@ -1310,6 +1414,10 @@
   },
   {
    "id": "116736",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-05",
@@ -1390,6 +1498,10 @@
   },
   {
    "id": "118315",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-05",
@@ -1442,6 +1554,10 @@
   },
   {
    "id": "117815",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-05",
@@ -1485,6 +1601,10 @@
   },
   {
    "id": "119116",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-05",
@@ -1540,6 +1660,10 @@
   },
   {
    "id": "118152",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-05",
@@ -1621,6 +1745,10 @@
   },
   {
    "id": "116410",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-06",
@@ -1664,6 +1792,10 @@
   },
   {
    "id": "115801",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-06",
@@ -1708,6 +1840,10 @@
   },
   {
    "id": "119830",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-07",
@@ -1734,6 +1870,10 @@
   },
   {
    "id": "119776",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-09",
@@ -1760,6 +1900,10 @@
   },
   {
    "id": "119777",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-10",
@@ -1786,6 +1930,10 @@
   },
   {
    "id": "117620",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-11",
@@ -1817,6 +1965,10 @@
   },
   {
    "id": "116704",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-12",
@@ -1850,6 +2002,12 @@
   },
   {
    "id": "119242",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-09-12",
@@ -1894,6 +2052,12 @@
   },
   {
    "id": "119240",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-09-12",
@@ -1926,6 +2090,12 @@
   },
   {
    "id": "119247",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-09-12",
@@ -1958,6 +2128,12 @@
   },
   {
    "id": "119245",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-09-12",
@@ -2010,6 +2186,12 @@
   },
   {
    "id": "119254",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-09-12",
@@ -2043,6 +2225,12 @@
   },
   {
    "id": "119252",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-09-12",
@@ -2086,6 +2274,12 @@
   },
   {
    "id": "119236",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-09-12",
@@ -2140,6 +2334,10 @@
   },
   {
    "id": "119778",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-16",
@@ -2166,6 +2364,10 @@
   },
   {
    "id": "117037",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-19",
@@ -2213,6 +2415,10 @@
   },
   {
    "id": "118550",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-19",
@@ -2290,6 +2496,10 @@
   },
   {
    "id": "119939",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-19",
@@ -2322,6 +2532,10 @@
   },
   {
    "id": "117723",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-19",
@@ -2395,6 +2609,10 @@
   },
   {
    "id": "116500",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-19",
@@ -2477,6 +2695,10 @@
   },
   {
    "id": "116710",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-19",
@@ -2534,6 +2756,10 @@
   },
   {
    "id": "119879",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-20",
@@ -2575,6 +2801,10 @@
   },
   {
    "id": "119881",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-20",
@@ -2616,6 +2846,10 @@
   },
   {
    "id": "119952",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-20",
@@ -2661,6 +2895,10 @@
   },
   {
    "id": "115850",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-20",
@@ -2714,6 +2952,10 @@
   },
   {
    "id": "119933",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-23",
@@ -2735,6 +2977,10 @@
   },
   {
    "id": "119779",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-24",
@@ -2761,6 +3007,10 @@
   },
   {
    "id": "119224",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-25",
@@ -2792,6 +3042,10 @@
   },
   {
    "id": "116113",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -2823,6 +3077,10 @@
   },
   {
    "id": "116467",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -2856,6 +3114,10 @@
   },
   {
    "id": "116357",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -2949,6 +3211,10 @@
   },
   {
    "id": "116932",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3028,6 +3294,10 @@
   },
   {
    "id": "117621",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3059,6 +3329,10 @@
   },
   {
    "id": "118113",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3100,6 +3374,10 @@
   },
   {
    "id": "115626",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3143,6 +3421,10 @@
   },
   {
    "id": "115466",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3184,6 +3466,10 @@
   },
   {
    "id": "118424",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3229,6 +3515,10 @@
   },
   {
    "id": "116291",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3281,6 +3571,10 @@
   },
   {
    "id": "117687",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3348,6 +3642,10 @@
   },
   {
    "id": "119613",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3379,6 +3677,10 @@
   },
   {
    "id": "117578",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3435,6 +3737,10 @@
   },
   {
    "id": "118177",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3469,6 +3775,10 @@
   },
   {
    "id": "115447",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3503,6 +3813,10 @@
   },
   {
    "id": "115884",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3582,6 +3896,10 @@
   },
   {
    "id": "117516",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3661,6 +3979,10 @@
   },
   {
    "id": "119110",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-26",
@@ -3694,6 +4016,10 @@
   },
   {
    "id": "117135",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-27",
@@ -3787,6 +4113,10 @@
   },
   {
    "id": "117567",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-27",
@@ -3853,6 +4183,10 @@
   },
   {
    "id": "119896",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-27",
@@ -3904,6 +4238,10 @@
   },
   {
    "id": "115819",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-27",
@@ -3968,6 +4306,10 @@
   },
   {
    "id": "119780",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-09-30",
@@ -3994,6 +4336,10 @@
   },
   {
    "id": "119832",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-01",
@@ -4020,6 +4366,10 @@
   },
   {
    "id": "118401",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-03",
@@ -4071,6 +4421,10 @@
   },
   {
    "id": "119051",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-03",
@@ -4151,6 +4505,10 @@
   },
   {
    "id": "117828",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-03",
@@ -4219,6 +4577,10 @@
   },
   {
    "id": "118927",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-03",
@@ -4275,6 +4637,10 @@
   },
   {
    "id": "118385",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-03",
@@ -4322,6 +4688,10 @@
   },
   {
    "id": "119902",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-04",
@@ -4383,6 +4753,10 @@
   },
   {
    "id": "119875",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-04",
@@ -4424,6 +4798,10 @@
   },
   {
    "id": "119877",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-04",
@@ -4465,6 +4843,10 @@
   },
   {
    "id": "120045",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-04",
@@ -4526,6 +4908,10 @@
   },
   {
    "id": "119892",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-04",
@@ -4587,6 +4973,10 @@
   },
   {
    "id": "119833",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-06",
@@ -4613,6 +5003,10 @@
   },
   {
    "id": "119975",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-07",
@@ -4639,6 +5033,10 @@
   },
   {
    "id": "119920",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-07",
@@ -4665,6 +5063,10 @@
   },
   {
    "id": "119834",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-07",
@@ -4691,6 +5093,10 @@
   },
   {
    "id": "116414",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-09",
@@ -4722,6 +5128,10 @@
   },
   {
    "id": "117270",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-10",
@@ -4795,6 +5205,10 @@
   },
   {
    "id": "117774",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-10",
@@ -4828,6 +5242,10 @@
   },
   {
    "id": "118667",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-10",
@@ -4941,6 +5359,10 @@
   },
   {
    "id": "115419",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-10",
@@ -5034,6 +5456,10 @@
   },
   {
    "id": "119607",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-10",
@@ -5096,6 +5522,10 @@
   },
   {
    "id": "119808",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-10",
@@ -5129,6 +5559,10 @@
   },
   {
    "id": "118211",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-10",
@@ -5163,6 +5597,10 @@
   },
   {
    "id": "118444",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-10",
@@ -5195,6 +5633,10 @@
   },
   {
    "id": "119870",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-11",
@@ -5256,6 +5698,10 @@
   },
   {
    "id": "119767",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-11",
@@ -5292,6 +5738,10 @@
   },
   {
    "id": "119835",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-13",
@@ -5323,6 +5773,10 @@
   },
   {
    "id": "119973",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-14",
@@ -5350,6 +5804,11 @@
   },
   {
    "id": "119465",
+   "links": [
+    "deltagere",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-14",
@@ -5401,6 +5860,11 @@
   },
   {
    "id": "119461",
+   "links": [
+    "deltagere",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-14",
@@ -5453,6 +5917,11 @@
   },
   {
    "id": "119453",
+   "links": [
+    "deltagere",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-14",
@@ -5505,6 +5974,11 @@
   },
   {
    "id": "119458",
+   "links": [
+    "deltagere",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-14",
@@ -5536,6 +6010,11 @@
   },
   {
    "id": "119449",
+   "links": [
+    "deltagere",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-14",
@@ -5581,6 +6060,10 @@
   },
   {
    "id": "119836",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-15",
@@ -5607,6 +6090,10 @@
   },
   {
    "id": "119464",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-15",
@@ -5632,6 +6119,10 @@
   },
   {
    "id": "119466",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-15",
@@ -5657,6 +6148,10 @@
   },
   {
    "id": "119468",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-16",
@@ -5689,6 +6184,10 @@
   },
   {
    "id": "119621",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-16",
@@ -5814,6 +6313,10 @@
   },
   {
    "id": "119837",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-20",
@@ -5840,6 +6343,10 @@
   },
   {
    "id": "119916",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-24",
@@ -5901,6 +6408,10 @@
   },
   {
    "id": "119925",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-24",
@@ -5942,6 +6453,10 @@
   },
   {
    "id": "119940",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-24",
@@ -5983,6 +6498,10 @@
   },
   {
    "id": "120134",
+   "links": [
+    "deltagere",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": true,
    "start": "2026-10-25",
@@ -6044,6 +6563,9 @@
   },
   {
    "id": "119838",
+   "links": [
+    "deltagere"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-27",
@@ -6070,6 +6592,10 @@
   },
   {
    "id": "119839",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-28",
@@ -6096,6 +6622,10 @@
   },
   {
    "id": "116782",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6153,6 +6683,12 @@
   },
   {
    "id": "115370",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6194,6 +6730,12 @@
   },
   {
    "id": "115705",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6273,6 +6815,10 @@
   },
   {
    "id": "119571",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6306,6 +6852,12 @@
   },
   {
    "id": "119025",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6383,6 +6935,12 @@
   },
   {
    "id": "117288",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6427,6 +6985,12 @@
   },
   {
    "id": "116081",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6521,6 +7085,12 @@
   },
   {
    "id": "117939",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6600,6 +7170,12 @@
   },
   {
    "id": "117662",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6642,6 +7218,10 @@
   },
   {
    "id": "119850",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6703,6 +7283,10 @@
   },
   {
    "id": "117049",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6729,6 +7313,9 @@
   },
   {
    "id": "119924",
+   "links": [
+    "deltagere"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6774,6 +7361,12 @@
   },
   {
    "id": "117823",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6807,6 +7400,12 @@
   },
   {
    "id": "116202",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6861,6 +7460,12 @@
   },
   {
    "id": "115385",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -6930,6 +7535,12 @@
   },
   {
    "id": "118641",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -7009,6 +7620,10 @@
   },
   {
    "id": "119921",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -7041,6 +7656,12 @@
   },
   {
    "id": "118626",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -7093,6 +7714,10 @@
   },
   {
    "id": "117333",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -7126,6 +7751,12 @@
   },
   {
    "id": "119098",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -7169,6 +7800,10 @@
   },
   {
    "id": "115397",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-10-31",
@@ -7258,6 +7893,10 @@
   },
   {
    "id": "119948",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-01",
@@ -7319,6 +7958,10 @@
   },
   {
    "id": "117152",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-01",
@@ -7412,6 +8055,12 @@
   },
   {
    "id": "117548",
+   "links": [
+    "deltagere",
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-01",
@@ -7488,6 +8137,10 @@
   },
   {
    "id": "117871",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-01",
@@ -7541,6 +8194,10 @@
   },
   {
    "id": "119980",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-05",
@@ -7567,6 +8224,9 @@
   },
   {
    "id": "119044",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -7598,6 +8258,10 @@
   },
   {
    "id": "118123",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-07",
@@ -7677,6 +8341,9 @@
   },
   {
    "id": "119612",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -7755,6 +8422,9 @@
   },
   {
    "id": "116947",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -7834,6 +8504,9 @@
   },
   {
    "id": "118792",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -7868,6 +8541,9 @@
   },
   {
    "id": "116914",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -7942,6 +8618,9 @@
   },
   {
    "id": "116091",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -7986,6 +8665,9 @@
   },
   {
    "id": "115546",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8069,6 +8751,11 @@
   },
   {
    "id": "115663",
+   "links": [
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8134,6 +8821,11 @@
   },
   {
    "id": "117666",
+   "links": [
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8165,6 +8857,11 @@
   },
   {
    "id": "117114",
+   "links": [
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8234,6 +8931,9 @@
   },
   {
    "id": "119204",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8354,6 +9054,11 @@
   },
   {
    "id": "117040",
+   "links": [
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8380,6 +9085,11 @@
   },
   {
    "id": "119286",
+   "links": [
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8437,6 +9147,11 @@
   },
   {
    "id": "115926",
+   "links": [
+    "invitation",
+    "program",
+    "resultater"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8504,6 +9219,9 @@
   },
   {
    "id": "119288",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8569,6 +9287,9 @@
   },
   {
    "id": "115695",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8600,6 +9321,9 @@
   },
   {
    "id": "115804",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8631,6 +9355,9 @@
   },
   {
    "id": "118059",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
@@ -8688,6 +9415,10 @@
   },
   {
    "id": "119981",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-11",
@@ -8714,6 +9445,10 @@
   },
   {
    "id": "120546",
+   "links": [
+    "deltagere",
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-13",
@@ -8740,6 +9475,10 @@
   },
   {
    "id": "119782",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-14",
@@ -8801,6 +9540,9 @@
   },
   {
    "id": "x78de95bc44",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-18",
@@ -8827,6 +9569,9 @@
   },
   {
    "id": "xe5b31052e6",
+   "links": [
+    "invitation"
+   ],
    "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-19",
@@ -8853,6 +9598,10 @@
   },
   {
    "id": "116647",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -8984,6 +9733,10 @@
   },
   {
    "id": "119786",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9015,6 +9768,10 @@
   },
   {
    "id": "119906",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9076,6 +9833,10 @@
   },
   {
    "id": "119883",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9117,6 +9878,10 @@
   },
   {
    "id": "119885",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9158,6 +9923,10 @@
   },
   {
    "id": "119842",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9219,6 +9988,10 @@
   },
   {
    "id": "118258",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9262,6 +10035,12 @@
   },
   {
    "id": "118303",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9351,6 +10130,12 @@
   },
   {
    "id": "116325",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9430,6 +10215,12 @@
   },
   {
    "id": "118623",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9463,6 +10254,10 @@
   },
   {
    "id": "117266",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9518,6 +10313,10 @@
   },
   {
    "id": "116691",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9602,6 +10401,12 @@
   },
   {
    "id": "117667",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9643,6 +10448,10 @@
   },
   {
    "id": "116242",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9674,6 +10483,12 @@
   },
   {
    "id": "115592",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9726,6 +10541,10 @@
   },
   {
    "id": "118244",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9826,6 +10645,10 @@
   },
   {
    "id": "117643",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9904,6 +10727,10 @@
   },
   {
    "id": "115815",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9936,6 +10763,10 @@
   },
   {
    "id": "118395",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-21",
@@ -9967,6 +10798,10 @@
   },
   {
    "id": "119944",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-22",
@@ -10028,6 +10863,10 @@
   },
   {
    "id": "119984",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-26",
@@ -10054,6 +10893,10 @@
   },
   {
    "id": "116666",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10088,6 +10931,12 @@
   },
   {
    "id": "118851",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10162,6 +11011,12 @@
   },
   {
    "id": "119065",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10242,6 +11097,12 @@
   },
   {
    "id": "117163",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10337,6 +11198,9 @@
   },
   {
    "id": "117945",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10371,6 +11235,12 @@
   },
   {
    "id": "116842",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10452,6 +11322,12 @@
   },
   {
    "id": "116800",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10533,6 +11409,12 @@
   },
   {
    "id": "116880",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10617,6 +11499,10 @@
   },
   {
    "id": "119657",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10699,6 +11585,10 @@
   },
   {
    "id": "118837",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10777,6 +11667,9 @@
   },
   {
    "id": "118985",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10811,6 +11704,10 @@
   },
   {
    "id": "118967",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10853,6 +11750,10 @@
   },
   {
    "id": "118976",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10885,6 +11786,10 @@
   },
   {
    "id": "118980",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10917,6 +11822,10 @@
   },
   {
    "id": "118970",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10949,6 +11858,10 @@
   },
   {
    "id": "118984",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -10983,6 +11896,10 @@
   },
   {
    "id": "118971",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -11024,6 +11941,10 @@
   },
   {
    "id": "118947",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -11120,6 +12041,10 @@
   },
   {
    "id": "116212",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -11202,6 +12127,9 @@
   },
   {
    "id": "119994",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-28",
@@ -11277,6 +12205,10 @@
   },
   {
    "id": "119858",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-11-29",
@@ -11338,6 +12270,9 @@
   },
   {
    "id": "118058",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-06",
@@ -11399,6 +12334,9 @@
   },
   {
    "id": "121353",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-10",
@@ -11430,6 +12368,10 @@
   },
   {
    "id": "119225",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-11",
@@ -11461,6 +12403,9 @@
   },
   {
    "id": "116479",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11495,6 +12440,10 @@
   },
   {
    "id": "119969",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11556,6 +12505,9 @@
   },
   {
    "id": "119268",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11632,6 +12584,9 @@
   },
   {
    "id": "118706",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11715,6 +12670,9 @@
   },
   {
    "id": "120285",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11742,6 +12700,10 @@
   },
   {
    "id": "115354",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11785,6 +12747,9 @@
   },
   {
    "id": "117320",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11876,6 +12841,10 @@
   },
   {
    "id": "116278",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11928,6 +12897,9 @@
   },
   {
    "id": "115718",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11961,6 +12933,12 @@
   },
   {
    "id": "115474",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -11994,6 +12972,9 @@
   },
   {
    "id": "116310",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -12073,6 +13054,10 @@
   },
   {
    "id": "117761",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -12178,6 +13163,9 @@
   },
   {
    "id": "120286",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-12",
@@ -12205,6 +13193,9 @@
   },
   {
    "id": "117388",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-13",
@@ -12284,6 +13275,9 @@
   },
   {
    "id": "116964",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12367,6 +13361,9 @@
   },
   {
    "id": "116973",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12401,6 +13398,9 @@
   },
   {
    "id": "119789",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12432,6 +13432,9 @@
   },
   {
    "id": "117606",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12485,6 +13488,9 @@
   },
   {
    "id": "119380",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12519,6 +13525,9 @@
   },
   {
    "id": "117997",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12560,6 +13569,9 @@
   },
   {
    "id": "115694",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12601,6 +13613,9 @@
   },
   {
    "id": "118651",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12632,6 +13647,10 @@
   },
   {
    "id": "119790",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12683,6 +13702,9 @@
   },
   {
    "id": "118528",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-19",
@@ -12726,6 +13748,10 @@
   },
   {
    "id": "118352",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -12794,6 +13820,9 @@
   },
   {
    "id": "117187",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -12885,6 +13914,9 @@
   },
   {
    "id": "115971",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -12930,6 +13962,9 @@
   },
   {
    "id": "117099",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -13008,6 +14043,10 @@
   },
   {
    "id": "115759",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -13043,6 +14082,9 @@
   },
   {
    "id": "115679",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -13077,6 +14119,9 @@
   },
   {
    "id": "115488",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -13155,6 +14200,9 @@
   },
   {
    "id": "118506",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -13189,6 +14237,12 @@
   },
   {
    "id": "115827",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-27",
@@ -13236,6 +14290,9 @@
   },
   {
    "id": "117292",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-28",
@@ -13287,6 +14344,9 @@
   },
   {
    "id": "115970",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-28",
@@ -13383,6 +14443,10 @@
   },
   {
    "id": "115769",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-28",
@@ -13453,6 +14517,9 @@
   },
   {
    "id": "115683",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-28",
@@ -13523,6 +14590,9 @@
   },
   {
    "id": "117353",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-28",
@@ -13624,6 +14694,9 @@
   },
   {
    "id": "118752",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-29",
@@ -13716,6 +14789,9 @@
   },
   {
    "id": "117732",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-29",
@@ -13750,6 +14826,12 @@
   },
   {
    "id": "115863",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-29",
@@ -13806,6 +14888,9 @@
   },
   {
    "id": "115981",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2026-12-30",
@@ -13840,6 +14925,9 @@
   },
   {
    "id": "117777",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -13881,6 +14969,9 @@
   },
   {
    "id": "117495",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -13987,6 +15078,9 @@
   },
   {
    "id": "117623",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14039,6 +15133,9 @@
   },
   {
    "id": "118481",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14094,6 +15191,9 @@
   },
   {
    "id": "115871",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14140,6 +15240,9 @@
   },
   {
    "id": "116415",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14171,6 +15274,9 @@
   },
   {
    "id": "119269",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14212,6 +15318,9 @@
   },
   {
    "id": "118114",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14255,6 +15364,9 @@
   },
   {
    "id": "116764",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14339,6 +15451,9 @@
   },
   {
    "id": "118989",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14382,6 +15497,9 @@
   },
   {
    "id": "118106",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14416,6 +15534,9 @@
   },
   {
    "id": "117329",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14450,6 +15571,9 @@
   },
   {
    "id": "116458",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14537,6 +15661,9 @@
   },
   {
    "id": "115811",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14598,6 +15725,9 @@
   },
   {
    "id": "119105",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14629,6 +15759,9 @@
   },
   {
    "id": "118386",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-09",
@@ -14654,6 +15787,10 @@
   },
   {
    "id": "119854",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-10",
@@ -14715,6 +15852,9 @@
   },
   {
    "id": "121354",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-21",
@@ -14746,6 +15886,9 @@
   },
   {
    "id": "120904",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -14807,6 +15950,10 @@
   },
   {
    "id": "120892",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -14868,6 +16015,10 @@
   },
   {
    "id": "120130",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -14929,6 +16080,9 @@
   },
   {
    "id": "116383",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -14986,6 +16140,9 @@
   },
   {
    "id": "116982",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15065,6 +16222,9 @@
   },
   {
    "id": "117626",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15097,6 +16257,9 @@
   },
   {
    "id": "116917",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15142,6 +16305,9 @@
   },
   {
    "id": "116282",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15175,6 +16341,9 @@
   },
   {
    "id": "116220",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15242,6 +16411,9 @@
   },
   {
    "id": "116441",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15326,6 +16498,9 @@
   },
   {
    "id": "118861",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15380,6 +16555,9 @@
   },
   {
    "id": "118073",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15462,6 +16640,9 @@
   },
   {
    "id": "118198",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15548,6 +16729,10 @@
   },
   {
    "id": "115898",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15627,6 +16812,9 @@
   },
   {
    "id": "119113",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15660,6 +16848,9 @@
   },
   {
    "id": "115410",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15725,6 +16916,9 @@
   },
   {
    "id": "116677",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-23",
@@ -15767,6 +16961,9 @@
   },
   {
    "id": "117202",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-24",
@@ -15847,6 +17044,9 @@
   },
   {
    "id": "117419",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-24",
@@ -15913,6 +17113,12 @@
   },
   {
    "id": "116014",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-24",
@@ -15947,6 +17153,9 @@
   },
   {
    "id": "121355",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-28",
@@ -15978,6 +17187,10 @@
   },
   {
    "id": "116486",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-29",
@@ -16092,6 +17305,10 @@
   },
   {
    "id": "119887",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-30",
@@ -16133,6 +17350,10 @@
   },
   {
    "id": "119889",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-30",
@@ -16174,6 +17395,9 @@
   },
   {
    "id": "118208",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-30",
@@ -16207,6 +17431,9 @@
   },
   {
    "id": "118658",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-30",
@@ -16239,6 +17466,10 @@
   },
   {
    "id": "119866",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-30",
@@ -16300,6 +17531,12 @@
   },
   {
    "id": "120229",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-30",
@@ -16333,6 +17570,9 @@
   },
   {
    "id": "119524",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-30",
@@ -16435,6 +17675,9 @@
   },
   {
    "id": "116708",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-01-30",
@@ -16466,6 +17709,10 @@
   },
   {
    "id": "119846",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-06",
@@ -16527,6 +17774,9 @@
   },
   {
    "id": "121535",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -16608,6 +17858,9 @@
   },
   {
    "id": "116160",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -16689,6 +17942,9 @@
   },
   {
    "id": "117959",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -16771,6 +18027,9 @@
   },
   {
    "id": "116680",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -16826,6 +18085,9 @@
   },
   {
    "id": "118328",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -16889,6 +18151,9 @@
   },
   {
    "id": "117838",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -16922,6 +18187,9 @@
   },
   {
    "id": "116066",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -16988,6 +18256,9 @@
   },
   {
    "id": "118563",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -17040,6 +18311,9 @@
   },
   {
    "id": "119088",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-13",
@@ -17121,6 +18395,9 @@
   },
   {
    "id": "115439",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-15",
@@ -17203,6 +18480,9 @@
   },
   {
    "id": "117877",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-17",
@@ -17277,6 +18557,9 @@
   },
   {
    "id": "118443",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-19",
@@ -17308,6 +18591,10 @@
   },
   {
    "id": "115372",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-20",
@@ -17340,6 +18627,9 @@
   },
   {
    "id": "117404",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-20",
@@ -17374,6 +18664,9 @@
   },
   {
    "id": "115631",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-20",
@@ -17456,6 +18749,9 @@
   },
   {
    "id": "115869",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-20",
@@ -17497,6 +18793,9 @@
   },
   {
    "id": "115922",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-20",
@@ -17553,6 +18852,9 @@
   },
   {
    "id": "118825",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-20",
@@ -17585,6 +18887,9 @@
   },
   {
    "id": "115993",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-20",
@@ -17666,6 +18971,9 @@
   },
   {
    "id": "117557",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-21",
@@ -17721,6 +19029,9 @@
   },
   {
    "id": "115610",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-25",
@@ -17804,6 +19115,9 @@
   },
   {
    "id": "119985",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -17835,6 +19149,9 @@
   },
   {
    "id": "120896",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -17896,6 +19213,9 @@
   },
   {
    "id": "118899",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -17975,6 +19295,9 @@
   },
   {
    "id": "119382",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18030,6 +19353,9 @@
   },
   {
    "id": "118313",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18062,6 +19388,9 @@
   },
   {
    "id": "116416",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18094,6 +19423,9 @@
   },
   {
    "id": "118376",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18125,6 +19457,9 @@
   },
   {
    "id": "116336",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18166,6 +19501,9 @@
   },
   {
    "id": "116262",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18200,6 +19538,9 @@
   },
   {
    "id": "117073",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18343,6 +19684,9 @@
   },
   {
    "id": "118864",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18398,6 +19742,9 @@
   },
   {
    "id": "116299",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18432,6 +19779,9 @@
   },
   {
    "id": "117629",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18474,6 +19824,9 @@
   },
   {
    "id": "118787",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18542,6 +19895,9 @@
   },
   {
    "id": "119609",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18593,6 +19949,9 @@
   },
   {
    "id": "115854",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-27",
@@ -18624,6 +19983,9 @@
   },
   {
    "id": "120049",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-28",
@@ -18685,6 +20047,10 @@
   },
   {
    "id": "119929",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-28",
@@ -18726,6 +20092,10 @@
   },
   {
    "id": "119942",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-28",
@@ -18767,6 +20137,12 @@
   },
   {
    "id": "115907",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-28",
@@ -18811,6 +20187,10 @@
   },
   {
    "id": "119862",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-28",
@@ -18872,6 +20252,9 @@
   },
   {
    "id": "117894",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-28",
@@ -18930,6 +20313,9 @@
   },
   {
    "id": "118017",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-12",
@@ -18965,6 +20351,9 @@
   },
   {
    "id": "118282",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19020,6 +20409,9 @@
   },
   {
    "id": "118235",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19100,6 +20492,9 @@
   },
   {
    "id": "116989",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19133,6 +20528,9 @@
   },
   {
    "id": "118793",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19207,6 +20605,9 @@
   },
   {
    "id": "116923",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19260,6 +20661,9 @@
   },
   {
    "id": "117295",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19291,6 +20695,9 @@
   },
   {
    "id": "119619",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19401,6 +20808,9 @@
   },
   {
    "id": "116424",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19453,6 +20863,9 @@
   },
   {
    "id": "115594",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19496,6 +20909,9 @@
   },
   {
    "id": "118190",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19595,6 +21011,9 @@
   },
   {
    "id": "118888",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19638,6 +21057,9 @@
   },
   {
    "id": "117344",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-13",
@@ -19717,6 +21139,9 @@
   },
   {
    "id": "120900",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-14",
@@ -19778,6 +21203,9 @@
   },
   {
    "id": "117245",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-14",
@@ -19871,6 +21299,9 @@
   },
   {
    "id": "117306",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-14",
@@ -19938,6 +21369,9 @@
   },
   {
    "id": "117371",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-22",
@@ -20031,6 +21465,9 @@
   },
   {
    "id": "118041",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-24",
@@ -20132,6 +21569,9 @@
   },
   {
    "id": "116565",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-25",
@@ -20189,6 +21629,9 @@
   },
   {
    "id": "116228",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-25",
@@ -20257,6 +21700,9 @@
   },
   {
    "id": "116036",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20291,6 +21737,9 @@
   },
   {
    "id": "118133",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20381,6 +21830,9 @@
   },
   {
    "id": "119750",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20425,6 +21877,9 @@
   },
   {
    "id": "117669",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20458,6 +21913,9 @@
   },
   {
    "id": "117610",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20499,6 +21957,9 @@
   },
   {
    "id": "119125",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20532,6 +21993,9 @@
   },
   {
    "id": "117645",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20587,6 +22051,9 @@
   },
   {
    "id": "115840",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20618,6 +22085,9 @@
   },
   {
    "id": "116749",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-27",
@@ -20749,6 +22219,9 @@
   },
   {
    "id": "118769",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-28",
@@ -20841,6 +22314,9 @@
   },
   {
    "id": "119593",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-29",
@@ -20872,6 +22348,9 @@
   },
   {
    "id": "116899",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-29",
@@ -20927,6 +22406,10 @@
   },
   {
    "id": "115791",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-29",
@@ -20961,6 +22444,10 @@
   },
   {
    "id": "115787",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-29",
@@ -20995,6 +22482,10 @@
   },
   {
    "id": "115783",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-29",
@@ -21043,6 +22534,10 @@
   },
   {
    "id": "120055",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-03-29",
@@ -21075,6 +22570,9 @@
   },
   {
    "id": "119473",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-01",
@@ -21136,6 +22634,9 @@
   },
   {
    "id": "116041",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21170,6 +22671,9 @@
   },
   {
    "id": "119274",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21204,6 +22708,9 @@
   },
   {
    "id": "117024",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21283,6 +22790,9 @@
   },
   {
    "id": "115496",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21367,6 +22877,9 @@
   },
   {
    "id": "117710",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21436,6 +22949,9 @@
   },
   {
    "id": "116145",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21488,6 +23004,9 @@
   },
   {
    "id": "115468",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21521,6 +23040,9 @@
   },
   {
    "id": "119768",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21572,6 +23094,9 @@
   },
   {
    "id": "118263",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21684,6 +23209,9 @@
   },
   {
    "id": "119955",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21729,6 +23257,9 @@
   },
   {
    "id": "119754",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21794,6 +23325,9 @@
   },
   {
    "id": "118290",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-03",
@@ -21873,6 +23407,9 @@
   },
   {
    "id": "117228",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-04",
@@ -21966,6 +23503,9 @@
   },
   {
    "id": "116831",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-11",
@@ -22049,6 +23589,9 @@
   },
   {
    "id": "121480",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-17",
@@ -22169,6 +23712,9 @@
   },
   {
    "id": "115913",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-17",
@@ -22214,6 +23760,9 @@
   },
   {
    "id": "117283",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-17",
@@ -22246,6 +23795,9 @@
   },
   {
    "id": "117325",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-17",
@@ -22280,6 +23832,9 @@
   },
   {
    "id": "119684",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-17",
@@ -22387,6 +23942,10 @@
   },
   {
    "id": "120755",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-18",
@@ -22428,6 +23987,10 @@
   },
   {
    "id": "120757",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-18",
@@ -22469,6 +24032,9 @@
   },
   {
    "id": "119507",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-24",
@@ -22567,6 +24133,9 @@
   },
   {
    "id": "118165",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-24",
@@ -22647,6 +24216,9 @@
   },
   {
    "id": "119814",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-25",
@@ -22690,6 +24262,9 @@
   },
   {
    "id": "117902",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-04-25",
@@ -22742,6 +24317,9 @@
   },
   {
    "id": "116404",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-01",
@@ -22807,6 +24385,9 @@
   },
   {
    "id": "119387",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-01",
@@ -22860,6 +24441,9 @@
   },
   {
    "id": "118485",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-01",
@@ -22908,6 +24492,9 @@
   },
   {
    "id": "118420",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-01",
@@ -22943,6 +24530,9 @@
   },
   {
    "id": "118435",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-01",
@@ -22986,6 +24576,9 @@
   },
   {
    "id": "118000",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-01",
@@ -23043,6 +24636,9 @@
   },
   {
    "id": "119602",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-01",
@@ -23075,6 +24671,9 @@
   },
   {
    "id": "119106",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-01",
@@ -23118,6 +24717,9 @@
   },
   {
    "id": "118054",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-06",
@@ -23171,6 +24773,9 @@
   },
   {
    "id": "119134",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-06",
@@ -23300,6 +24905,9 @@
   },
   {
    "id": "117745",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-06",
@@ -23343,6 +24951,9 @@
   },
   {
    "id": "117251",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-07",
@@ -23447,6 +25058,9 @@
   },
   {
    "id": "116656",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-08",
@@ -23526,6 +25140,9 @@
   },
   {
    "id": "118103",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-08",
@@ -23625,6 +25242,9 @@
   },
   {
    "id": "116586",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-08",
@@ -23706,6 +25326,9 @@
   },
   {
    "id": "116905",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-08",
@@ -23752,6 +25375,9 @@
   },
   {
    "id": "116254",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-08",
@@ -23795,6 +25421,9 @@
   },
   {
    "id": "116050",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-08",
@@ -23850,6 +25479,9 @@
   },
   {
    "id": "119540",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-08",
@@ -23884,6 +25516,9 @@
   },
   {
    "id": "116606",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-09",
@@ -23965,6 +25600,9 @@
   },
   {
    "id": "117258",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-09",
@@ -24011,6 +25649,9 @@
   },
   {
    "id": "115875",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-15",
@@ -24073,6 +25714,9 @@
   },
   {
    "id": "116433",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-15",
@@ -24121,6 +25765,9 @@
   },
   {
    "id": "117045",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-15",
@@ -24149,6 +25796,12 @@
   },
   {
    "id": "115951",
+   "links": [
+    "invitation",
+    "program",
+    "resultater",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-15",
@@ -24250,6 +25903,9 @@
   },
   {
    "id": "117598",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-15",
@@ -24306,6 +25962,9 @@
   },
   {
    "id": "116004",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-15",
@@ -24375,6 +26034,9 @@
   },
   {
    "id": "118632",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-15",
@@ -24428,6 +26090,9 @@
   },
   {
    "id": "117084",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-15",
@@ -24511,6 +26176,9 @@
   },
   {
    "id": "119688",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-22",
@@ -24696,6 +26364,9 @@
   },
   {
    "id": "117428",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-29",
@@ -24775,6 +26446,9 @@
   },
   {
    "id": "117441",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-29",
@@ -24809,6 +26483,9 @@
   },
   {
    "id": "119006",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-29",
@@ -24923,6 +26600,9 @@
   },
   {
    "id": "117673",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-29",
@@ -24969,6 +26649,9 @@
   },
   {
    "id": "117841",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-29",
@@ -25014,6 +26697,9 @@
   },
   {
    "id": "117612",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-29",
@@ -25045,6 +26731,9 @@
   },
   {
    "id": "117849",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-29",
@@ -25112,6 +26801,9 @@
   },
   {
    "id": "118589",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-05-29",
@@ -25155,6 +26847,9 @@
   },
   {
    "id": "119974",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-03",
@@ -25186,6 +26881,10 @@
   },
   {
    "id": "118371",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25282,6 +26981,9 @@
   },
   {
    "id": "118737",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25362,6 +27064,9 @@
   },
   {
    "id": "117631",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25403,6 +27108,9 @@
   },
   {
    "id": "116117",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25487,6 +27195,9 @@
   },
   {
    "id": "118335",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25540,6 +27251,9 @@
   },
   {
    "id": "118010",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25595,6 +27309,9 @@
   },
   {
    "id": "116513",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25642,6 +27359,9 @@
   },
   {
    "id": "118595",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25763,6 +27483,9 @@
   },
   {
    "id": "116238",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25804,6 +27527,9 @@
   },
   {
    "id": "117728",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25856,6 +27582,9 @@
   },
   {
    "id": "117532",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-05",
@@ -25936,6 +27665,9 @@
   },
   {
    "id": "119556",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-12",
@@ -26019,6 +27751,9 @@
   },
   {
    "id": "116860",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-12",
@@ -26103,6 +27838,9 @@
   },
   {
    "id": "116097",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-12",
@@ -26224,6 +27962,9 @@
   },
   {
    "id": "120467",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-19",
@@ -26307,6 +28048,9 @@
   },
   {
    "id": "115555",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-19",
@@ -26390,6 +28134,9 @@
   },
   {
    "id": "118911",
+   "links": [
+    "tilmelding"
+   ],
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-06-19",
