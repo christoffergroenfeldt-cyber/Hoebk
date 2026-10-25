@@ -1165,23 +1165,30 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (isLeader()) h += leaderBlock();
     var myAns = Object.keys(REG.map).filter(function (k) { return k.slice(k.lastIndexOf('|') + 1) === ME.id; }).length;
     h += '<p class="note">' + (myAns ? 'Du har svaret på ' + myAns + (myAns === 1 ? ' aktivitet.' : ' aktiviteter.') : 'Du har ikke svaret på noget endnu.') + '</p>';
-    // Holdkampe
-    var showAll = UI.allTeams || !myTeams.length;
+    // Kommende kampe for de hold man følger (vises nederst)
+    var fids = follows();
     var ups = [];
     D.teams.forEach(function (t, ti) {
-      if (!showAll && myTeams.indexOf(t.label) < 0) return;
+      if (fids.indexOf(teamFid(t)) < 0) return;
       t.matches.forEach(function (m, mi) { if (!m.played && m.date >= today) ups.push({ t: t, ti: ti, m: m, mi: mi }); });
     });
     ups.sort(function (a, b) { return (a.m.date + a.m.time).localeCompare(b.m.date + b.m.time); });
-    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Kommende holdkampe</span>' +
-      (myTeams.length ? '<button class="pl xs" data-act="allteams">' + (showAll ? 'Kun mine hold' : 'Vis alle hold') + '</button>' : '') + '</div>';
-    h += ups.length ? ups.slice(0, 12).map(function (u) {
+    var mh = '<span class="lbl">Kommende kampe for hold du følger</span>';
+    if (ups.length) mh += ups.slice(0, 12).map(function (u) {
       var label = u.t.label + ' ' + (u.m.isHome ? 'mod ' : '@ ') + u.m.opponent + ' ' + u.m.date;
       return '<div class="evwrap" style="border-left-color:' + teamColor(u.t.label).bg + '"><button class="evtop" data-go="#/hold/' + u.ti + '/kamp/' + u.mi + '">' +
         '<span class="col"><b style="font-size:13px">' + dTxt(u.m.date) + '</b><span class="xs">' + esc(u.m.time || '') + '</span></span>' +
         '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.t.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveShort(u.m) ? driveShort(u.m) + ' · ' : '') + u.m.venue) + '</span></span>' +
         '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' + regBlock('match', matchEid(u.m), label, false) + '</div>';
-    }).join('') : '<p class="empty">Ingen kommende kampe for dine hold.</p>';
+    }).join('') + (ups.length > 12 ? '<p class="note">+ ' + (ups.length - 12) + ' flere — se holdenes sider.</p>' : '');
+    else if (D.teams.some(function (t) { return fids.indexOf(teamFid(t)) >= 0; })) mh += '<p class="empty">Ingen kommende kampe for de hold du følger.</p>';
+    else {
+      var mine = D.teams.filter(function (t) { return myTeams.indexOf(t.label) >= 0; });
+      mh += '<p class="empty" style="margin-bottom:6px">Du følger ingen hold endnu. Følg et hold for at se dets kampe her og få besked før kampene.</p>' +
+        (mine.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px">' + mine.map(function (t) {
+          return '<button class="chip" data-follow="' + esc(teamFid(t)) + '">☆ Følg ' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') +
+        '<p class="note">Eller tryk <b>☆ Følg holdet</b> på et holds side under Hold.</p>';
+    }
     h += pushBlock();
     h += followedBlock();
     if (P) h += playerTourBlock(P, 4);
@@ -1199,6 +1206,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + ' · ' + DAY_FULL[d.getDay()] + '</span></span><span></span></div>' +
         regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
     }).join('') : '<p class="empty">Vælg dine træningshold ovenfor.</p>';
+    h += mh;
     return h;
   }
   function renderMeList() {
@@ -1697,7 +1705,6 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     }
     if (b.dataset.act === 'pushon') { pushOn(); return; }
     if (b.dataset.act === 'pushoff') { pushOff(); return; }
-    if (b.dataset.act === 'allteams') { UI.allTeams = !UI.allTeams; route(true); return; }
     if (b.dataset.group) {
       var gi = ME.groups.indexOf(b.dataset.group);
       if (gi >= 0) ME.groups.splice(gi, 1); else ME.groups.push(b.dataset.group);
