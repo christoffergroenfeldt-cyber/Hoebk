@@ -248,7 +248,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   }
   function avStyle(p) { var c = playerColor(p); return 'background:' + c.bg + ';color:' + c.fg; }
   function colorLegend() {
-    return '<div class="legend">' + [['Senior', '#2F6FB3'], ['4 spillere', '#7FD3F7'], ['Motion', '#E58A2E'], ['Ungdom', '#0E2236'], ['Forælder', PARENT.bg]].map(function (x) {
+    return '<div class="legend">' + [['Senior', '#2F6FB3'], ['4 spillere', '#7FD3F7'], ['Motion', '#E58A2E'], ['Ungdom', '#D4F25A'], ['Forælder', PARENT.bg]].map(function (x) {
       return '<span><i style="background:' + x[1] + '"></i>' + x[0] + '</span>'; }).join('') + '</div>';
   }
   var METRICS = { won: ['Vundne kampe', 'won', 'vundet'], pct: ['Sejr %', 'winPct', '%'],
@@ -862,7 +862,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     'MOT 4+4 Elite/Mester': 'MOT E', 'MOT 4+4 Serie 3-4': 'MOT S', 'MOT 4 spillere Mester': 'MOT 4' };
   function shortLabel(l) { return SHORT[l] || l.replace(/\s+/g, ''); }
   function teamColor(label) {
-    if (/^U\d/.test(label)) return { bg: '#0E2236', fg: '#FFFFFF' };
+    if (/^U\d/.test(label)) return { bg: '#D4F25A', fg: '#0E2236' };
     if (/^MOT/.test(label)) return { bg: '#E58A2E', fg: '#0E2236' };
     if (/4 Spillere/.test(label)) return { bg: '#7FD3F7', fg: '#0E2236' };
     return { bg: '#2F6FB3', fg: '#FFFFFF' };
@@ -940,7 +940,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         '</select><button class="toggle" data-go="#/turneringer">Turneringsliste ›</button></div>' + tourFilterUI();
     }
     h += '<div class="legend"><span><i class="sw" style="background:#2F6FB3"></i>Senior</span><span><i class="sw" style="background:#7FD3F7"></i>4 spillere</span>' +
-      '<span><i class="sw" style="background:#E58A2E"></i>Motion</span><span><i class="sw" style="background:#0E2236"></i>Ungdom</span>' +
+      '<span><i class="sw" style="background:#E58A2E"></i>Motion</span><span><i class="sw" style="background:#D4F25A"></i>Ungdom</span>' +
       '<span><i class="sw" style="border:1px dashed #9AA6B1"></i>Træning (3× = 3 hold)</span>' +
       (CAL.tours ? '<span><i class="sw" style="background:var(--tour)"></i>Turnering</span>' : '') + '</div>';
     return h;

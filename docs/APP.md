@@ -43,7 +43,7 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 ## Calendar
 
 - Events are built once after load (`buildEvents()`): every match from every team, plus each training session in `data/traening.json` for every matching weekday between `season.from` and `season.to`, skipping `skip` periods.
-- Colours by division: Senior blue `#2F6FB3`, 4-player light blue `#7FD3F7`, Motion orange `#E58A2E`, Youth navy `#0E2236`, training dashed grey.
+- Colours by division: Senior blue `#2F6FB3`, 4-player light blue `#7FD3F7`, Motion orange `#E58A2E`, Youth lime `#D4F25A`, training dashed grey.
 - Month cells use short labels (`SHORT` map: DS, S2, 4S, MOT E…) and show training as `3×` (three groups train that day).
 - Year view runs August–July (the badminton season).
 - **Turneringer** toggle (off by default) adds individual tournaments in purple (`--tour #7A4FC9`) on every day they run; a level filter (e.g. *SEN A*) and a link to the tournament list appear when it's on. *Kun turneringer* in the team filter hides everything else.
@@ -85,7 +85,7 @@ Stored in `localStorage` under `hoebk_me`: `{id, name, email, token, groups}`. `
 
 ## Player colours
 
-A player's circle has the colour of the division they've played most team matches in — the same colours as the calendar (`teamColor()`): Senior blue, 4 players light blue, Motion orange, Youth navy. People without team matches (parents, coming later) are grey (`PARENT`). The legend is shown above the player list.
+A player's circle has the colour of the division they've played most team matches in — the same colours as the calendar (`teamColor()`): Senior blue, 4 players light blue, Motion orange, Youth lime. People without team matches (parents, coming later) are grey (`PARENT`). The legend is shown above the player list.
 
 ## Design tokens
 
