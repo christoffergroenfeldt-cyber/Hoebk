@@ -1,0 +1,159 @@
+# Data formats
+
+All generated files are UTF-8 JSON with Danish names unescaped. Dates are `YYYY-MM-DD`, times `HH:MM` (Danish local time as shown on badmintonplayer.dk), `updated` is an ISO timestamp in UTC.
+
+## `data/holdkampe.json` — teams, matches, lineups, standings
+
+Written by `fetch_holdkampe.py`.
+
+```jsonc
+{
+  "updated": "2026-10-25T13:14:08+00:00",
+  "season": "2026",              // season start year (2026 = 2026/27)
+  "clubID": "1151",              // Hørsholm on badmintonplayer.dk
+  "source": "badmintonplayer.dk",
+  "teams": [ Team, … ]           // 13 teams in 2026/27
+}
+```
+
+**Team**
+
+| Field | Example | Notes |
+|---|---|---|
+| `name` | `"Hørsholm 2"` | Team name — **not unique** (five teams are "Hørsholm 2") |
+| `label` | `"U15 B"` | Short division label — use this in UI |
+| `pulje` | `"U15 B, 6200 (4 spillere) Pulje 2"` | Full division/pool name |
+| `position` | `"4"` | Current placing in the pool |
+| `standing` | `[Row, …]` | Full pool table, see below |
+| `leagueGroupID` | `"19102"` | Pool id |
+| `ageGroupID` | `"5"` | 1 = SEN, 9 = SEN+40, 16 = MOT, 3/4/5 = U11/U13/U15 |
+| `leagueGroupTeamID` | `"124566"` | Team id — unique |
+| `url`, `standingUrl` | | badmintonplayer.dk links (kept for reference, not shown in the app) |
+| `matches` | `[Match, …]` | Sorted by date/time |
+| `players` | `[{id, name, games, won, disciplines, url}]` | Players who played for this team, most games first |
+
+**Standing row:** `pos, team, teamID, isUs, played, won, score` (games, e.g. `"42-10"`), `sets` (e.g. `"81-26"`), `points` — all values as strings, exactly as published.
+
+**Match**
+
+| Field | Example | Notes |
+|---|---|---|
+| `date`, `time` | `"2026-11-15"`, `"10:00"` | |
+| `home`, `away` | `"Hørsholm 2"`, `"Lillerød 1"` | As published |
+| `isHome` | `true` | Decided by team id, not by name |
+| `opponent` | `"Lillerød 1"` | Convenience |
+| `organiser`, `venue` | `"Hørsholm"`, `"Hørsholm Badminton Hal 2-5"` | |
+| `played` | `false` | |
+| `result` | `"9-4"` or `null` | Games, **home–away order** |
+| `points` | `"12-4"` or `null` | League points, home–away order |
+| `outcome` | `"V"`, `"T"`, `"U"` or `null` | Win/loss/draw **from Hørsholm's side** |
+| `walkover` | `"Afb."` or `""` | Decided without play |
+| `matchID` | `"514330"` | Unique match id — also used for registrations (`m:514330`) |
+| `games` | `[Game, …]` | Empty until played |
+
+**Game** (one individual match within the team match)
+
+```jsonc
+{ "discipline": "1. MD",                       // HS DS HD DD MD, or S/D in 4-player divisions
+  "home": [{"id":"279971","name":"…"}, …],     // 1 player (single) or 2 (double)
+  "away": [ … ],
+  "sets": [[5,15],[5,15]],                     // home–away per set
+  "winner": "away",                            // "home" | "away" | null
+  "walkover": "" }
+```
+
+## `data/spillere.json` — players and club ranking
+
+Written by `fetch_holdkampe.py --profiles`. Includes every Hørsholm player who has played at least one team match this season.
+
+```jsonc
+{
+  "updated": "…", "season": "2026",
+  "clubRanking": [ {rank, id, name, teams, played, won, winPct, pointsFor, avgPoints, avgDiff}, … ],
+  "players": [ Player, … ]        // sorted by name
+}
+```
+
+**Player**
+
+| Field | Notes |
+|---|---|
+| `id` | badmintonplayer.dk player id |
+| `name`, `teams` | Teams as labels, e.g. `["Serie 2", "Danmarksserien"]` |
+| `adult` | `true` if they played in a senior/motion division (used by the Senior/Ungdom filter) |
+| `played`, `won`, `lost`, `winPct` | Individual games in team matches |
+| `pointsFor`, `pointsAgainst` | Rally points over all sets (walkovers excluded) |
+| `avgPoints`, `avgDiff` | Per game with set scores |
+| `setsWon`, `setsLost` | |
+| `byDiscipline` | `{"MD": {"played": 3, "won": 2}, …}` — discipline without number |
+| `games` | Every game, newest first: `date, team, teamName, opponentTeam, matchID, discipline, partner[], opponents[], sets (player's side first), won, walkover` |
+| `profile.level` | Entry level at season start ("Tilmeldingsniveau") |
+| `profile.rankings` | `[{list: "Single"/"Double"/"Mix", category: "SEN A", points, matches, placement}]` — placement is national |
+| `profile.license` | Player licence status |
+
+`clubRanking` is sorted by games won, then win %, then points, then name.
+
+## `data/traening.json` — training schedule (edited by hand)
+
+```jsonc
+{
+  "venue": "Hørsholm Badminton Hal, Stadion Allé 7D",
+  "season": { "from": "2026-08-10", "to": "2027-04-30" },
+  "skip": [ { "from": "2026-10-12", "to": "2026-10-18", "reason": "Efterårsferie" } ],
+  "sessions": [ { "group": "Ungdom", "weekday": 1, "start": "15:30", "end": "19:15" }, … ]
+}
+```
+
+`weekday`: 1 = Monday … 7 = Sunday. `group` must be one of `Ungdom, Senior, Senior2, Voksenfjer, Veteran` to appear as a choice on Min side (the list is `GROUPS` in `index.html`). Training registrations use the id `t:<date>:<group>` — renaming a group after people have answered orphans those answers.
+
+## `config.json`
+
+```json
+{ "registrationUrl": "https://script.google.com/macros/s/…/exec" }
+```
+
+Empty string = login switched off.
+
+## `data/tilmeldinger.json` — current answers
+
+Written by `sync_tilmeldinger.py`; the app reads it when the live Apps Script status is unavailable.
+
+```jsonc
+{ "updated": "…",
+  "status": [ { "e": "m:514330", "p": "13008", "n": "Anders Frewald", "s": "ja", "ts": "…" }, … ] }
+```
+
+`e` = event id (`m:<matchID>` or `t:<date>:<group>`), `p` = player id (badmintonplayer id, or `n:<name-slug>` for players typing their own name), `s` = `ja` / `maaske` / `nej`. Latest answer per (event, player) only. **No emails.**
+
+## `data/hoebk.db` — SQLite
+
+Rebuilt from the full answer log on every sync.
+
+```sql
+CREATE TABLE registrations (
+  id INTEGER PRIMARY KEY,
+  ts TEXT NOT NULL,              -- ISO UTC from the Google Sheet
+  type TEXT NOT NULL,            -- 'match' | 'training'
+  event_id TEXT NOT NULL,        -- m:<matchID> | t:<date>:<group>
+  player_id TEXT NOT NULL,
+  player_name TEXT NOT NULL,
+  status TEXT NOT NULL,          -- ja | maaske | nej
+  label TEXT                     -- human-readable event, e.g. "U15 B mod Lillerød 1 2026-11-15"
+);
+CREATE VIEW latest AS …          -- newest row per (event_id, player_id)
+```
+
+Useful queries:
+
+```sql
+-- Who can play a given match
+SELECT player_name, status FROM latest WHERE event_id = 'm:514330' ORDER BY status, player_name;
+
+-- Training attendance per group over the season
+SELECT substr(event_id, 14) AS grp, count(*) FROM latest
+WHERE type = 'training' AND status = 'ja' GROUP BY grp;
+
+-- How often each player changed their mind
+SELECT player_name, count(*) - count(DISTINCT event_id) AS changes
+FROM registrations GROUP BY player_id ORDER BY changes DESC;
+```
