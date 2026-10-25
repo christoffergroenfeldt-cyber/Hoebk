@@ -50,6 +50,7 @@ Written by `fetch_holdkampe.py`.
 | `walkover` | `"Afb."` or `""` | Decided without play |
 | `matchID` | `"514330"` | Unique match id — also used for registrations (`m:514330`) |
 | `games` | `[Game, …]` | Empty until played |
+| `travel` | `{"min": 34, "km": 41.2, "precision": "hal", "lat": …, "lon": …, "query": "Lillerød Hallen, Lillerød"}` | Drive from Hørsholm Badminton Hal (Stadion Allé 7D). `precision`: `hal` (hall found), `by` (town of organiser/opponent), `rettet` (manual override), `ukendt` (no lookup yet — `min` missing). `query` is the destination sent to Google Maps |
 
 **Game** (one individual match within the team match)
 
@@ -110,6 +111,26 @@ Written by `fetch_holdkampe.py --tournaments` from badmintonplayer.dk's season p
         { "raw": "U15 A,B,C", "ages": ["U15"], "levels": ["A","B","C"], "days": "lø 15-sø 16" },
         { "raw": "U17/U19 B,C,D", "ages": ["U17","U19"], "levels": ["B","C","D"], "days": "lø 15" } ] } ]
 }
+```
+
+Since the location filters were added each tournament also has `entryOpen`, `hasResults` and `place`:
+
+```jsonc
+"place": { "name": "Lillerød", "region": "Region Hovedstaden", "km": 12.4,   // straight line from Hørsholm
+           "min": 18, "roadKm": 15.1,                                      // drive (OSRM), when looked up
+           "precision": "by" }                                             // or {"abroad": true} / {"ukendt": true}
+```
+
+Tournaments without a badmintonplayer.dk id get a synthetic id `x<sha1>` built from start date and organiser.
+
+## `data/steder.json` and `data/steder_rettelser.json` — place lookups
+
+`steder.json` is a cache written by the fetcher: one entry per tournament organiser, and per team-match venue under the key `hal|<venue>|<organiser>`. Lookups use DAWA (api.dataforsyningen.dk) for coordinates and region and the public OSRM server for drive time. Entries are kept between runs, so each place is looked up once; delete an entry to force a new lookup. Each run has a time budget (8 min for tournaments, at least 3 min for match venues); what doesn't fit is looked up on the next run.
+
+`steder_rettelser.json` is edited by hand and wins over the cache — use it when a place lands wrong:
+
+```json
+{ "Denmark Open": "Odense", "Skovbakken": "Aarhus" }
 ```
 
 Classes the parser can't split (e.g. `E-M*-række`, `Andet X`) keep only `raw` with empty `ages`/`levels`; they are shown but never matched to a level. The season plan has no venue or address — only the organiser.

@@ -46,6 +46,13 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 - Year view runs August–July (the badminton season).
 - **Turneringer** toggle (off by default) adds individual tournaments in purple (`--tour #7A4FC9`) on every day they run; a level filter (e.g. *SEN A*) and a link to the tournament list appear when it's on. *Kun turneringer* in the team filter hides everything else.
 
+## Drive time and directions
+
+- Upcoming away matches show *ca. 35 min i bil* in the team list, calendar and Min side; the match page shows the drive time from Hørsholm and a **Rutevejledning i Google Maps** button.
+- The button opens `https://www.google.com/maps/dir/?api=1&destination=<hall, town>&travelmode=driving` without a start point, so the phone routes from where you are.
+- Tournaments show drive time instead of straight-line km once looked up; the tournament page has the same button (destination = organiser club + town — check the invitation for the exact hall).
+- Wrong place? Add the organiser/venue to `data/steder_rettelser.json` (see [DATA.md](DATA.md)).
+
 ## Individual tournaments
 
 - The list (`#/turneringer`) shows upcoming tournaments for one age group at a time, grouped by level; a tournament with classes on several levels appears under each. *Vis afholdte* includes past ones.
