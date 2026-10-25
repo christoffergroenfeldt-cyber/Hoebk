@@ -1,0 +1,5705 @@
+{
+  "updated": "2026-10-25T12:46:21+00:00",
+  "season": "2026",
+  "clubID": "1151",
+  "source": "badmintonplayer.dk",
+  "teams": [
+    {
+      "name": "Hørsholm 1",
+      "pulje": "U15 A, 7200 (4 spillere) Pulje 1",
+      "label": "U15 A",
+      "position": "2",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "KBK Kbh. 2",
+          "teamID": "124586",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "8-0",
+          "sets": "16-2",
+          "points": "4"
+        },
+        {
+          "pos": "2",
+          "team": "Hørsholm 1",
+          "teamID": "124884",
+          "isUs": true,
+          "played": "1",
+          "won": "1",
+          "score": "7-1",
+          "sets": "14-2",
+          "points": "4"
+        },
+        {
+          "pos": "3",
+          "team": "BC37/IBB 1",
+          "teamID": "124885",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Birkerød BK13 1",
+          "teamID": "124881",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Gladsaxe Søborg 1",
+          "teamID": "124589",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Holte 1",
+          "teamID": "124882",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Køge 1",
+          "teamID": "124588",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Lyngby 1",
+          "teamID": "124886",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "VBC/FKIF 1",
+          "teamID": "124887",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "10",
+          "team": "Nykøbing F 1",
+          "teamID": "124883",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "1-7",
+          "sets": "2-14",
+          "points": "0"
+        },
+        {
+          "pos": "11",
+          "team": "Værløse 2",
+          "teamID": "124587",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "0-8",
+          "sets": "2-16",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19106",
+      "ageGroupID": "5",
+      "leagueGroupTeamID": "124884",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19106,5,8,124884,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19106,5,8,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-25",
+          "time": "10:00",
+          "home": "Nykøbing F 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Nykøbing F 1",
+          "organiser": "VBC/FKIF",
+          "venue": "Frederiksberghal 3 1-2",
+          "result": "1-7",
+          "points": "0-4",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "516361",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516361,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-25",
+          "time": "12:00",
+          "home": "Hørsholm 1",
+          "away": "VBC/FKIF 1",
+          "isHome": true,
+          "opponent": "VBC/FKIF 1",
+          "organiser": "VBC/FKIF",
+          "venue": "Frederiksberghal 3 3-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516362",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516362,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-15",
+          "time": "11:15",
+          "home": "Birkerød BK13 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Birkerød BK13 1",
+          "organiser": "Køge",
+          "venue": "Ravnsborghallen 1-3",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516374",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516374,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-15",
+          "time": "13:00",
+          "home": "Hørsholm 1",
+          "away": "Køge 1",
+          "isHome": true,
+          "opponent": "Køge 1",
+          "organiser": "Køge",
+          "venue": "Ravnsborghallen 1-3",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516375",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516375,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-16",
+          "time": "09:00",
+          "home": "Hørsholm 1",
+          "away": "Værløse 2",
+          "isHome": true,
+          "opponent": "Værløse 2",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516382",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516382,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-16",
+          "time": "12:00",
+          "home": "BC37/IBB 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "BC37/IBB 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516384",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516384,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-07",
+          "time": "13:00",
+          "home": "Gladsaxe Søborg 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Gladsaxe Søborg 1",
+          "organiser": "Gladsaxe Søborg",
+          "venue": "Gladsaxe Gl. Badmintonhal 1-3",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516399",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516399,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-07",
+          "time": "15:00",
+          "home": "Hørsholm 1",
+          "away": "Lyngby 1",
+          "isHome": true,
+          "opponent": "Lyngby 1",
+          "organiser": "Gladsaxe Søborg",
+          "venue": "Gladsaxe Gl. Badmintonhal 1-3",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516400",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516400,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "13:00",
+          "home": "Holte 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Holte 1",
+          "organiser": "KBK Kbh.",
+          "venue": "KBK-Hallen 5-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516406",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516406,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "15:00",
+          "home": "Hørsholm 1",
+          "away": "KBK Kbh. 2",
+          "isHome": true,
+          "opponent": "KBK Kbh. 2",
+          "organiser": "KBK Kbh.",
+          "venue": "KBK-Hallen 5-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "516407",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516407,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 1",
+      "pulje": "U11 C, 5000 (4 spillere) Pulje 1",
+      "label": "U11 C",
+      "position": "3",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Badminton Roskilde 2",
+          "teamID": "124387",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "6-2",
+          "sets": "14-6",
+          "points": "4"
+        },
+        {
+          "pos": "2",
+          "team": "Lillerød 1",
+          "teamID": "124382",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "6-2",
+          "sets": "12-4",
+          "points": "4"
+        },
+        {
+          "pos": "3",
+          "team": "Hørsholm 1",
+          "teamID": "124385",
+          "isUs": true,
+          "played": "1",
+          "won": "1",
+          "score": "6-2",
+          "sets": "12-4",
+          "points": "4"
+        },
+        {
+          "pos": "4",
+          "team": "Humlebæk 1",
+          "teamID": "124384",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "4",
+          "team": "Slangerup/Skibby 1",
+          "teamID": "124388",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "6",
+          "team": "Hillerød 2",
+          "teamID": "124383",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "2-6",
+          "sets": "4-12",
+          "points": "0"
+        },
+        {
+          "pos": "7",
+          "team": "Badminton Roskilde 1",
+          "teamID": "124386",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "4-12",
+          "sets": "10-26",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19079",
+      "ageGroupID": "3",
+      "leagueGroupTeamID": "124385",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19079,3,10,124385,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19079,3,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-25",
+          "time": "09:00",
+          "home": "Hørsholm 1",
+          "away": "Badminton Roskilde 1",
+          "isHome": true,
+          "opponent": "Badminton Roskilde 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": "6-2",
+          "points": "4-0",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "513400",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513400,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-25",
+          "time": "10:30",
+          "home": "Slangerup/Skibby 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Slangerup/Skibby 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513402",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513402,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "09:00",
+          "home": "Hillerød 2",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Hillerød 2",
+          "organiser": "Hillerød",
+          "venue": "Hillerød Badmintonklub 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513407",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513407,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "10:30",
+          "home": "Hørsholm 1",
+          "away": "Humlebæk 1",
+          "isHome": true,
+          "opponent": "Humlebæk 1",
+          "organiser": "Hillerød",
+          "venue": "Hillerød Badmintonklub 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513409",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513409,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-16",
+          "time": "11:00",
+          "home": "Lillerød 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Lillerød 1",
+          "organiser": "Badminton Roskilde",
+          "venue": "HBH Hallen 4-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513412",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513412,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-16",
+          "time": "12:30",
+          "home": "Hørsholm 1",
+          "away": "Badminton Roskilde 2",
+          "isHome": true,
+          "opponent": "Badminton Roskilde 2",
+          "organiser": "Badminton Roskilde",
+          "venue": "HBH Hallen 4-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513413",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513413,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "10:15",
+          "home": "Humlebæk 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Humlebæk 1",
+          "organiser": "Slangerup/Skibby",
+          "venue": "Slangerup Idræts- og Kulturcenter 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513719",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513719,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "11:30",
+          "home": "Hørsholm 1",
+          "away": "Slangerup/Skibby 1",
+          "isHome": true,
+          "opponent": "Slangerup/Skibby 1",
+          "organiser": "Slangerup/Skibby",
+          "venue": "Slangerup Idræts- og Kulturcenter 3-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513720",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513720,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-07",
+          "time": "09:00",
+          "home": "Hørsholm 1",
+          "away": "Hillerød 2",
+          "isHome": true,
+          "opponent": "Hillerød 2",
+          "organiser": "Hillerød",
+          "venue": "Hillerød Badmintonklub 3-5",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513725",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513725,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-07",
+          "time": "10:30",
+          "home": "Badminton Roskilde 2",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Badminton Roskilde 2",
+          "organiser": "Hillerød",
+          "venue": "Hillerød Badmintonklub 3-5",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513726",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513726,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "09:00",
+          "home": "Badminton Roskilde 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Badminton Roskilde 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513734",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513734,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "10:30",
+          "home": "Hørsholm 1",
+          "away": "Lillerød 1",
+          "isHome": true,
+          "opponent": "Lillerød 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513732",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513732,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 3",
+      "pulje": "4 Spillere Pulje 1",
+      "label": "4 Spillere",
+      "position": "5",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Hillerød 6",
+          "teamID": "122602",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "15-1",
+          "sets": "30-2",
+          "points": "4"
+        },
+        {
+          "pos": "2",
+          "team": "Herlev/Hjorten 5",
+          "teamID": "122598",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "13-3",
+          "sets": "27-8",
+          "points": "4"
+        },
+        {
+          "pos": "3",
+          "team": "Humlebæk 4",
+          "teamID": "122599",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "13-3",
+          "sets": "26-9",
+          "points": "4"
+        },
+        {
+          "pos": "4",
+          "team": "Hillerød 7",
+          "teamID": "122603",
+          "isUs": false,
+          "played": "3",
+          "won": "2",
+          "score": "16-8",
+          "sets": "36-22",
+          "points": "4"
+        },
+        {
+          "pos": "5",
+          "team": "Hørsholm 3",
+          "teamID": "124258",
+          "isUs": true,
+          "played": "3",
+          "won": "1",
+          "score": "5-19",
+          "sets": "11-41",
+          "points": "2"
+        },
+        {
+          "pos": "6",
+          "team": "Virum 3",
+          "teamID": "122601",
+          "isUs": false,
+          "played": "3",
+          "won": "0",
+          "score": "6-18",
+          "sets": "18-37",
+          "points": "0"
+        },
+        {
+          "pos": "7",
+          "team": "Brøndby Strand 2",
+          "teamID": "122597",
+          "isUs": false,
+          "played": "3",
+          "won": "0",
+          "score": "4-20",
+          "sets": "12-41",
+          "points": "0"
+        },
+        {
+          "pos": "",
+          "team": "Nordbyens Badmintonklub",
+          "teamID": "122600",
+          "isUs": false,
+          "played": "",
+          "won": "",
+          "score": "",
+          "sets": "",
+          "points": ""
+        }
+      ],
+      "leagueGroupID": "18954",
+      "ageGroupID": "1",
+      "leagueGroupTeamID": "124258",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,18954,1,10,124258,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,18954,1,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-09-19",
+          "time": "13:30",
+          "home": "Hillerød 6",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Hillerød 6",
+          "organiser": "",
+          "venue": "Hillerød Badmintonklub 1-3",
+          "result": "8-0",
+          "points": "2-0",
+          "outcome": "T",
+          "walkover": "Afb.",
+          "played": true,
+          "matchID": "513002",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,513002,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-03",
+          "time": "13:00",
+          "home": "Hørsholm 3",
+          "away": "Herlev/Hjorten 5",
+          "isHome": true,
+          "opponent": "Herlev/Hjorten 5",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal",
+          "result": "0-8",
+          "points": "0-2",
+          "outcome": "T",
+          "walkover": "",
+          "played": true,
+          "matchID": "512933",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512933,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-24",
+          "time": "11:00",
+          "home": "Hillerød 7",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Hillerød 7",
+          "organiser": "",
+          "venue": "Hillerød Badmintonklub 1-3",
+          "result": "3-5",
+          "points": "0-2",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "512937",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512937,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "11:00",
+          "home": "Hørsholm 3",
+          "away": "Brøndby Strand 2",
+          "isHome": true,
+          "opponent": "Brøndby Strand 2",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "512941",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512941,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-12-05",
+          "time": "12:00",
+          "home": "Humlebæk 4",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Humlebæk 4",
+          "organiser": "",
+          "venue": "Humlebækhallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "512945",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512945,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-06",
+          "time": "13:00",
+          "home": "Hørsholm 3",
+          "away": "Virum 3",
+          "isHome": true,
+          "opponent": "Virum 3",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "512953",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512953,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 3",
+      "pulje": "U13 C-D, 4800 (4 spillere) Pulje 3",
+      "label": "U13 C-D",
+      "position": "1",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Hørsholm 3",
+          "teamID": "124581",
+          "isUs": true,
+          "played": "2",
+          "won": "1",
+          "score": "11-5",
+          "sets": "23-11",
+          "points": "6"
+        },
+        {
+          "pos": "2",
+          "team": "Frederikssund 1",
+          "teamID": "124580",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "10-6",
+          "sets": "21-14",
+          "points": "6"
+        },
+        {
+          "pos": "3",
+          "team": "Hornbæk 1",
+          "teamID": "124659",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Nivå-Kokkedal 1",
+          "teamID": "124582",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Rudersdal 1",
+          "teamID": "124660",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Slangerup 1",
+          "teamID": "124661",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "7",
+          "team": "Birkerød BK13 2",
+          "teamID": "124579",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "3-13",
+          "sets": "8-27",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19105",
+      "ageGroupID": "4",
+      "leagueGroupTeamID": "124581",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19105,4,10,124581,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19105,4,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-24",
+          "time": "11:15",
+          "home": "Frederikssund 1",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Frederikssund 1",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 5-8",
+          "result": "4-4",
+          "points": "2-2",
+          "outcome": "U",
+          "walkover": "",
+          "played": true,
+          "matchID": "514451",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514451,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-24",
+          "time": "12:30",
+          "home": "Hørsholm 3",
+          "away": "Birkerød BK13 2",
+          "isHome": true,
+          "opponent": "Birkerød BK13 2",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 5-8",
+          "result": "7-1",
+          "points": "4-0",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "514452",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514452,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "14:00",
+          "home": "Hørsholm 3",
+          "away": "Rudersdal 1",
+          "isHome": true,
+          "opponent": "Rudersdal 1",
+          "organiser": "Frederikssund",
+          "venue": "Frederikssundhallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514869",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514869,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "16:00",
+          "home": "Nivå-Kokkedal 1",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Nivå-Kokkedal 1",
+          "organiser": "Frederikssund",
+          "venue": "Frederikssundhallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514462",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514462,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-17",
+          "time": "09:00",
+          "home": "Hørsholm 3",
+          "away": "Slangerup 1",
+          "isHome": true,
+          "opponent": "Slangerup 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514902",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514902,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-17",
+          "time": "10:30",
+          "home": "Hornbæk 1",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Hornbæk 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514904",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514904,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "09:00",
+          "home": "Slangerup 1",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Slangerup 1",
+          "organiser": "Slangerup",
+          "venue": "Slangerup Idræts- og Kulturcenter 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514906",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514906,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "10:15",
+          "home": "Hørsholm 3",
+          "away": "Nivå-Kokkedal 1",
+          "isHome": true,
+          "opponent": "Nivå-Kokkedal 1",
+          "organiser": "Slangerup",
+          "venue": "Slangerup Idræts- og Kulturcenter 3-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514907",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514907,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-07",
+          "time": "11:30",
+          "home": "Birkerød BK13 2",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Birkerød BK13 2",
+          "organiser": "Hornbæk",
+          "venue": "Hornbæk hallen 4-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514917",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514917,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-07",
+          "time": "13:00",
+          "home": "Hørsholm 3",
+          "away": "Hornbæk 1",
+          "isHome": true,
+          "opponent": "Hornbæk 1",
+          "organiser": "Hornbæk",
+          "venue": "Hornbæk hallen 4-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514919",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514919,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "11:45",
+          "home": "Rudersdal 1",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Rudersdal 1",
+          "organiser": "Rudersdal",
+          "venue": "Rundforbi hallen 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514923",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514923,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "13:15",
+          "home": "Hørsholm 3",
+          "away": "Frederikssund 1",
+          "isHome": true,
+          "opponent": "Frederikssund 1",
+          "organiser": "Rudersdal",
+          "venue": "Rundforbi hallen 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514925",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514925,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 2",
+      "pulje": "Serie 2 Pulje 2",
+      "label": "Serie 2",
+      "position": "1",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Hørsholm 2",
+          "teamID": "122521",
+          "isUs": true,
+          "played": "4",
+          "won": "4",
+          "score": "39-13",
+          "sets": "82-30",
+          "points": "12"
+        },
+        {
+          "pos": "2",
+          "team": "Ledøje-Smørum 2",
+          "teamID": "122524",
+          "isUs": false,
+          "played": "4",
+          "won": "3",
+          "score": "38-14",
+          "sets": "81-36",
+          "points": "9"
+        },
+        {
+          "pos": "3",
+          "team": "Virum",
+          "teamID": "122525",
+          "isUs": false,
+          "played": "3",
+          "won": "3",
+          "score": "28-11",
+          "sets": "61-26",
+          "points": "9"
+        },
+        {
+          "pos": "4",
+          "team": "Humlebæk 3",
+          "teamID": "122520",
+          "isUs": false,
+          "played": "4",
+          "won": "2",
+          "score": "28-24",
+          "sets": "54-55",
+          "points": "6"
+        },
+        {
+          "pos": "5",
+          "team": "Ølstykke 2",
+          "teamID": "122518",
+          "isUs": false,
+          "played": "3",
+          "won": "1",
+          "score": "17-22",
+          "sets": "33-49",
+          "points": "4"
+        },
+        {
+          "pos": "6",
+          "team": "Frederikssund/Jyllinge",
+          "teamID": "122523",
+          "isUs": false,
+          "played": "4",
+          "won": "1",
+          "score": "19-33",
+          "sets": "36-71",
+          "points": "3"
+        },
+        {
+          "pos": "7",
+          "team": "Farum 2",
+          "teamID": "122519",
+          "isUs": false,
+          "played": "4",
+          "won": "1",
+          "score": "17-35",
+          "sets": "41-63",
+          "points": "2"
+        },
+        {
+          "pos": "8",
+          "team": "Holte 3",
+          "teamID": "122522",
+          "isUs": false,
+          "played": "4",
+          "won": "0",
+          "score": "9-43",
+          "sets": "22-80",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "18931",
+      "ageGroupID": "1",
+      "leagueGroupTeamID": "122521",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,18931,1,10,122521,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,18931,1,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-09-05",
+          "time": "14:00",
+          "home": "Farum 2",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Farum 2",
+          "organiser": "Farum",
+          "venue": "Stenvadhallen",
+          "result": "3-10",
+          "points": "0-3",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "509676",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18931,1,10,,509676,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  14,
+                  16
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  4,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "4. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  6
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  5,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  14,
+                  16
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  14,
+                  16
+                ]
+              ],
+              "winner": "away"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-19",
+          "time": "13:00",
+          "home": "Hørsholm 2",
+          "away": "Frederikssund/Jyllinge",
+          "isHome": true,
+          "opponent": "Frederikssund/Jyllinge",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal",
+          "result": "12-1",
+          "points": "3-0",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "509682",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18931,1,10,,509682,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  18,
+                  16
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DS",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "2. DS",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "1. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  7
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  6
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  4
+                ],
+                [
+                  17,
+                  15
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  7
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-03",
+          "time": "13:00",
+          "home": "Hørsholm 2",
+          "away": "Humlebæk 3",
+          "isHome": true,
+          "opponent": "Humlebæk 3",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal",
+          "result": "9-4",
+          "points": "3-0",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "509684",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18931,1,10,,509684,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  4
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  16,
+                  14
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  16,
+                  14
+                ],
+                [
+                  16,
+                  14
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  14,
+                  16
+                ],
+                [
+                  9,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  6
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  7
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-24",
+          "time": "15:30",
+          "home": "Holte 3",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Holte 3",
+          "organiser": "Holte",
+          "venue": "Holte Hal 1 4-6",
+          "result": "5-8",
+          "points": "0-3",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "509688",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18931,1,10,,509688,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  6,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  6,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  11,
+                  15
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  17
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  15,
+                  11
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  6,
+                  15
+                ],
+                [
+                  15,
+                  7
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-14",
+          "time": "14:00",
+          "home": "Ledøje-Smørum 2",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Ledøje-Smørum 2",
+          "organiser": "Ledøje-Smørum",
+          "venue": "Ledøje-Smørum Hallen 1-3",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "509692",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18931,1,10,,509692,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-12-05",
+          "time": "13:00",
+          "home": "Hørsholm 2",
+          "away": "Virum",
+          "isHome": true,
+          "opponent": "Virum",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "509698",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18931,1,10,,509698,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-16",
+          "time": "13:00",
+          "home": "Hørsholm 2",
+          "away": "Ølstykke 2",
+          "isHome": true,
+          "opponent": "Ølstykke 2",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "509699",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18931,1,10,,509699,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm",
+      "pulje": "Danmarksserien Pulje 5",
+      "label": "Danmarksserien",
+      "position": "1",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Hørsholm",
+          "teamID": "122004",
+          "isUs": true,
+          "played": "4",
+          "won": "4",
+          "score": "42-10",
+          "sets": "81-26",
+          "points": "54"
+        },
+        {
+          "pos": "2",
+          "team": "Vanløse",
+          "teamID": "122001",
+          "isUs": false,
+          "played": "4",
+          "won": "3",
+          "score": "38-14",
+          "sets": "80-42",
+          "points": "48"
+        },
+        {
+          "pos": "3",
+          "team": "Nivå-Kokkedal",
+          "teamID": "122006",
+          "isUs": false,
+          "played": "4",
+          "won": "3",
+          "score": "28-24",
+          "sets": "67-57",
+          "points": "36"
+        },
+        {
+          "pos": "4",
+          "team": "Herlev/Hjorten 2",
+          "teamID": "122008",
+          "isUs": false,
+          "played": "4",
+          "won": "2",
+          "score": "30-22",
+          "sets": "70-52",
+          "points": "36"
+        },
+        {
+          "pos": "5",
+          "team": "BC37 Amager 2",
+          "teamID": "122005",
+          "isUs": false,
+          "played": "4",
+          "won": "2",
+          "score": "27-25",
+          "sets": "61-58",
+          "points": "33"
+        },
+        {
+          "pos": "6",
+          "team": "KBK Kbh. 4 (O)",
+          "teamID": "122007",
+          "isUs": false,
+          "played": "4",
+          "won": "1",
+          "score": "21-31",
+          "sets": "53-71",
+          "points": "24"
+        },
+        {
+          "pos": "7",
+          "team": "SAIF Kbh. (N)",
+          "teamID": "122003",
+          "isUs": false,
+          "played": "3",
+          "won": "0",
+          "score": "6-33",
+          "sets": "17-70",
+          "points": "6"
+        },
+        {
+          "pos": "8",
+          "team": "Holte 2",
+          "teamID": "122002",
+          "isUs": false,
+          "played": "3",
+          "won": "0",
+          "score": "3-36",
+          "sets": "14-67",
+          "points": "3"
+        }
+      ],
+      "leagueGroupID": "18858",
+      "ageGroupID": "1",
+      "leagueGroupTeamID": "122004",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,18858,1,1,122004,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,18858,1,1,,,1151,",
+      "matches": [
+        {
+          "date": "2026-09-05",
+          "time": "13:30",
+          "home": "Holte 2",
+          "away": "Hørsholm",
+          "isHome": false,
+          "opponent": "Holte 2",
+          "organiser": "Holte",
+          "venue": "Holte Hal 1 4-6",
+          "result": "0-13",
+          "points": "0-16",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "507809",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18858,1,1,,507809,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  5,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  15,
+                  8
+                ],
+                [
+                  9,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DS",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "2. DS",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "1. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  6,
+                  15
+                ],
+                [
+                  3,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  4,
+                  15
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "4. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  15,
+                  12
+                ],
+                [
+                  16,
+                  18
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  7,
+                  15
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-19",
+          "time": "15:30",
+          "home": "Hørsholm",
+          "away": "Nivå-Kokkedal",
+          "isHome": true,
+          "opponent": "Nivå-Kokkedal",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-7",
+          "result": "9-4",
+          "points": "12-4",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "507815",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18858,1,1,,507815,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  2
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  15,
+                  10
+                ],
+                [
+                  16,
+                  14
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  3
+                ],
+                [
+                  15,
+                  5
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  15,
+                  10
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-03",
+          "time": "15:30",
+          "home": "Hørsholm",
+          "away": "SAIF Kbh.",
+          "isHome": true,
+          "opponent": "SAIF Kbh.",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-7",
+          "result": "12-1",
+          "points": "15-1",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "507817",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18858,1,1,,507817,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  17,
+                  19
+                ],
+                [
+                  15,
+                  4
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  4
+                ],
+                [
+                  15,
+                  0
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  6
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  6
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  4
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  2
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-24",
+          "time": "14:45",
+          "home": "BC37 Amager 2",
+          "away": "Hørsholm",
+          "isHome": false,
+          "opponent": "BC37 Amager 2",
+          "organiser": "BC37 Amager",
+          "venue": "BC37-Hallen",
+          "result": "5-8",
+          "points": "5-11",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "507821",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18858,1,1,,507821,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  6,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  15,
+                  5
+                ],
+                [
+                  9,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  6
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  6,
+                  15
+                ],
+                [
+                  15,
+                  4
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. HS",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  3
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-14",
+          "time": "16:00",
+          "home": "KBK Kbh. 4",
+          "away": "Hørsholm",
+          "isHome": false,
+          "opponent": "KBK Kbh. 4",
+          "organiser": "KBK Kbh.",
+          "venue": "KBK-Hallen 4-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "507825",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18858,1,1,,507825,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-12-05",
+          "time": "15:30",
+          "home": "Hørsholm",
+          "away": "Herlev/Hjorten 2",
+          "isHome": true,
+          "opponent": "Herlev/Hjorten 2",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-7",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "507831",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18858,1,1,,507831,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-16",
+          "time": "15:30",
+          "home": "Hørsholm",
+          "away": "Vanløse",
+          "isHome": true,
+          "opponent": "Vanløse",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-7",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "507832",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18858,1,1,,507832,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 2",
+      "pulje": "MOT 4+4 Elite/Mester Pulje 1",
+      "label": "MOT 4+4 Elite/Mester",
+      "position": "6",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Stenløse 1",
+          "teamID": "122723",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "18-6",
+          "sets": "38-18",
+          "points": "6"
+        },
+        {
+          "pos": "2",
+          "team": "Måløv 1",
+          "teamID": "122725",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "11-1",
+          "sets": "22-4",
+          "points": "3"
+        },
+        {
+          "pos": "3",
+          "team": "Hareskov 2",
+          "teamID": "122726",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "6-6",
+          "sets": "15-15",
+          "points": "1"
+        },
+        {
+          "pos": "4",
+          "team": "Lillerød 2",
+          "teamID": "122722",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "9-15",
+          "sets": "24-34",
+          "points": "1"
+        },
+        {
+          "pos": "5",
+          "team": "Holte 3",
+          "teamID": "122724",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "3-9",
+          "sets": "9-19",
+          "points": "0"
+        },
+        {
+          "pos": "6",
+          "team": "Hørsholm 2",
+          "teamID": "122847",
+          "isUs": true,
+          "played": "1",
+          "won": "0",
+          "score": "1-11",
+          "sets": "4-22",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "18971",
+      "ageGroupID": "16",
+      "leagueGroupTeamID": "122847",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,18971,16,19,122847,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,18971,16,19,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-04",
+          "time": "12:30",
+          "home": "Måløv 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Måløv 1",
+          "organiser": "",
+          "venue": "Gl. Måløv hal 1-4",
+          "result": "11-1",
+          "points": "3-0",
+          "outcome": "T",
+          "walkover": "",
+          "played": true,
+          "matchID": "510453",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510453,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  3
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  15,
+                  3
+                ],
+                [
+                  15,
+                  5
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  16,
+                  14
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  17,
+                  19
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  4
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  17,
+                  15
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-01",
+          "time": "10:00",
+          "home": "Hørsholm 2",
+          "away": "Holte 3",
+          "isHome": true,
+          "opponent": "Holte 3",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510455",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510455,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-08",
+          "time": "11:00",
+          "home": "Hørsholm 2",
+          "away": "Lillerød 2",
+          "isHome": true,
+          "opponent": "Lillerød 2",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510457",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510457,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-15",
+          "time": "11:00",
+          "home": "Hareskov 2",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Hareskov 2",
+          "organiser": "",
+          "venue": "Hareskovhallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510450",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510450,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-22",
+          "time": "10:00",
+          "home": "Hørsholm 2",
+          "away": "Hareskov 2",
+          "isHome": true,
+          "opponent": "Hareskov 2",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510462",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510462,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-29",
+          "time": "10:00",
+          "home": "Hørsholm 2",
+          "away": "Stenløse 1",
+          "isHome": true,
+          "opponent": "Stenløse 1",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510463",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510463,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-31",
+          "time": "10:00",
+          "home": "Hørsholm 2",
+          "away": "Måløv 1",
+          "isHome": true,
+          "opponent": "Måløv 1",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510468",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510468,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "10:15",
+          "home": "Holte 3",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Holte 3",
+          "organiser": "",
+          "venue": "Holte Hal 1",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510470",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510470,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-28",
+          "time": "10:00",
+          "home": "Lillerød 2",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Lillerød 2",
+          "organiser": "",
+          "venue": "Lillerød-Hallerne, Hal 1 3-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510472",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510472,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-14",
+          "time": "10:00",
+          "home": "Stenløse 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Stenløse 1",
+          "organiser": "",
+          "venue": "Stenløsehallen 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510475",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510475,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 3",
+      "pulje": "MOT 4+4 Serie 3-4 Pulje 1",
+      "label": "MOT 4+4 Serie 3-4",
+      "position": "1",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Hørsholm 3",
+          "teamID": "122731",
+          "isUs": true,
+          "played": "2",
+          "won": "2",
+          "score": "17-7",
+          "sets": "35-19",
+          "points": "6"
+        },
+        {
+          "pos": "2",
+          "team": "Hillerød 2",
+          "teamID": "122727",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "10-2",
+          "sets": "22-8",
+          "points": "3"
+        },
+        {
+          "pos": "3",
+          "team": "Frem - Hellebæk 1",
+          "teamID": "122732",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "9-3",
+          "sets": "19-9",
+          "points": "3"
+        },
+        {
+          "pos": "4",
+          "team": "Frederikssund 5",
+          "teamID": "122729",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "11-13",
+          "sets": "28-31",
+          "points": "3"
+        },
+        {
+          "pos": "5",
+          "team": "Hareskov 3",
+          "teamID": "122734",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "6",
+          "team": "Holte 4",
+          "teamID": "122730",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "4-8",
+          "sets": "10-17",
+          "points": "0"
+        },
+        {
+          "pos": "7",
+          "team": "Måløv 2",
+          "teamID": "122733",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "3-9",
+          "sets": "9-19",
+          "points": "0"
+        },
+        {
+          "pos": "8",
+          "team": "Værløse 5",
+          "teamID": "122728",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "6-18",
+          "sets": "18-38",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "18972",
+      "ageGroupID": "16",
+      "leagueGroupTeamID": "122731",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,18972,16,19,122731,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,18972,16,19,,,1151,",
+      "matches": [
+        {
+          "date": "2026-09-20",
+          "time": "11:00",
+          "home": "Hørsholm 3",
+          "away": "Holte 4",
+          "isHome": true,
+          "opponent": "Holte 4",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": "8-4",
+          "points": "3-0",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "510512",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510512,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  15,
+                  9
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  4
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "4. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  5
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home"
+            },
+            {
+              "discipline": "4. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-04",
+          "time": "12:30",
+          "home": "Værløse 5",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Værløse 5",
+          "organiser": "",
+          "venue": "Værløsehallerne 11-14",
+          "result": "3-9",
+          "points": "0-3",
+          "outcome": "V",
+          "walkover": "",
+          "played": true,
+          "matchID": "510515",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510515,1151,",
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  4,
+                  15
+                ],
+                [
+                  9,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  3,
+                  15
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. MD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  16,
+                  14
+                ],
+                [
+                  13,
+                  15
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "4. MD",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "1. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. DD",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "1. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "2. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  19,
+                  21
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "3. DD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "4. DD",
+              "home": [],
+              "away": [],
+              "sets": [],
+              "winner": null
+            },
+            {
+              "discipline": "3. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            },
+            {
+              "discipline": "4. HD",
+              "home": [],
+              "away": [],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  16,
+                  14
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-22",
+          "time": "12:00",
+          "home": "Hørsholm 3",
+          "away": "Hillerød 2",
+          "isHome": true,
+          "opponent": "Hillerød 2",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 4-7",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510518",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510518,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-29",
+          "time": "12:00",
+          "home": "Frederikssund 5",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Frederikssund 5",
+          "organiser": "",
+          "venue": "Frederikssundhallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510523",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510523,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-31",
+          "time": "13:30",
+          "home": "Hareskov 3",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Hareskov 3",
+          "organiser": "",
+          "venue": "Hareskovhallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510528",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510528,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-28",
+          "time": "11:00",
+          "home": "Hørsholm 3",
+          "away": "Måløv 2",
+          "isHome": true,
+          "opponent": "Måløv 2",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510532",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510532,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-13",
+          "time": "14:30",
+          "home": "Frem - Hellebæk 1",
+          "away": "Hørsholm 3",
+          "isHome": false,
+          "opponent": "Frem - Hellebæk 1",
+          "organiser": "",
+          "venue": "Nordkysthallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510536",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510536,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 1",
+      "pulje": "MOT 4 spillere Mester Pulje 1",
+      "label": "MOT 4 spillere Mester",
+      "position": "6",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Lynge Uggeløse 2",
+          "teamID": "122643",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "9-3",
+          "sets": "19-8",
+          "points": "5"
+        },
+        {
+          "pos": "2",
+          "team": "Ganløse 1",
+          "teamID": "122644",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "9-3",
+          "sets": "20-7",
+          "points": "4"
+        },
+        {
+          "pos": "3",
+          "team": "Slangerup 3",
+          "teamID": "122645",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "8-4",
+          "sets": "17-10",
+          "points": "4"
+        },
+        {
+          "pos": "4",
+          "team": "Grantoften 1",
+          "teamID": "122646",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "5-7",
+          "sets": "11-16",
+          "points": "3"
+        },
+        {
+          "pos": "5",
+          "team": "Lynge Uggeløse 1",
+          "teamID": "122642",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "5-7",
+          "sets": "11-18",
+          "points": "2"
+        },
+        {
+          "pos": "6",
+          "team": "Hørsholm 1",
+          "teamID": "122641",
+          "isUs": true,
+          "played": "1",
+          "won": "0",
+          "score": "2-4",
+          "sets": "6-8",
+          "points": "1"
+        },
+        {
+          "pos": "7",
+          "team": "Herlev/Hjorten 2",
+          "teamID": "122640",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "2-4",
+          "sets": "7-9",
+          "points": "1"
+        },
+        {
+          "pos": "8",
+          "team": "Birkerød BK13 1",
+          "teamID": "122639",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "9",
+          "team": "Team Nordkysten 1",
+          "teamID": "122853",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "2-10",
+          "sets": "6-21",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "18960",
+      "ageGroupID": "16",
+      "leagueGroupTeamID": "122641",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,18960,16,19,122641,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,18960,16,19,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-04",
+          "time": "10:00",
+          "home": "Hørsholm 1",
+          "away": "Lynge Uggeløse 2",
+          "isHome": true,
+          "opponent": "Lynge Uggeløse 2",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-2",
+          "result": "2-4",
+          "points": "1-2",
+          "outcome": "T",
+          "walkover": "",
+          "played": true,
+          "matchID": "510401",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510401,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-08",
+          "time": "10:00",
+          "home": "Hørsholm 1",
+          "away": "Slangerup 3",
+          "isHome": true,
+          "opponent": "Slangerup 3",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 5-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510410",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510410,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-25",
+          "time": "19:15",
+          "home": "Grantoften 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Grantoften 1",
+          "organiser": "",
+          "venue": "Grantoftehallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510413",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510413,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-12-06",
+          "time": "10:00",
+          "home": "Herlev/Hjorten 2",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Herlev/Hjorten 2",
+          "organiser": "",
+          "venue": "Skinderskovhallen 7-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510396",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510396,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-31",
+          "time": "10:00",
+          "home": "Hørsholm 1",
+          "away": "Team Nordkysten 1",
+          "isHome": true,
+          "opponent": "Team Nordkysten 1",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 5-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510419",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510419,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "13:00",
+          "home": "Ganløse 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Ganløse 1",
+          "organiser": "",
+          "venue": "Ganløse Hallen 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510421",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510421,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-28",
+          "time": "10:00",
+          "home": "Birkerød BK13 1",
+          "away": "Hørsholm 1",
+          "isHome": false,
+          "opponent": "Birkerød BK13 1",
+          "organiser": "",
+          "venue": "BBK-Hallen 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510425",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510425,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-14",
+          "time": "10:00",
+          "home": "Hørsholm 1",
+          "away": "Lynge Uggeløse 1",
+          "isHome": true,
+          "opponent": "Lynge Uggeløse 1",
+          "organiser": "",
+          "venue": "Hørsholm Badminton Hal 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "510429",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510429,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 2",
+      "pulje": "U13 B, 5600 (4 spillere) Pulje 2",
+      "label": "U13 B",
+      "position": "7",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Værløse 2",
+          "teamID": "124487",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "8-0",
+          "sets": "16-3",
+          "points": "4"
+        },
+        {
+          "pos": "2",
+          "team": "Birkerød BK13 1",
+          "teamID": "124482",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "8-8",
+          "sets": "19-20",
+          "points": "4"
+        },
+        {
+          "pos": "3",
+          "team": "Farum 1",
+          "teamID": "124483",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "5-3",
+          "sets": "11-7",
+          "points": "3"
+        },
+        {
+          "pos": "4",
+          "team": "Holte 1",
+          "teamID": "124485",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "5-3",
+          "sets": "12-8",
+          "points": "3"
+        },
+        {
+          "pos": "5",
+          "team": "Hillerød 1",
+          "teamID": "124481",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "3-5",
+          "sets": "9-12",
+          "points": "1"
+        },
+        {
+          "pos": "6",
+          "team": "Herlev/Hjorten 3",
+          "teamID": "124484",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "3-13",
+          "sets": "11-28",
+          "points": "1"
+        },
+        {
+          "pos": "7",
+          "team": "Hørsholm 2",
+          "teamID": "124486",
+          "isUs": true,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19092",
+      "ageGroupID": "4",
+      "leagueGroupTeamID": "124486",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19092,4,10,124486,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19092,4,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-25",
+          "time": "09:00",
+          "home": "Hørsholm 2",
+          "away": "Værløse 2",
+          "isHome": true,
+          "opponent": "Værløse 2",
+          "organiser": "Herlev/Hjorten",
+          "venue": "Skinderskovhallen 5-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513973",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513973,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-25",
+          "time": "11:00",
+          "home": "Holte 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Holte 1",
+          "organiser": "Herlev/Hjorten",
+          "venue": "Skinderskovhallen 5-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513975",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513975,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "13:00",
+          "home": "Farum 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Farum 1",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 5-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513980",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513980,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "14:00",
+          "home": "Hørsholm 2",
+          "away": "Birkerød BK13 1",
+          "isHome": true,
+          "opponent": "Birkerød BK13 1",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 5-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513982",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513982,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-17",
+          "time": "12:00",
+          "home": "Hørsholm 2",
+          "away": "Hillerød 1",
+          "isHome": true,
+          "opponent": "Hillerød 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-5",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513983",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513983,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-17",
+          "time": "15:00",
+          "home": "Herlev/Hjorten 3",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Herlev/Hjorten 3",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-5",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513985",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513985,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-06",
+          "time": "09:00",
+          "home": "Hillerød 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Hillerød 1",
+          "organiser": "Hillerød",
+          "venue": "Hillerød Badmintonklub 5-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513993",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513993,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-06",
+          "time": "11:00",
+          "home": "Hørsholm 2",
+          "away": "Holte 1",
+          "isHome": true,
+          "opponent": "Holte 1",
+          "organiser": "Hillerød",
+          "venue": "Hillerød Badmintonklub 5-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513995",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513995,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-06",
+          "time": "10:15",
+          "home": "Hørsholm 2",
+          "away": "Herlev/Hjorten 3",
+          "isHome": true,
+          "opponent": "Herlev/Hjorten 3",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513998",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513998,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-06",
+          "time": "11:30",
+          "home": "Birkerød BK13 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Birkerød BK13 1",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513999",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513999,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "13:30",
+          "home": "Hørsholm 2",
+          "away": "Farum 1",
+          "isHome": true,
+          "opponent": "Farum 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514007",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,514007,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "15:00",
+          "home": "Værløse 2",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Værløse 2",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514010",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,514010,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm",
+      "pulje": "4 Spillere A-række Pulje 1",
+      "label": "4 Spillere A-række",
+      "position": "2",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Team Nordkysten",
+          "teamID": "124299",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "4-2",
+          "sets": "10-6",
+          "points": "2"
+        },
+        {
+          "pos": "2",
+          "team": "Dianalund BK",
+          "teamID": "124300",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "2",
+          "team": "Hørsholm",
+          "teamID": "124301",
+          "isUs": true,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "2",
+          "team": "Nordbyens Badmintonklub",
+          "teamID": "124302",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "5",
+          "team": "Greve 2",
+          "teamID": "124298",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "2-4",
+          "sets": "6-10",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19068",
+      "ageGroupID": "9",
+      "leagueGroupTeamID": "124301",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19068,9,10,124301,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19068,9,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-04",
+          "time": null,
+          "home": "Dianalund BK",
+          "away": "Hørsholm",
+          "isHome": false,
+          "opponent": "Dianalund BK",
+          "organiser": "Dianalund BK",
+          "venue": "",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513110",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513110,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-25",
+          "time": "12:00",
+          "home": "Hørsholm",
+          "away": "Nordbyens Badmintonklub",
+          "isHome": true,
+          "opponent": "Nordbyens Badmintonklub",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513112",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513112,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-12-06",
+          "time": "14:00",
+          "home": "Hørsholm",
+          "away": "Greve 2",
+          "isHome": true,
+          "opponent": "Greve 2",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513115",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513115,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-16",
+          "time": "14:30",
+          "home": "Team Nordkysten",
+          "away": "Hørsholm",
+          "isHome": false,
+          "opponent": "Team Nordkysten",
+          "organiser": "Team Nordkysten",
+          "venue": "Nordkysthallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513118",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513118,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 2",
+      "pulje": "U15 B, 6200 (4 spillere) Pulje 2",
+      "label": "U15 B",
+      "position": "4",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Lillerød 1",
+          "teamID": "124562",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "10-6",
+          "sets": "21-14",
+          "points": "6"
+        },
+        {
+          "pos": "2",
+          "team": "Frederikssund 1",
+          "teamID": "124564",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "10-6",
+          "sets": "22-15",
+          "points": "5"
+        },
+        {
+          "pos": "3",
+          "team": "Hillerød 1",
+          "teamID": "124563",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "4-12",
+          "sets": "11-25",
+          "points": "1"
+        },
+        {
+          "pos": "4",
+          "team": "Herlev/Hjorten 1",
+          "teamID": "124565",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "4",
+          "team": "Hørsholm 2",
+          "teamID": "124566",
+          "isUs": true,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "4",
+          "team": "Nivå-Kokkedal 1",
+          "teamID": "124567",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "4",
+          "team": "Virum 1",
+          "teamID": "124568",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19102",
+      "ageGroupID": "5",
+      "leagueGroupTeamID": "124566",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19102,5,10,124566,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19102,5,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-25",
+          "time": "13:00",
+          "home": "Herlev/Hjorten 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Herlev/Hjorten 1",
+          "organiser": "Herlev/Hjorten",
+          "venue": "Skinderskovhallen 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514326",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514326,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-25",
+          "time": "15:30",
+          "home": "Hørsholm 2",
+          "away": "Nivå-Kokkedal 1",
+          "isHome": true,
+          "opponent": "Nivå-Kokkedal 1",
+          "organiser": "Herlev/Hjorten",
+          "venue": "Skinderskovhallen 3-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514329",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514329,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-15",
+          "time": "10:00",
+          "home": "Hørsholm 2",
+          "away": "Lillerød 1",
+          "isHome": true,
+          "opponent": "Lillerød 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 2-5",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514330",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514330,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-15",
+          "time": "13:00",
+          "home": "Virum 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Virum 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514332",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514332,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-12-06",
+          "time": "10:00",
+          "home": "Hillerød 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Hillerød 1",
+          "organiser": "Frederikssund",
+          "venue": "Frederikssundhallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514341",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514341,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-12-06",
+          "time": "12:00",
+          "home": "Hørsholm 2",
+          "away": "Frederikssund 1",
+          "isHome": true,
+          "opponent": "Frederikssund 1",
+          "organiser": "Frederikssund",
+          "venue": "Frederikssundhallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514342",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514342,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-17",
+          "time": "14:00",
+          "home": "Hørsholm 2",
+          "away": "Hillerød 1",
+          "isHome": true,
+          "opponent": "Hillerød 1",
+          "organiser": "Lillerød",
+          "venue": "Lillerød-Hallerne, Hal 1 4-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514348",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514348,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-17",
+          "time": "15:15",
+          "home": "Nivå-Kokkedal 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Nivå-Kokkedal 1",
+          "organiser": "Lillerød",
+          "venue": "Lillerød-Hallerne, Hal 1 4-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514349",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514349,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "10:00",
+          "home": "Hørsholm 2",
+          "away": "Virum 1",
+          "isHome": true,
+          "opponent": "Virum 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-3",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514354",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514354,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "11:30",
+          "home": "Frederikssund 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Frederikssund 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-3",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514357",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514357,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "11:30",
+          "home": "Lillerød 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Lillerød 1",
+          "organiser": "Herlev/Hjorten",
+          "venue": "Skinderskovhallen 5-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514359",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514359,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "13:30",
+          "home": "Hørsholm 2",
+          "away": "Herlev/Hjorten 1",
+          "isHome": true,
+          "opponent": "Herlev/Hjorten 1",
+          "organiser": "Herlev/Hjorten",
+          "venue": "Skinderskovhallen 5-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514360",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514360,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    },
+    {
+      "name": "Hørsholm 2",
+      "pulje": "U11 Dx, 4200 (4 spillere) Pulje 1",
+      "label": "U11 Dx",
+      "position": "3",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Lillerød 3",
+          "teamID": "124648",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "5-3",
+          "sets": "12-6",
+          "points": "3"
+        },
+        {
+          "pos": "2",
+          "team": "Lillerød 2",
+          "teamID": "124647",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "3-5",
+          "sets": "6-12",
+          "points": "1"
+        },
+        {
+          "pos": "3",
+          "team": "Ganløse 1",
+          "teamID": "124656",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Gørlev 1",
+          "teamID": "124657",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Herlev/Hjorten 2",
+          "teamID": "124650",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Hørsholm 2",
+          "teamID": "124651",
+          "isUs": true,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Ledøje-Smørum 1",
+          "teamID": "124654",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Slagelse 2",
+          "teamID": "124652",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Solrød Strand 4",
+          "teamID": "124649",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Vallensbæk 1",
+          "teamID": "124655",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "3",
+          "team": "Ølstykke 2",
+          "teamID": "124653",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19113",
+      "ageGroupID": "3",
+      "leagueGroupTeamID": "124651",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19113,3,10,124651,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19113,3,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-25",
+          "time": "14:00",
+          "home": "Hørsholm 2",
+          "away": "Herlev/Hjorten 2",
+          "isHome": true,
+          "opponent": "Herlev/Hjorten 2",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514711",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514711,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-25",
+          "time": "15:30",
+          "home": "Vallensbæk 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Vallensbæk 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514713",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514713,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "14:00",
+          "home": "Lillerød 3",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Lillerød 3",
+          "organiser": "Lillerød",
+          "venue": "Lillerød-Hallerne, Hal 3 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514718",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514718,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-11-14",
+          "time": "15:30",
+          "home": "Hørsholm 2",
+          "away": "Ledøje-Smørum 1",
+          "isHome": true,
+          "opponent": "Ledøje-Smørum 1",
+          "organiser": "Lillerød",
+          "venue": "Lillerød-Hallerne, Hal 3 3-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514721",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514721,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "11:00",
+          "home": "Lillerød 2",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Lillerød 2",
+          "organiser": "Slagelse",
+          "venue": "Slagelse Hallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514740",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514740,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-02-07",
+          "time": "12:30",
+          "home": "Hørsholm 2",
+          "away": "Slagelse 2",
+          "isHome": true,
+          "opponent": "Slagelse 2",
+          "organiser": "Slagelse",
+          "venue": "Slagelse Hallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514741",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514741,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-07",
+          "time": "14:15",
+          "home": "Solrød Strand 4",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Solrød Strand 4",
+          "organiser": "Ølstykke",
+          "venue": "Ølstykke Badmintonhal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514749",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514749,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-07",
+          "time": "15:30",
+          "home": "Hørsholm 2",
+          "away": "Ølstykke 2",
+          "isHome": true,
+          "opponent": "Ølstykke 2",
+          "organiser": "Ølstykke",
+          "venue": "Ølstykke Badmintonhal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514750",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514750,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "09:00",
+          "home": "Hørsholm 2",
+          "away": "Ganløse 1",
+          "isHome": true,
+          "opponent": "Ganløse 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 5-7",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514754",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514754,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-03-21",
+          "time": "12:00",
+          "home": "Gørlev 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Gørlev 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 5-7",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514756",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514756,1151,",
+          "games": []
+        }
+      ],
+      "players": []
+    }
+  ]
+}
