@@ -608,7 +608,10 @@ def fetch_tournaments(token, season, dump, max_pages=20):
 # Arrangørens navn → stednavn → koordinater via Danmarks Adressers Web API (api.dataforsyningen.dk, åbent, ingen nøgle).
 # Resultater gemmes i data/steder.json (slås kun op én gang). Rettelser i hånden: data/steder_rettelser.json
 #   {"Rosendal": {"sted": "Gentofte"}}  eller  {"KMB2010": {"lat": 55.68, "lon": 12.57}}  eller  {"Kredsmatch": {"ukendt": true}}
-DAWA = "https://api.dataforsyningen.dk"
+# DAWA (api.dataforsyningen.dk) blev lukket i 2026 (svarer 410 Gone) — vi bruger OpenStreetMap's Nominatim.
+NOMINATIM = "https://nominatim.openstreetmap.org/search"
+NOM_UA = "hoebk-app/1.0 (github.com/christoffergroenfeldt-cyber/Hoebk)"   # påkrævet af Nominatims brugsregler
+NET_FAIL = [0]   # tæller netværksfejl, så vi ikke gemmer "ukendt" pga. en midlertidig fejl
 HOME = (55.8806, 12.5007)          # Hørsholm
 ABROAD_RE = re.compile(r"\b(International|Open|IC|IS|FS|German|Irish|Swedish|Norwegian|Polish|Czech|Hellas|Bulgarien|Ungarn|"
                        r"Türkiye|Croatian|Lithuanian|Belgian|Dutch|Artic|Ruhr)\b")
@@ -671,29 +674,45 @@ def geo_time_left():
     return time.time() < GEO_DEADLINE[0]
 
 
-def dawa(path):
+_NOM_LAST = [0.0]
+_NOM_CACHE = {}
+
+
+def nominatim(q):
+    """Første danske træf for q fra Nominatim: {lat, lon, region, kind} eller None. Højst 1 kald/sek."""
+    if q in _NOM_CACHE:
+        return _NOM_CACHE[q]
+    wait = 1.1 - (time.time() - _NOM_LAST[0])
+    if wait > 0:
+        time.sleep(wait)
+    _NOM_LAST[0] = time.time()
+    url = NOMINATIM + "?" + urllib.parse.urlencode({"q": q, "countrycodes": "dk", "format": "jsonv2",
+                                                    "addressdetails": 1, "limit": 1, "accept-language": "da"})
     try:
-        status, final, body = http(DAWA + path, extra_headers={"Accept": "application/json"}, timeout=8)
-        return json.loads(body)
+        status, final, body = http(url, extra_headers={"Accept": "application/json", "User-Agent": NOM_UA}, timeout=12)
+        res = json.loads(body)
     except Exception:
+        NET_FAIL[0] += 1
         return None
+    hit = None
+    if isinstance(res, list) and res:
+        r = res[0]
+        addr = r.get("address") or {}
+        hit = {"lat": round(float(r["lat"]), 4), "lon": round(float(r["lon"]), 4),
+               "region": (addr.get("state") or "").replace("Region ", ""),
+               "kind": r.get("category", "") + "/" + r.get("type", ""),
+               "by": addr.get("town") or addr.get("city") or addr.get("village") or addr.get("suburb") or ""}
+    _NOM_CACHE[q] = hit
+    return hit
 
 
 def geocode(name):
-    q = urllib.parse.quote(name)
-    for path in (f"/postnumre?navn={q}", f"/stednavne2?navn={q}", f"/postnumre/autocomplete?q={q}"):
-        res = dawa(path)
-        time.sleep(0.05)
-        c = _find_center(res) if res else None
-        if c:
-            return {"lon": c[0], "lat": c[1], "via": path.split("?")[0]}
-    return None
+    g = nominatim(name)
+    return dict(g, via="nominatim") if g else None
 
 
-def region_of(lat, lon):
-    res = dawa(f"/regioner/reverse?x={lon}&y={lat}")
-    name = (res or {}).get("navn", "") if isinstance(res, dict) else ""
-    return name.replace("Region ", "") or ""
+def region_of(lat, lon, hint=""):
+    return hint or ""
 
 
 def km_from_home(lat, lon):
@@ -755,21 +774,28 @@ def locate_matches(teams, data_dir):
                     entry = {"lat": fix["lat"], "lon": fix["lon"], "precision": "rettet"}
                 if entry is None and re.search(r"hørsholm", venue, re.I):
                     entry = {"lat": HOME_HALL[0], "lon": HOME_HALL[1], "precision": "hal"}
+                fails = NET_FAIL[0]
+                towns = (place_candidates(org) + place_candidates(m["home"] if not m["isHome"] else m["away"]))[:3]
                 if entry is None and hall:
-                    g = geocode(hall)
-                    if g:
-                        entry = {"lat": round(g["lat"], 4), "lon": round(g["lon"], 4), "precision": "hal"}
+                    for q in [f"{hall}, {towns[0]}" if towns else None, hall]:
+                        g = geocode(q) if q else None
+                        if g and not g["kind"].startswith("boundary/") and not g["kind"].startswith("place/"):
+                            entry = {"lat": g["lat"], "lon": g["lon"], "precision": "hal", "by": g.get("by", "")}
+                            break
                 if entry is None:
-                    for cand in (place_candidates(org) + place_candidates(m["home"] if not m["isHome"] else m["away"]))[:4]:
+                    for cand in towns:
                         g = geocode(cand)
                         if g:
-                            entry = {"lat": round(g["lat"], 4), "lon": round(g["lon"], 4), "precision": "by", "by": cand}
+                            entry = {"lat": g["lat"], "lon": g["lon"], "precision": "by", "by": cand}
                             break
                 if entry:
                     mins, km = (0, 0) if entry["precision"] == "hal" and re.search(r"hørsholm", venue, re.I) else drive(entry["lat"], entry["lon"])
                     entry.update({"min": mins, "km": km})
-                else:
+                elif NET_FAIL[0] == fails:
                     entry = {"ukendt": True}
+                if entry is None:          # netværksfejl — prøv igen næste gang
+                    m["travel"] = {"precision": "ukendt", "query": ", ".join(x for x in [hall, org] if x)}
+                    continue
                 cache[key] = entry
             e = cache[key]
             hall = hall_name(venue)
@@ -799,26 +825,25 @@ def locate_tournaments(tours, data_dir):
             if ABROAD_RE.search(org) and not re.search(r"Denmark|Danish", org):
                 entry = {"abroad": True}
             else:
+                fails = NET_FAIL[0]
                 for cand in place_candidates(org)[:4]:
                     g = geocode(cand)
                     if g:
-                        entry = {"sted": cand, "lat": round(g["lat"], 4), "lon": round(g["lon"], 4), "via": g["via"]}
-                        entry["region"] = region_of(entry["lat"], entry["lon"])
+                        entry = {"sted": cand, "lat": g["lat"], "lon": g["lon"], "region": g["region"], "via": g["via"]}
                         break
-                if entry is None:
+                if entry is None and NET_FAIL[0] == fails:
                     entry = {"ukendt": True, "prøvet": place_candidates(org)[:4]}
-            cache[org] = entry
+            if entry is not None:
+                cache[org] = entry
         e = dict(cache.get(org, {}))
         if fix:                                   # håndrettelse vinder altid
             if fix.get("sted") and not ("lat" in fix):
                 g = geocode(fix["sted"])
-                e = {"sted": fix["sted"], "lat": round(g["lat"], 4), "lon": round(g["lon"], 4)} if g else {"ukendt": True}
-                if g:
-                    e["region"] = region_of(e["lat"], e["lon"])
+                e = {"sted": fix["sted"], "lat": g["lat"], "lon": g["lon"], "region": g["region"]} if g else {"ukendt": True}
             else:
                 e = dict(fix)
                 if "lat" in e and "region" not in e:
-                    e["region"] = region_of(e["lat"], e["lon"])
+                    e["region"] = ""
         if "lat" in e:
             if "min" not in e and org in cache and "lat" in cache[org] and geo_time_left():
                 cache[org]["min"], cache[org]["roadKm"] = drive(e["lat"], e["lon"])
@@ -979,7 +1004,7 @@ def main():
     # ---- Individuelle turneringer (hele landets sæsonplan) ----
     if opts.tournaments:
         try:
-            GEO_DEADLINE[0] = time.time() + 8 * 60
+            GEO_DEADLINE[0] = time.time() + 6 * 60
             tours = fetch_tournaments(token, opts.season, dump)
             try:
                 locate_tournaments(tours, os.path.dirname(opts.out) or ".")
@@ -998,7 +1023,7 @@ def main():
     if not GEO_DEADLINE[0]:
         GEO_DEADLINE[0] = time.time() + 4 * 60
     else:
-        GEO_DEADLINE[0] = max(GEO_DEADLINE[0], time.time() + 3 * 60)   # holdkampe går forud — altid mindst 3 min
+        GEO_DEADLINE[0] = max(GEO_DEADLINE[0], time.time() + 6 * 60)   # holdkampe går forud — altid mindst 6 min
     try:
         locate_matches(out_teams, os.path.dirname(opts.out) or ".")
     except Exception as e:  # må ikke vælte holdkampene

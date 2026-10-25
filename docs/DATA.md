@@ -125,7 +125,7 @@ Tournaments without a badmintonplayer.dk id get a synthetic id `x<sha1>` built f
 
 ## `data/steder.json` and `data/steder_rettelser.json` — place lookups
 
-`steder.json` is a cache written by the fetcher: one entry per tournament organiser, and per team-match venue under the key `hal|<venue>|<organiser>`. Lookups use DAWA (api.dataforsyningen.dk) for coordinates and region and the public OSRM server for drive time. Entries are kept between runs, so each place is looked up once; delete an entry to force a new lookup. Each run has a time budget (8 min for tournaments, at least 3 min for match venues); what doesn't fit is looked up on the next run.
+`steder.json` is a cache written by the fetcher: one entry per tournament organiser, and per team-match venue under the key `hal|<venue>|<organiser>`. Lookups use OpenStreetMap's Nominatim (coordinates, region; max 1 request/second, identified by User-Agent) and the public OSRM server for drive time. DAWA (api.dataforsyningen.dk) was used first but has been shut down (HTTP 410). Network errors are never cached — only real "not found" results are stored as `ukendt`. Entries are kept between runs, so each place is looked up once; delete an entry to force a new lookup. Each run has a time budget (6 min for tournaments, at least 6 min for match venues); what doesn't fit is looked up on the next run.
 
 `steder_rettelser.json` is edited by hand and wins over the cache — use it when a place lands wrong:
 
