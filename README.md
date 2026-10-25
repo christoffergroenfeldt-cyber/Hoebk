@@ -13,7 +13,7 @@ Web app and data pipeline for **Hørsholm Badminton Klub**. It shows every Hørs
 | **Kalender** | Day / week / month / season view of all matches and weekly training, filter by team |
 | **Min side** | Log in with a code sent by email; answer *Kan spille / Måske / Kan ikke* for matches and *Kommer / Kommer ikke* for training |
 | **Rangliste** | Club ranking across all teams: games won, win %, total points, average per game; All / Senior / Youth |
-| **Turneringer** | All individual tournaments in Denmark grouped by level; matching ones on each player's profile; optional layer in the calendar |
+| *Turneringer* (via Kalender) | All individual tournaments in Denmark grouped by level; matching ones on each player's profile and Min side; optional layer in the calendar |
 | **Spillere** | Search every player → profile with stats, national rankings (single/double/mix), results by discipline, every game this season |
 
 ## How it fits together

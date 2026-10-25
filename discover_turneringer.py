@@ -65,17 +65,22 @@ def main():
     except Exception as e:  # noqa
         print("ingen spillere.json:", e)
 
-    tests = [
-        ("all_2026", {}),
-        ("all_2026_page1", {"page": 1}),
-        ("club_1151", {"clubid": "1151"}),
-        ("dates", {"strfrom": "01-11-2026", "strto": "31-12-2026"}),
+    tests = [(f"page{n}", {"page": n}) for n in range(0, 7)] + [
+        ("spring", {"strfrom": "01-01-2027", "strto": "30-06-2027"}),
     ]
     for name, kw in tests:
         if kw is None:
             continue
         time.sleep(1.2)
-        save(f"seasonplan_{name}.json", seasonplan(token, **kw))
+        body = seasonplan(token, **kw)
+        save(f"seasonplan_{name}.json", body)
+        try:
+            h = json.loads(body)["d"]["html"]
+            rows = f.parse_seasonplan(h, "2026")
+            pages = sorted(set(int(x) for x in re.findall(r"ShowPage\((\d+)\)", h)))
+            save(f"stats_{name}.txt", f"rows={len(rows)} first={rows[0]['start'] if rows else '-'} last={rows[-1]['start'] if rows else '-'} pages={pages}")
+        except Exception as e:  # noqa
+            save(f"stats_{name}.txt", f"parse error {e}")
 
 
 if __name__ == "__main__":
