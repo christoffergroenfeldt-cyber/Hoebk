@@ -109,6 +109,14 @@ What triggers a mail: entry deadline or dates changed, classes added/removed, to
 
 Gmail accounts can send ~100 mails a day from Apps Script; login codes and notifications share that quota. If it runs out, notifications for the day are skipped (counted as `skipped`).
 
+### Push notifications on the phone
+
+Min side → **Notifikationer** → *🔔 Slå notifikationer til*. On iPhone this only works when HØBK is added to the home screen (iOS 16.4+) and opened from the icon — the app explains this when opened in Safari. The phone's push address is stored in the sheet tab **Push** (email, player, endpoint, keys, device); *Send også en mail* is stored in **Indstillinger** (default on).
+
+How it's sent: the script can't sign web-push messages, so `notify` answers GitHub with a list of push jobs and `notify_turneringer.py` sends them with `pywebpush`, signed with the VAPID key pair (public key in `config.json` → `vapidPublicKey`, private key in the GitHub secret `VAPID_PRIVATE`). Addresses that the push service reports as gone (404/410 — app deleted or notifications switched off) are removed via `pushGone`. Logging out also switches notifications off on that phone. `sw.js` is the service worker; it only shows notifications and never caches anything.
+
+To replace the key pair: generate a new P-256 key, put the public key (base64url, uncompressed point) in `config.json` and the private key (base64url, 32 bytes) in `VAPID_PRIVATE`. Everyone must then switch notifications on again.
+
 ## Changing the script later
 
 Saving the code is not enough — the live web app keeps running the old version until you publish a new one:

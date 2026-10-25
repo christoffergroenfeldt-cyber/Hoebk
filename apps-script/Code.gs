@@ -26,6 +26,10 @@
  *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
  *  follow   {token, tid, title, on}              → følg/stop med at følge en turnering (fanen Følger)
  *  notify   {key, items[{ids[], title, lines[], url}]} → GitHub sender nyt om turneringer; mail til dem der følger
+ *           svarer med push-jobs, som GitHub sender videre som push-notifikationer (kræver VAPID-nøglen)
+ *  push     {token, sub{endpoint, keys{p256dh, auth}}, on, device} → tilmeld/afmeld push på en telefon
+ *  prefs    {token, mail}                        → mail ved nyt til/fra (push påvirkes ikke)
+ *  pushGone {key, endpoints[]}                   → GitHub melder døde push-adresser, de slettes
  *  GET ?action=follows&key=NØGLE → hvilke turneringer der følges (kun id'er, ingen e-mails)
  *  logout   {token}
  *  GET ?action=status          → seneste svar pr. (begivenhed, spiller) — offentlig, uden e-mails
@@ -42,7 +46,9 @@ var SHEETS = {
   Ledere: ['email', 'navn', 'hold'],
   Opstillinger: ['tidspunkt', 'eventId', 'hold', 'status', 'gemtAf', 'data'],
   'Følger': ['email', 'playerId', 'playerName', 'turneringId', 'titel', 'tidspunkt'],
-  Notifikationer: ['tidspunkt', 'email', 'emne', 'turneringer']
+  Notifikationer: ['tidspunkt', 'email', 'emne', 'turneringer'],
+  Push: ['email', 'playerId', 'endpoint', 'p256dh', 'auth', 'tidspunkt', 'enhed'],
+  Indstillinger: ['email', 'mail']
 };
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
 // Den FØRSTE e-mail der bekræfter navnet (fanen Spillere) ejer rollen — en anden e-mail med samme navn bliver ikke admin.
@@ -271,6 +277,51 @@ function follow_(b) {
   });
 }
 
+function mailOn_(email) {
+  var em = String(email || '').toLowerCase(), on = true;
+  data_('Indstillinger').forEach(function (r) { if (String(r[0]).toLowerCase() === em) on = r[1] !== false && String(r[1]).toUpperCase() !== 'FALSE'; });
+  return on;
+}
+function settings_(email) {
+  var em = String(email || '').toLowerCase();
+  return { mail: mailOn_(em), pushDevices: data_('Push').filter(function (r) { return String(r[0]).toLowerCase() === em; }).length };
+}
+function prefs_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  return withLock_(function () {
+    var sh = sh_('Indstillinger'), rows = data_('Indstillinger'), em = ses.email.toLowerCase();
+    for (var i = rows.length - 1; i >= 0; i--) if (String(rows[i][0]).toLowerCase() === em) sh.deleteRow(i + 2);
+    sh.appendRow([em, !!b.mail]);
+    return { ok: true, settings: settings_(em) };
+  });
+}
+function push_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var sub = b.sub || {}, keys = sub.keys || {}, ep = clean_(sub.endpoint, 600);
+  if (!/^https:\/\//.test(ep)) return { ok: false, error: 'Ugyldig push-adresse' };
+  return withLock_(function () {
+    var sh = sh_('Push'), rows = data_('Push'), em = ses.email.toLowerCase();
+    for (var i = rows.length - 1; i >= 0; i--) if (String(rows[i][2]) === ep) sh.deleteRow(i + 2);
+    if (b.on) {
+      if (!keys.p256dh || !keys.auth) return { ok: false, error: 'Ugyldig push-adresse' };
+      sh.appendRow([em, safe_(ses.playerId), ep, clean_(keys.p256dh, 200), clean_(keys.auth, 100), new Date(), safe_(clean_(b.device, 60))]);
+    }
+    return { ok: true, settings: settings_(em) };
+  });
+}
+function pushGone_(b) {
+  var key = PropertiesService.getScriptProperties().getProperty('KEY');
+  if (!key || b.key !== key) return { ok: false, error: 'Forkert nøgle' };
+  var gone = (b.endpoints || []).map(String);
+  return withLock_(function () {
+    var sh = sh_('Push'), rows = data_('Push'), n = 0;
+    for (var i = rows.length - 1; i >= 0; i--) if (gone.indexOf(String(rows[i][2])) >= 0) { sh.deleteRow(i + 2); n++; }
+    return { ok: true, removed: n };
+  });
+}
+
 // Kaldes af GitHub (notify_turneringer.py) efter hver dataopdatering — én samlet mail pr. person.
 function notify_(b) {
   var key = PropertiesService.getScriptProperties().getProperty('KEY');
@@ -286,10 +337,19 @@ function notify_(b) {
       if (byEmail[em].items.indexOf(it) < 0) byEmail[em].items.push(it);
     });
   });
-  var sent = 0, skipped = 0, log = sh_('Notifikationer');
+  var sent = 0, skipped = 0, log = sh_('Notifikationer'), pushRows = data_('Push'), jobs = [];
   Object.keys(byEmail).forEach(function (em) {
-    if (MailApp.getRemainingDailyQuota() < 2) { skipped++; return; }
     var p = byEmail[em], list = p.items;
+    pushRows.forEach(function (r) {
+      if (String(r[0]).toLowerCase() !== em) return;
+      list.slice(0, 5).forEach(function (it) {
+        jobs.push({ endpoint: String(r[2]), keys: { p256dh: String(r[3]), auth: String(r[4]) },
+                    title: clean_(it.title, 80), body: (it.lines || []).slice(0, 3).map(function (l) { return clean_(l, 120); }).join('\n'),
+                    url: clean_(it.url, 200), tag: 't' + String(it.ids[0]) });
+      });
+    });
+    if (!mailOn_(em)) return;
+    if (MailApp.getRemainingDailyQuota() < 2) { skipped++; return; }
     var subject = list.length === 1 ? 'HØBK · ' + clean_(list[0].title, 80) + ': ' + clean_(list[0].lines[0] || 'nyt', 80)
                                     : 'HØBK · nyt om ' + list.length + ' turneringer du følger';
     var body = 'Hej ' + p.name.split(' ')[0] + '\n\n' + list.map(function (it) {
@@ -301,7 +361,7 @@ function notify_(b) {
     log.appendRow([new Date(), em, subject, list.map(function (it) { return it.ids[0]; }).join(', ')]);
     sent++;
   });
-  return { ok: true, sent: sent, skipped: skipped };
+  return { ok: true, sent: sent, skipped: skipped, push: jobs };
 }
 
 function register_(b) {
@@ -328,7 +388,10 @@ function doPost(e) {
       case 'setLeader': return json_(setLeader_(b));
       case 'follow': return json_(follow_(b));
       case 'notify': return json_(notify_(b));
-      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId), follows: follows_(s.email) } : { ok: false, error: 'login' });
+      case 'push': return json_(push_(b));
+      case 'prefs': return json_(prefs_(b));
+      case 'pushGone': return json_(pushGone_(b));
+      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId), follows: follows_(s.email), settings: settings_(s.email) } : { ok: false, error: 'login' });
       case 'logout':
         var se = session_(b.token); if (se) sh_('Sessioner').getRange(se.row, 7).setValue(false);
         return json_({ ok: true });

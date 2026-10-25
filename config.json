@@ -1,4 +1,5 @@
 {
-  "_info": "registrationUrl = webapp-URL fra Google Apps Script (slutter på /exec). Tom = tilmelding slået fra.",
-  "registrationUrl": "https://script.google.com/macros/s/AKfycbzadsuKWcskT_416_66lbg0NNHl2NumY8-4HGfryTiYWxV1cjoKpt-rLp7SfKEK9SxRrQ/exec"
+  "_info": "registrationUrl = webapp-URL fra Google Apps Script (slutter p\u00e5 /exec). Tom = tilmelding sl\u00e5et fra.",
+  "registrationUrl": "https://script.google.com/macros/s/AKfycbzadsuKWcskT_416_66lbg0NNHl2NumY8-4HGfryTiYWxV1cjoKpt-rLp7SfKEK9SxRrQ/exec",
+  "vapidPublicKey": "BDhTlrSkfkQbuBZBUrblIT0PdGMEPP0IBBS0IgwSOFCvLIhU5GCBv-hjFmP5B0j03Pw1wVuMmei6UdnLZmeTdoc"
 }

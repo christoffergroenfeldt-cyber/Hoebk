@@ -667,6 +667,98 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     h += '<p class="note">Niveau ud fra spillerens rangliste-kategori på badmintonplayer.dk. Tjek altid indbydelsen før tilmelding.</p>';
     return h;
   }
+  // ---------- Push-notifikationer ----------
+  // iPhone: kun når appen er føjet til hjemmeskærmen (iOS 16.4+). Service workeren (sw.js) viser notifikationerne.
+  var PUSH = { state: 'ukendt', busy: false };   // ukendt | ikke-understøttet | hjemmeskaerm | blokeret | fra | til
+  var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  var swReg = null;
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(function (r) { swReg = r; checkPush(); }).catch(function () { PUSH.state = 'ikke-understøttet'; });
+  }
+  function checkPush() {
+    var before = PUSH.state;
+    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) PUSH.state = isIOS && !standalone ? 'hjemmeskaerm' : 'ikke-understøttet';
+    else if (Notification.permission === 'denied') PUSH.state = 'blokeret';
+    else if (!swReg) PUSH.state = 'ukendt';
+    else return swReg.pushManager.getSubscription().then(function (sub) {
+      PUSH.state = sub && Notification.permission === 'granted' ? 'til' : 'fra';
+      if (PUSH.state !== before && location.hash.indexOf('#/tilmeld') === 0) route(true);
+    }).catch(function () {});
+    if (PUSH.state !== before && location.hash.indexOf('#/tilmeld') === 0) route(true);
+  }
+  function b64u(s) {
+    var p = '='.repeat((4 - s.length % 4) % 4), b = atob((s + p).replace(/-/g, '+').replace(/_/g, '/'));
+    var a = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return a;
+  }
+  function deviceName() {
+    var u = navigator.userAgent;
+    return /iPhone/.test(u) ? 'iPhone' : /iPad/.test(u) ? 'iPad' : /Android/.test(u) ? 'Android' : /Mac/.test(u) ? 'Mac' : /Windows/.test(u) ? 'Windows' : 'Browser';
+  }
+  function pushOn() {
+    if (PUSH.busy || !swReg || !REG.vapid || !ME || !ME.token) return;
+    PUSH.busy = true; route(true);
+    Notification.requestPermission().then(function (perm) {
+      if (perm !== 'granted') { PUSH.state = perm === 'denied' ? 'blokeret' : 'fra'; throw new Error('perm'); }
+      return swReg.pushManager.getSubscription().then(function (old) {
+        return old || swReg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64u(REG.vapid) });
+      });
+    }).then(function (sub) {
+      return api({ action: 'push', token: ME.token, on: true, sub: sub.toJSON(), device: deviceName() }).then(function (res) {
+        if (!res || !res.ok) { sub.unsubscribe(); throw new Error(res && res.error === 'Ukendt handling' ? 'server' : (res && res.error) || 'fejl'); }
+        if (res.settings) { ME.settings = res.settings; saveMe(); }
+        PUSH.state = 'til';
+        swReg.showNotification('HØBK', { body: 'Notifikationer er slået til på denne ' + deviceName() + '.', icon: 'icon-192.png' });
+      });
+    }).catch(function (e) {
+      if (e.message === 'perm') toast(PUSH.state === 'blokeret' ? 'Notifikationer er blokeret — slå dem til under Indstillinger' : 'Notifikationer blev ikke slået til');
+      else if (e.message === 'server') toast('Klubbens server skal opdateres, før notifikationer virker');
+      else toast('Kunne ikke slå notifikationer til');
+    }).then(function () { PUSH.busy = false; route(true); });
+  }
+  function pushOff() {
+    if (PUSH.busy || !swReg) return;
+    PUSH.busy = true; route(true);
+    swReg.pushManager.getSubscription().then(function (sub) {
+      if (!sub) return;
+      var j = sub.toJSON();
+      return sub.unsubscribe().then(function () { return api({ action: 'push', token: ME.token, on: false, sub: j }); })
+        .then(function (res) { if (res && res.settings) { ME.settings = res.settings; saveMe(); } });
+    }).catch(function () {}).then(function () { PUSH.busy = false; PUSH.state = 'fra'; toast('Notifikationer er slået fra på denne telefon'); route(true); });
+  }
+  function setMailPref(on) {
+    if (!ME || !ME.token) return;
+    var before = ME.settings; ME.settings = Object.assign({}, ME.settings || {}, { mail: on }); saveMe(); route(true);
+    api({ action: 'prefs', token: ME.token, mail: on }).then(function (res) {
+      if (res && res.ok) { ME.settings = res.settings; saveMe(); toast(on ? 'Du får mail ved nyt' : 'Ingen mails — kun notifikationer'); }
+      else { ME.settings = before; saveMe(); route(true); toast(res && res.error === 'Ukendt handling' ? 'Klubbens server skal opdateres først' : 'Kunne ikke gemme'); }
+    }).catch(function () { ME.settings = before; saveMe(); route(true); toast('Kunne ikke gemme — tjek forbindelsen'); });
+  }
+  function pushBlock() {
+    if (!REG.url) return '';
+    var st = PUSH.state, mail = !ME.settings || ME.settings.mail !== false;
+    var h = '<span class="lbl">Notifikationer</span><div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px">';
+    if (st === 'hjemmeskaerm') {
+      h += '<b style="font-size:14px">Få notifikationer på din iPhone</b><span class="s">Føj appen til hjemmeskærmen: tryk <b>Del</b> (firkanten med pilen) → <b>Føj til hjemmeskærm</b>. Åbn HØBK fra ikonet og kom tilbage hertil.</span>';
+    } else if (st === 'ikke-understøttet') {
+      h += '<span class="s">Denne browser kan ikke vise notifikationer — du får mail i stedet.</span>';
+    } else if (st === 'blokeret') {
+      h += '<span class="s">Notifikationer er blokeret for HØBK. Slå dem til i telefonens <b>Indstillinger → Notifikationer → HØBK</b> og tryk så her igen.</span>' +
+        '<button class="rb" data-act="pushon" style="align-self:flex-start;min-height:44px">Prøv igen</button>';
+    } else if (st === 'til') {
+      h += '<div style="display:flex;align-items:center;gap:10px;justify-content:space-between"><span class="col"><b style="font-size:14px">🔔 Slået til på denne ' + esc(deviceName()) + '</b>' +
+        '<span class="xs">Nyt om turneringer du følger kommer som notifikation.</span></span>' +
+        '<button class="rb" data-act="pushoff" ' + (PUSH.busy ? 'disabled' : '') + ' style="min-height:40px">Slå fra</button></div>';
+    } else {
+      h += '<span class="s">Få besked på telefonen, når der er nyt om turneringer du følger — ændringer, program, deltagerliste og frister.</span>' +
+        '<button class="rb ja" data-act="pushon" aria-pressed="true" ' + (PUSH.busy || st === 'ukendt' ? 'disabled' : '') + ' style="align-self:flex-start;min-height:46px">' + (PUSH.busy ? 'Slår til …' : '🔔 Slå notifikationer til') + '</button>';
+    }
+    h += '<label style="display:flex;align-items:center;gap:10px;font-size:14px;border-top:1px solid var(--line2);padding-top:10px"><input type="checkbox" id="mailpref" ' + (mail ? 'checked' : '') + ' style="width:20px;height:20px">' +
+      '<span>Send også en mail til ' + esc(ME.email || 'mig') + '</span></label></div>';
+    return h;
+  }
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') checkPush(); });
+
   // ---------- Følg turneringer ----------
   function follows() { return (ME && ME.follows) || []; }
   function isFollowed(id) { return follows().indexOf(id) >= 0; }
@@ -932,6 +1024,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     return fetch('config.json' + bust).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
       .then(function (cfg) {
         REG.url = (cfg && cfg.registrationUrl) || '';
+        REG.vapid = (cfg && cfg.vapidPublicKey) || '';
         var src = REG.url ? REG.url + '?action=status' : 'data/tilmeldinger.json' + bust;
         return fetch(src).then(function (r) { return r.json(); })
           .catch(function () { return REG.url ? fetch('data/tilmeldinger.json' + bust).then(function (r) { return r.json(); }) : null; });
@@ -1076,6 +1169,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.t.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveTxt(u.m) && !u.m.isHome ? driveTxt(u.m).replace(' i bil', '') + ' · ' : '') + u.m.venue) + '</span></span>' +
         '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' + regBlock('match', matchEid(u.m), label, false) + '</div>';
     }).join('') : '<p class="empty">Ingen kommende kampe for dine hold.</p>';
+    h += pushBlock();
     h += followedBlock();
     if (P) h += playerTourBlock(P, 4);
     // Træning
@@ -1152,7 +1246,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   function refreshRole() {
     if (!REG.url || !ME || !ME.token) return Promise.resolve();
     return api({ action: 'me', token: ME.token }).then(function (res) {
-      if (res && res.ok) { ME.role = res.role || null; if (Array.isArray(res.follows)) ME.follows = res.follows; saveMe(); route(true); }
+      if (res && res.ok) { ME.role = res.role || null; if (Array.isArray(res.follows)) ME.follows = res.follows; if (res.settings) ME.settings = res.settings; saveMe(); route(true); }
       else if (res && res.error === 'login') { ME = null; saveMe(); route(true); }
     }).catch(function () {});
   }
@@ -1574,9 +1668,17 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (b.dataset.reg) { sendReg(b.dataset.reg, b.dataset.eid, b.dataset.status, b.dataset.label); return; }
     if (b.dataset.me) { setMe(b.dataset.me, D.players[b.dataset.me].name); return; }
     if (b.dataset.act === 'logout') {
-      if (REG.url && ME && ME.token) api({ action: 'logout', token: ME.token }).catch(function () {});
+      if (REG.url && ME && ME.token) {
+        var tok = ME.token;
+        // Notifikationer hører til den indloggede — afmeld denne telefon ved log ud
+        (swReg && PUSH.state === 'til' ? swReg.pushManager.getSubscription().then(function (sub) {
+          if (!sub) return; var j = sub.toJSON(); return sub.unsubscribe().then(function () { return api({ action: 'push', token: tok, on: false, sub: j }); });
+        }).catch(function () {}) : Promise.resolve()).then(function () { PUSH.state = 'fra'; return api({ action: 'logout', token: tok }); }).catch(function () {});
+      }
       ME = null; saveMe(); UI.step = 'name'; toast('Du er logget ud'); route(); return;
     }
+    if (b.dataset.act === 'pushon') { pushOn(); return; }
+    if (b.dataset.act === 'pushoff') { pushOff(); return; }
     if (b.dataset.act === 'allteams') { UI.allTeams = !UI.allTeams; route(true); return; }
     if (b.dataset.group) {
       var gi = ME.groups.indexOf(b.dataset.group);
@@ -1589,6 +1691,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (b.dataset.filter) UI.filter = b.dataset.filter;
     route();
   });
+
+  $main.addEventListener('change', function (e) { if (e.target && e.target.id === 'mailpref') setMailPref(e.target.checked); });
 
   document.getElementById('refresh').addEventListener('click', function () {
     var btn = this; if (btn.classList.contains('spin')) return;

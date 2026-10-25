@@ -51,7 +51,10 @@ jobs:
         env:
           REG_URL: ${{ secrets.REG_URL }}
           REG_KEY: ${{ secrets.REG_KEY }}
-        run: python notify_turneringer.py --old /tmp/turneringer_old.json --new data/turneringer.json
+          VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+        run: |
+          pip install -q pywebpush || echo "pywebpush kunne ikke installeres — kun mail"
+          python notify_turneringer.py --old /tmp/turneringer_old.json --new data/turneringer.json
 
       - name: Gem rå HTML til fejlsøgning
         if: failure() || github.event.inputs.debug == 'true'

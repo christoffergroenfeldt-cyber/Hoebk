@@ -12,6 +12,7 @@ Køres i GitHub Actions lige efter fetch_holdkampe.py --tournaments:
 4. Sender nyt om de turneringer der følges til Apps Script (action notify), som mailer dem der følger.
 
 Miljø: REG_URL, REG_KEY (samme secrets som tilmeldingerne). Uden dem springes afsendelsen over.
+       VAPID_PRIVATE: privat nøgle til push-notifikationer (offentlig nøgle står i config.json). Uden den: kun mail.
 """
 import argparse
 import json
@@ -206,10 +207,50 @@ def main():
         req = urllib.request.Request(url, data=body, headers={"Content-Type": "text/plain;charset=utf-8", "User-Agent": "hoebk-notify/1.0"})
         with urllib.request.urlopen(req, timeout=60) as r:
             res = json.loads(r.read().decode("utf-8"))
-        print(f"Notifikationer: {len(items)} turneringer → {res}")
+        jobs = res.pop("push", []) if isinstance(res, dict) else []
+        print(f"Notifikationer: {len(items)} turneringer → {res}, {len(jobs)} push")
     except Exception as e:
         print(f"ADVARSEL: afsendelse fejlede: {e}", file=sys.stderr)
+        return 0
+    if jobs:
+        send_push(jobs, url, key)
     return 0
+
+
+def send_push(jobs, url, key):
+    vapid = os.environ.get("VAPID_PRIVATE", "").strip()
+    if not vapid:
+        print("Push springes over: VAPID_PRIVATE er ikke sat som GitHub-secret.")
+        return
+    try:
+        from pywebpush import webpush, WebPushException
+    except ImportError:
+        print("ADVARSEL: pywebpush mangler (pip install pywebpush)", file=sys.stderr)
+        return
+    ok, gone = 0, []
+    for j in jobs:
+        payload = json.dumps({"title": j.get("title", "HØBK"), "body": j.get("body", ""), "url": j.get("url", APP_URL), "tag": j.get("tag")},
+                             ensure_ascii=False)
+        try:
+            webpush({"endpoint": j["endpoint"], "keys": j["keys"]}, payload, vapid_private_key=vapid,
+                    vapid_claims={"sub": "mailto:noreply@hoebk.dk"}, ttl=86400, timeout=20)
+            ok += 1
+        except WebPushException as e:
+            code = getattr(e.response, "status_code", None)
+            if code in (404, 410):                       # telefonen har afmeldt / appen slettet
+                gone.append(j["endpoint"])
+            else:
+                print(f"ADVARSEL: push fejlede ({code}): {str(e)[:120]}", file=sys.stderr)
+        except Exception as e:
+            print(f"ADVARSEL: push fejlede: {str(e)[:120]}", file=sys.stderr)
+    print(f"Push: {ok} sendt, {len(gone)} døde adresser fjernes")
+    if gone:
+        try:
+            body = json.dumps({"action": "pushGone", "key": key, "endpoints": sorted(set(gone))}).encode("utf-8")
+            req = urllib.request.Request(url, data=body, headers={"Content-Type": "text/plain;charset=utf-8", "User-Agent": "hoebk-notify/1.0"})
+            urllib.request.urlopen(req, timeout=30).read()
+        except Exception as e:
+            print(f"ADVARSEL: kunne ikke fjerne døde push-adresser: {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":

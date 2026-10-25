@@ -28,8 +28,9 @@ Settings → Secrets and variables → Actions.
 | `BRUGER` | holdkampe | badmintonplayer.dk login email (optional — only used if public data fails) |
 | `BP_PWD` | holdkampe | badmintonplayer.dk password (optional) |
 | `DISCORD_WEBHOOK` | holdkampe | Discord channel webhook for ✅/❌ messages (optional) |
-| `REG_URL` | tilmeldinger | Apps Script web-app URL ending in `/exec` |
-| `REG_KEY` | tilmeldinger | Key printed by `setup()` in Apps Script |
+| `REG_URL` | tilmeldinger, holdkampe (notifications) | Apps Script web-app URL ending in `/exec` |
+| `REG_KEY` | tilmeldinger, holdkampe (notifications) | Key printed by `setup()` in Apps Script |
+| `VAPID_PRIVATE` | holdkampe (push) | Private web-push key (base64url). The public half is `vapidPublicKey` in `config.json`. Without it only mails are sent |
 
 GitHub stores secret names in upper case — `secrets.BRUGER` reads the secret created as "Bruger".
 
