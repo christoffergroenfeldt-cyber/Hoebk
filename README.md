@@ -34,7 +34,7 @@ Everything runs on free services: GitHub Actions and Pages (free for public repo
 | Path | Purpose |
 |---|---|
 | `index.html` | The whole app (HTML, CSS, JS in one file) |
-| `manifest.webmanifest`, `icon*.png`, `icon.svg` | Home-screen install |
+| `manifest.webmanifest`, `icon*.png`, `favicon.ico`, `logo.png` | Club logo (from hoebk.dk, originals in `assets/hoebk/`, re-fetch with the *Hent logo fra hoebk.dk* workflow) — header and home-screen icon |
 | `config.json` | App settings — `registrationUrl` switches login on |
 | `fetch_holdkampe.py` | Fetches teams, matches, lineups, standings, player profiles |
 | `sync_tilmeldinger.py` | Copies registrations from Google into SQLite + JSON |
