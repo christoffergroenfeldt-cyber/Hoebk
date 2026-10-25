@@ -832,7 +832,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     else if (u.resultater && !started) out.push(['', u.resultater, 'Se programmet']);
     if (u.resultater && started) out.push(['', u.resultater, (t.end || t.start) < today ? 'Resultater' : 'Program og resultater']);
     if (u.deltagere) out.push(['', u.deltagere, 'Deltagerliste']);
-    if (u.invitation) out.push(['', u.invitation, 'Invitation']);
+    if (u.invitation && out.every(function (x) { return x[1] !== u.invitation; })) out.push(['', u.invitation, 'Invitation']);   // samme PDF kan være både program og invitation
     if (!out.length) return '';
     return '<div class="tlinks">' + out.map(function (x) {
       return '<a class="' + (x[0] ? 'route' : 'rb tlink') + '" href="' + esc(x[1]) + '" target="_blank" rel="noopener">' + esc(x[2]) + ' ↗</a>'; }).join('') + '</div>' +
