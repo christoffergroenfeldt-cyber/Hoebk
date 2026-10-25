@@ -75,13 +75,13 @@ OPENER = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(COOKIES)
 
 # ---------- HTTP ----------
 
-def http(url, data=None, extra_headers=None):
+def http(url, data=None, extra_headers=None, timeout=None):
     headers = dict(HEADERS)
     if extra_headers:
         headers.update(extra_headers)
     req = urllib.request.Request(url, data=data, headers=headers,
                                  method="POST" if data is not None else "GET")
-    with OPENER.open(req, timeout=TIMEOUT) as resp:
+    with OPENER.open(req, timeout=timeout or TIMEOUT) as resp:
         return resp.status, resp.geturl(), resp.read().decode("utf-8", "replace")
 
 
@@ -664,9 +664,16 @@ def _find_center(obj):
     return None
 
 
+GEO_DEADLINE = [0.0]   # tidsbudget for stedopslag pr. kørsel (resten tages næste gang)
+
+
+def geo_time_left():
+    return time.time() < GEO_DEADLINE[0]
+
+
 def dawa(path):
     try:
-        status, final, body = http(DAWA + path, extra_headers={"Accept": "application/json"})
+        status, final, body = http(DAWA + path, extra_headers={"Accept": "application/json"}, timeout=8)
         return json.loads(body)
     except Exception:
         return None
@@ -674,10 +681,9 @@ def dawa(path):
 
 def geocode(name):
     q = urllib.parse.quote(name)
-    for path in (f"/postnumre?navn={q}", f"/stednavne2?navn={q}&hovedtype=Bebyggelse",
-                 f"/steder?primærtnavn={q}", f"/postnumre/autocomplete?q={q}"):
+    for path in (f"/postnumre?navn={q}", f"/stednavne2?navn={q}", f"/postnumre/autocomplete?q={q}"):
         res = dawa(path)
-        time.sleep(0.15)
+        time.sleep(0.05)
         c = _find_center(res) if res else None
         if c:
             return {"lon": c[0], "lat": c[1], "via": path.split("?")[0]}
@@ -699,6 +705,86 @@ def km_from_home(lat, lon):
     return round(2 * r * math.asin(math.sqrt(a)))
 
 
+
+# ---------- Køretid fra Hørsholm (OSRM, OpenStreetMap) ----------
+HOME_ADDR = "Stadion Allé 7D, 2960 Rungsted Kyst"
+HOME_HALL = (55.8783, 12.5167)       # Hørsholm Badminton Hal (cirka)
+OSRM = "https://router.project-osrm.org/route/v1/driving/{},{};{},{}?overview=false"
+
+
+def drive(lat, lon):
+    """(minutter, km) i bil fra Hørsholm-hallen, eller (None, None)."""
+    try:
+        if not geo_time_left():
+            return None, None
+        status, final, body = http(OSRM.format(HOME_HALL[1], HOME_HALL[0], lon, lat), extra_headers={"Accept": "application/json"}, timeout=10)
+        r = json.loads(body)["routes"][0]
+        time.sleep(1.0)                                  # OSRM's demo-server: højst 1 kald pr. sekund
+        return round(r["duration"] / 60), round(r["distance"] / 1000)
+    except Exception:
+        return None, None
+
+
+def hall_name(venue):
+    """'Skinderskov­hallen 1-2' → 'Skinderskovhallen'; 'Hørsholm Badminton Hal 2-5' → 'Hørsholm Badminton Hal'."""
+    v = re.sub(r"\s+\d+(\s*-\s*\d+)?\s*$", "", venue or "").strip()
+    v = re.sub(r",?\s*Hal\s*\d.*$", "", v).strip()
+    return v
+
+
+def locate_matches(teams, data_dir):
+    """Sæt match['travel'] = {min, km, precision, query} for alle holdkampe (cachet i data/steder.json)."""
+    cache_p = os.path.join(data_dir, "steder.json")
+    cache = json.load(open(cache_p, encoding="utf-8")) if os.path.exists(cache_p) else {}
+    fix_p = os.path.join(data_dir, "steder_rettelser.json")
+    fixes = json.load(open(fix_p, encoding="utf-8")) if os.path.exists(fix_p) else {}
+    done = new = 0
+    for t in teams:
+        for m in t["matches"]:
+            venue, org = m.get("venue", ""), m.get("organiser", "") or (m["home"] if not m["isHome"] else "Hørsholm")
+            key = f"hal|{venue}|{org}"
+            if key not in cache and not geo_time_left():
+                m["travel"] = {"precision": "ukendt", "query": ", ".join(x for x in [hall_name(venue), org] if x)}
+                continue
+            if key not in cache:
+                new += 1
+                hall = hall_name(venue)
+                entry = None
+                fix = fixes.get(venue) or fixes.get(hall)
+                if fix and "lat" in fix:
+                    entry = {"lat": fix["lat"], "lon": fix["lon"], "precision": "rettet"}
+                if entry is None and re.search(r"hørsholm", venue, re.I):
+                    entry = {"lat": HOME_HALL[0], "lon": HOME_HALL[1], "precision": "hal"}
+                if entry is None and hall:
+                    g = geocode(hall)
+                    if g:
+                        entry = {"lat": round(g["lat"], 4), "lon": round(g["lon"], 4), "precision": "hal"}
+                if entry is None:
+                    for cand in (place_candidates(org) + place_candidates(m["home"] if not m["isHome"] else m["away"]))[:4]:
+                        g = geocode(cand)
+                        if g:
+                            entry = {"lat": round(g["lat"], 4), "lon": round(g["lon"], 4), "precision": "by", "by": cand}
+                            break
+                if entry:
+                    mins, km = (0, 0) if entry["precision"] == "hal" and re.search(r"hørsholm", venue, re.I) else drive(entry["lat"], entry["lon"])
+                    entry.update({"min": mins, "km": km})
+                else:
+                    entry = {"ukendt": True}
+                cache[key] = entry
+            e = cache[key]
+            hall = hall_name(venue)
+            town = e.get("by") or org
+            m["travel"] = {
+                "min": e.get("min"), "km": e.get("km"), "precision": e.get("precision", "ukendt"),
+                "lat": e.get("lat"), "lon": e.get("lon"),
+                "query": ", ".join(x for x in [hall, town] if x),     # til rutevejledning i kortappen
+            }
+            done += 1
+    with open(cache_p, "w", encoding="utf-8") as fh:
+        json.dump(dict(sorted(cache.items())), fh, ensure_ascii=False, indent=1)
+    print(f"Køretider: {done} holdkampe ({new} nye spillesteder slået op)")
+
+
 def locate_tournaments(tours, data_dir):
     cache_p = os.path.join(data_dir, "steder.json")
     fix_p = os.path.join(data_dir, "steder_rettelser.json")
@@ -708,19 +794,19 @@ def locate_tournaments(tours, data_dir):
     for t in tours:
         org = t["organiser"]
         fix = fixes.get(org)
-        if fix is None and org not in cache:
+        if fix is None and org not in cache and geo_time_left():
             entry = None
             if ABROAD_RE.search(org) and not re.search(r"Denmark|Danish", org):
                 entry = {"abroad": True}
             else:
-                for cand in place_candidates(org):
+                for cand in place_candidates(org)[:4]:
                     g = geocode(cand)
                     if g:
                         entry = {"sted": cand, "lat": round(g["lat"], 4), "lon": round(g["lon"], 4), "via": g["via"]}
                         entry["region"] = region_of(entry["lat"], entry["lon"])
                         break
                 if entry is None:
-                    entry = {"ukendt": True, "prøvet": place_candidates(org)}
+                    entry = {"ukendt": True, "prøvet": place_candidates(org)[:4]}
             cache[org] = entry
         e = dict(cache.get(org, {}))
         if fix:                                   # håndrettelse vinder altid
@@ -734,8 +820,12 @@ def locate_tournaments(tours, data_dir):
                 if "lat" in e and "region" not in e:
                     e["region"] = region_of(e["lat"], e["lon"])
         if "lat" in e:
+            if "min" not in e and org in cache and "lat" in cache[org] and geo_time_left():
+                cache[org]["min"], cache[org]["roadKm"] = drive(e["lat"], e["lon"])
+                e["min"], e["roadKm"] = cache[org]["min"], cache[org]["roadKm"]
             t["place"] = {"name": e.get("sted", org), "lat": e["lat"], "lon": e["lon"],
-                          "km": km_from_home(e["lat"], e["lon"]), "region": e.get("region", "")}
+                          "km": km_from_home(e["lat"], e["lon"]), "region": e.get("region", ""),
+                          "min": e.get("min"), "roadKm": e.get("roadKm")}
         elif e.get("abroad"):
             t["place"] = {"abroad": True, "region": "Udland"}
         else:
@@ -889,6 +979,7 @@ def main():
     # ---- Individuelle turneringer (hele landets sæsonplan) ----
     if opts.tournaments:
         try:
+            GEO_DEADLINE[0] = time.time() + 8 * 60
             tours = fetch_tournaments(token, opts.season, dump)
             try:
                 locate_tournaments(tours, os.path.dirname(opts.out) or ".")
@@ -902,6 +993,16 @@ def main():
             print(f"Skrev {t_out}: {len(tours)} turneringer.")
         except Exception as e:  # turneringer må ikke vælte holdkampene
             print(f"ADVARSEL: sæsonplan fejlede: {e}", file=sys.stderr)
+
+    # ---- Køretid til holdkampenes spillesteder ----
+    if not GEO_DEADLINE[0]:
+        GEO_DEADLINE[0] = time.time() + 4 * 60
+    else:
+        GEO_DEADLINE[0] = max(GEO_DEADLINE[0], time.time() + 3 * 60)   # holdkampe går forud — altid mindst 3 min
+    try:
+        locate_matches(out_teams, os.path.dirname(opts.out) or ".")
+    except Exception as e:  # må ikke vælte holdkampene
+        print(f"ADVARSEL: køretider fejlede: {e}", file=sys.stderr)
 
     # ---- Spillere: historik fra opstillinger + profil fra badmintonplayer.dk ----
     SENIOR_AGES = {"1", "9", "16"}   # SEN, SEN+40, MOT — voksne rækker
