@@ -13,6 +13,8 @@ jobs:
           REG_KEY: ${{ secrets.REG_KEY }}
           VAPID: ${{ secrets.VAPID_PRIVATE }}
         run: |
+          v=$(curl -sSL -m 30 "$REG_URL?action=version" | head -c 200 | tr -d '\n:')
+          echo "::warning title=version::$v"
           r=$(curl -sSL -m 30 "$REG_URL?action=follows&key=$REG_KEY" | head -c 200 | tr -d '\n:')
           echo "::warning title=follows::$r"
           r2=$(curl -sSL -m 30 -H "Content-Type: text/plain" -d '{"action":"prefs","token":"x"}' "$REG_URL" | head -c 200 | tr -d '\n:')

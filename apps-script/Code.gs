@@ -36,6 +36,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
+var SCRIPT_VERSION = '2026-10-25.2';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -404,6 +405,7 @@ function doPost(e) {
 
 function doGet(e) {
   var action = (e && e.parameter && e.parameter.action) || 'status';
+  if (action === 'version') return json_({ ok: true, version: SCRIPT_VERSION });
   if (action === 'follows') {
     var k = PropertiesService.getScriptProperties().getProperty('KEY');
     if (!k || e.parameter.key !== k) return json_({ ok: false, error: 'Forkert nøgle' });
