@@ -197,7 +197,7 @@ CREATE TABLE registrations (
   event_id TEXT NOT NULL,        -- m:<matchID> | t:<date>:<group>
   player_id TEXT NOT NULL,
   player_name TEXT NOT NULL,
-  status TEXT NOT NULL,          -- ja | maaske | nej
+  status TEXT NOT NULL,          -- ja | maaske | nej | ryd (answer removed — hidden in the app and tilmeldinger.json)
   label TEXT                     -- human-readable event, e.g. "U15 B mod Lillerød 1 2026-11-15"
 );
 CREATE VIEW latest AS …          -- newest row per (event_id, player_id)

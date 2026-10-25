@@ -21,7 +21,7 @@
  *  request  {email, playerId, playerName}       → sender 6-cifret kode (gyldig 15 min)
  *  verify   {email, code}                        → {token, player}
  *  me       {token}                              → {player}
- *  register {token, type, eventId, status, label}→ gemmer svar for den indloggede spiller
+ *  register {token, type, eventId, status, label}→ gemmer svar for den indloggede spiller (status 'ryd' fjerner svaret)
  *  lineup   {token, eventId, team, status, squad[], games[], note} → holdopstilling (kun holdledere, se fanen Ledere)
  *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
  *  follow   {token, tid, title, on}              → følg/stop med at følge en turnering (fanen Følger)
@@ -37,7 +37,7 @@
  */
 
 var CLUB = 'Hørsholm Badminton Klub';
-var TYPES = { match: ['ja', 'nej', 'maaske'], training: ['ja', 'nej'] };
+var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
   Tilmeldinger: ['tidspunkt', 'type', 'eventId', 'playerId', 'playerName', 'status', 'label'],
   Spillere: ['playerId', 'playerName', 'email', 'bekræftet', 'sidst set'],
@@ -424,7 +424,8 @@ function doGet(e) {
     var k = r[2] + '|' + r[3], ts = r[0] instanceof Date ? r[0].getTime() : 0;
     if (!latest[k] || latest[k].t <= ts) latest[k] = { e: String(r[2]), p: String(r[3]), n: String(r[4]), s: r[5], t: ts };
   });
-  return json_({ ok: true, updated: new Date().toISOString(), status: Object.keys(latest).map(function (k) { return latest[k]; }), lineups: lineups_() });
+  return json_({ ok: true, updated: new Date().toISOString(),
+                 status: Object.keys(latest).map(function (k) { return latest[k]; }).filter(function (x) { return x.s !== 'ryd'; }), lineups: lineups_() });
 }
 
 // --- slut på filen (denne linje må gerne mangle ved kopiering) ---

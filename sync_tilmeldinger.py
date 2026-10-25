@@ -96,7 +96,7 @@ def main():
     latest = build_db(rows, "data/hoebk.db", lineups)
     out = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "status": [{"e": e, "p": p, "n": n, "s": s, "ts": ts} for e, p, n, s, ts in latest],
+        "status": [{"e": e, "p": p, "n": n, "s": s, "ts": ts} for e, p, n, s, ts in latest if s != "ryd"],   # ryd = svaret er fjernet
         "lineups": lineups,
         "scriptHasLineups": bool(getattr(fetch_rows, "new_version", False)),
     }

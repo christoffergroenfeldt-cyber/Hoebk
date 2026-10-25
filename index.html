@@ -1063,7 +1063,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       })
       .then(function (obj) {
         REG.map = {}; REG.lineups = {};
-        ((obj && obj.status) || []).forEach(function (x) { REG.map[x.e + '|' + x.p] = { s: x.s, n: x.n }; });
+        ((obj && obj.status) || []).forEach(function (x) { if (x.s !== 'ryd') REG.map[x.e + '|' + x.p] = { s: x.s, n: x.n }; });
         ((obj && obj.lineups) || []).forEach(function (l) { REG.lineups[l.e] = l; });
         REG.loaded = true;
       }).catch(function () { REG.loaded = true; });
@@ -1092,7 +1092,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (ME && ME.token) {
       h += '<div class="reg">' + OPTS[type].map(function (o) {
         return '<button class="rb ' + o[0] + '" aria-pressed="' + (m === o[0]) + '" data-reg="' + type + '" data-eid="' + esc(eid) + '" data-status="' + o[0] + '" data-label="' + esc(label) + '"' + (REG.url ? '' : ' disabled') + '>' + o[1] + '</button>';
-      }).join('') + '</div>';
+      }).join('') + '</div>' + (m && open ? '<span class="xs">Tryk på dit svar igen for at fjerne det.</span>' : '');
     } else {
       h += '<button class="rb" data-go="#/tilmeld">Log ind for at svare</button>';
     }
@@ -1114,19 +1114,21 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (!ME || !ME.token) { location.hash = '#/tilmeld'; return; }
     if (!REG.url) { toast('Tilmelding er ikke slået til endnu'); return; }
     var prev = REG.map[eid + '|' + ME.id];
-    REG.map[eid + '|' + ME.id] = { s: status, n: ME.name };
+    if (prev && prev.s === status) status = 'ryd';          // tryk på det valgte svar igen = fjern svaret
+    if (status === 'ryd') delete REG.map[eid + '|' + ME.id]; else REG.map[eid + '|' + ME.id] = { s: status, n: ME.name };
     route(true);
     var who_ = ME.id;
     api({ action: 'register', token: ME.token, type: type, eventId: eid, status: status, label: label })
       .then(function (res) {
         if (res && res.error === 'login') { ME = null; saveMe(); throw new Error('login'); }
         if (!res || !res.ok) throw new Error((res && res.error) || 'fejl');
-        toast('Gemt: ' + WORD[status][type]);
+        toast(status === 'ryd' ? 'Dit svar er fjernet' : 'Gemt: ' + WORD[status][type] + ' — tryk igen for at fjerne');
       })
       .catch(function (err) {
         if (prev) REG.map[eid + '|' + who_] = prev; else delete REG.map[eid + '|' + who_];
         route(true);
         if (err && err.message === 'login') { toast('Log ind igen'); location.hash = '#/tilmeld'; }
+        else if (status === 'ryd' && err && err.message === 'Ugyldigt svar') toast('Klubbens server skal opdateres, før svar kan fjernes');
         else toast('Kunne ikke gemme — prøv igen');
       });
   }
