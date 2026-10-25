@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T15:07:26+00:00",
+ "updated": "2026-10-25T16:21:44+00:00",
  "season": "2026",
  "clubRanking": [
   {
@@ -921,6 +921,20 @@
   },
   {
    "rank": 66,
+   "id": "352441",
+   "name": "Nolan Jing",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 3,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 78,
+   "avgPoints": 26.0,
+   "avgDiff": -8.0
+  },
+  {
+   "rank": 67,
    "id": "339513",
    "name": "Camilla Engel Post",
    "teams": [
@@ -934,7 +948,7 @@
    "avgDiff": -9.0
   },
   {
-   "rank": 67,
+   "rank": 68,
    "id": "330795",
    "name": "Brit Johannessen",
    "teams": [
@@ -948,7 +962,7 @@
    "avgDiff": -7.7
   },
   {
-   "rank": 68,
+   "rank": 69,
    "id": "364196",
    "name": "Fie B. Kobberup",
    "teams": [
@@ -962,7 +976,49 @@
    "avgDiff": -10.3
   },
   {
-   "rank": 69,
+   "rank": 70,
+   "id": "362602",
+   "name": "Marvin Nørmark",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 2,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 58,
+   "avgPoints": 29.0,
+   "avgDiff": -4.0
+  },
+  {
+   "rank": 71,
+   "id": "345764",
+   "name": "Emilie Drescher",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 3,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 57,
+   "avgPoints": 19.0,
+   "avgDiff": -11.0
+  },
+  {
+   "rank": 72,
+   "id": "348494",
+   "name": "Mathilde Dahl Plougmann",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 3,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 49,
+   "avgPoints": 16.3,
+   "avgDiff": -13.7
+  },
+  {
+   "rank": 73,
    "id": "367264",
    "name": "Pulin Dhar",
    "teams": [
@@ -976,7 +1032,7 @@
    "avgDiff": -16.7
   },
   {
-   "rank": 70,
+   "rank": 74,
    "id": "336560",
    "name": "Tue Krogh-Larsen",
    "teams": [
@@ -990,7 +1046,7 @@
    "avgDiff": -13.0
   },
   {
-   "rank": 71,
+   "rank": 75,
    "id": "277780",
    "name": "Mathilde Peetz",
    "teams": [
@@ -1002,6 +1058,20 @@
    "pointsFor": 29,
    "avgPoints": 14.5,
    "avgDiff": -15.5
+  },
+  {
+   "rank": 76,
+   "id": "352356",
+   "name": "Carl Emil Jensen",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 1,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 16,
+   "avgPoints": 16.0,
+   "avgDiff": -14.0
   }
  ],
  "players": [
@@ -3392,6 +3462,79 @@
    }
   },
   {
+   "id": "352356",
+   "name": "Carl Emil Jensen",
+   "teams": [
+    "U13 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "1. D",
+     "partner": [
+      "Mathilde Dahl Plougmann"
+     ],
+     "opponents": [
+      "Max Krath Jørgensen",
+      "Carl Philip Lundgren Hadsbjerg"
+     ],
+     "sets": [
+      [
+       9,
+       15
+      ],
+      [
+       7,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 1,
+   "won": 0,
+   "lost": 1,
+   "winPct": 0,
+   "pointsFor": 16,
+   "pointsAgainst": 30,
+   "avgPoints": 16.0,
+   "avgDiff": -14.0,
+   "setsWon": 0,
+   "setsLost": 2,
+   "byDiscipline": {
+    "D": {
+     "played": 1,
+     "won": 0
+    }
+   },
+   "profile": {
+    "level": "1277",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U13 C",
+      "points": "1246",
+      "matches": "23",
+      "placement": "7799"
+     },
+     {
+      "list": "Double",
+      "category": "U13 C",
+      "points": "1287",
+      "matches": "20",
+      "placement": "12504"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "338789",
    "name": "Charles Jordahn Brandt",
    "teams": [
@@ -4593,6 +4736,134 @@
       "points": "1380",
       "matches": "0",
       "placement": ""
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
+   "id": "345764",
+   "name": "Emilie Drescher",
+   "teams": [
+    "U13 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "4. D",
+     "partner": [
+      "Nolan Jing"
+     ],
+     "opponents": [
+      "Alexander Munch",
+      "Emil Tolstrup"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "2. D",
+     "partner": [
+      "Marvin Nørmark"
+     ],
+     "opponents": [
+      "Carl Philip Lundgren Hadsbjerg",
+      "Emil Tolstrup"
+     ],
+     "sets": [
+      [
+       11,
+       15
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "2. S",
+     "partner": [],
+     "opponents": [
+      "Carl Philip Lundgren Hadsbjerg"
+     ],
+     "sets": [
+      [
+       9,
+       15
+      ],
+      [
+       7,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 3,
+   "won": 0,
+   "lost": 3,
+   "winPct": 0,
+   "pointsFor": 57,
+   "pointsAgainst": 90,
+   "avgPoints": 19.0,
+   "avgDiff": -11.0,
+   "setsWon": 0,
+   "setsLost": 6,
+   "byDiscipline": {
+    "D": {
+     "played": 2,
+     "won": 0
+    },
+    "S": {
+     "played": 1,
+     "won": 0
+    }
+   },
+   "profile": {
+    "level": "1253",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U13 B",
+      "points": "1322",
+      "matches": "45",
+      "placement": "6657"
+     },
+     {
+      "list": "Double",
+      "category": "U13 B",
+      "points": "1203",
+      "matches": "30",
+      "placement": "14072"
      }
     ],
     "license": "Ingen"
@@ -9508,6 +9779,111 @@
    }
   },
   {
+   "id": "362602",
+   "name": "Marvin Nørmark",
+   "teams": [
+    "U13 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "2. D",
+     "partner": [
+      "Emilie Drescher"
+     ],
+     "opponents": [
+      "Carl Philip Lundgren Hadsbjerg",
+      "Emil Tolstrup"
+     ],
+     "sets": [
+      [
+       11,
+       15
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "1. S",
+     "partner": [],
+     "opponents": [
+      "Max Krath Jørgensen"
+     ],
+     "sets": [
+      [
+       13,
+       15
+      ],
+      [
+       15,
+       6
+      ],
+      [
+       11,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 2,
+   "won": 0,
+   "lost": 2,
+   "winPct": 0,
+   "pointsFor": 58,
+   "pointsAgainst": 66,
+   "avgPoints": 29.0,
+   "avgDiff": -4.0,
+   "setsWon": 1,
+   "setsLost": 4,
+   "byDiscipline": {
+    "D": {
+     "played": 1,
+     "won": 0
+    },
+    "S": {
+     "played": 1,
+     "won": 0
+    }
+   },
+   "profile": {
+    "level": "1306",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U13 B",
+      "points": "1341",
+      "matches": "31",
+      "placement": "6462"
+     },
+     {
+      "list": "Double",
+      "category": "U13 B",
+      "points": "1283",
+      "matches": "26",
+      "placement": "12589"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "328467",
    "name": "Mathilde Baldvinsson Frewald",
    "teams": [
@@ -9767,6 +10143,134 @@
      }
     ],
     "license": ""
+   }
+  },
+  {
+   "id": "348494",
+   "name": "Mathilde Dahl Plougmann",
+   "teams": [
+    "U13 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "1. D",
+     "partner": [
+      "Carl Emil Jensen"
+     ],
+     "opponents": [
+      "Max Krath Jørgensen",
+      "Carl Philip Lundgren Hadsbjerg"
+     ],
+     "sets": [
+      [
+       9,
+       15
+      ],
+      [
+       7,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "3. D",
+     "partner": [
+      "Nolan Jing"
+     ],
+     "opponents": [
+      "Max Krath Jørgensen",
+      "Alexander Munch"
+     ],
+     "sets": [
+      [
+       13,
+       15
+      ],
+      [
+       6,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "4. S",
+     "partner": [],
+     "opponents": [
+      "Emil Tolstrup"
+     ],
+     "sets": [
+      [
+       11,
+       15
+      ],
+      [
+       3,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 3,
+   "won": 0,
+   "lost": 3,
+   "winPct": 0,
+   "pointsFor": 49,
+   "pointsAgainst": 90,
+   "avgPoints": 16.3,
+   "avgDiff": -13.7,
+   "setsWon": 0,
+   "setsLost": 6,
+   "byDiscipline": {
+    "D": {
+     "played": 2,
+     "won": 0
+    },
+    "S": {
+     "played": 1,
+     "won": 0
+    }
+   },
+   "profile": {
+    "level": "1286",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U13 B",
+      "points": "1308",
+      "matches": "46",
+      "placement": "6833"
+     },
+     {
+      "list": "Double",
+      "category": "U13 B",
+      "points": "1268",
+      "matches": "32",
+      "placement": "12790"
+     }
+    ],
+    "license": "Ingen"
    }
   },
   {
@@ -10451,6 +10955,138 @@
       "points": "2936",
       "matches": "7",
       "placement": "575"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
+   "id": "352441",
+   "name": "Nolan Jing",
+   "teams": [
+    "U13 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "4. D",
+     "partner": [
+      "Emilie Drescher"
+     ],
+     "opponents": [
+      "Alexander Munch",
+      "Emil Tolstrup"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "3. D",
+     "partner": [
+      "Mathilde Dahl Plougmann"
+     ],
+     "opponents": [
+      "Max Krath Jørgensen",
+      "Alexander Munch"
+     ],
+     "sets": [
+      [
+       13,
+       15
+      ],
+      [
+       6,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Holte 1",
+     "matchID": "513975",
+     "discipline": "3. S",
+     "partner": [],
+     "opponents": [
+      "Alexander Munch"
+     ],
+     "sets": [
+      [
+       15,
+       12
+      ],
+      [
+       11,
+       15
+      ],
+      [
+       11,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 3,
+   "won": 0,
+   "lost": 3,
+   "winPct": 0,
+   "pointsFor": 78,
+   "pointsAgainst": 102,
+   "avgPoints": 26.0,
+   "avgDiff": -8.0,
+   "setsWon": 1,
+   "setsLost": 6,
+   "byDiscipline": {
+    "D": {
+     "played": 2,
+     "won": 0
+    },
+    "S": {
+     "played": 1,
+     "won": 0
+    }
+   },
+   "profile": {
+    "level": "1309",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U13 B",
+      "points": "1322",
+      "matches": "31",
+      "placement": "6657"
+     },
+     {
+      "list": "Double",
+      "category": "U13 B",
+      "points": "1213",
+      "matches": "15",
+      "placement": "13877"
      }
     ],
     "license": "Ingen"
