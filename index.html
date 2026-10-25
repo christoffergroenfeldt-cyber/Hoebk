@@ -35,6 +35,7 @@ a{color:var(--ink)}
 .top.has-back .t{padding-left:0}
 .top h1{margin:0;font-family:Archivo,sans-serif;font-weight:800;font-size:21px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .top .sub{font-size:12px;color:#C3CED9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+main>*{flex-shrink:0}   /* indholdet må ikke presses sammen nu hvor main har fast højde */
 main{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;padding:14px 14px 28px;display:flex;flex-direction:column;gap:10px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px}
 .row{width:100%;min-height:60px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;font-size:inherit}
