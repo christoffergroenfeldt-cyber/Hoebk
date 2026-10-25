@@ -46,7 +46,7 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 - Colours by division: Senior blue `#2F6FB3`, 4-player light blue `#7FD3F7`, Motion orange `#E58A2E`, Youth lime `#D4F25A`, training dashed grey.
 - Month cells use short labels (`SHORT` map: DS, S2, 4S, MOT E…) and show training as `3×` (three groups train that day).
 - Year view runs August–July (the badminton season).
-- **Turneringer** toggle (off by default) adds individual tournaments in purple (`--tour #7A4FC9`) on every day they run; a level filter (e.g. *SEN A*) and a link to the tournament list appear when it's on. *Kun turneringer* in the team filter hides everything else.
+- **Turneringer** toggle (off by default) adds individual tournaments in dark red (`--tour #88001B`, the club red from the logo) on every day they run; a level filter (e.g. *SEN A*) and a link to the tournament list appear when it's on. *Kun turneringer* in the team filter hides everything else.
 
 ## Drive time and directions
 
