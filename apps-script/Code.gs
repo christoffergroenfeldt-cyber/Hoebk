@@ -36,7 +36,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-25.4';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-25.5';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -56,7 +56,7 @@ var SHEETS = {
 var ADMIN_PLAYER_IDS = ['12813'];   // Anders Vedsted Nørrelund
 // Administratorer ud fra login-e-mail (gemt som SHA-256 af e-mailen med små bogstaver, så adressen ikke står i koden).
 // Ny: kør  printf '%s' 'navn@eksempel.dk' | sha256sum  og tilføj tallet.
-var ADMIN_EMAIL_SHA256 = ['7b69eef2050ca0d7e3bbf7fefc71077c794fc9050e5aa89aee8374eb789f09d6'];   // Christoffer (udvikler)
+var ADMIN_EMAIL_SHA256 = ['61b300daa9a1d0d7ce2848c73b1207e5c2c98dd5a93a2b66884f460ef587b90f'];   // Christoffer (udvikler)
 var CODE_MINUTES = 15, MAX_CODES_PER_HOUR = 4, MAX_TRIES = 5, SESSION_DAYS = 365;
 
 // Virker både når scriptet er oprettet fra et Google Sheet (Udvidelser → Apps Script)
