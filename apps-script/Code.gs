@@ -197,3 +197,5 @@ function doGet(e) {
   });
   return json_({ ok: true, updated: new Date().toISOString(), status: Object.keys(latest).map(function (k) { return latest[k]; }) });
 }
+
+// --- slut på filen (denne linje må gerne mangle ved kopiering) ---
