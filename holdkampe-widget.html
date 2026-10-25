@@ -35,7 +35,7 @@
       var last = t.matches.filter(function (m) { return m.played; }).slice(-3).reverse();
       h += '<article style="background:#fff;border:1px solid #E2E5DC;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px">' +
            '<div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">' +
-           '<h3 style="margin:0;font-size:20px;font-weight:800">' + esc(t.name) + '</h3>' +
+           '<h3 style="margin:0;font-size:20px;font-weight:800">' + esc(t.label || t.name) + (t.label ? ' <span style="font-weight:500;color:#4A5866;font-size:15px">· ' + esc(t.name) + (t.position ? ' · nr. ' + esc(t.position) : '') + '</span>' : '') + '</h3>' +
            '<a href="' + esc(t.standingUrl) + '" target="_blank" rel="noopener" style="font-size:14px;font-weight:600;color:#0E2236">Stilling ↗</a></div>';
       h += '<div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4A5866">Næste kampe</div>';
       h += next.length ? next.map(function (m) {
