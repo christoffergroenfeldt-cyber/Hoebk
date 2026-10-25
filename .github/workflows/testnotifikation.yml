@@ -1,0 +1,40 @@
+name: Send testnotifikation
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Send test til alle der følger en turnering
+        env:
+          REG_URL: ${{ secrets.REG_URL }}
+          REG_KEY: ${{ secrets.REG_KEY }}
+          VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+        run: |
+          pip install -q pywebpush
+          python - <<'PY'
+          import json, os, urllib.parse, urllib.request
+          import notify_turneringer as N
+          url, key = os.environ["REG_URL"], os.environ["REG_KEY"]
+          q = urllib.parse.urlencode({"action": "follows", "key": key})
+          fol = json.loads(urllib.request.urlopen(f"{url}?{q}", timeout=30).read())
+          ids = fol.get("follows", [])
+          print(f"::warning title=Følger::{len(ids)} turneringer følges")
+          if not ids:
+              raise SystemExit(0)
+          tours = {t["id"]: t for t in json.load(open("data/turneringer.json"))["tournaments"]}
+          items = [{"ids": [i], "title": tours.get(i, {}).get("organiser", "Turnering"), "when": "",
+                    "lines": ["Testnotifikation fra HØBK-appen — det virker!"], "url": N.APP_URL + "#/turnering/" + i} for i in ids[:1]]
+          body = json.dumps({"action": "notify", "key": key, "items": items}).encode()
+          req = urllib.request.Request(url, data=body, headers={"Content-Type": "text/plain;charset=utf-8"})
+          res = json.loads(urllib.request.urlopen(req, timeout=60).read())
+          jobs = res.pop("push", [])
+          print(f"::warning title=Resultat::mails {res.get('sent')} · push-adresser {len(jobs)}")
+          N.send_push(jobs, url, key)
+          PY
