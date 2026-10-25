@@ -146,6 +146,8 @@ Written by `sync_tilmeldinger.py`; the app reads it when the live Apps Script st
   "status": [ { "e": "m:514330", "p": "13008", "n": "Anders Frewald", "s": "ja", "ts": "…" }, … ] }
 ```
 
+Since lineups were added the file also has `"lineups": [{ "e": "m:514330", "team": "U15 B", "status": "klar", "squad": [{id, name}], "games": [{"k": "1. S", "p": ["324936"]}], "note": "", "by": "…", "t": <ms> }]`.
+
 `e` = event id (`m:<matchID>` or `t:<date>:<group>`), `p` = player id (badmintonplayer id, or `n:<name-slug>` for players typing their own name), `s` = `ja` / `maaske` / `nej`. Latest answer per (event, player) only. **No emails.**
 
 ## `data/hoebk.db` — SQLite
@@ -164,6 +166,11 @@ CREATE TABLE registrations (
   label TEXT                     -- human-readable event, e.g. "U15 B mod Lillerød 1 2026-11-15"
 );
 CREATE VIEW latest AS …          -- newest row per (event_id, player_id)
+
+CREATE TABLE lineups (            -- latest squad/lineup per match
+  event_id TEXT PRIMARY KEY, team TEXT, status TEXT,   -- udkast | klar | indtastet
+  saved_by TEXT, saved_at TEXT, squad_json TEXT, games_json TEXT, note TEXT
+);
 ```
 
 Useful queries:

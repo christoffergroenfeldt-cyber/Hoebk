@@ -31,6 +31,10 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id), incl. *Turneringer for dit niveau* |
 | `#/turneringer` | All upcoming individual tournaments, chips per age group, sections per level (Elite, Mester, A–D) |
 | `#/turnering/<id>` | One tournament: dates, entry deadline, classes per day, Hørsholm players whose level fits |
+| `#/udtag[/<i>/<m>]` | Leaders: pick players for a team's upcoming match |
+| `#/opstilling/<i>/<m>` | Leaders: lineup per game with rule warnings and status |
+| `#/eksport/<i>/<m>` | Leaders: lineup ready to enter on badmintonplayer.dk |
+| `#/ledere` | Administrator: appoint/remove team leaders |
 
 Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth). A team not listed there goes last — add new team labels to `ORDER` when a new division appears.
 

@@ -75,6 +75,32 @@ Google shows menus in your account's language — Danish names are given first, 
     and commit. Within a minute **Min side** in the app shows the login.
 22. Test: log in with your own email, answer one match, and check that a row appears in the *Tilmeldinger* tab. Within 15 minutes `data/hoebk.db` and `data/tilmeldinger.json` appear in the repo.
 
+## Team leaders and lineups
+
+### Roles
+
+| Role | Who | Can |
+|---|---|---|
+| **Administrator** | Anders Vedsted Nørrelund (player id `12813`, set in `ADMIN_PLAYER_IDS` at the top of `Code.gs`) | Appoint and remove team leaders in the app (*Min side → Udnævn holdledere*); also acts as leader for all teams |
+| **Team leader** | Anyone the administrator appoints (row in the *Ledere* tab) | Pick players and make lineups for their teams |
+| Player | Everyone logged in | Answer availability, see the selected team |
+
+The administrator role belongs to the **first email that confirmed that player** (the earliest row for `12813` in the *Spillere* tab). Someone picking Anders' name later with another email does not become administrator. If the wrong email got there first, delete that row in *Spillere* and have Anders log in again.
+
+To change the administrator, edit `ADMIN_PLAYER_IDS` in `Code.gs` and publish a new version.
+
+### The *Ledere* tab
+
+One row per leader: `email`, `navn`, `hold` — team labels separated by commas (`U15 B, U13 B`) or `*` for all teams. Normally the administrator manages it from the app; editing the tab by hand works too. The leader must log in with exactly that email.
+
+### Lineup flow
+
+1. **Udtag spillere** (*Min side → Holdleder*, or *Spillere → Udtag spillere til næste holdkamp*): choose team and match (defaults to the next), tick players. Each player shows their answer (*Kan / Måske / Kan ikke / Intet svar*), teams and level. *Kun holdets spillere* limits the list to players who played for the team (for youth teams: the whole age group) and anyone who answered.
+2. **Holdopstilling:** one row per game in the team's format (taken from the team's last played match, else a Hørsholm team in the same format). Warnings, not blocks: a player on more than 2 games, the same player twice in a double, a lower-numbered game with fewer ranking points than the next (single/double/mix points), empty games. Status: *Udkast / Klar / Indtastet*.
+3. **Til badmintonplayer:** the lineup in order with badmintonplayer player ids, *Kopiér opstilling*, a link to the match on badmintonplayer.dk and step-by-step instructions. The leader enters it there (the official registration) and taps **Marker som indtastet**.
+
+Everyone sees the selected team and the status on the match page. Lineups are stored in the *Opstillinger* tab (latest per match wins) and synced to `data/hoebk.db` → table `lineups`.
+
 ## Changing the script later
 
 Saving the code is not enough — the live web app keeps running the old version until you publish a new one:
@@ -89,6 +115,8 @@ Saving the code is not enough — the live web app keeps running the old version
 | **Spillere** | Which email has confirmed which player, first and last seen | No |
 | **Koder** | Login codes — stored only as a hash, with attempts and used flag | No |
 | **Sessioner** | Logged-in phones — token stored only as a hash; set *aktiv* to FALSE to log someone out | No |
+| **Ledere** | Team leaders: email, name, teams | No (emails stay in Google) |
+| **Opstillinger** | Every saved squad/lineup: time, match, team, status, saved by, data (JSON) | Yes — latest per match, synced without emails |
 
 Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite database (see [DATA.md](DATA.md)).
 
@@ -99,7 +127,9 @@ Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite 
 | `POST {action:"request", email, playerId, playerName}` | Emails a 6-digit code (15 min validity, max 4 codes per email per hour) |
 | `POST {action:"verify", email, code}` | Checks the code (max 5 tries), returns a session token valid for 365 days |
 | `POST {action:"register", token, type, eventId, status, label}` | Saves an answer for the player behind the token |
-| `POST {action:"me" / "logout", token}` | Check / end a session |
+| `POST {action:"me" / "logout", token}` | Check / end a session; `me` and `verify` also return the role `{leader, all, admin, teams}` |
+| `POST {action:"lineup", token, eventId, team, status, squad[], games[], note}` | Save a squad/lineup — only leaders for that team |
+| `POST {action:"leaders" / "setLeader", token, …}` | List / set team leaders — administrator only |
 | `GET ?action=status` | Latest answer per player and event — public, no emails |
 | `GET ?action=all&key=…` | Every answer — only with `REG_KEY`, used by the GitHub sync |
 
