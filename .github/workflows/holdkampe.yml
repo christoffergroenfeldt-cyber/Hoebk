@@ -43,6 +43,7 @@ jobs:
             --pulje 19102:5 \
             --out data/holdkampe.json \
             --profiles \
+            --tournaments \
             --dump-dir debug_html
 
       - name: Gem rå HTML til fejlsøgning
@@ -64,7 +65,8 @@ jobs:
           mask = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "[EMAIL]"),
                   (re.compile(r"(?<!\d)(?:\+45\s?)?(?:\d{2}\s?){3}\d{2}(?!\d)"), "[TLF]"),
                   (re.compile(r'(name="__[A-Z]+"[^>]*value=")[^"]*'), r"\1[STRIPPED]"),
-                  (re.compile(r"\b\d{6}-\d{2}\b"), "[SPILLERNR]")]
+                  (re.compile(r"\b\d{6}-\d{2}\b"), "[SPILLERNR]"),
+                  (re.compile(r"params=[^'\"]*"), "params=[FJERNET]")]
           # Kun klub-, pulje- og holdsider samt SENIOR-kampsider og -profiler (voksne spillere) —
           # aldrig login-sider eller ungdom. Mail/telefon/spillernummer maskeres altid.
           for f in sorted(glob.glob("debug_html/*.html") + glob.glob("debug_html/player_a_*.json")):
@@ -90,7 +92,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/holdkampe.json data/spillere.json
+          git add data/holdkampe.json data/spillere.json data/turneringer.json
           if git diff --cached --quiet; then
             echo "Ingen ændringer."
           else

@@ -489,6 +489,110 @@ def build_roster(matches, style):
     return sorted(roster.values(), key=lambda r: (-r["games"], r["name"]))
 
 
+
+# ---------- Individuelle turneringer (sæsonplan) ----------
+# GetSeasonPlan returnerer hele Danmarks turneringskalender som HTML-tabel, 100 rækker pr. side.
+# Vi henter den UDEN spillerfilter: et spillerfilter lægger spillerens fødselsdato i svaret.
+MONTHS_DA = {"januar": 1, "februar": 2, "marts": 3, "april": 4, "maj": 5, "juni": 6, "juli": 7,
+             "august": 8, "september": 9, "oktober": 10, "november": 11, "december": 12}
+LEVELS = ["E", "M", "A", "B", "C", "D"]          # Elite, Mester, A … D
+CLASS_RE = re.compile(r"^\s*((?:U\d{2}|SEN(?:\+\d{2})?)(?:/(?:U\d{2}|SEN(?:\+\d{2})?))*)\s*([EMABCD](?:\s*,\s*[EMABCD])*)\s*$")
+
+
+def parse_class(txt):
+    """'U17/U19 A,B' → {'raw', 'ages': ['U17','U19'], 'levels': ['A','B']}; ukendt format → kun raw."""
+    t = re.sub(r"\s+", " ", txt.replace("\xa0", " ")).strip()
+    m = CLASS_RE.match(t) or CLASS_RE.match(re.sub(r"^(U\d{2})([EMABCD])", r"\1 \2", t))
+    if not m:
+        return {"raw": t, "ages": [], "levels": []}
+    return {"raw": t, "ages": m.group(1).split("/"), "levels": [x.strip() for x in m.group(2).split(",")]}
+
+
+def seasonplan(token, season, page):
+    payload = {"callbackcontextkey": token, "seasonid": str(season), "regionids": None, "agegroupids": None,
+               "classids": None, "strfrom": "", "strto": "", "strweekno": "", "strweekno2": "",
+               "georegionids": None, "clubid": None, "disciplines": None, "playerid": None, "birthdate": None,
+               "age": None, "points": None, "gender": None, "publicseasonplan": True, "showleague": False,
+               "selectclientfunction": None, "page": page}
+    status, final_url, body = http(BASE + "/SportsResults/Components/WebService1.asmx/GetSeasonPlan",
+                                   data=json.dumps(payload).encode("utf-8"),
+                                   extra_headers={"Content-Type": "application/json; charset=utf-8",
+                                                  "X-Requested-With": "XMLHttpRequest",
+                                                  "Referer": BASE + "/DBF/Turnering/SaesonPlan/"})
+    d = json.loads(body).get("d", {})
+    return d.get("html", "") if isinstance(d, dict) else ""
+
+
+def parse_seasonplan(fragment, season):
+    """Én side af sæsonplanen → liste af turneringer."""
+    out, month, year = [], None, int(season)
+    # Del i måneds-overskrifter og turneringsrækker i dokumentrækkefølge
+    for m in re.finditer(r"<tr class='grouphdr'><td[^>]*>\s*([^<]+?)\s*</td>|<tr class='row[^']*'>(.*?)<td class='links'>(.*?)</td>\s*</tr>",
+                         fragment, re.S):
+        if m.group(1):
+            mm = re.match(r"([a-zæøå]+)\s+(\d{4})", text(m.group(1)).lower())
+            if mm and mm.group(1) in MONTHS_DA:
+                month, year = MONTHS_DA[mm.group(1)], int(mm.group(2))
+            continue
+        row, links = m.group(2), m.group(3)
+        tid = re.search(r"DeltagerListe/(\d+)", links) or re.search(r"VisResultater/#(\d+)", links)
+        if not tid or not month:
+            continue
+        cells = dict()
+        for cls, inner in re.findall(r"<td class='(week|date|title)'>(.*?)</td>", row, re.S):
+            cells.setdefault(cls, []).append(text(inner))
+        days = re.findall(r"\d+", (cells.get("date") or [""])[0])
+        if not days:
+            continue
+        d1 = int(days[0]); d2 = int(days[-1])
+        start = f"{year}-{month:02d}-{d1:02d}"
+        em, ey = month, year
+        if d2 < d1:                       # fx 31.-1. går over månedsskifte
+            em, ey = (1, year + 1) if month == 12 else (month + 1, year)
+        end = f"{ey}-{em:02d}-{d2:02d}"
+        deadline = ""
+        dl = (cells.get("date") or ["", ""])
+        if len(dl) > 1:
+            dm = re.match(r"(\d{1,2})-(\d{1,2})", dl[1])
+            if dm:
+                dd, mo = int(dm.group(1)), int(dm.group(2))
+                dy = year if mo <= month else year - 1
+                deadline = f"{dy}-{mo:02d}-{dd:02d}"
+        classes = []
+        for cd, cn in re.findall(r"class='classdate'\s*>(.*?)</td>.*?class='classnames'>(.*?)</td>", row, re.S):
+            c = parse_class(text(cn))
+            c["days"] = text(cd)
+            classes.append(c)
+        out.append({
+            "id": tid.group(1),
+            "start": start, "end": end,
+            "week": (cells.get("week") or [""])[0],
+            "deadline": deadline,
+            "organiser": (cells.get("title") or [""])[0],
+            "classes": classes,
+        })
+    return out
+
+
+def fetch_tournaments(token, season, dump, max_pages=20):
+    seen, allt = set(), []
+    for page in range(max_pages):
+        if page:
+            time.sleep(PAUSE)
+        html_page = seasonplan(token, season, page)
+        dump(f"seasonplan_{page}.html", html_page)
+        rows = parse_seasonplan(html_page, season)
+        new = [t for t in rows if t["id"] not in seen]
+        for t in new:
+            seen.add(t["id"])
+        allt.extend(new)
+        pages = [int(x) for x in re.findall(r"ShowPage\((\d+)\)", html_page)]
+        if not new or (pages and page >= max(pages)) or not pages:
+            break
+    allt.sort(key=lambda t: (t["start"], t["organiser"]))
+    return allt
+
+
 # ---------- Hovedflow ----------
 
 def main():
@@ -505,6 +609,8 @@ def main():
     ap.add_argument("--names", choices=["full", "first"], default="full",
                     help="Spillernavne: fulde navne eller kun fornavn")
     ap.add_argument("--no-lineups", action="store_true", help="Spring opstillinger (subPage 5) over")
+    ap.add_argument("--tournaments", action="store_true",
+                    help="Hent sæsonplanen for individuelle turneringer til data/turneringer.json")
     ap.add_argument("--profiles", action="store_true",
                     help="Hent spillerprofiler (rangliste, point, resultater) til data/spillere.json")
     opts = ap.parse_args()
@@ -624,6 +730,19 @@ def main():
         with_lineup = sum(1 for m in matches if m["games"])
         print(f"  {t['name']} · {t.get('pulje', '')}: {len(matches)} kampe ({played} spillet, "
               f"{with_lineup} med opstilling), {len(out_teams[-1]['players'])} spillere")
+
+    # ---- Individuelle turneringer (hele landets sæsonplan) ----
+    if opts.tournaments:
+        try:
+            tours = fetch_tournaments(token, opts.season, dump)
+            t_out = os.path.join(os.path.dirname(opts.out) or ".", "turneringer.json")
+            with open(t_out, "w", encoding="utf-8") as fh:
+                json.dump({"updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                           "season": opts.season, "source": "badmintonplayer.dk sæsonplan",
+                           "levels": LEVELS, "tournaments": tours}, fh, ensure_ascii=False, indent=1)
+            print(f"Skrev {t_out}: {len(tours)} turneringer.")
+        except Exception as e:  # turneringer må ikke vælte holdkampene
+            print(f"ADVARSEL: sæsonplan fejlede: {e}", file=sys.stderr)
 
     # ---- Spillere: historik fra opstillinger + profil fra badmintonplayer.dk ----
     SENIOR_AGES = {"1", "9", "16"}   # SEN, SEN+40, MOT — voksne rækker

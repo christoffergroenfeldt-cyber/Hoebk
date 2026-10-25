@@ -17,7 +17,9 @@ OUT = "diag"
 EP = f.BASE + "/SportsResults/Components/WebService1.asmx/"
 MASK = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "[EMAIL]"),
         (re.compile(r"(?<!\d)(?:\+45\s?)?(?:\d{2}\s?){3}\d{2}(?!\d)"), "[TLF]"),
-        (re.compile(r"\b\d{6}-\d{2}\b"), "[SPILLERNR]")]
+        (re.compile(r"\b\d{6}-\d{2}\b"), "[SPILLERNR]"),
+        (re.compile(r"params=[^'\"\\]*"), "params=[FJERNET]"),       # print-link kan indeholde fødselsdato
+        (re.compile(r"\b\d{2}-\d{2}-(?:19|20)\d{2}\b"), "[DATO]")]
 
 
 def save(name, text):
@@ -67,7 +69,6 @@ def main():
         ("all_2026", {}),
         ("all_2026_page1", {"page": 1}),
         ("club_1151", {"clubid": "1151"}),
-        ("player_adult", {"playerid": adult} if adult else None),
         ("dates", {"strfrom": "01-11-2026", "strto": "31-12-2026"}),
     ]
     for name, kw in tests:
