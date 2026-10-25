@@ -49,6 +49,35 @@ jobs:
           if-no-files-found: ignore
           retention-days: 2
 
+      - name: Push renset fejlsøgningsdata til diag-branch
+        if: always() && github.event.inputs.debug == 'true'
+        run: |
+          mkdir -p /tmp/diag
+          python - <<'PY'
+          import glob, os, re, shutil
+          os.makedirs("/tmp/diag", exist_ok=True)
+          mask = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "[EMAIL]"),
+                  (re.compile(r"(?<!\d)(?:\+45\s?)?(?:\d{2}\s?){3}\d{2}(?!\d)"), "[TLF]"),
+                  (re.compile(r'(name="__[A-Z]+"[^>]*value=")[^"]*'), r"\1[STRIPPED]")]
+          # Kun klub-, pulje- og holdsider — aldrig login- eller kampsider (opstillinger/kontaktinfo)
+          for f in sorted(glob.glob("debug_html/*.html")):
+              b = os.path.basename(f)
+              if not re.match(r"(club_teams|pulje_|team_)", b):
+                  continue
+              s = open(f, encoding="utf-8").read()
+              for rx, rep in mask:
+                  s = rx.sub(rep, s)
+              open(f"/tmp/diag/{b}", "w", encoding="utf-8").write(s)
+          if os.path.exists("data/holdkampe.json"):
+              shutil.copy("data/holdkampe.json", "/tmp/diag/holdkampe.json")
+          PY
+          cd /tmp/diag
+          git init -q -b diag
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -q -m "Fejlsøgning $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" diag
+
       - name: Commit opdateret JSON
         run: |
           git config user.name "github-actions[bot]"
@@ -62,11 +91,12 @@ jobs:
           fi
 
       - name: Discord-besked
-        if: always() && env.DISCORD_WEBHOOK != ''
+        if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           STATUS: ${{ job.status }}
         run: |
+          [ -z "$DISCORD_WEBHOOK" ] && { echo "Ingen DISCORD_WEBHOOK — springer over."; exit 0; }
           if [ "$STATUS" = "success" ]; then MSG="✅ HØBK holdkampe opdateret"; else MSG="❌ HØBK holdkampe fejlede — se Actions-loggen"; fi
           curl -sS -m 20 -H "Content-Type: application/json" \
             -d "{\"content\": \"$MSG\"}" "$DISCORD_WEBHOOK" || true
