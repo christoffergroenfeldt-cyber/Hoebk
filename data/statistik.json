@@ -1,0 +1,35 @@
+{
+ "updated": "2026-10-25T20:36:20+00:00",
+ "scriptVersion": "2026-10-25.4",
+ "latest": {
+  "players": 2,
+  "emails": 2,
+  "loggedIn": 2,
+  "active7": 2,
+  "active30": 2,
+  "followers": 1,
+  "teamFollows": 1,
+  "tourFollows": 0,
+  "pushDevices": 2,
+  "pushUsers": 2,
+  "mailOff": 0,
+  "leaders": 1
+ },
+ "history": [
+  {
+   "players": 2,
+   "emails": 2,
+   "loggedIn": 2,
+   "active7": 2,
+   "active30": 2,
+   "followers": 1,
+   "teamFollows": 1,
+   "tourFollows": 0,
+   "pushDevices": 2,
+   "pushUsers": 2,
+   "mailOff": 0,
+   "leaders": 1,
+   "date": "2026-10-25"
+  }
+ ]
+}
