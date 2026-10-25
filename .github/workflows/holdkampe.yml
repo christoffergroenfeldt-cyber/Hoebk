@@ -59,10 +59,11 @@ jobs:
           mask = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "[EMAIL]"),
                   (re.compile(r"(?<!\d)(?:\+45\s?)?(?:\d{2}\s?){3}\d{2}(?!\d)"), "[TLF]"),
                   (re.compile(r'(name="__[A-Z]+"[^>]*value=")[^"]*'), r"\1[STRIPPED]")]
-          # Kun klub-, pulje- og holdsider — aldrig login- eller kampsider (opstillinger/kontaktinfo)
+          # Kun klub-, pulje- og holdsider samt SENIOR-kampsider (match_1_*, voksne spillere) —
+          # aldrig login-sider eller ungdomskampe. Mail/telefon maskeres altid.
           for f in sorted(glob.glob("debug_html/*.html")):
               b = os.path.basename(f)
-              if not re.match(r"(club_teams|pulje_|team_)", b):
+              if not re.match(r"(club_teams|pulje_|team_|match_1_)", b):
                   continue
               s = open(f, encoding="utf-8").read()
               for rx, rep in mask:

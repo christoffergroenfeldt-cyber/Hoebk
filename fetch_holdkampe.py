@@ -53,7 +53,7 @@ PAUSE = 1.2  # sekunder mellem kald — vær flink ved Badminton Danmarks server
 ARG_NAMES = ["subPage", "seasonID", "leagueGroupID", "ageGroupID", "regionID",
              "leagueGroupTeamID", "leagueMatchID", "clubID", "playerID"]
 
-DATE_RE = re.compile(r"\b(\d{1,2})[-./](\d{1,2})[-./](\d{4})(?:\s+(\d{1,2}[:.]\d{2}))?")
+DATE_RE = re.compile(r"\b(\d{1,2})[-./\u2011](\d{1,2})[-./\u2011](\d{4})(?:\s+(\d{1,2}[:.]\d{2}))?")
 SCORE_RE = re.compile(r"^\s*(\d{1,2})\s*-\s*(\d{1,2})\s*$")
 SET_RE = re.compile(r"\b(\d{1,2})\s*-\s*(\d{1,2})\b")
 DISC_RE = re.compile(r"^\s*(\d+)\.?\s*(HS|DS|HD|DD|MD|XD)\b", re.I)
@@ -186,7 +186,18 @@ def login(user, pwd, dump):
 # ---------- Parsing ----------
 
 def text(fragment):
-    return re.sub(r"\s+", " ", htmllib.unescape(TAG_RE.sub(" ", fragment))).strip()
+    s = htmllib.unescape(TAG_RE.sub(" ", fragment))
+    # badmintonplayer.dk bruger hårde bindestreger (U+2011) i datoer og bløde (U+00AD) i hal-navne
+    s = s.replace("‑", "-").replace("‐", "-").replace("­", "")
+    return re.sub(r"\s+", " ", s).strip()
+
+
+TD_CLASS_RE = re.compile(r"<td\b[^>]*class='([^']*)'[^>]*>(.*?)</td>", re.S | re.I)
+
+
+def cells_by_class(row):
+    """Liste af (klasse, tekst, rå html) for hver <td> i rækken."""
+    return [(cls, text(inner), inner) for cls, inner in TD_CLASS_RE.findall(row)]
 
 
 def parse_args(raw):
@@ -200,18 +211,55 @@ def hash_of(a):
 
 
 def parse_club_teams(fragment):
-    """subPage 6 → ét element pr. hold (links til subPage 3 eller 2)."""
-    teams, seen = [], set()
+    """subPage 6 → klubbens egne hold. Siden lister alle puljer og ALLE hold i dem
+    (også modstandere), så kun hold med Hørsholm i navnet tages med. Puljenavnet
+    (fx "U15 B, 6200 (4 spillere) Pulje 2") hentes fra puljelinket uden holdID."""
+    pulje_names, teams, seen = {}, [], set()
     for raw, label in ANCHOR_RE.findall(fragment):
         a = parse_args(raw)
-        if a["subPage"] not in ("2", "3") or not a["leagueGroupID"]:
+        name = text(label)
+        if not a["leagueGroupID"]:
             continue
-        key = (a["leagueGroupID"], a["leagueGroupTeamID"] or text(label))
-        if key in seen:
+        if not a["leagueGroupTeamID"]:
+            # Længste navn vinder ("U15 B, 6200 (4 spillere) Pulje 2" frem for kortere varianter)
+            if len(name) > len(pulje_names.get(a["leagueGroupID"], "")):
+                pulje_names[a["leagueGroupID"]] = name
             continue
-        seen.add(key)
-        teams.append({"name": text(label), "args": a})
+        if a["subPage"] != "3" or not US_RE.search(name):
+            continue
+        if a["leagueGroupTeamID"] in seen:
+            continue
+        seen.add(a["leagueGroupTeamID"])
+        teams.append({"name": name, "args": a})
+    for t in teams:
+        t["pulje"] = pulje_names.get(t["args"]["leagueGroupID"], "")
     return teams
+
+
+def parse_standings(fragment):
+    """subPage 2 → stillingen i puljen."""
+    rows = []
+    for row in ROW_RE.findall(fragment):
+        c = cells_by_class(row)
+        if not c or c[0][0] != "standing":
+            continue
+        vals = [t for _, t, _ in c]
+        team_id = ""
+        for raw in SHOW_RE.findall(row):
+            team_id = parse_args(raw)["leagueGroupTeamID"]
+        nums = vals[2:]
+        rows.append({
+            "pos": vals[0],
+            "team": vals[1],
+            "teamID": team_id,
+            "isUs": bool(US_RE.search(vals[1])),
+            "played": nums[0] if len(nums) > 0 else "",
+            "won": nums[1] if len(nums) > 1 else "",
+            "score": nums[2] if len(nums) > 2 else "",
+            "sets": nums[3] if len(nums) > 3 else "",
+            "points": nums[4] if len(nums) > 4 else "",
+        })
+    return rows
 
 
 def find_team_id_in_pulje(fragment):
@@ -225,52 +273,70 @@ def find_team_id_in_pulje(fragment):
     return own or found
 
 
-def parse_matches(fragment):
-    """subPage 3 → kampe. Best-effort: genkender dato- og resultatceller."""
+def parse_matches(fragment, team_id=""):
+    """subPage 3 → kampe. Tabellen 'matchlist' har kolonnerne:
+    time | matchno | team (hjemme) | team (ude) | team (arrangør) | venue | score | points | wo | livescore
+    Uspillede kampe har '-' i score."""
     matches = []
     for row in ROW_RE.findall(fragment):
-        cells_html = CELL_RE.findall(row)
-        if not cells_html:
+        c = cells_by_class(row)
+        if not c or c[0][0] != "time":
+            continue  # header eller andet
+        by = {}
+        for cls, t, raw in c:
+            by.setdefault(cls, []).append((t, raw))
+        when = by["time"][0][0]
+        m = DATE_RE.search(when)
+        if not m:
             continue
-        cells = [text(c) for c in cells_html]
-        date_iso, time_str, date_idx = None, None, None
-        for i, c in enumerate(cells):
-            m = DATE_RE.search(c)
-            if m:
-                d, mo, y, t = m.groups()
-                date_iso = f"{y}-{int(mo):02d}-{int(d):02d}"
-                time_str = t.replace(".", ":") if t else None
-                date_idx = i
-                break
-        if date_iso is None:
-            continue
-        result, res_idx = None, None
-        for i, c in enumerate(cells):
-            if SCORE_RE.match(c):
-                result, res_idx = c.replace(" ", ""), i
-        rest = [c for i, c in enumerate(cells)
-                if i not in (date_idx, res_idx) and c
-                and not re.fullmatch(r"[\d\s:.\-/]+", c)]
+        d, mo, y, tm = m.groups()
+        teams = by.get("team", [])
+        home, away = (teams[0][0] if len(teams) > 0 else ""), (teams[1][0] if len(teams) > 1 else "")
+        home_id = away_id = ""
+        if len(teams) > 0:
+            ids = [parse_args(r)["leagueGroupTeamID"] for r in SHOW_RE.findall(teams[0][1])]
+            home_id = ids[0] if ids else ""
+        if len(teams) > 1:
+            ids = [parse_args(r)["leagueGroupTeamID"] for r in SHOW_RE.findall(teams[1][1])]
+            away_id = ids[0] if ids else ""
+        organiser = teams[2][0] if len(teams) > 2 else ""
+        venue = by.get("venue", [("", "")])[0][0]
+        score = by.get("score", [("", "")])[0][0]
+        points = by.get("points", [("", "")])[0][0]
+        wo = by.get("wo", [("", "")])[0][0]
+        sm = SCORE_RE.match(score)
+        played = bool(sm)
+        if team_id:
+            is_home = home_id == team_id
+        else:
+            is_home = bool(US_RE.search(home))
+        outcome = None
+        if played:
+            h, a = int(sm.group(1)), int(sm.group(2))
+            us, them = (h, a) if is_home else (a, h)
+            outcome = "V" if us > them else "T" if us < them else "U"
         match_id, link_args = "", None
-        for raw in SHOW_RE.findall(row):
+        for raw in SHOW_RE.findall(by["matchno"][0][1] if "matchno" in by else ""):
             a = parse_args(raw)
             if a["subPage"] == "5" and a["leagueMatchID"]:
                 match_id, link_args = a["leagueMatchID"], a
-                break
-        home = rest[0] if len(rest) > 0 else ""
-        away = rest[1] if len(rest) > 1 else ""
         matches.append({
-            "date": date_iso,
-            "time": time_str,
+            "date": f"{y}-{int(mo):02d}-{int(d):02d}",
+            "time": tm.replace(".", ":") if tm else None,
             "home": home,
             "away": away,
-            "isHome": bool(US_RE.search(home)),
-            "result": result,          # None = ikke spillet endnu
-            "played": result is not None,
+            "isHome": is_home,
+            "opponent": away if is_home else home,
+            "organiser": organiser,
+            "venue": venue,
+            "result": score.replace(" ", "") if played else None,   # None = ikke spillet
+            "points": points if played else None,
+            "outcome": outcome,        # V / T / U set fra Hørsholms side
+            "walkover": wo,            # fx "Afb." = afgjort uden kamp
+            "played": played,
             "matchID": match_id,
             "url": PUBLIC_LINK.format(hash_of(link_args)) if link_args else "",
             "games": [],               # udfyldes fra subPage 5
-            "cells": cells,            # rå celler — til fejlsøgning/justering
         })
     matches.sort(key=lambda m: (m["date"], m["time"] or ""))
     return matches
@@ -408,7 +474,7 @@ def main():
               f"Start af svar:\n{club_html[:1500]}", file=sys.stderr)
         sys.exit(3)
 
-    out_teams = []
+    out_teams, standings_cache = [], {}
     for t in teams:
         a = dict(t["args"])
         a.update({"subPage": "3", "seasonID": opts.season, "clubID": opts.club})
@@ -419,7 +485,7 @@ def main():
             print(f"ADVARSEL: {t['name']}: {e}", file=sys.stderr)
             continue
         dump(f"team_{a.get('leagueGroupTeamID') or a.get('leagueGroupID')}.html", m_html)
-        matches = parse_matches(m_html)
+        matches = parse_matches(m_html, a.get("leagueGroupTeamID", ""))
 
         if not opts.no_lineups:
             for m in matches:
@@ -431,7 +497,7 @@ def main():
                 except RuntimeError as e:
                     print(f"ADVARSEL: kamp {m['matchID']}: {e}", file=sys.stderr)
                     continue
-                dump(f"match_{m['matchID']}.html", g_html)
+                dump(f"match_{a.get('ageGroupID') or 'x'}_{m['matchID']}.html", g_html)
                 m["games"] = parse_games(g_html)
                 if opts.names == "first":
                     for g in m["games"]:
@@ -440,8 +506,24 @@ def main():
                                 p["name"] = short_name(p["name"], "first")
 
         standing_args = dict(a, subPage="2", leagueGroupTeamID="")
+        lg = a.get("leagueGroupID", "")
+        if lg not in standings_cache:
+            time.sleep(PAUSE)
+            try:
+                s_html = standing(token, standing_args)
+                dump(f"pulje_{lg}.html", s_html)
+                standings_cache[lg] = parse_standings(s_html)
+            except RuntimeError as e:
+                print(f"ADVARSEL: stilling {lg}: {e}", file=sys.stderr)
+                standings_cache[lg] = []
+        table = standings_cache[lg]
+        me = next((r for r in table if r["teamID"] == a.get("leagueGroupTeamID")), None)
         out_teams.append({
             "name": t["name"],
+            "pulje": t.get("pulje", ""),
+            "label": re.split(r",|\s+Pulje\b", t.get("pulje", "") or t["name"])[0].strip(),
+            "position": me["pos"] if me else "",
+            "standing": table,
             "leagueGroupID": a.get("leagueGroupID", ""),
             "ageGroupID": a.get("ageGroupID", ""),
             "leagueGroupTeamID": a.get("leagueGroupTeamID", ""),
@@ -452,7 +534,7 @@ def main():
         })
         played = sum(1 for m in matches if m["played"])
         with_lineup = sum(1 for m in matches if m["games"])
-        print(f"  {t['name']}: {len(matches)} kampe ({played} spillet, "
+        print(f"  {t['name']} · {t.get('pulje', '')}: {len(matches)} kampe ({played} spillet, "
               f"{with_lineup} med opstilling), {len(out_teams[-1]['players'])} spillere")
 
     data = {
