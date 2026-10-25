@@ -1,0 +1,1 @@
+Fejlsøgningsdata er fjernet.
