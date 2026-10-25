@@ -511,7 +511,11 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   try { var tfs = JSON.parse(localStorage.getItem('hoebk_tf') || 'null'); if (tfs) TF = tfs; } catch (e) {}
   function saveTF() { try { localStorage.setItem('hoebk_tf', JSON.stringify(TF)); } catch (e) {} }
   function tourRegion(t) { var p = t.place || {}; return p.abroad ? 'Udland' : (p.region || 'Ukendt'); }
+  function toursPlaced() {
+    return (D.tours || []).some(function (t) { return t.place && (typeof t.place.km === 'number' || t.place.abroad); });
+  }
   function tourPass(t) {
+    if (!toursPlaced()) return true;   // stederne er ikke slået op endnu — vis alt frem for ingenting
     if (TF.region !== 'alle' && tourRegion(t) !== TF.region) return false;
     if (TF.km && !(t.place && typeof t.place.km === 'number' && t.place.km <= TF.km)) return false;
     return true;
@@ -523,7 +527,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     return '<div class="filters"><select id="tfRegion" aria-label="Region"><option value="alle">Hele landet</option>' +
       list.map(function (r) { return '<option value="' + esc(r) + '"' + (TF.region === r ? ' selected' : '') + '>' + (r === 'Udland' || r === 'Ukendt' ? esc(r) : 'Region ' + esc(r)) + '</option>'; }).join('') +
       '</select><select id="tfKm" aria-label="Afstand fra Hørsholm">' + [[0, 'Alle afstande'], [25, 'Inden for 25 km'], [50, 'Inden for 50 km'], [100, 'Inden for 100 km'], [200, 'Inden for 200 km']].map(function (o) {
-        return '<option value="' + o[0] + '"' + (+TF.km === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div>';
+        return '<option value="' + o[0] + '"' + (+TF.km === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div>' +
+      (toursPlaced() ? '' : '<p class="xs" style="margin:4px 2px 0">Region og afstand er ikke beregnet endnu — filtrene virker efter næste dataopdatering.</p>');
   }
   function bindTourFilters() {
     var r = document.getElementById('tfRegion'), k = document.getElementById('tfKm');
