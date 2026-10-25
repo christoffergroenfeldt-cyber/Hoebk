@@ -17,20 +17,21 @@ def main():
         except Exception as e:
             print("fejl", p, e); continue
         d.save("side_" + p.strip("/").replace("/", "_") + ".html", html)
+        import urllib.parse as up
         for src in re.findall(r"<script[^>]+src=['\"]([^'\"]+)['\"]", html):
-            found[src] = 1
+            found[up.urljoin(f.BASE + p, src.replace("&amp;", "&"))] = 1
         for m in set(re.findall(r"WebService1\.asmx/(\w+)", html)):
             print("::notice title=metode i " + p + "::" + m)
     for src in list(found)[:40]:
-        url = src if src.startswith("http") else f.BASE + ("" if src.startswith("/") else "/") + src
-        if "badmintonplayer" not in url:
+        url = src
+        if "badmintonplayer" not in url or "ScriptResource" in url or "WebResource" in url:
             continue
         try:
             _, _, js = f.http(url)
         except Exception:
             continue
-        ms = set(re.findall(r"WebService1\.asmx/(\w+)", js)) | set(re.findall(r"['\"](Get\w*(?:Rank|Player|Club|Ranking)\w*)['\"]", js))
-        if ms:
+        ms = set(re.findall(r"WebService1\.asmx/(\w+)", js)) | set(re.findall(r"(Get\w*(?:Rank|Player|Club)\w*)", js))
+        if ms or "asmx/js" in url or "sportsresults.js" in url.lower():
             name = "js_" + re.sub(r"\W+", "_", src.split("?")[0])[-60:] + ".txt"
             d.save(name, js)
             print("::notice title=metoder i " + src.split("?")[0][-50:] + "::" + ", ".join(sorted(ms)))
