@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T20:55:38+00:00",
+  "updated": "2026-10-25T21:29:54+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -8,10 +8,21 @@
       "name": "Hørsholm 2",
       "pulje": "U11 Dx, 4200 (4 spillere) Pulje 1",
       "label": "U11 Dx",
-      "position": "2",
+      "position": "3",
       "standing": [
         {
           "pos": "1",
+          "team": "Herlev/Hjorten 2",
+          "teamID": "124650",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "13-3",
+          "sets": "26-9",
+          "points": "7"
+        },
+        {
+          "pos": "2",
           "team": "Lillerød 3",
           "teamID": "124648",
           "isUs": false,
@@ -22,7 +33,7 @@
           "points": "7"
         },
         {
-          "pos": "2",
+          "pos": "3",
           "team": "Hørsholm 2",
           "teamID": "124651",
           "isUs": true,
@@ -33,7 +44,7 @@
           "points": "5"
         },
         {
-          "pos": "3",
+          "pos": "4",
           "team": "Slagelse 2",
           "teamID": "124652",
           "isUs": false,
@@ -44,7 +55,7 @@
           "points": "4"
         },
         {
-          "pos": "4",
+          "pos": "5",
           "team": "Lillerød 2",
           "teamID": "124647",
           "isUs": false,
@@ -53,17 +64,6 @@
           "score": "8-8",
           "sets": "17-18",
           "points": "4"
-        },
-        {
-          "pos": "5",
-          "team": "Ledøje-Smørum 1",
-          "teamID": "124654",
-          "isUs": false,
-          "played": "1",
-          "won": "1",
-          "score": "5-3",
-          "sets": "11-7",
-          "points": "3"
         },
         {
           "pos": "6",
@@ -78,13 +78,13 @@
         },
         {
           "pos": "7",
-          "team": "Herlev/Hjorten 2",
-          "teamID": "124650",
+          "team": "Ledøje-Smørum 1",
+          "teamID": "124654",
           "isUs": false,
-          "played": "1",
+          "played": "2",
           "won": "1",
-          "score": "5-3",
-          "sets": "10-7",
+          "score": "5-11",
+          "sets": "13-23",
           "points": "3"
         },
         {
