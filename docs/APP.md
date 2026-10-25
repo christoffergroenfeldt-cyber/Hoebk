@@ -91,7 +91,7 @@ A player's circle has the colour of the division they've played most team matche
 
 ## Layout
 
-The page is a fixed frame: `html, body` don't scroll; `.app` is `100dvh` with header, `main` (the only scrolling element, `overflow-y: auto`) and the tab bar as normal flex children. This avoids iOS home-screen apps placing a `position: fixed` tab bar in the middle of the screen after resuming. Scroll position is `$main.scrollTop`, not `window.scrollY`.
+The page is a fixed frame: `html, body` don't scroll; `.app` is pinned to the screen edges (`position: fixed; top: 0; bottom: 0` — iOS home-screen apps report a too-small `100dvh`) with header, `main` (the only scrolling element, `overflow-y: auto`) and the tab bar as normal flex children. This avoids iOS home-screen apps placing a `position: fixed` tab bar in the middle of the screen after resuming. Scroll position is `$main.scrollTop`, not `window.scrollY`.
 
 ## Design tokens
 
