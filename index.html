@@ -245,14 +245,23 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   // Forældre og andre uden holdkampe bliver grå.
   var PARENT = { bg: '#C9CED3', fg: '#0E2236' };
   function playerColor(p) {
-    if (!p || !p.teams || !p.teams.length) return PARENT;
+    if (!p) return PARENT;
+    if (!p.teams || !p.teams.length) {   // ingen holdkampe: ud fra rangliste-niveau (U… = ungdom, SEN… = senior)
+      var lv = (typeof playerLevels === 'function' ? playerLevels(p) : [])[0] || ((p.profile || {}).level || '');
+      return /^U\d/.test(lv) ? teamColor('U') : /^(SEN|MOT|VET|\+)/.test(lv) ? teamColor('Serie') : PARENT;
+    }
     var n = {}; (p.games || []).forEach(function (g) { n[g.team] = (n[g.team] || 0) + 1; });
     var main = p.teams.slice().sort(function (a, b) { return (n[b] || 0) - (n[a] || 0); })[0];
     return teamColor(main);
   }
+  function teamsTxt(p) {   // "U15 B, Serie 2" — eller niveau for spillere uden holdkampe
+    if (p.teams && p.teams.length) return p.teams.join(', ');
+    var lv = (typeof playerLevels === 'function' ? playerLevels(p) : []);
+    return (lv.length ? lv.join(', ') + ' · ' : '') + 'ingen holdkampe i år';
+  }
   function avStyle(p) { var c = playerColor(p); return 'background:' + c.bg + ';color:' + c.fg; }
   function colorLegend() {
-    return '<div class="legend">' + [['Senior', '#2F6FB3'], ['4 spillere', '#7FD3F7'], ['Motion', '#E58A2E'], ['Ungdom', '#D4F25A'], ['Forælder', PARENT.bg]].map(function (x) {
+    return '<div class="legend">' + [['Senior', '#2F6FB3'], ['4 spillere', '#7FD3F7'], ['Motion', '#E58A2E'], ['Ungdom', '#D4F25A'], ['Forælder / uden niveau', PARENT.bg]].map(function (x) {
       return '<span><i style="background:' + x[1] + '"></i>' + x[0] + '</span>'; }).join('') + '</div>';
   }
   var METRICS = { won: ['Vundne kampe', 'won', 'vundet'], pct: ['Sejr %', 'winPct', '%'],
@@ -289,7 +298,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         var players = {};
         sp.players.forEach(function (p) { if (p.id) players[p.id] = p; });
         var ids = Object.keys(players);
-        var overall = ids.slice().sort(function (a, b) { var A = players[a], B = players[b];
+        var overall = ids.filter(function (id) { return players[id].played; }).sort(function (a, b) { var A = players[a], B = players[b];
           return (B.won - A.won) || (B.winPct - A.winPct) || (B.pointsFor - A.pointsFor) || A.name.localeCompare(B.name, 'da'); });
         var clubRank = {}; overall.forEach(function (id, i) { clubRank[id] = i + 1; });
         D = { teams: teams, players: players, ids: ids, clubRank: clubRank, updated: sp.updated || hk.updated, training: tr, tours: (tu && tu.tournaments) || [], toursUpdated: tu && tu.updated,
@@ -427,6 +436,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     setTab('rang'); setHeader('Klubrangliste', 'Alle hold · ' + updTxt(), false);
     var md = METRICS[UI.metric];
     var pool = D.ids.filter(function (id) { var p = D.players[id];
+      if (!p.played) return false;   // kun spillere med holdkampe
       return UI.filter === 'alle' || (UI.filter === 'senior' ? p.adult : !p.adult); });
     pool.sort(function (a, b) { var A = D.players[a], B = D.players[b];
       return (B[md[1]] - A[md[1]]) || (B.won - A.won) || (B.winPct - A.winPct) || (B.pointsFor - A.pointsFor) || A.name.localeCompare(B.name, 'da'); });
@@ -455,21 +465,21 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   function renderPlayerList() {
     var q = UI.q.toLowerCase().trim();
     var list = D.ids.filter(function (id) { var p = D.players[id];
-      return !q || p.name.toLowerCase().indexOf(q) >= 0 || p.teams.join(' ').toLowerCase().indexOf(q) >= 0; })
+      return !q || p.name.toLowerCase().indexOf(q) >= 0 || teamsTxt(p).toLowerCase().indexOf(q) >= 0; })
       .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); });
     var el = document.getElementById('plist'); if (!el) return;
     el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="lbl">' + list.length + ' spillere</span>' + colorLegend() + '</div>' + list.map(function (id, i) {
       var p = D.players[id];
       return '<button class="card row" style="min-height:54px;padding:8px 12px" data-go="#/spiller/' + esc(id) + '">' +
         '<span class="av" style="width:36px;height:36px;font-size:12px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
-        '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(p.teams.join(', ')) + '</span></span>' +
-        '<span style="font-size:13px;font-weight:700;white-space:nowrap">' + p.won + '/' + p.played + '</span></button>';
+        '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(teamsTxt(p)) + '</span></span>' +
+        '<span style="font-size:13px;font-weight:700;white-space:nowrap">' + (p.played ? p.won + '/' + p.played : '–') + '</span></button>';
     }).join('');
   }
 
   function viewPlayer(id) {
     var p = D.players[id]; if (!p) return viewSpillere();
-    setHeader(p.name, p.teams.join(', '), true);
+    setHeader(p.name, teamsTxt(p), true);
     var prof = p.profile || { rankings: [] };
     var h = '<div style="display:flex;align-items:center;gap:12px;margin:0 2px">' +
       '<span class="av" style="width:56px;height:56px;font-size:19px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
@@ -493,7 +503,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         return '<span class="card" style="border-radius:999px;padding:5px 12px;font-size:13px"><strong>' + esc(k) + '</strong> ' + b.won + ' af ' + b.played + '</span>'; }).join('') + '</div>';
     }
     h += playerTourBlock(p, 6);
-    h += '<span class="lbl">Kampe i sæsonen</span>' + p.games.map(function (g) {
+    if (!p.games.length) h += '<span class="lbl">Kampe i sæsonen</span><p class="empty">Ingen holdkampe i denne sæson endnu.</p>';
+    h += (p.games.length ? '<span class="lbl">Kampe i sæsonen</span>' : '') + p.games.map(function (g) {
       return '<div class="card" style="padding:10px 12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center">' +
         '<div class="col" style="line-height:1.35"><span class="xs">' + dTxt(g.date) + ' · ' + esc(g.team) + ' · ' + esc(g.discipline) + '</span>' +
         '<span style="font-size:13px;font-weight:600">' + (g.partner.length ? 'med ' + esc(g.partner.join(' / ')) : 'Single') + '</span>' +
@@ -1202,7 +1213,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         '<div id="mlist" class="col" style="gap:6px"></div>' +
         '<span class="lbl">Ikke på listen?</span><div class="card search"><input id="newname" type="text" placeholder="Skriv dit fulde navn" aria-label="Dit fulde navn" autocomplete="name" maxlength="60">' +
         '<button class="rb" id="newok" style="min-height:36px">Brug</button></div>' +
-        '<p class="note">Listen viser spillere, der har spillet holdkamp i sæsonen. Nye spillere kan skrive deres navn.</p>';
+        '<p class="note">Listen viser alle spillere registreret i Hørsholm på badmintonplayer.dk. Står du ikke på listen, kan du skrive dit navn.</p>';
     }
     if (UI.pick) { UI.pick = false; }
     var P = D.players[ME.id];
@@ -1270,7 +1281,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       var p = D.players[id];
       return '<button class="card row" style="min-height:52px;padding:8px 12px" data-me="' + esc(id) + '">' +
         '<span class="av" style="width:34px;height:34px;font-size:12px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
-        '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(p.teams.join(', ')) + '</span></span></button>';
+        '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(teamsTxt(p)) + '</span></span></button>';
     }).join('') || '<p class="empty">Ingen match — skriv dit navn nedenfor.</p>';
   }
   function setMe(id, name) {

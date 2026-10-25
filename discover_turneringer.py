@@ -17,7 +17,7 @@ OUT = "diag"
 EP = f.BASE + "/SportsResults/Components/WebService1.asmx/"
 MASK = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "[EMAIL]"),
         (re.compile(r"(?<!\d)(?:\+45\s?)?(?:\d{2}\s?){3}\d{2}(?!\d)"), "[TLF]"),
-        (re.compile(r"\b\d{6}-\d{2}\b"), "[SPILLERNR]"),
+        (re.compile(r"\b\d{6}(?:-|\u2011|&#8209;|&#x2011;)\d{2}\b"), "[SPILLERNR]"),
         (re.compile(r"params=[^'\"\\]*"), "params=[FJERNET]"),       # print-link kan indeholde fødselsdato
         (re.compile(r"\b\d{2}-\d{2}-(?:19|20)\d{2}\b"), "[DATO]")]
 

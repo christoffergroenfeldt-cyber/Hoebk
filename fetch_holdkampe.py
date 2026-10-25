@@ -128,7 +128,7 @@ def standing(token, args, retries=2):
 PROFILE_ENDPOINT = BASE + "/SportsResults/Components/WebService1.asmx/GetPlayerProfile"
 PLAYER_PAGE = BASE + "/DBF/Spiller/VisSpiller/"
 # Spillernummeret (fx 060718-01) indeholder fødselsdatoen — det må aldrig gemmes eller logges
-PLAYERNO_RE = re.compile(r"\b\d{6}-\d{2}\b")
+PLAYERNO_RE = re.compile(r"\b\d{6}(?:-|\u2011|&#8209;|&#x2011;)\d{2}\b")   # spillernummer (indeholder fødselsdato)
 
 
 def player_profile(token, player_id, retries=2):
@@ -910,9 +910,56 @@ def locate_tournaments(tours, data_dir):
           f"{sum(1 for t in tours if t['place'].get('unknown'))} ukendte (ret i data/steder_rettelser.json)")
 
 
-def write_players(out_teams, out_dir, season, token=None, profiles=None, dump=lambda *a: None):
+# ---------- Alle spillere i klubben ----------
+SEARCH_LETTERS = list("abcdefghijklmnopqrstuvwxyzæøå")
+
+
+def search_club_players(token, club, name=""):
+    """SearchPlayer med klub-id → [(id, navn, køn)]. Spillernummer gemmes aldrig."""
+    payload = {"callbackcontextkey": token, "selectfunction": "SPSel1", "name": name, "clubid": str(club),
+               "playernumber": "", "gender": "", "agegroupid": "", "searchteam": False, "licenseonly": False,
+               "agegroupcontext": 0, "tournamentdate": ""}
+    status, final_url, body = http(BASE + "/SportsResults/Components/WebService1.asmx/SearchPlayer",
+                                   data=json.dumps(payload).encode("utf-8"),
+                                   extra_headers={"Content-Type": "application/json; charset=utf-8",
+                                                  "X-Requested-With": "XMLHttpRequest",
+                                                  "Referer": BASE + "/DBF/Ranglister/"})
+    d = json.loads(body).get("d", {}) or {}
+    html_part = d.get("Html", "") if isinstance(d, dict) else ""
+    out = []
+    q = r"(?:[^'\\]|\\.)*"                       # tekst i '…' (med evt. \' indeni)
+    rx = re.compile(r"SPSel1\('(\d+)',\s*'" + q + r"',\s*'(" + q + r")',\s*'(\d*)',\s*'" + q + r"',\s*'(\w?)'\)")
+    for pid, pname, cid, gender in rx.findall(html_part):
+        if cid == str(club):
+            out.append((pid, htmllib.unescape(pname).replace("\\'", "'").strip(), gender))
+    return out, bool(d.get("ListTruncated")) if isinstance(d, dict) else False
+
+
+def fetch_club_players(token, club):
+    """Alle spillere registreret i klubben: søg på hvert bogstav (og to bogstaver hvis listen bliver afkortet)."""
+    found = {}
+    queue = list(SEARCH_LETTERS)
+    while queue:
+        q = queue.pop(0)
+        time.sleep(PAUSE)
+        try:
+            rows, truncated = search_club_players(token, club, q)
+        except Exception as e:  # noqa
+            print(f"ADVARSEL: spillersøgning '{q}': {e}", file=sys.stderr)
+            continue
+        for pid, name, gender in rows:
+            found[pid] = {"id": pid, "name": name, "gender": gender}
+        if truncated and len(q) < 3:
+            queue.extend(q + c for c in SEARCH_LETTERS)
+    print(f"Klubbens spillere: {len(found)} fundet via spillersøgning")
+    return found
+
+
+def write_players(out_teams, out_dir, season, token=None, profiles=None, dump=lambda *a: None, club_players=None):
     """Spillere: historik fra opstillinger + profil fra badmintonplayer.dk → spillere.json (inkl. klubrangliste).
-    profiles: None = ingen profiler, "all" = hent alle, "new" = genbrug fra sidste spillere.json og hent kun nye."""
+    profiles: None = ingen profiler, "all" = hent alle, "new" = genbrug fra sidste spillere.json og hent kun nye.
+    club_players: {id: {id, name, gender}} — alle i klubben (også uden holdkampe). None i "new"-tilstand = genbrug
+    listen fra sidste spillere.json."""
     SENIOR_AGES = {"1", "9", "16"}   # SEN, SEN+40, MOT — voksne rækker
     players = {}
     for t in out_teams:
@@ -960,6 +1007,24 @@ def write_players(out_teams, out_dir, season, token=None, profiles=None, dump=la
             d["won"] += 1 if x["won"] else 0
         pl["byDiscipline"] = by_disc
 
+    old_players = []
+    try:
+        old_players = json.load(open(os.path.join(out_dir, "spillere.json"), encoding="utf-8")).get("players", [])
+    except (OSError, ValueError):
+        pass
+    if club_players is None and profiles == "new":
+        club_players = {op["id"]: {"id": op["id"], "name": op["name"], "gender": op.get("gender", "")}
+                        for op in old_players if op.get("id") and op.get("clubMember")}
+    for cp in (club_players or {}).values():   # klubbens spillere uden holdkampe i sæsonen
+        pl = players.get(cp["id"])
+        if pl is None:
+            players[cp["id"]] = {"id": cp["id"], "name": cp["name"], "teams": [], "adult": False, "games": [],
+                                 "played": 0, "won": 0, "lost": 0, "winPct": 0, "pointsFor": 0, "pointsAgainst": 0,
+                                 "avgPoints": 0, "avgDiff": 0, "setsWon": 0, "setsLost": 0, "byDiscipline": {}}
+            pl = players[cp["id"]]
+        pl["clubMember"] = True
+        if cp.get("gender"):
+            pl["gender"] = cp["gender"]
     old_prof = {}
     if profiles == "new":                      # genbrug profiler fra sidste fulde kørsel
         try:
@@ -987,9 +1052,13 @@ def write_players(out_teams, out_dir, season, token=None, profiles=None, dump=la
             html_part = (prof.get("Html") or prof.get("html") or "") if isinstance(prof, dict) else ""
             pl["profile"] = parse_profile(html_part)
 
+    for pl in players.values():               # voksen/ungdom for spillere uden holdkampe: ud fra rangliste-kategori
+        if not pl["teams"]:
+            cats = [r.get("category", "") for r in (pl.get("profile") or {}).get("rankings", [])] + [(pl.get("profile") or {}).get("level", "")]
+            pl["adult"] = any(re.match(r"(SEN|MOT|VET|\+)", c or "") for c in cats)
     players_out = sorted(players.values(), key=lambda p: p["name"])
     # Klubrangliste: flest vundne kampe; ved lighed højest sejrsprocent, så flest point
-    ranked = sorted(players_out, key=lambda p: (-p["won"], -p["winPct"], -p["pointsFor"], p["name"]))
+    ranked = sorted((p for p in players_out if p["played"]), key=lambda p: (-p["won"], -p["winPct"], -p["pointsFor"], p["name"]))
     club_ranking = [{"rank": i + 1, "id": p["id"], "name": p["name"], "teams": p["teams"],
                      "played": p["played"], "won": p["won"], "winPct": p["winPct"],
                      "pointsFor": p["pointsFor"], "avgPoints": p["avgPoints"], "avgDiff": p["avgDiff"]}
@@ -1171,8 +1240,14 @@ def main():
         print(f"ADVARSEL: køretider fejlede: {e}", file=sys.stderr)
 
     # ---- Spillere: historik fra opstillinger + profil fra badmintonplayer.dk ----
+    club_players = None
+    if opts.profiles:
+        try:
+            club_players = fetch_club_players(token, opts.club)
+        except Exception as e:  # noqa — må ikke vælte resten
+            print(f"ADVARSEL: klubbens spillere kunne ikke hentes: {e}", file=sys.stderr)
     write_players(out_teams, os.path.dirname(opts.out) or ".", opts.season, token,
-                  "all" if opts.profiles else None, dump)
+                  "all" if opts.profiles else None, dump, club_players)
 
     data = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

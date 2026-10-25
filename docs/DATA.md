@@ -65,7 +65,7 @@ Written by `fetch_holdkampe.py`.
 
 ## `data/spillere.json` — players and club ranking
 
-Written by `fetch_holdkampe.py --profiles`. Includes every Hørsholm player who has played at least one team match this season.
+Written by `fetch_holdkampe.py --profiles`. Includes every player registered to Hørsholm on badmintonplayer.dk (found with the player search `SearchPlayer` + club id, one search per letter — `clubMember: true`, `gender`), plus anyone who played a team match for Hørsholm this season. Players without team matches have zero stats and are left out of `clubRanking`; the app colours them by their ranking level. Player numbers (which contain the birth date) are never stored.
 
 ```jsonc
 {
