@@ -22,7 +22,7 @@ html,body{height:100%;overflow:hidden;margin:0;background:var(--ground);color:va
 button{font-family:inherit;color:inherit;cursor:pointer}
 a{color:var(--ink)}
 /* Fast ramme: top og menu ligger fast, kun indholdet ruller (undgår at menuen hopper på iPhone-hjemmeskærmsapps) */
-.app{position:fixed;top:0;bottom:0;left:0;right:0;max-width:560px;margin:0 auto;display:flex;flex-direction:column;background:var(--ground);overflow:hidden}
+.app{position:fixed;top:0;left:0;right:0;height:100vh;height:var(--app-h,100lvh);max-width:560px;margin:0 auto;display:flex;flex-direction:column;background:var(--ground);overflow:hidden}
 .top{flex:0 0 auto;position:relative;z-index:5;background:var(--ink);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 12px 12px;display:flex;align-items:center;gap:6px;min-height:56px}
 .top .back{width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
 .top .back:focus-visible{outline:2px solid var(--accent)}
@@ -215,6 +215,21 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   // Telefoner (især "Føj til hjemmeskærm" på iPhone) gemmer siden og genåbner den uden at hente den igen.
   // Vi sammenligner appens egen kode (script + stylesheet) med den nyeste udgave på GitHub Pages.
   var SELF = document.currentScript;
+  // iOS-hjemmeskærmsapp: højden rapporteres for lav (minus statuslinjen) → brug skærmens faktiske højde.
+  (function fitHeight() {
+    var standaloneApp = navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+    function set() {
+      var h = window.innerHeight;
+      if (standaloneApp && screen && screen.height) {
+        var land = window.matchMedia && matchMedia('(orientation: landscape)').matches;
+        h = Math.max(h, land ? Math.min(screen.width, screen.height) : Math.max(screen.width, screen.height));
+      }
+      document.documentElement.style.setProperty('--app-h', h + 'px');
+    }
+    set();
+    ['resize', 'orientationchange', 'pageshow'].forEach(function (ev) { window.addEventListener(ev, function () { setTimeout(set, 50); }); });
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') setTimeout(set, 50); });
+  })();
   function codeSig(doc, script) {
     var txt = Array.prototype.map.call(doc.querySelectorAll('style'), function (x) { return x.textContent; }).join('') + (script ? script.textContent : '');
     var h = 5381; for (var i = 0; i < txt.length; i++) h = ((h << 5) + h + txt.charCodeAt(i)) | 0;
