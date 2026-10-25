@@ -1,4 +1,13 @@
 {
+ "8 nations i Brøndby Hallen": {
+  "sted": "Brøndby",
+  "lat": 55.6441,
+  "lon": 12.4217,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 26,
+  "roadKm": 32
+ },
  "Aabenraa": {
   "sted": "Aabenraa",
   "lat": 55.0446,
@@ -44,6 +53,15 @@
   "min": 214,
   "roadKm": 323
  },
+ "Aars": {
+  "sted": "Aars",
+  "lat": 56.8034,
+  "lon": 9.5169,
+  "region": "Nordjylland",
+  "via": "nominatim",
+  "min": 270,
+  "roadKm": 412
+ },
  "Aflyst - DGI Midtjylland - Kjellerup": {
   "sted": "Midtjylland Kjellerup",
   "lat": 56.2835,
@@ -73,6 +91,15 @@
   "via": "nominatim",
   "min": 192,
   "roadKm": 291
+ },
+ "Badminton Danmark: Danske Mesterskaber for Senior+ i Aabenraa": {
+  "sted": "Aabenraa",
+  "lat": 55.0446,
+  "lon": 9.421,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 200,
+  "roadKm": 306
  },
  "Badminton Esbjerg": {
   "sted": "Esbjerg",
@@ -164,6 +191,24 @@
   "min": 166,
   "roadKm": 252
  },
+ "Begynderturnering i Bjæverskov": {
+  "sted": "Bjæverskov",
+  "lat": 55.4592,
+  "lon": 12.0284,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 53,
+  "roadKm": 68
+ },
+ "Begynderturnering i Blans Sundeved": {
+  "sted": "Blans Sundeved",
+  "lat": 54.9881,
+  "lon": 9.6633,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 219,
+  "roadKm": 337
+ },
  "Begynderturnering i Brøndby": {
   "sted": "Brøndby",
   "lat": 55.6441,
@@ -191,6 +236,24 @@
   "min": 230,
   "roadKm": 332
  },
+ "Begynderturnering i Jernløse": {
+  "sted": "Jernløse",
+  "lat": 55.6589,
+  "lon": 11.6228,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 68,
+  "roadKm": 91
+ },
+ "Begynderturnering i Juelsminde": {
+  "sted": "Juelsminde",
+  "lat": 55.7087,
+  "lon": 10.0105,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 199,
+  "roadKm": 286
+ },
  "Begynderturnering i Kirke Hyllinge": {
   "sted": "Kirke Hyllinge",
   "lat": 55.7068,
@@ -208,6 +271,33 @@
   "via": "nominatim",
   "min": 231,
   "roadKm": 331
+ },
+ "Begynderturnering i Kliplev/Lundtoft": {
+  "sted": "Kliplev",
+  "lat": 54.9377,
+  "lon": 9.4011,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 205,
+  "roadKm": 317
+ },
+ "Begynderturnering i Lindved": {
+  "sted": "Lindved",
+  "lat": 55.792,
+  "lon": 9.5783,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 175,
+  "roadKm": 264
+ },
+ "Begynderturnering i Mønsted": {
+  "sted": "Mønsted",
+  "lat": 56.4453,
+  "lon": 9.1881,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 250,
+  "roadKm": 367
  },
  "Begynderturnering i Mørkøv": {
   "sted": "Mørkøv",
@@ -244,6 +334,15 @@
   "via": "nominatim",
   "min": 97,
   "roadKm": 116
+ },
+ "Begynderturnering i TIK Taastrup": {
+  "sted": "Taastrup",
+  "lat": 55.6522,
+  "lon": 12.292,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 36,
+  "roadKm": 42
  },
  "Begynderturnering i Toreby Sundby": {
   "sted": "Toreby Sundby",
@@ -292,6 +391,15 @@
   "via": "nominatim",
   "min": 219,
   "roadKm": 337
+ },
+ "Bolbro": {
+  "sted": "Bolbro",
+  "lat": 55.3931,
+  "lon": 10.338,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 130,
+  "roadKm": 187
  },
  "Bov": {
   "sted": "Bov",
@@ -356,6 +464,33 @@
   "min": 208,
   "roadKm": 224
  },
+ "DGI Fyn i Aarup": {
+  "sted": "Aarup",
+  "lat": 55.3763,
+  "lon": 10.0511,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 140,
+  "roadKm": 205
+ },
+ "DGI Fyn i Nr. Aaby": {
+  "sted": "Nørre Aaby",
+  "lat": 55.4578,
+  "lon": 9.8785,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 147,
+  "roadKm": 218
+ },
+ "DGI Midtjylland i Gødvad": {
+  "sted": "Gødvad",
+  "lat": 56.1847,
+  "lon": 9.6077,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 226,
+  "roadKm": 334
+ },
  "DGI Midtjylland i Kjellerup": {
   "sted": "Kjellerup",
   "lat": 56.2835,
@@ -364,6 +499,15 @@
   "via": "nominatim",
   "min": 231,
   "roadKm": 331
+ },
+ "DGI Nordjylland": {
+  "sted": "Nordjylland",
+  "lat": 56.8153,
+  "lon": 9.7273,
+  "region": "Nordjylland",
+  "via": "nominatim",
+  "min": 269,
+  "roadKm": 407
  },
  "DGI Nordsjælland": {
   "sted": "Nordsjælland",
@@ -392,6 +536,15 @@
   "min": 197,
   "roadKm": 302
  },
+ "DGI Vestjylland i Holstebro": {
+  "sted": "Holstebro",
+  "lat": 56.359,
+  "lon": 8.6159,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 237,
+  "roadKm": 361
+ },
  "DGI Vestjylland i Langhøj": {
   "sted": "Langhøj",
   "lat": 56.9588,
@@ -419,6 +572,15 @@
   "min": 254,
   "roadKm": 372
  },
+ "DM for senior": {
+  "sted": "for",
+  "lat": 55.6888,
+  "lon": 12.5784,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 27,
+  "roadKm": 25
+ },
  "Dalum Hjallese BK": {
   "sted": "Dalum Hjallese",
   "lat": 55.3634,
@@ -427,6 +589,15 @@
   "via": "nominatim",
   "min": 123,
   "roadKm": 183
+ },
+ "Denmark Challenge": {
+  "sted": "Challenge",
+  "lat": 55.989,
+  "lon": 8.6917,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 225,
+  "roadKm": 334
  },
  "Dragør": {
   "sted": "Dragør",
@@ -468,6 +639,15 @@
   "ukendt": true,
   "prøvet": []
  },
+ "Ejby": {
+  "sted": "Ejby",
+  "lat": 55.4279,
+  "lon": 9.9305,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 145,
+  "roadKm": 215
+ },
  "Elitetalentcenter Øst 2026/2027": {
   "sted": "Øst",
   "lat": 55.5771,
@@ -476,6 +656,15 @@
   "via": "nominatim",
   "min": 158,
   "roadKm": 235
+ },
+ "Farsø": {
+  "sted": "Farsø",
+  "lat": 56.7722,
+  "lon": 9.34,
+  "region": "Nordjylland",
+  "via": "nominatim",
+  "min": 280,
+  "roadKm": 416
  },
  "Farum": {
   "sted": "Farum",
@@ -503,6 +692,15 @@
   "via": "nominatim",
   "min": 157,
   "roadKm": 234
+ },
+ "Frederiksberg": {
+  "sted": "Frederiksberg",
+  "lat": 55.678,
+  "lon": 12.5326,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 29,
+  "roadKm": 26
  },
  "Frederikshavn": {
   "sted": "Frederikshavn",
@@ -537,6 +735,24 @@
  "German Ruhr U19": {
   "abroad": true
  },
+ "Gistrup LKB": {
+  "sted": "Gistrup LKB",
+  "lat": 56.9919,
+  "lon": 10.0033,
+  "region": "Nordjylland",
+  "via": "nominatim",
+  "min": 283,
+  "roadKm": 436
+ },
+ "Give": {
+  "sted": "Give",
+  "lat": 55.8456,
+  "lon": 9.2402,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 190,
+  "roadKm": 290
+ },
  "Gladsaxe Søborg": {
   "sted": "Gladsaxe Søborg",
   "lat": 55.7328,
@@ -555,7 +771,25 @@
   "min": 142,
   "roadKm": 202
  },
+ "Graasten": {
+  "sted": "Graasten",
+  "lat": 54.9289,
+  "lon": 9.5964,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 214,
+  "roadKm": 330
+ },
  "Greve": {
+  "sted": "Greve",
+  "lat": 55.5834,
+  "lon": 12.2999,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 38,
+  "roadKm": 45
+ },
+ "Greve: Niveau puljeturneringer alle kategorier": {
   "sted": "Greve",
   "lat": 55.5834,
   "lon": 12.2999,
@@ -591,6 +825,15 @@
   "min": 34,
   "roadKm": 31
  },
+ "Gudum Nissum IF": {
+  "sted": "Gudum",
+  "lat": 56.5169,
+  "lon": 8.4678,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 255,
+  "roadKm": 388
+ },
  "Gug": {
   "sted": "Gug",
   "lat": 57.0136,
@@ -599,6 +842,24 @@
   "via": "nominatim",
   "min": 279,
   "roadKm": 432
+ },
+ "Gødvad, Silkeborg": {
+  "sted": "Gødvad Silkeborg",
+  "lat": 56.1847,
+  "lon": 9.6077,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 226,
+  "roadKm": 334
+ },
+ "HOG Badminton, Hinnerup": {
+  "sted": "HOG Hinnerup",
+  "lat": 56.26,
+  "lon": 10.0651,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 223,
+  "roadKm": 333
  },
  "Haderslev": {
   "sted": "Haderslev",
@@ -648,6 +909,15 @@
   "min": 23,
   "roadKm": 24
  },
+ "Herning: U13M: Niveau Puljeturnering alle kategorier": {
+  "sted": "Herning",
+  "lat": 56.138,
+  "lon": 8.9747,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 212,
+  "roadKm": 327
+ },
  "Hillerød": {
   "sted": "Hillerød",
   "lat": 55.9286,
@@ -674,6 +944,15 @@
   "via": "nominatim",
   "min": 21,
   "roadKm": 18
+ },
+ "Hjerndrup HSB85": {
+  "sted": "Hjerndrup",
+  "lat": 55.3334,
+  "lon": 9.4176,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 179,
+  "roadKm": 271
  },
  "Hjørring": {
   "sted": "Hjørring",
@@ -768,6 +1047,15 @@
  "Hylo Open 2026 Super 500": {
   "abroad": true
  },
+ "Højbjerg": {
+  "sted": "Højbjerg",
+  "lat": 56.1134,
+  "lon": 10.2064,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 216,
+  "roadKm": 324
+ },
  "Højbjerg: DMC": {
   "sted": "Højbjerg",
   "lat": 56.1134,
@@ -813,6 +1101,15 @@
   "min": 5,
   "roadKm": 2
  },
+ "ICELAND INTERNATIONAL": {
+  "sted": "ICELAND",
+  "lat": 55.6774,
+  "lon": 12.5971,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 32,
+  "roadKm": 28
+ },
  "Ikast": {
   "sted": "Ikast",
   "lat": 56.139,
@@ -848,6 +1145,24 @@
   "via": "nominatim",
   "min": 211,
   "roadKm": 303
+ },
+ "Introturnering Sdr. Hygum": {
+  "sted": "Søndre",
+  "lat": 55.6717,
+  "lon": 12.518,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 30,
+  "roadKm": 27
+ },
+ "Introturnering Skodborg": {
+  "sted": "Skodborg",
+  "lat": 55.4188,
+  "lon": 9.153,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 185,
+  "roadKm": 275
  },
  "Introturnering Vejrup": {
   "sted": "Vejrup",
@@ -1119,6 +1434,15 @@
   "min": 174,
   "roadKm": 260
  },
+ "Lundtofte": {
+  "sted": "Lundtofte",
+  "lat": 55.7922,
+  "lon": 12.5192,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 15,
+  "roadKm": 13
+ },
  "Lyngby": {
   "sted": "Lyngby",
   "lat": 55.7719,
@@ -1146,6 +1470,15 @@
   "min": 123,
   "roadKm": 183
  },
+ "Mørkøv": {
+  "sted": "Mørkøv",
+  "lat": 55.6514,
+  "lon": 11.5021,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 69,
+  "roadKm": 92
+ },
  "Nivå-Kokkedal": {
   "sted": "Nivå-Kokkedal",
   "lat": 55.93,
@@ -1154,6 +1487,15 @@
   "via": "nominatim",
   "min": 13,
   "roadKm": 9
+ },
+ "Nordsjælland": {
+  "sted": "Nordsjælland",
+  "lat": 55.9776,
+  "lon": 12.1295,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 35,
+  "roadKm": 32
  },
  "Norwegian FS": {
   "abroad": true
@@ -1203,6 +1545,24 @@
   "min": 103,
   "roadKm": 151
  },
+ "Nykøbing F": {
+  "sted": "Nykøbing F",
+  "lat": 54.7646,
+  "lon": 11.871,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 106,
+  "roadKm": 149
+ },
+ "Næsby": {
+  "sted": "Næsby",
+  "lat": 55.4178,
+  "lon": 10.3645,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 133,
+  "roadKm": 188
+ },
  "Næstved-Herlufsholm": {
   "sted": "Næstved-Herlufsholm",
   "lat": 55.2454,
@@ -1211,6 +1571,15 @@
   "via": "nominatim",
   "min": 82,
   "roadKm": 104
+ },
+ "Odder": {
+  "sted": "Odder",
+  "lat": 55.9758,
+  "lon": 10.1513,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 217,
+  "roadKm": 311
  },
  "Odense OBK": {
   "sted": "Odense",
@@ -1233,6 +1602,42 @@
  "Polish International IS": {
   "abroad": true
  },
+ "Påsketurnering i Havdrup": {
+  "sted": "Havdrup",
+  "lat": 55.5441,
+  "lon": 12.1204,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 49,
+  "roadKm": 60
+ },
+ "Påsketurnering i Karlslunde": {
+  "sted": "Karlslunde",
+  "lat": 55.5663,
+  "lon": 12.2697,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 39,
+  "roadKm": 48
+ },
+ "Påsketurnering i Solrød Strand": {
+  "sted": "Solrød Strand",
+  "lat": 55.5343,
+  "lon": 12.2193,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 42,
+  "roadKm": 53
+ },
+ "Påsketurnering i Taastrup": {
+  "sted": "Taastrup",
+  "lat": 55.6522,
+  "lon": 12.292,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 36,
+  "roadKm": 42
+ },
  "Randers BK": {
   "sted": "Randers",
   "lat": 56.4355,
@@ -1241,6 +1646,15 @@
   "via": "nominatim",
   "min": 231,
   "roadKm": 352
+ },
+ "Ribe": {
+  "sted": "Ribe",
+  "lat": 55.3284,
+  "lon": 8.7648,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 211,
+  "roadKm": 303
  },
  "Ringsted": {
   "sted": "Ringsted",
@@ -1429,6 +1843,10 @@
   "min": 194,
   "roadKm": 286
  },
+ "Storstrømmen": {
+  "ukendt": true,
+  "prøvet": []
+ },
  "Storstrømmen: Faxe": {
   "sted": "Faxe",
   "lat": 55.2521,
@@ -1490,6 +1908,15 @@
   "ukendt": true,
   "prøvet": []
  },
+ "Taastrup BC": {
+  "sted": "Taastrup",
+  "lat": 55.6522,
+  "lon": 12.292,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 36,
+  "roadKm": 42
+ },
  "Taastrup TIK": {
   "sted": "Taastrup",
   "lat": 55.6522,
@@ -1498,6 +1925,15 @@
   "via": "nominatim",
   "min": 36,
   "roadKm": 42
+ },
+ "Tarup-Pårup": {
+  "sted": "Tarup",
+  "lat": 55.4112,
+  "lon": 10.3444,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 133,
+  "roadKm": 189
  },
  "Thorsager Rønde": {
   "sted": "Thorsager",
@@ -1516,6 +1952,15 @@
   "via": "nominatim",
   "min": 71,
   "roadKm": 95
+ },
+ "Tst, Tilst": {
+  "sted": "Tst Tilst",
+  "lat": 56.1884,
+  "lon": 10.1107,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 214,
+  "roadKm": 323
  },
  "Tyrkiye Intern. FS": {
   "abroad": true
@@ -1595,6 +2040,33 @@
   "ukendt": true,
   "prøvet": []
  },
+ "VICTOR DMU Hold (TILMELDING I HOLDMODUL)": {
+  "ukendt": true,
+  "prøvet": [
+   "DMU Hold (TILMELDING HOLDMODUL)",
+   "DMU Hold",
+   "Hold (TILMELDING",
+   "(TILMELDING HOLDMODUL)"
+  ]
+ },
+ "VICTOR DMU, Nyborg": {
+  "sted": "Nyborg",
+  "lat": 55.3098,
+  "lon": 10.7977,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 103,
+  "roadKm": 151
+ },
+ "VICTOR HOLD I HYGGEFJER i HØJBJERG (TILMELDING I HOLDMODUL AF KLUBADMINISTRATOR)": {
+  "ukendt": true,
+  "prøvet": [
+   "HØJBJERG (TILMELDING HOLDMODUL AF KLUBADMINISTRATOR)",
+   "HØJBJERG (TILMELDING",
+   "(TILMELDING HOLDMODUL",
+   "HOLDMODUL AF"
+  ]
+ },
  "VICTOR LBS U13BCD-U15CD i Søften Kultur og Idrætscenter": {
   "sted": "Søften",
   "lat": 56.2353,
@@ -1658,6 +2130,15 @@
   "min": 94,
   "roadKm": 118
  },
+ "VICTOR UDM, Brøndby": {
+  "sted": "Brøndby",
+  "lat": 55.6441,
+  "lon": 12.4217,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 26,
+  "roadKm": 32
+ },
  "Valby BC": {
   "sted": "Valby",
   "lat": 55.6638,
@@ -1712,6 +2193,24 @@
   "min": 210,
   "roadKm": 320
  },
+ "Viby J: MGP": {
+  "sted": "Viby J",
+  "lat": 56.122,
+  "lon": 10.1597,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 210,
+  "roadKm": 320
+ },
+ "Victor LMU, Højbjerg": {
+  "sted": "Højbjerg",
+  "lat": 56.1134,
+  "lon": 10.2064,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 216,
+  "roadKm": 324
+ },
  "Vinding SF": {
   "sted": "Vinding",
   "lat": 55.6777,
@@ -1720,6 +2219,15 @@
   "via": "nominatim",
   "min": 166,
   "roadKm": 252
+ },
+ "Virum": {
+  "sted": "Virum",
+  "lat": 55.794,
+  "lon": 12.4695,
+  "region": "Hovedstaden",
+  "via": "nominatim",
+  "min": 17,
+  "roadKm": 12
  },
  "Værløse": {
   "sted": "Værløse",
@@ -1791,6 +2299,22 @@
   "by": "Roskilde",
   "min": 45,
   "km": 54
+ },
+ "hal|Frederiksberghal 3 1-2|VBC/FKIF": {
+  "lat": 55.6815,
+  "lon": 12.53,
+  "precision": "rettet",
+  "by": "Frederiksberg",
+  "min": 29,
+  "km": 26
+ },
+ "hal|Frederiksberghal 3 3-4|VBC/FKIF": {
+  "lat": 55.6815,
+  "lon": 12.53,
+  "precision": "rettet",
+  "by": "Frederiksberg",
+  "min": 29,
+  "km": 26
  },
  "hal|Frederikssundhallen|Frederikssund": {
   "lat": 55.8305,

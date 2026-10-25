@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T16:36:40+00:00",
+  "updated": "2026-10-25T16:43:24+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -1553,12 +1553,12 @@
             }
           ],
           "travel": {
-            "min": 178,
-            "km": 269,
-            "precision": "by",
-            "lat": 55.4747,
-            "lon": 9.1337,
-            "query": "Frederiksberghal 3, VBC"
+            "min": 29,
+            "km": 26,
+            "precision": "rettet",
+            "lat": 55.6815,
+            "lon": 12.53,
+            "query": "Frederiksberghal 3, Frederiksberg"
           }
         },
         {
@@ -1836,12 +1836,12 @@
             }
           ],
           "travel": {
-            "min": 178,
-            "km": 269,
-            "precision": "by",
-            "lat": 55.4747,
-            "lon": 9.1337,
-            "query": "Frederiksberghal 3, VBC"
+            "min": 29,
+            "km": 26,
+            "precision": "rettet",
+            "lat": 55.6815,
+            "lon": 12.53,
+            "query": "Frederiksberghal 3, Frederiksberg"
           }
         },
         {
