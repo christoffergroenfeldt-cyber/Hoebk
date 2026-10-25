@@ -29,8 +29,14 @@ jobs:
           if not ids:
               raise SystemExit(0)
           tours = {t["id"]: t for t in json.load(open("data/turneringer.json"))["tournaments"]}
-          items = [{"ids": [i], "title": tours.get(i, {}).get("organiser", "Turnering"), "when": "",
-                    "lines": ["Testnotifikation fra HØBK-appen — det virker!"], "url": N.APP_URL + "#/turnering/" + i} for i in ids[:1]]
+          teams = {N.team_fid(t): t for t in json.load(open("data/holdkampe.json"))["teams"]}
+          def item(i):
+              if i in teams:
+                  return {"ids": [i], "title": teams[i]["label"], "when": "", "lines": ["Testnotifikation fra HØBK-appen — det virker!"],
+                          "url": N.APP_URL + "#/holdid/" + i[1:]}
+              return {"ids": [i], "title": tours.get(i, {}).get("organiser", "Turnering"), "when": "",
+                      "lines": ["Testnotifikation fra HØBK-appen — det virker!"], "url": N.APP_URL + "#/turnering/" + i}
+          items = [item(ids[0])]
           body = json.dumps({"action": "notify", "key": key, "items": items}).encode()
           req = urllib.request.Request(url, data=body, headers={"Content-Type": "text/plain;charset=utf-8"})
           res = json.loads(urllib.request.urlopen(req, timeout=60).read())

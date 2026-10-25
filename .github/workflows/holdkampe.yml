@@ -38,6 +38,7 @@ jobs:
           BP_PWD: ${{ secrets.BP_PWD }}
         run: |
           cp data/turneringer.json /tmp/turneringer_old.json 2>/dev/null || true
+          cp data/holdkampe.json /tmp/holdkampe_old.json 2>/dev/null || true
           python fetch_holdkampe.py \
             --season "${{ github.event.inputs.season || '2026' }}" \
             --club 1151 \
@@ -47,14 +48,14 @@ jobs:
             --tournaments \
             --dump-dir debug_html
 
-      - name: Nyt om turneringer → mail til dem der følger
+      - name: Nyt om hold og turneringer → notifikation/mail til dem der følger
         env:
           REG_URL: ${{ secrets.REG_URL }}
           REG_KEY: ${{ secrets.REG_KEY }}
           VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
         run: |
           pip install -q pywebpush || echo "pywebpush kunne ikke installeres — kun mail"
-          python notify_turneringer.py --old /tmp/turneringer_old.json --new data/turneringer.json
+          python notify_turneringer.py --old /tmp/turneringer_old.json --new data/turneringer.json --old-hold /tmp/holdkampe_old.json
 
       - name: Gem rå HTML til fejlsøgning
         if: failure() || github.event.inputs.debug == 'true'

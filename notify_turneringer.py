@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
 notify_turneringer.py — finder nyt om individuelle turneringer og sender det til dem der følger dem.
+Også hold (id "f"+leagueGroupTeamID i fanen Følger): påmindelse 3 dage før og på kampdagen, resultat + placering,
+og når dato/tid/spillested for en kommende kamp ændres (--old-hold / --new-hold).
 
 Køres i GitHub Actions lige efter fetch_holdkampe.py --tournaments:
   python notify_turneringer.py --old /tmp/turneringer_old.json --new data/turneringer.json
@@ -87,6 +89,73 @@ def diff(old, new, today):
     return out
 
 
+# ---------- Hold ----------
+TEAM_REMIND = 3            # dage før en holdkamp (plus en besked på selve kampdagen)
+
+
+def team_fid(t):
+    return "f" + str(t.get("leagueGroupTeamID", ""))
+
+
+def ours(score, is_home):
+    if not score:
+        return score
+    a, _, b = score.partition("-")
+    return score if is_home else f"{b}-{a}"
+
+
+def match_line(m):
+    tr = m.get("travel") or {}
+    drive = ""
+    if isinstance(tr.get("min"), int) and tr["min"] > 3:
+        drive = f" · ca. {tr['min']} min i bil"
+    return (f"{'Hjemme mod' if m.get('isHome') else 'Ude mod'} {m.get('opponent', '')} kl. {m.get('time') or '?'}"
+            f" · {m.get('venue') or 'spillested ikke oplyst'}{drive}")
+
+
+def team_events(old, new, today, sent):
+    """id ('f'+holdID) → (titel, [tekster], url-suffix)."""
+    out = {}
+    olds = {team_fid(t): t for t in (old or {}).get("teams", [])}
+    for t in (new or {}).get("teams", []):
+        fid = team_fid(t)
+        ot = olds.get(fid)
+        om = {m.get("matchID"): m for m in (ot or {}).get("matches", [])}
+        lines, link = [], ""
+        for m in t.get("matches", []):
+            mid, o = m.get("matchID"), om.get(m.get("matchID"))
+            if m.get("played") and o is not None and not o.get("played"):
+                word = {"V": "Sejr", "T": "Nederlag", "U": "Uafgjort"}.get(m.get("outcome"), "Resultat")
+                pos = f" — holdet er nr. {t.get('position')} af {len(t.get('standing', []))}" if t.get("position") else ""
+                lines.append(f"{word} {ours(m.get('result'), m.get('isHome'))} mod {m.get('opponent')}{pos}")
+                link = link or f"/kamp/{mid}"
+            elif not m.get("played") and o is not None and not o.get("played"):
+                ch = []
+                if m.get("date") != o.get("date"):
+                    ch.append(f"ny dato {dk(m['date'])} (var {dk(o['date'])})")
+                if m.get("time") != o.get("time"):
+                    ch.append(f"nyt tidspunkt kl. {m.get('time')} (var {o.get('time')})")
+                if (m.get("venue") or "") != (o.get("venue") or ""):
+                    ch.append(f"nyt spillested {m.get('venue')}")
+                if ch:
+                    lines.append(f"Kampen mod {m.get('opponent')} er ændret: " + ", ".join(ch))
+                    link = link or f"/kamp/{mid}"
+            if not m.get("played") and m.get("date") and m["date"] >= today:
+                left = (date.fromisoformat(m["date"]) - date.fromisoformat(today)).days
+                k_day, k_pre = f"m{mid}:dag:{m['date']}", f"m{mid}:pre:{m['date']}"
+                if left == 0 and k_day not in sent:
+                    sent[k_day] = sent[k_pre] = today
+                    lines.append("Kamp i dag: " + match_line(m))
+                    link = link or f"/kamp/{mid}"
+                elif 0 < left <= TEAM_REMIND and k_pre not in sent:
+                    sent[k_pre] = today
+                    lines.append(f"Kamp {dk(m['date'])}" + (" (i morgen)" if left == 1 else "") + ": " + match_line(m))
+                    link = link or f"/kamp/{mid}"
+        if lines:
+            out[fid] = (f"{t.get('label')} ({t.get('name')})", lines, link)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--old", required=True)
@@ -94,6 +163,8 @@ def main():
     ap.add_argument("--news", default="data/turnering_nyt.json")
     ap.add_argument("--state", default="data/notifikationer.json")
     ap.add_argument("--today", default="")
+    ap.add_argument("--old-hold", default="", help="forrige data/holdkampe.json (til hold-notifikationer)")
+    ap.add_argument("--new-hold", default="data/holdkampe.json")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
 
@@ -145,6 +216,7 @@ def main():
                 sent[k] = today
             txt = "i dag" if left == 0 else "i morgen" if left == 1 else f"om {left} dage"
             events.setdefault(t["id"], []).append(f"Tilmeldingsfristen er {txt} ({dk(dl)})")
+    teams = team_events(load(a.old_hold) if a.old_hold else None, load(a.new_hold), today, sent) if a.old_hold else {}
     cutoff = (date.fromisoformat(today) - timedelta(days=120)).isoformat()
     state["sent"] = {k: v for k, v in sent.items() if v >= cutoff}
 
@@ -167,13 +239,15 @@ def main():
     with open(a.state, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=1, sort_keys=True)
 
-    print(f"{len(events)} turneringer med nyt" + (" (første kørsel — kun påmindelser)" if first_run else ""))
+    print(f"{len(events)} turneringer og {len(teams)} hold med nyt" + (" (første kørsel — kun påmindelser)" if first_run else ""))
+    for fid, (title, lines, _) in teams.items():
+        print(f"  {title}: " + " · ".join(lines))
     for tid, lines in list(events.items())[:15]:
         print(f"  {tmap.get(tid, olds.get(tid, {})).get('organiser', tid)}: " + " · ".join(lines))
 
     url, key = os.environ.get("REG_URL", "").strip(), os.environ.get("REG_KEY", "").strip()
-    if not events or not url or not key or a.dry_run:
-        print("Ingen afsendelse" + ("" if events else " (intet nyt)") + ("" if url and key else " (REG_URL/REG_KEY mangler)"))
+    if not (events or teams) or not url or not key or a.dry_run:
+        print("Ingen afsendelse" + ("" if events or teams else " (intet nyt)") + ("" if url and key else " (REG_URL/REG_KEY mangler)"))
         return 0
 
     # Kun turneringer nogen følger — hent listen (kun id'er) fra Apps Script
@@ -199,8 +273,12 @@ def main():
         t = tmap.get(tid) or olds.get(tid) or {}
         items.append({"ids": ids, "title": t.get("organiser", "Turnering"), "when": when(t) if t.get("start") else "",
                       "lines": lines, "url": APP_URL + "#/turnering/" + tid})
+    for fid, (title, lines, link) in teams.items():
+        if fid in followed:
+            items.append({"ids": [fid], "title": title, "when": "", "lines": lines,
+                          "url": APP_URL + "#/holdid/" + fid[1:] + link})
     if not items:
-        print("Ingen af turneringerne med nyt følges af nogen.")
+        print("Ingen af holdene/turneringerne med nyt følges af nogen.")
         return 0
     body = json.dumps({"action": "notify", "key": key, "items": items}).encode("utf-8")
     try:
