@@ -124,6 +124,63 @@ def standing(token, args, retries=2):
     raise RuntimeError(f"GetLeagueStanding fejlede for subPage={payload['subPage']}: {last}")
 
 
+PROFILE_ENDPOINT = BASE + "/SportsResults/Components/WebService1.asmx/GetPlayerProfile"
+PLAYER_PAGE = BASE + "/DBF/Spiller/VisSpiller/"
+# Spillernummeret (fx 060718-01) indeholder fødselsdatoen — det må aldrig gemmes eller logges
+PLAYERNO_RE = re.compile(r"\b\d{6}-\d{2}\b")
+
+
+def player_profile(token, player_id, retries=2):
+    """GetPlayerProfile → dict fra svaret ('d'), typisk med et html-felt."""
+    payload = {"callbackcontextkey": token, "seasonid": None, "playerid": str(player_id),
+               "getplayerdata": True, "showUserProfile": True, "showheader": False}
+    data = json.dumps(payload).encode("utf-8")
+    last = None
+    for attempt in range(retries + 1):
+        try:
+            status, final_url, body = http(
+                PROFILE_ENDPOINT, data=data,
+                extra_headers={"Content-Type": "application/json; charset=utf-8",
+                               "X-Requested-With": "XMLHttpRequest",
+                               "Referer": PLAYER_PAGE})
+            obj = json.loads(body)
+            d = obj.get("d", obj)
+            return d if isinstance(d, dict) else {"html": str(d)}
+        except Exception as e:
+            last = e
+            time.sleep(2 + attempt * 2)
+    raise RuntimeError(f"GetPlayerProfile fejlede for {player_id}: {last}")
+
+
+def strip_private(obj):
+    """Fjerner spillernummer/fødselsdato-felter rekursivt."""
+    if isinstance(obj, dict):
+        return {k: strip_private(v) for k, v in obj.items()
+                if not re.search(r"playernumber|birth|fødsel|cpr|email|phone|tlf|mobil", k, re.I)}
+    if isinstance(obj, list):
+        return [strip_private(v) for v in obj]
+    if isinstance(obj, str):
+        return PLAYERNO_RE.sub("", obj)
+    return obj
+
+
+def parse_tables(fragment):
+    """Generisk: hver <table> med nærmeste overskrift før den → {'title', 'rows': [[celler]]}."""
+    out = []
+    for m in re.finditer(r"<table\b[^>]*>(.*?)</table>", fragment, re.S | re.I):
+        before = fragment[max(0, m.start() - 1500):m.start()]
+        heads = re.findall(r"<(?:h\d|caption|span|div)\b[^>]*>([^<]{2,80})</(?:h\d|caption|span|div)>", before)
+        title = text(heads[-1]) if heads else ""
+        rows = []
+        for row in ROW_RE.findall(m.group(1)):
+            cells = [text(c) for c in CELL_RE.findall(row)]
+            if any(cells):
+                rows.append(cells)
+        if rows:
+            out.append({"title": PLAYERNO_RE.sub("", title), "rows": [[PLAYERNO_RE.sub("", c) for c in r] for r in rows]})
+    return out
+
+
 # ---------- Login (valgfrit) ----------
 
 def attrs(tag):
@@ -426,6 +483,8 @@ def main():
     ap.add_argument("--names", choices=["full", "first"], default="full",
                     help="Spillernavne: fulde navne eller kun fornavn")
     ap.add_argument("--no-lineups", action="store_true", help="Spring opstillinger (subPage 5) over")
+    ap.add_argument("--profiles", action="store_true",
+                    help="Hent spillerprofiler (rangliste, point, resultater) til data/spillere.json")
     opts = ap.parse_args()
 
     def dump(name, fragment):
@@ -543,6 +602,66 @@ def main():
         with_lineup = sum(1 for m in matches if m["games"])
         print(f"  {t['name']} · {t.get('pulje', '')}: {len(matches)} kampe ({played} spillet, "
               f"{with_lineup} med opstilling), {len(out_teams[-1]['players'])} spillere")
+
+    # ---- Spillere: historik fra opstillinger + profil fra badmintonplayer.dk ----
+    SENIOR_AGES = {"1", "9", "16"}   # SEN, SEN+40, MOT — voksne rækker
+    players = {}
+    for t in out_teams:
+        for m in t["matches"]:
+            side = "home" if m["isHome"] else "away"
+            other = "away" if side == "home" else "home"
+            for g in m["games"]:
+                ours = g[side]
+                for p in ours:
+                    key = p["id"] or p["name"]
+                    pl = players.setdefault(key, {"id": p["id"], "name": p["name"], "teams": [],
+                                                  "adult": False, "games": []})
+                    if t["label"] not in pl["teams"]:
+                        pl["teams"].append(t["label"])
+                    if t.get("ageGroupID") in SENIOR_AGES:
+                        pl["adult"] = True
+                    pl["games"].append({
+                        "date": m["date"], "team": t["label"], "teamName": t["name"],
+                        "opponentTeam": m["opponent"], "matchID": m["matchID"],
+                        "discipline": g["discipline"],
+                        "partner": [x["name"] for x in ours if (x["id"] or x["name"]) != key],
+                        "opponents": [x["name"] for x in g[other]],
+                        "sets": g["sets"] if side == "home" else [[b, a] for a, b in g["sets"]],
+                        "won": g["winner"] == side,
+                        "walkover": g.get("walkover", ""),
+                    })
+    for pl in players.values():
+        pl["games"].sort(key=lambda x: x["date"], reverse=True)
+        pl["played"] = len(pl["games"])
+        pl["won"] = sum(1 for x in pl["games"] if x["won"])
+
+    if opts.profiles:
+        print(f"Henter profiler for {len(players)} spillere …")
+        for pl in players.values():
+            if not pl["id"]:
+                continue
+            time.sleep(PAUSE)
+            try:
+                prof = player_profile(token, pl["id"])
+            except RuntimeError as e:
+                print(f"ADVARSEL: profil {pl['id']}: {e}", file=sys.stderr)
+                continue
+            prof = strip_private(prof)
+            dump(f"player_{'a' if pl['adult'] else 'y'}_{pl['id']}.json",
+                 json.dumps(prof, ensure_ascii=False, indent=1))
+            html_part = prof.get("html", "") if isinstance(prof, dict) else ""
+            pl["profile"] = {
+                "fields": {k: v for k, v in prof.items() if k != "html" and not isinstance(v, (dict, list))},
+                "tables": parse_tables(html_part),
+            }
+
+    players_out = sorted(players.values(), key=lambda p: p["name"])
+    pdata = {"updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+             "season": opts.season, "players": players_out}
+    p_out = os.path.join(os.path.dirname(opts.out) or ".", "spillere.json")
+    with open(p_out, "w", encoding="utf-8") as f:
+        json.dump(pdata, f, ensure_ascii=False, indent=1)
+    print(f"Skrev {p_out}: {len(players_out)} spillere.")
 
     data = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

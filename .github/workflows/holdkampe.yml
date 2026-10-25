@@ -38,6 +38,7 @@ jobs:
             --club 1151 \
             --pulje 19102:5 \
             --out data/holdkampe.json \
+            --profiles \
             --dump-dir debug_html
 
       - name: Gem rå HTML til fejlsøgning
@@ -58,19 +59,21 @@ jobs:
           os.makedirs("/tmp/diag", exist_ok=True)
           mask = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "[EMAIL]"),
                   (re.compile(r"(?<!\d)(?:\+45\s?)?(?:\d{2}\s?){3}\d{2}(?!\d)"), "[TLF]"),
-                  (re.compile(r'(name="__[A-Z]+"[^>]*value=")[^"]*'), r"\1[STRIPPED]")]
-          # Kun klub-, pulje- og holdsider samt SENIOR-kampsider (match_1_*, voksne spillere) —
-          # aldrig login-sider eller ungdomskampe. Mail/telefon maskeres altid.
-          for f in sorted(glob.glob("debug_html/*.html")):
+                  (re.compile(r'(name="__[A-Z]+"[^>]*value=")[^"]*'), r"\1[STRIPPED]"),
+                  (re.compile(r"\b\d{6}-\d{2}\b"), "[SPILLERNR]")]
+          # Kun klub-, pulje- og holdsider samt SENIOR-kampsider og -profiler (voksne spillere) —
+          # aldrig login-sider eller ungdom. Mail/telefon/spillernummer maskeres altid.
+          for f in sorted(glob.glob("debug_html/*.html") + glob.glob("debug_html/player_a_*.json")):
               b = os.path.basename(f)
-              if not re.match(r"(club_teams|pulje_|team_|match_1_)", b):
+              if not re.match(r"(club_teams|pulje_|team_|match_1_|player_a_)", b):
                   continue
               s = open(f, encoding="utf-8").read()
               for rx, rep in mask:
                   s = rx.sub(rep, s)
               open(f"/tmp/diag/{b}", "w", encoding="utf-8").write(s)
-          if os.path.exists("data/holdkampe.json"):
-              shutil.copy("data/holdkampe.json", "/tmp/diag/holdkampe.json")
+          for j in ("holdkampe.json", "spillere.json"):
+              if os.path.exists(f"data/{j}"):
+                  shutil.copy(f"data/{j}", f"/tmp/diag/{j}")
           PY
           cd /tmp/diag
           git init -q -b diag
@@ -83,7 +86,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/holdkampe.json
+          git add data/holdkampe.json data/spillere.json
           if git diff --cached --quiet; then
             echo "Ingen ændringer."
           else
