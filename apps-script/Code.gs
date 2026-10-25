@@ -36,7 +36,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-25.3';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-25.4';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -54,6 +54,9 @@ var SHEETS = {
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
 // Den FØRSTE e-mail der bekræfter navnet (fanen Spillere) ejer rollen — en anden e-mail med samme navn bliver ikke admin.
 var ADMIN_PLAYER_IDS = ['12813'];   // Anders Vedsted Nørrelund
+// Administratorer ud fra login-e-mail (gemt som SHA-256 af e-mailen med små bogstaver, så adressen ikke står i koden).
+// Ny: kør  printf '%s' 'navn@eksempel.dk' | sha256sum  og tilføj tallet.
+var ADMIN_EMAIL_SHA256 = ['7b69eef2050ca0d7e3bbf7fefc71077c794fc9050e5aa89aee8374eb789f09d6'];   // Christoffer (udvikler)
 var CODE_MINUTES = 15, MAX_CODES_PER_HOUR = 4, MAX_TRIES = 5, SESSION_DAYS = 365;
 
 // Virker både når scriptet er oprettet fra et Google Sheet (Udvidelser → Apps Script)
@@ -170,8 +173,13 @@ function verify_(b) {
 
 // Holdledere: fanen "Ledere" — én række pr. leder. hold = holdlabels adskilt af komma
 // (fx "U15 B, U13 B") eller * for alle hold. Matcher på den e-mail lederen logger ind med.
+function sha256hex_(s) {
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, s, Utilities.Charset.UTF_8)
+    .map(function (b) { return ('0' + (b & 0xff).toString(16)).slice(-2); }).join('');
+}
 function isAdmin_(email, playerId) {
   var em = String(email || '').toLowerCase().trim(), pid = String(playerId || '');
+  if (em && ADMIN_EMAIL_SHA256.indexOf(sha256hex_(em)) >= 0) return true;
   if (!em || ADMIN_PLAYER_IDS.indexOf(pid) < 0) return false;
   var first = data_('Spillere').filter(function (r) { return String(r[0]) === pid; })
     .sort(function (a, b) { return new Date(a[3]) - new Date(b[3]); })[0];
