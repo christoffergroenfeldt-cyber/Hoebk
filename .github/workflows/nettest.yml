@@ -1,0 +1,19 @@
+name: Nettest (stedopslag)
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Test tjenester
+        run: |
+          t() { r=$(curl -sS -m 15 -A "hoebk-app/1.0 (github.com/christoffergroenfeldt-cyber/Hoebk)" -o /tmp/b -w "%{http_code} %{time_total}s" "$2" 2>&1); echo "::warning title=$1::$r $(head -c 160 /tmp/b | tr -d '\n\r:' )"; }
+          t dawa "https://api.dataforsyningen.dk/postnumre?navn=Aabenraa"
+          t dawa2 "https://dawa.aws.dk/postnumre?navn=Aabenraa"
+          t gsearch "https://api.dataforsyningen.dk/rest/gsearch/v2.0/stednavn?q=Aabenraa"
+          t osrm "https://router.project-osrm.org/route/v1/driving/12.5167,55.8783;11.4,55.04?overview=false"
+          t nominatim "https://nominatim.openstreetmap.org/search?q=Skinderskovhallen,Danmark&format=json&limit=1"
+          t photon "https://photon.komoot.io/api/?q=Skinderskovhallen&limit=1"
+          t geonames "https://download.geonames.org/export/zip/DK.zip"
