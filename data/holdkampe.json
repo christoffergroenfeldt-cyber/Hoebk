@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T16:21:44+00:00",
+  "updated": "2026-10-25T16:36:40+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -112,12 +112,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513973,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Skinderskovhallen, Herlev/Hjorten"
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
           }
         },
         {
@@ -395,12 +395,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Skinderskovhallen, Herlev/Hjorten"
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
           }
         },
         {
@@ -421,11 +421,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513980,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
             "query": "BBK-Hallen, Birkerød BK13"
           }
         },
@@ -447,11 +447,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513982,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
             "query": "BBK-Hallen, Birkerød BK13"
           }
         },
@@ -525,11 +525,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513993,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
             "query": "Hillerød Badmintonklub, Hillerød"
           }
         },
@@ -551,11 +551,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513995,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
             "query": "Hillerød Badmintonklub, Hillerød"
           }
         },
@@ -577,11 +577,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513998,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
             "query": "BBK-Hallen, Birkerød BK13"
           }
         },
@@ -603,11 +603,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513999,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
             "query": "BBK-Hallen, Birkerød BK13"
           }
         },
@@ -807,12 +807,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513110,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Dianalund BK"
+            "min": 82,
+            "km": 109,
+            "precision": "by",
+            "lat": 55.5289,
+            "lon": 11.4944,
+            "query": "Dianalund"
           }
         },
         {
@@ -1100,12 +1100,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513118,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Nordkysthallen, Team Nordkysten"
+            "min": 25,
+            "km": 27,
+            "precision": "hal",
+            "lat": 56.0731,
+            "lon": 12.5247,
+            "query": "Nordkysthallen, Hellebæk"
           }
         }
       ],
@@ -1553,12 +1553,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Frederiksberghal 3, VBC/FKIF"
+            "min": 178,
+            "km": 269,
+            "precision": "by",
+            "lat": 55.4747,
+            "lon": 9.1337,
+            "query": "Frederiksberghal 3, VBC"
           }
         },
         {
@@ -1836,12 +1836,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Frederiksberghal 3, VBC/FKIF"
+            "min": 178,
+            "km": 269,
+            "precision": "by",
+            "lat": 55.4747,
+            "lon": 9.1337,
+            "query": "Frederiksberghal 3, VBC"
           }
         },
         {
@@ -1862,11 +1862,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516374,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 54,
+            "km": 64,
+            "precision": "hal",
+            "lat": 55.443,
+            "lon": 12.174,
             "query": "Ravnsborghallen, Køge"
           }
         },
@@ -1888,11 +1888,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516375,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 54,
+            "km": 64,
+            "precision": "hal",
+            "lat": 55.443,
+            "lon": 12.174,
             "query": "Ravnsborghallen, Køge"
           }
         },
@@ -1966,11 +1966,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516399,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 21,
+            "precision": "by",
+            "lat": 55.7328,
+            "lon": 12.4967,
             "query": "Gladsaxe Gl. Badmintonhal, Gladsaxe Søborg"
           }
         },
@@ -1992,11 +1992,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516400,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 21,
+            "precision": "by",
+            "lat": 55.7328,
+            "lon": 12.4967,
             "query": "Gladsaxe Gl. Badmintonhal, Gladsaxe Søborg"
           }
         },
@@ -2018,12 +2018,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516406,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "KBK-Hallen, KBK Kbh."
+            "min": 18,
+            "km": 18,
+            "precision": "by",
+            "lat": 55.9922,
+            "lon": 12.5014,
+            "query": "KBK-Hallen, KBK"
           }
         },
         {
@@ -2044,12 +2044,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516407,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "KBK-Hallen, KBK Kbh."
+            "min": 18,
+            "km": 18,
+            "precision": "by",
+            "lat": 55.9922,
+            "lon": 12.5014,
+            "query": "KBK-Hallen, KBK"
           }
         }
       ],
@@ -2531,11 +2531,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513407,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
             "query": "Hillerød Badmintonklub, Hillerød"
           }
         },
@@ -2557,11 +2557,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513409,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
             "query": "Hillerød Badmintonklub, Hillerød"
           }
         },
@@ -2583,12 +2583,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513412,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "HBH Hallen, Badminton Roskilde"
+            "min": 44,
+            "km": 52,
+            "precision": "by",
+            "lat": 55.6433,
+            "lon": 12.0819,
+            "query": "HBH Hallen, Roskilde"
           }
         },
         {
@@ -2609,12 +2609,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513413,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "HBH Hallen, Badminton Roskilde"
+            "min": 44,
+            "km": 52,
+            "precision": "by",
+            "lat": 55.6433,
+            "lon": 12.0819,
+            "query": "HBH Hallen, Roskilde"
           }
         },
         {
@@ -2635,12 +2635,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513719,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Slangerup Idræts- og Kulturcenter, Slangerup/Skibby"
+            "min": 32,
+            "km": 27,
+            "precision": "by",
+            "lat": 55.8456,
+            "lon": 12.1744,
+            "query": "Slangerup Idræts- og Kulturcenter, Slangerup"
           }
         },
         {
@@ -2661,12 +2661,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513720,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Slangerup Idræts- og Kulturcenter, Slangerup/Skibby"
+            "min": 32,
+            "km": 27,
+            "precision": "by",
+            "lat": 55.8456,
+            "lon": 12.1744,
+            "query": "Slangerup Idræts- og Kulturcenter, Slangerup"
           }
         },
         {
@@ -2687,11 +2687,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513725,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
             "query": "Hillerød Badmintonklub, Hillerød"
           }
         },
@@ -2713,11 +2713,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513726,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
             "query": "Hillerød Badmintonklub, Hillerød"
           }
         },
@@ -3061,12 +3061,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Hillerød Badmintonklub, Hillerød 6"
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
+            "query": "Hillerød Badmintonklub, Hillerød"
           }
         },
         {
@@ -3627,12 +3627,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Hillerød Badmintonklub, Hillerød 7"
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
+            "query": "Hillerød Badmintonklub, Hillerød"
           }
         },
         {
@@ -3679,12 +3679,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512945,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Humlebækhallen, Humlebæk 4"
+            "min": 18,
+            "km": 12,
+            "precision": "hal",
+            "lat": 55.9579,
+            "lon": 12.5317,
+            "query": "Humlebækhallen, Humlebæk"
           }
         },
         {
@@ -4164,11 +4164,11 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
             "query": "BBK-Hallen, Birkerød BK13"
           }
         },
@@ -4443,11 +4443,11 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
             "query": "BBK-Hallen, Birkerød BK13"
           }
         },
@@ -4469,11 +4469,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514869,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 42,
+            "km": 38,
+            "precision": "hal",
+            "lat": 55.8305,
+            "lon": 12.0608,
             "query": "Frederikssundhallen, Frederikssund"
           }
         },
@@ -4495,11 +4495,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514462,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 42,
+            "km": 38,
+            "precision": "hal",
+            "lat": 55.8305,
+            "lon": 12.0608,
             "query": "Frederikssundhallen, Frederikssund"
           }
         },
@@ -4573,11 +4573,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514906,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 32,
+            "km": 27,
+            "precision": "by",
+            "lat": 55.8456,
+            "lon": 12.1744,
             "query": "Slangerup Idræts- og Kulturcenter, Slangerup"
           }
         },
@@ -4599,11 +4599,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514907,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 32,
+            "km": 27,
+            "precision": "by",
+            "lat": 55.8456,
+            "lon": 12.1744,
             "query": "Slangerup Idræts- og Kulturcenter, Slangerup"
           }
         },
@@ -4625,11 +4625,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514917,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 31,
+            "km": 30,
+            "precision": "hal",
+            "lat": 56.0818,
+            "lon": 12.4653,
             "query": "Hornbæk hallen, Hornbæk"
           }
         },
@@ -4651,11 +4651,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514919,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 31,
+            "km": 30,
+            "precision": "hal",
+            "lat": 56.0818,
+            "lon": 12.4653,
             "query": "Hornbæk hallen, Hornbæk"
           }
         },
@@ -4677,12 +4677,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514923,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Rundforbi hallen, Rudersdal"
+            "min": 13,
+            "km": 9,
+            "precision": "hal",
+            "lat": 55.8253,
+            "lon": 12.5418,
+            "query": "Rundforbi hallen, Nærum"
           }
         },
         {
@@ -4703,12 +4703,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514925,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Rundforbi hallen, Rudersdal"
+            "min": 13,
+            "km": 9,
+            "precision": "hal",
+            "lat": 55.8253,
+            "lon": 12.5418,
+            "query": "Rundforbi hallen, Nærum"
           }
         }
       ],
@@ -5305,11 +5305,11 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 23,
+            "km": 15,
+            "precision": "by",
+            "lat": 55.8101,
+            "lon": 12.3703,
             "query": "Stenvadhallen, Farum"
           }
         },
@@ -6585,12 +6585,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Holte, Holte"
+            "min": 15,
+            "km": 10,
+            "precision": "hal",
+            "lat": 55.8077,
+            "lon": 12.4685,
+            "query": "Holte, Rudegård"
           }
         },
         {
@@ -6611,11 +6611,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18931,1,10,,509692,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 28,
+            "km": 34,
+            "precision": "by",
+            "lat": 55.7159,
+            "lon": 12.3196,
             "query": "Ledøje-Smørum Hallen, Ledøje-Smørum"
           }
         },
@@ -7334,12 +7334,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Holte, Holte"
+            "min": 15,
+            "km": 10,
+            "precision": "hal",
+            "lat": 55.8077,
+            "lon": 12.4685,
+            "query": "Holte, Rudegård"
           }
         },
         {
@@ -8651,12 +8651,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "BC37-Hallen, BC37 Amager"
+            "min": 45,
+            "km": 54,
+            "precision": "hal",
+            "lat": 55.6352,
+            "lon": 12.0684,
+            "query": "BC37-Hallen, Roskilde"
           }
         },
         {
@@ -8677,12 +8677,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18858,1,1,,507825,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "KBK-Hallen, KBK Kbh."
+            "min": 18,
+            "km": 18,
+            "precision": "by",
+            "lat": 55.9922,
+            "lon": 12.5014,
+            "query": "KBK-Hallen, KBK"
           }
         },
         {
@@ -9388,12 +9388,12 @@
             }
           ],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Gl. Måløv hal, Måløv 1"
+            "min": 31,
+            "km": 32,
+            "precision": "by",
+            "lat": 55.7474,
+            "lon": 12.3181,
+            "query": "Gl. Måløv hal, Måløv"
           }
         },
         {
@@ -9466,12 +9466,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510450,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Hareskovhallen, Hareskov 2"
+            "min": 27,
+            "km": 27,
+            "precision": "hal",
+            "lat": 55.7661,
+            "lon": 12.4001,
+            "query": "Hareskovhallen, Hareskovby"
           }
         },
         {
@@ -9570,12 +9570,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510470,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Holte Hal, Holte 3"
+            "min": 13,
+            "km": 9,
+            "precision": "hal",
+            "lat": 55.8254,
+            "lon": 12.4632,
+            "query": "Holte Hal, Rudegård"
           }
         },
         {
@@ -9596,12 +9596,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510472,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Lillerød-Hallerne, Lillerød 2"
+            "min": 18,
+            "km": 13,
+            "precision": "hal",
+            "lat": 55.8801,
+            "lon": 12.3508,
+            "query": "Lillerød-Hallerne, Lillerød"
           }
         },
         {
@@ -9622,12 +9622,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510475,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Stenløsehallen, Stenløse 1"
+            "min": 39,
+            "km": 30,
+            "precision": "by",
+            "lat": 55.7669,
+            "lon": 12.1901,
+            "query": "Stenløsehallen, Stenløse"
           }
         }
       ],
@@ -10694,8 +10694,12 @@
             }
           ],
           "travel": {
-            "precision": "ukendt",
-            "query": "Værløsehallerne, Værløse 5"
+            "min": 26,
+            "km": 28,
+            "precision": "hal",
+            "lat": 55.7837,
+            "lon": 12.3786,
+            "query": "Værløsehallerne, Værløse"
           }
         },
         {
@@ -10716,7 +10720,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510518,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
             "query": "Hørsholm Badminton Hal, Hørsholm"
           }
         },
@@ -10738,8 +10746,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510523,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "Frederikssundhallen, Frederikssund 5"
+            "min": 42,
+            "km": 38,
+            "precision": "hal",
+            "lat": 55.8305,
+            "lon": 12.0608,
+            "query": "Frederikssundhallen, Frederikssund"
           }
         },
         {
@@ -10760,8 +10772,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510528,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "Hareskovhallen, Hareskov 3"
+            "min": 27,
+            "km": 27,
+            "precision": "hal",
+            "lat": 55.7661,
+            "lon": 12.4001,
+            "query": "Hareskovhallen, Hareskovby"
           }
         },
         {
@@ -10808,8 +10824,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18972,16,19,,510536,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "Nordkysthallen, Frem - Hellebæk 1"
+            "min": 25,
+            "km": 27,
+            "precision": "hal",
+            "lat": 56.0731,
+            "lon": 12.5247,
+            "query": "Nordkysthallen, Hellebæk"
           }
         }
       ],
@@ -11333,7 +11353,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510410,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
             "query": "Hørsholm Badminton Hal, Hørsholm"
           }
         },
@@ -11355,8 +11379,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510413,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "Grantoftehallen, Grantoften 1"
+            "min": 31,
+            "km": 31,
+            "precision": "by",
+            "lat": 55.7267,
+            "lon": 12.3435,
+            "query": "Grantoftehallen, Grantoften"
           }
         },
         {
@@ -11377,8 +11405,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510396,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "Skinderskovhallen, Herlev/Hjorten 2"
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
           }
         },
         {
@@ -11399,7 +11431,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510419,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
             "query": "Hørsholm Badminton Hal, Hørsholm"
           }
         },
@@ -11421,8 +11457,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510421,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "Ganløse Hallen, Ganløse 1"
+            "min": 31,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.7902,
+            "lon": 12.2615,
+            "query": "Ganløse Hallen, Ganløse"
           }
         },
         {
@@ -11443,8 +11483,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510425,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "BBK-Hallen, Birkerød BK13 1"
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
+            "query": "BBK-Hallen, Birkerød BK13"
           }
         },
         {
@@ -11625,8 +11669,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514326,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "Skinderskovhallen, Herlev/Hjorten"
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
           }
         },
         {
@@ -11647,8 +11695,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514329,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
-            "query": "Skinderskovhallen, Herlev/Hjorten"
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
           }
         },
         {
@@ -11669,7 +11721,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514330,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
             "query": "Hørsholm Badminton Hal, Hørsholm"
           }
         },
@@ -11717,11 +11773,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514341,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 42,
+            "km": 38,
+            "precision": "hal",
+            "lat": 55.8305,
+            "lon": 12.0608,
             "query": "Frederikssundhallen, Frederikssund"
           }
         },
@@ -11743,11 +11799,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514342,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
+            "min": 42,
+            "km": 38,
+            "precision": "hal",
+            "lat": 55.8305,
+            "lon": 12.0608,
             "query": "Frederikssundhallen, Frederikssund"
           }
         },
@@ -11769,7 +11825,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514348,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 18,
+            "km": 13,
+            "precision": "hal",
+            "lat": 55.8801,
+            "lon": 12.3508,
             "query": "Lillerød-Hallerne, Lillerød"
           }
         },
@@ -11791,7 +11851,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514349,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 18,
+            "km": 13,
+            "precision": "hal",
+            "lat": 55.8801,
+            "lon": 12.3508,
             "query": "Lillerød-Hallerne, Lillerød"
           }
         },
@@ -11813,7 +11877,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514354,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
             "query": "Hørsholm Badminton Hal, Hørsholm"
           }
         },
@@ -11835,7 +11903,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514357,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
             "query": "Hørsholm Badminton Hal, Hørsholm"
           }
         },
@@ -11857,12 +11929,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514359,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Skinderskovhallen, Herlev/Hjorten"
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
           }
         },
         {
@@ -11883,12 +11955,12 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514360,1151,",
           "games": [],
           "travel": {
-            "min": null,
-            "km": null,
-            "precision": "ukendt",
-            "lat": null,
-            "lon": null,
-            "query": "Skinderskovhallen, Herlev/Hjorten"
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
           }
         }
       ],
@@ -12098,7 +12170,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514718,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 18,
+            "km": 13,
+            "precision": "hal",
+            "lat": 55.8801,
+            "lon": 12.3508,
             "query": "Lillerød-Hallerne, Lillerød"
           }
         },
@@ -12120,7 +12196,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514721,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 18,
+            "km": 13,
+            "precision": "hal",
+            "lat": 55.8801,
+            "lon": 12.3508,
             "query": "Lillerød-Hallerne, Lillerød"
           }
         },
@@ -12142,7 +12222,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514740,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 79,
+            "km": 115,
+            "precision": "hal",
+            "lat": 55.4009,
+            "lon": 11.3629,
             "query": "Slagelse Hallen, Slagelse"
           }
         },
@@ -12164,7 +12248,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514741,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 79,
+            "km": 115,
+            "precision": "hal",
+            "lat": 55.4009,
+            "lon": 11.3629,
             "query": "Slagelse Hallen, Slagelse"
           }
         },
@@ -12186,7 +12274,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514749,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 42,
+            "km": 36,
+            "precision": "hal",
+            "lat": 55.7838,
+            "lon": 12.1459,
             "query": "Ølstykke Badmintonhal, Ølstykke"
           }
         },
@@ -12208,7 +12300,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514750,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 42,
+            "km": 36,
+            "precision": "hal",
+            "lat": 55.7838,
+            "lon": 12.1459,
             "query": "Ølstykke Badmintonhal, Ølstykke"
           }
         },
@@ -12230,7 +12326,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514754,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
             "query": "Hørsholm Badminton Hal, Hørsholm"
           }
         },
@@ -12252,7 +12352,11 @@
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514756,1151,",
           "games": [],
           "travel": {
-            "precision": "ukendt",
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
             "query": "Hørsholm Badminton Hal, Hørsholm"
           }
         }

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T16:16:04+00:00",
+ "updated": "2026-10-25T16:32:24+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -29,7 +29,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Øst",
+    "lat": 55.5771,
+    "lon": 9.7294,
+    "km": 177,
+    "region": "Syddanmark",
+    "min": 158,
+    "roadKm": 235
    }
   },
   {
@@ -56,7 +62,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Humlebæk",
+    "lat": 55.9619,
+    "lon": 12.5305,
+    "km": 9,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 17
    }
   },
   {
@@ -96,7 +108,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hørsholm",
+    "lat": 55.8833,
+    "lon": 12.5,
+    "km": 0,
+    "region": "Hovedstaden",
+    "min": 5,
+    "roadKm": 2
    }
   },
   {
@@ -122,7 +140,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ikast",
+    "lat": 56.139,
+    "lon": 9.1548,
+    "km": 210,
+    "region": "Midtjylland",
+    "min": 217,
+    "roadKm": 335
    }
   },
   {
@@ -161,7 +185,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Odense",
+    "lat": 55.3997,
+    "lon": 10.3852,
+    "km": 143,
+    "region": "Syddanmark",
+    "min": 129,
+    "roadKm": 183
    }
   },
   {
@@ -220,7 +250,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Rønde",
+    "lat": 56.3016,
+    "lon": 10.4754,
+    "km": 134,
+    "region": "Midtjylland",
+    "min": 234,
+    "roadKm": 354
    }
   },
   {
@@ -255,7 +291,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Viby J",
+    "lat": 56.122,
+    "lon": 10.1597,
+    "km": 148,
+    "region": "Midtjylland",
+    "min": 210,
+    "roadKm": 320
    }
   },
   {
@@ -322,7 +364,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Værløse",
+    "lat": 55.7833,
+    "lon": 12.3833,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 27
    }
   },
   {
@@ -347,7 +395,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hvidovre",
+    "lat": 55.6442,
+    "lon": 12.4772,
+    "km": 26,
+    "region": "Hovedstaden",
+    "min": 33,
+    "roadKm": 38
    }
   },
   {
@@ -422,7 +476,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aabenraa",
+    "lat": 55.0446,
+    "lon": 9.421,
+    "km": 215,
+    "region": "Syddanmark",
+    "min": 200,
+    "roadKm": 306
    }
   },
   {
@@ -468,7 +528,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aarhus",
+    "lat": 56.1496,
+    "lon": 10.2134,
+    "km": 145,
+    "region": "Midtjylland",
+    "min": 214,
+    "roadKm": 323
    }
   },
   {
@@ -493,7 +559,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Esbjerg",
+    "lat": 55.4665,
+    "lon": 8.4521,
+    "km": 258,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 316
    }
   },
   {
@@ -519,7 +591,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bjergby-Mygdal",
+    "lat": 57.5101,
+    "lon": 10.0313,
+    "km": 236,
+    "region": "Nordjylland",
+    "min": 316,
+    "roadKm": 493
    }
   },
   {
@@ -564,7 +642,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Greve",
+    "lat": 55.5834,
+    "lon": 12.2999,
+    "km": 35,
+    "region": "Sjælland",
+    "min": 38,
+    "roadKm": 45
    }
   },
   {
@@ -603,7 +687,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Herlev",
+    "lat": 55.7338,
+    "lon": 12.4294,
+    "km": 17,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 24
    }
   },
   {
@@ -628,7 +718,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hillerød",
+    "lat": 55.9286,
+    "lon": 12.3064,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 21,
+    "roadKm": 18
    }
   },
   {
@@ -669,7 +765,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Horn",
+    "lat": 56.2523,
+    "lon": 9.7099,
+    "km": 178,
+    "region": "Midtjylland",
+    "min": 230,
+    "roadKm": 332
    }
   },
   {
@@ -706,7 +808,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Jyllinge",
+    "lat": 55.7535,
+    "lon": 12.1086,
+    "km": 28,
+    "region": "Sjælland",
+    "min": 44,
+    "roadKm": 39
    }
   },
   {
@@ -781,7 +889,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Lyndelse",
+    "lat": 55.3007,
+    "lon": 10.3944,
+    "km": 147,
+    "region": "Syddanmark",
+    "min": 127,
+    "roadKm": 186
    }
   },
   {
@@ -839,7 +953,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Taastrup",
+    "lat": 55.6522,
+    "lon": 12.292,
+    "km": 29,
+    "region": "Hovedstaden",
+    "min": 36,
+    "roadKm": 42
    }
   },
   {
@@ -874,7 +994,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Viby J",
+    "lat": 56.122,
+    "lon": 10.1597,
+    "km": 148,
+    "region": "Midtjylland",
+    "min": 210,
+    "roadKm": 320
    }
   },
   {
@@ -919,7 +1045,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ølstykke",
+    "lat": 55.7958,
+    "lon": 12.1593,
+    "km": 23,
+    "region": "Hovedstaden",
+    "min": 37,
+    "roadKm": 32
    }
   },
   {
@@ -944,7 +1076,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Højbjerg",
+    "lat": 56.1134,
+    "lon": 10.2064,
+    "km": 145,
+    "region": "Midtjylland",
+    "min": 216,
+    "roadKm": 324
    }
   },
   {
@@ -972,7 +1110,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Jernløse",
+    "lat": 55.6589,
+    "lon": 11.6228,
+    "km": 60,
+    "region": "Sjælland",
+    "min": 68,
+    "roadKm": 91
    }
   },
   {
@@ -1065,7 +1209,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aalborg",
+    "lat": 57.0463,
+    "lon": 9.9215,
+    "km": 205,
+    "region": "Nordjylland",
+    "min": 281,
+    "roadKm": 434
    }
   },
   {
@@ -1149,7 +1299,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Dalum Hjallese",
+    "lat": 55.3634,
+    "lon": 10.3739,
+    "km": 145,
+    "region": "Syddanmark",
+    "min": 123,
+    "roadKm": 183
    }
   },
   {
@@ -1223,7 +1379,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hørning",
+    "lat": 56.0859,
+    "lon": 10.0356,
+    "km": 155,
+    "region": "Midtjylland",
+    "min": 207,
+    "roadKm": 310
    }
   },
   {
@@ -1269,7 +1431,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Køge",
+    "lat": 55.4565,
+    "lon": 12.1819,
+    "km": 51,
+    "region": "Sjælland",
+    "min": 51,
+    "roadKm": 63
    }
   },
   {
@@ -1306,7 +1474,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ledøje-Smørum",
+    "lat": 55.7159,
+    "lon": 12.3196,
+    "km": 22,
+    "region": "Hovedstaden",
+    "min": 28,
+    "roadKm": 34
    }
   },
   {
@@ -1355,7 +1529,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nivå-Kokkedal",
+    "lat": 55.93,
+    "lon": 12.5198,
+    "km": 6,
+    "region": "Hovedstaden",
+    "min": 13,
+    "roadKm": 9
    }
   },
   {
@@ -1430,7 +1610,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Varde",
+    "lat": 55.6177,
+    "lon": 8.4812,
+    "km": 253,
+    "region": "Syddanmark",
+    "min": 209,
+    "roadKm": 316
    }
   },
   {
@@ -1467,7 +1653,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hillerød",
+    "lat": 55.9286,
+    "lon": 12.3064,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 21,
+    "roadKm": 18
    }
   },
   {
@@ -1505,7 +1697,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Solrød Strand",
+    "lat": 55.5343,
+    "lon": 12.2193,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 42,
+    "roadKm": 53
    }
   },
   {
@@ -1608,7 +1806,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gentofte",
+    "lat": 55.7536,
+    "lon": 12.5414,
+    "km": 14,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 17
    }
   },
   {
@@ -1635,7 +1839,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aarhus",
+    "lat": 56.1496,
+    "lon": 10.2134,
+    "km": 145,
+    "region": "Midtjylland",
+    "min": null,
+    "roadKm": null
    }
   },
   {
@@ -1673,7 +1883,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Søften",
+    "lat": 56.2353,
+    "lon": 10.0873,
+    "km": 155,
+    "region": "Midtjylland",
+    "min": 218,
+    "roadKm": 330
    }
   },
   {
@@ -1699,7 +1915,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Rønbæk Hinnerup",
+    "lat": 56.2533,
+    "lon": 10.1034,
+    "km": 154,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 332
    }
   },
   {
@@ -1725,7 +1947,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hadsten",
+    "lat": 56.3291,
+    "lon": 10.0524,
+    "km": 160,
+    "region": "Midtjylland",
+    "min": 226,
+    "roadKm": 341
    }
   },
   {
@@ -1771,7 +1999,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Haldum Hinnerup",
+    "lat": 56.2608,
+    "lon": 10.0585,
+    "km": 157,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 333
    }
   },
   {
@@ -1798,7 +2032,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hammel",
+    "lat": 56.2526,
+    "lon": 9.8611,
+    "km": 169,
+    "region": "Midtjylland",
+    "min": 229,
+    "roadKm": 337
    }
   },
   {
@@ -1835,7 +2075,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hammel",
+    "lat": 56.2526,
+    "lon": 9.8611,
+    "km": 169,
+    "region": "Midtjylland",
+    "min": 229,
+    "roadKm": 337
    }
   },
   {
@@ -1883,7 +2129,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ulstrup",
+    "lat": 55.5399,
+    "lon": 11.2555,
+    "km": 87,
+    "region": "Sjælland",
+    "min": 94,
+    "roadKm": 118
    }
   },
   {
@@ -2027,7 +2279,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -2053,7 +2311,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -2120,7 +2384,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Svenstrup",
+    "lat": 56.9773,
+    "lon": 9.8526,
+    "km": 203,
+    "region": "Nordjylland",
+    "min": 274,
+    "roadKm": 425
    }
   },
   {
@@ -2196,7 +2466,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Vejle",
+    "lat": 55.7079,
+    "lon": 9.5329,
+    "km": 186,
+    "region": "Syddanmark",
+    "min": 170,
+    "roadKm": 255
    }
   },
   {
@@ -2247,7 +2523,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Viborg",
+    "lat": 56.4469,
+    "lon": 9.4059,
+    "km": 202,
+    "region": "Midtjylland",
+    "min": 247,
+    "roadKm": 344
    }
   },
   {
@@ -2282,7 +2564,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kirke Hyllinge",
+    "lat": 55.7068,
+    "lon": 11.8985,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 59,
+    "roadKm": 72
    }
   },
   {
@@ -2317,7 +2605,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kirke Hyllinge",
+    "lat": 55.7068,
+    "lon": 11.8985,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 59,
+    "roadKm": 72
    }
   },
   {
@@ -2409,7 +2703,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Viby J",
+    "lat": 56.122,
+    "lon": 10.1597,
+    "km": 148,
+    "region": "Midtjylland",
+    "min": 210,
+    "roadKm": 320
    }
   },
   {
@@ -2481,7 +2781,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Svendborg",
+    "lat": 55.0637,
+    "lon": 10.6085,
+    "km": 150,
+    "region": "Syddanmark",
+    "min": 141,
+    "roadKm": 185
    }
   },
   {
@@ -2506,7 +2812,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aarhus",
+    "lat": 56.1496,
+    "lon": 10.2134,
+    "km": 145,
+    "region": "Midtjylland",
+    "min": 214,
+    "roadKm": 323
    }
   },
   {
@@ -2533,7 +2845,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brøndby Strand",
+    "lat": 55.621,
+    "lon": 12.4219,
+    "km": 29,
+    "region": "Hovedstaden",
+    "min": 34,
+    "roadKm": 38
    }
   },
   {
@@ -2620,7 +2938,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brønderslev",
+    "lat": 57.27,
+    "lon": 9.9449,
+    "km": 220,
+    "region": "Nordjylland",
+    "min": 299,
+    "roadKm": 464
    }
   },
   {
@@ -2693,7 +3017,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Mejrup",
+    "lat": 56.3624,
+    "lon": 8.6948,
+    "km": 242,
+    "region": "Midtjylland",
+    "min": 233,
+    "roadKm": 362
    }
   },
   {
@@ -2718,7 +3048,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gentofte",
+    "lat": 55.7536,
+    "lon": 12.5414,
+    "km": 14,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 17
    }
   },
   {
@@ -2753,7 +3089,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hvidovre",
+    "lat": 55.6442,
+    "lon": 12.4772,
+    "km": 26,
+    "region": "Hovedstaden",
+    "min": 33,
+    "roadKm": 38
    }
   },
   {
@@ -2790,7 +3132,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hvidovre",
+    "lat": 55.6442,
+    "lon": 12.4772,
+    "km": 26,
+    "region": "Hovedstaden",
+    "min": 33,
+    "roadKm": 38
    }
   },
   {
@@ -2825,7 +3173,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "KBK",
+    "lat": 55.9922,
+    "lon": 12.5014,
+    "km": 12,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 18
    }
   },
   {
@@ -2864,7 +3218,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Karlslunde",
+    "lat": 55.5663,
+    "lon": 12.2697,
+    "km": 38,
+    "region": "Sjælland",
+    "min": 39,
+    "roadKm": 48
    }
   },
   {
@@ -2910,7 +3270,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kolding",
+    "lat": 55.4895,
+    "lon": 9.4791,
+    "km": 194,
+    "region": "Syddanmark",
+    "min": 168,
+    "roadKm": 250
    }
   },
   {
@@ -2971,7 +3337,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kullerup",
+    "lat": 55.3132,
+    "lon": 10.701,
+    "km": 129,
+    "region": "Syddanmark",
+    "min": 110,
+    "roadKm": 161
    }
   },
   {
@@ -2996,7 +3368,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lillerød",
+    "lat": 55.8708,
+    "lon": 12.3557,
+    "km": 9,
+    "region": "Hovedstaden",
+    "min": 17,
+    "roadKm": 12
    }
   },
   {
@@ -3046,7 +3424,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nyborg",
+    "lat": 55.3098,
+    "lon": 10.7977,
+    "km": 124,
+    "region": "Syddanmark",
+    "min": 103,
+    "roadKm": 151
    }
   },
   {
@@ -3074,7 +3458,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Rosendal",
+    "lat": 55.2247,
+    "lon": 12.1107,
+    "km": 77,
+    "region": "Sjælland",
+    "min": 79,
+    "roadKm": 100
    }
   },
   {
@@ -3102,7 +3492,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "København",
+    "lat": 55.6867,
+    "lon": 12.5701,
+    "km": 22,
+    "region": "Hovedstaden",
+    "min": 27,
+    "roadKm": 25
    }
   },
   {
@@ -3175,7 +3571,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Søften",
+    "lat": 56.2353,
+    "lon": 10.0873,
+    "km": 155,
+    "region": "Midtjylland",
+    "min": 218,
+    "roadKm": 330
    }
   },
   {
@@ -3248,7 +3650,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Vinding",
+    "lat": 55.6777,
+    "lon": 9.5751,
+    "km": 184,
+    "region": "Syddanmark",
+    "min": 166,
+    "roadKm": 252
    }
   },
   {
@@ -3275,7 +3683,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Værløse",
+    "lat": 55.7833,
+    "lon": 12.3833,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 27
    }
   },
   {
@@ -3362,7 +3776,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bornholm",
+    "lat": 55.1431,
+    "lon": 14.9226,
+    "km": 173,
+    "region": "Hovedstaden",
+    "min": 208,
+    "roadKm": 224
    }
   },
   {
@@ -3422,7 +3842,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hobro",
+    "lat": 56.6372,
+    "lon": 9.794,
+    "km": 187,
+    "region": "Nordjylland",
+    "min": 251,
+    "roadKm": 381
    }
   },
   {
@@ -3467,7 +3893,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hjallese",
+    "lat": 55.3586,
+    "lon": 10.3859,
+    "km": 145,
+    "region": "Syddanmark",
+    "min": 123,
+    "roadKm": 183
    }
   },
   {
@@ -3525,7 +3957,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Toksværd",
+    "lat": 55.2522,
+    "lon": 11.8822,
+    "km": 80,
+    "region": "Sjælland",
+    "min": 71,
+    "roadKm": 95
    }
   },
   {
@@ -3622,7 +4060,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Horsens",
+    "lat": 55.8612,
+    "lon": 9.8445,
+    "km": 166,
+    "region": "Midtjylland",
+    "min": 189,
+    "roadKm": 282
    }
   },
   {
@@ -3696,7 +4140,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lunderskov",
+    "lat": 55.4836,
+    "lon": 9.3003,
+    "km": 205,
+    "region": "Syddanmark",
+    "min": 174,
+    "roadKm": 260
    }
   },
   {
@@ -3758,7 +4208,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Randers",
+    "lat": 56.4355,
+    "lon": 10.0426,
+    "km": 164,
+    "region": "Midtjylland",
+    "min": 231,
+    "roadKm": 352
    }
   },
   {
@@ -3808,7 +4264,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skalborg",
+    "lat": 57.0079,
+    "lon": 9.8979,
+    "km": 203,
+    "region": "Nordjylland",
+    "min": 278,
+    "roadKm": 431
    }
   },
   {
@@ -3849,7 +4311,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "abc",
+    "lat": 55.6977,
+    "lon": 12.5799,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 24
    }
   },
   {
@@ -3904,7 +4372,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bramdrupdam",
+    "lat": 55.5274,
+    "lon": 9.4624,
+    "km": 194,
+    "region": "Syddanmark",
+    "min": 163,
+    "roadKm": 246
    }
   },
   {
@@ -3939,7 +4413,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Mørkøv",
+    "lat": 55.6514,
+    "lon": 11.5021,
+    "km": 67,
+    "region": "Sjælland",
+    "min": 69,
+    "roadKm": 92
    }
   },
   {
@@ -3974,7 +4454,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Mørkøv",
+    "lat": 55.6514,
+    "lon": 11.5021,
+    "km": 67,
+    "region": "Sjælland",
+    "min": 69,
+    "roadKm": 92
    }
   },
   {
@@ -4029,7 +4515,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Broby",
+    "lat": 55.2547,
+    "lon": 10.2322,
+    "km": 159,
+    "region": "Syddanmark",
+    "min": 138,
+    "roadKm": 197
    }
   },
   {
@@ -4084,7 +4576,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Esbjerg",
+    "lat": 55.4665,
+    "lon": 8.4521,
+    "km": 258,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 316
    }
   },
   {
@@ -4213,7 +4711,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hillerød",
+    "lat": 55.9286,
+    "lon": 12.3064,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 21,
+    "roadKm": 18
    }
   },
   {
@@ -4280,7 +4784,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aakirkeby",
+    "lat": 55.0692,
+    "lon": 14.9208,
+    "km": 177,
+    "region": "Hovedstaden",
+    "min": 207,
+    "roadKm": 222
    }
   },
   {
@@ -4307,7 +4817,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Roskilde",
+    "lat": 55.6433,
+    "lon": 12.0819,
+    "km": 37,
+    "region": "Sjælland",
+    "min": 44,
+    "roadKm": 52
    }
   },
   {
@@ -4414,7 +4930,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Frederikshavn",
+    "lat": 57.4412,
+    "lon": 10.5336,
+    "km": 211,
+    "region": "Nordjylland",
+    "min": 320,
+    "roadKm": 498
    }
   },
   {
@@ -4501,7 +5023,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Haderslev",
+    "lat": 55.2501,
+    "lon": 9.4998,
+    "km": 201,
+    "region": "Syddanmark",
+    "min": 188,
+    "roadKm": 282
    }
   },
   {
@@ -4557,7 +5085,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Herlev",
+    "lat": 55.7338,
+    "lon": 12.4294,
+    "km": 17,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 24
    }
   },
   {
@@ -4584,7 +5118,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ringsted",
+    "lat": 55.4468,
+    "lon": 11.7975,
+    "km": 65,
+    "region": "Sjælland",
+    "min": 61,
+    "roadKm": 84
    }
   },
   {
@@ -4612,7 +5152,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -4638,7 +5184,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Viby J",
+    "lat": 56.122,
+    "lon": 10.1597,
+    "km": 148,
+    "region": "Midtjylland",
+    "min": 210,
+    "roadKm": 320
    }
   },
   {
@@ -4693,7 +5245,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Toreby Sundby",
+    "lat": 54.7603,
+    "lon": 11.8601,
+    "km": 131,
+    "region": "Sjælland",
+    "min": 108,
+    "roadKm": 151
    }
   },
   {
@@ -4754,7 +5312,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Odense",
+    "lat": 55.3997,
+    "lon": 10.3852,
+    "km": 143,
+    "region": "Syddanmark",
+    "min": null,
+    "roadKm": null
    }
   },
   {
@@ -4775,7 +5339,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Langeskov d",
+    "lat": 55.3582,
+    "lon": 10.5831,
+    "km": 134,
+    "region": "Syddanmark",
+    "min": 117,
+    "roadKm": 171
    }
   },
   {
@@ -4820,7 +5390,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Næsby",
+    "lat": 55.4178,
+    "lon": 10.3645,
+    "km": 144,
+    "region": "Syddanmark",
+    "min": 133,
+    "roadKm": 188
    }
   },
   {
@@ -4918,7 +5494,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Tarup-Paarup",
+    "lat": 55.4099,
+    "lon": 10.334,
+    "km": 146,
+    "region": "Syddanmark",
+    "min": 133,
+    "roadKm": 189
    }
   },
   {
@@ -4943,7 +5525,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Langeskov",
+    "lat": 55.3582,
+    "lon": 10.5831,
+    "km": 134,
+    "region": "Syddanmark",
+    "min": 117,
+    "roadKm": 171
    }
   },
   {
@@ -4982,7 +5570,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Korup",
+    "lat": 55.4196,
+    "lon": 10.2711,
+    "km": 149,
+    "region": "Syddanmark",
+    "min": 137,
+    "roadKm": 199
    }
   },
   {
@@ -5084,7 +5678,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Korup",
+    "lat": 55.4196,
+    "lon": 10.2711,
+    "km": 149,
+    "region": "Syddanmark",
+    "min": 137,
+    "roadKm": 199
    }
   },
   {
@@ -5290,7 +5890,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Højby",
+    "lat": 55.9104,
+    "lon": 11.597,
+    "km": 56,
+    "region": "Sjælland",
+    "min": 83,
+    "roadKm": 111
    }
   },
   {
@@ -5325,7 +5931,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nordrup Farendløse",
+    "lat": 55.4058,
+    "lon": 11.8691,
+    "km": 66,
+    "region": "Sjælland",
+    "min": 64,
+    "roadKm": 82
    }
   },
   {
@@ -5360,7 +5972,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nordrup Farendløse",
+    "lat": 55.4058,
+    "lon": 11.8691,
+    "km": 66,
+    "region": "Sjælland",
+    "min": 64,
+    "roadKm": 82
    }
   },
   {
@@ -5415,7 +6033,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gistrup",
+    "lat": 56.9934,
+    "lon": 9.9886,
+    "km": 198,
+    "region": "Nordjylland",
+    "min": 283,
+    "roadKm": 436
    }
   },
   {
@@ -5518,7 +6142,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Midtjylland Kjellerup",
+    "lat": 56.2835,
+    "lon": 9.44,
+    "km": 195,
+    "region": "Midtjylland",
+    "min": 231,
+    "roadKm": 331
    }
   },
   {
@@ -5553,7 +6183,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "BC37 Amager",
+    "lat": 55.8365,
+    "lon": 9.2162,
+    "km": 205,
+    "region": "Syddanmark",
+    "min": 192,
+    "roadKm": 291
    }
   },
   {
@@ -5626,7 +6262,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bov",
+    "lat": 54.8382,
+    "lon": 9.3628,
+    "km": 230,
+    "region": "Syddanmark",
+    "min": 213,
+    "roadKm": 328
    }
   },
   {
@@ -5653,7 +6295,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Farum",
+    "lat": 55.8101,
+    "lon": 12.3703,
+    "km": 11,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 15
    }
   },
   {
@@ -5724,7 +6372,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Glamsdalen",
+    "lat": 55.27,
+    "lon": 10.1143,
+    "km": 165,
+    "region": "Syddanmark",
+    "min": 142,
+    "roadKm": 202
    }
   },
   {
@@ -5762,7 +6416,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Greve",
+    "lat": 55.5834,
+    "lon": 12.2999,
+    "km": 35,
+    "region": "Sjælland",
+    "min": 38,
+    "roadKm": 45
    }
   },
   {
@@ -5850,7 +6510,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Grindsted",
+    "lat": 55.7571,
+    "lon": 8.9278,
+    "km": 224,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 296
    }
   },
   {
@@ -5923,7 +6589,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hjørring",
+    "lat": 57.4572,
+    "lon": 9.9856,
+    "km": 233,
+    "region": "Nordjylland",
+    "min": 313,
+    "roadKm": 486
    }
   },
   {
@@ -5959,7 +6631,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Humlebæk",
+    "lat": 55.9619,
+    "lon": 12.5305,
+    "km": 9,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 17
    }
   },
   {
@@ -6014,7 +6692,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ribe",
+    "lat": 55.3284,
+    "lon": 8.7648,
+    "km": 243,
+    "region": "Syddanmark",
+    "min": 211,
+    "roadKm": 303
    }
   },
   {
@@ -6112,7 +6796,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ledøje-Smørum",
+    "lat": 55.7159,
+    "lon": 12.3196,
+    "km": 22,
+    "region": "Hovedstaden",
+    "min": 28,
+    "roadKm": 34
    }
   },
   {
@@ -6160,7 +6850,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Åby",
+    "lat": 55.4578,
+    "lon": 9.8785,
+    "km": 171,
+    "region": "Syddanmark",
+    "min": 147,
+    "roadKm": 218
    }
   },
   {
@@ -6223,7 +6919,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Sabro",
+    "lat": 56.2121,
+    "lon": 10.0342,
+    "km": 158,
+    "region": "Midtjylland",
+    "min": 215,
+    "roadKm": 325
    }
   },
   {
@@ -6296,7 +6998,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skive-Resen",
+    "lat": 56.5914,
+    "lon": 9.032,
+    "km": 228,
+    "region": "Midtjylland",
+    "min": 260,
+    "roadKm": 380
    }
   },
   {
@@ -6322,7 +7030,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skovshoved",
+    "lat": 55.7596,
+    "lon": 12.5957,
+    "km": 15,
+    "region": "Hovedstaden",
+    "min": 24,
+    "roadKm": 20
    }
   },
   {
@@ -6368,7 +7082,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slagelse",
+    "lat": 55.4061,
+    "lon": 11.3525,
+    "km": 89,
+    "region": "Sjælland",
+    "min": 81,
+    "roadKm": 113
    }
   },
   {
@@ -6395,7 +7115,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ulstrup",
+    "lat": 55.5399,
+    "lon": 11.2555,
+    "km": 87,
+    "region": "Sjælland",
+    "min": 94,
+    "roadKm": 118
    }
   },
   {
@@ -6432,7 +7158,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Værløse",
+    "lat": 55.7833,
+    "lon": 12.3833,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 27
    }
   },
   {
@@ -6515,7 +7247,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "ØBG Silkeborg",
+    "lat": 56.1849,
+    "lon": 9.5094,
+    "km": 189,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 322
    }
   },
   {
@@ -6570,7 +7308,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Voel",
+    "lat": 56.1882,
+    "lon": 9.6937,
+    "km": 178,
+    "region": "Midtjylland",
+    "min": 221,
+    "roadKm": 323
    }
   },
   {
@@ -6657,7 +7401,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bornholm",
+    "lat": 55.1431,
+    "lon": 14.9226,
+    "km": 173,
+    "region": "Hovedstaden",
+    "min": 208,
+    "roadKm": 224
    }
   },
   {
@@ -6727,7 +7477,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Solbjerg",
+    "lat": 56.0398,
+    "lon": 10.0904,
+    "km": 151,
+    "region": "Midtjylland",
+    "min": 212,
+    "roadKm": 314
    }
   },
   {
@@ -6774,7 +7530,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Faxe",
+    "lat": 55.2521,
+    "lon": 12.1142,
+    "km": 74,
+    "region": "Sjælland",
+    "min": 72,
+    "roadKm": 96
    }
   },
   {
@@ -6825,7 +7587,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Esbjerg",
+    "lat": 55.4665,
+    "lon": 8.4521,
+    "km": 258,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 316
    }
   },
   {
@@ -6898,7 +7666,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Blans Sundeved",
+    "lat": 54.9881,
+    "lon": 9.6633,
+    "km": 205,
+    "region": "Syddanmark",
+    "min": 219,
+    "roadKm": 337
    }
   },
   {
@@ -6970,7 +7744,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nordsjælland",
+    "lat": 55.9776,
+    "lon": 12.1295,
+    "km": 26,
+    "region": "Hovedstaden",
+    "min": 35,
+    "roadKm": 32
    }
   },
   {
@@ -7043,7 +7823,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Tim",
+    "lat": 56.1966,
+    "lon": 8.3033,
+    "km": 263,
+    "region": "Midtjylland",
+    "min": 254,
+    "roadKm": 372
    }
   },
   {
@@ -7071,7 +7857,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Fredericia",
+    "lat": 55.5653,
+    "lon": 9.7562,
+    "km": 175,
+    "region": "Syddanmark",
+    "min": 157,
+    "roadKm": 234
    }
   },
   {
@@ -7139,7 +7931,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gladsaxe Søborg",
+    "lat": 55.7328,
+    "lon": 12.4967,
+    "km": 16,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 21
    }
   },
   {
@@ -7177,7 +7975,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Grindsted",
+    "lat": 55.7571,
+    "lon": 8.9278,
+    "km": 224,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 296
    }
   },
   {
@@ -7254,7 +8058,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hammel",
+    "lat": 56.2526,
+    "lon": 9.8611,
+    "km": 169,
+    "region": "Midtjylland",
+    "min": 229,
+    "roadKm": 337
    }
   },
   {
@@ -7313,7 +8123,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Holbæk",
+    "lat": 55.7186,
+    "lon": 11.7135,
+    "km": 52,
+    "region": "Sjælland",
+    "min": 65,
+    "roadKm": 83
    }
   },
   {
@@ -7338,7 +8154,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Holte",
+    "lat": 55.8125,
+    "lon": 12.4688,
+    "km": 8,
+    "region": "Hovedstaden",
+    "min": 14,
+    "roadKm": 10
    }
   },
   {
@@ -7401,7 +8223,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Højslev",
+    "lat": 56.5855,
+    "lon": 9.1362,
+    "km": 222,
+    "region": "Midtjylland",
+    "min": 264,
+    "roadKm": 383
    }
   },
   {
@@ -7515,7 +8343,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Jyllinge",
+    "lat": 55.7535,
+    "lon": 12.1086,
+    "km": 28,
+    "region": "Sjælland",
+    "min": 44,
+    "roadKm": 39
    }
   },
   {
@@ -7592,7 +8426,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lindholm",
+    "lat": 55.0061,
+    "lon": 12.2236,
+    "km": 99,
+    "region": "Sjælland",
+    "min": 108,
+    "roadKm": 141
    }
   },
   {
@@ -7653,7 +8493,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Middelfart",
+    "lat": 55.4993,
+    "lon": 9.7392,
+    "km": 178,
+    "region": "Syddanmark",
+    "min": 152,
+    "roadKm": 228
    }
   },
   {
@@ -7712,7 +8558,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Odense",
+    "lat": 55.3997,
+    "lon": 10.3852,
+    "km": 143,
+    "region": "Syddanmark",
+    "min": 129,
+    "roadKm": 183
    }
   },
   {
@@ -7737,7 +8589,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skovshoved",
+    "lat": 55.7596,
+    "lon": 12.5957,
+    "km": 15,
+    "region": "Hovedstaden",
+    "min": 24,
+    "roadKm": 20
    }
   },
   {
@@ -7762,7 +8620,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Solrød Strand",
+    "lat": 55.5343,
+    "lon": 12.2193,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 42,
+    "roadKm": 53
    }
   },
   {
@@ -7813,7 +8677,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Støvring",
+    "lat": 56.8847,
+    "lon": 9.8331,
+    "km": 199,
+    "region": "Nordjylland",
+    "min": 268,
+    "roadKm": 416
    }
   },
   {
@@ -7920,7 +8790,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kjellerup",
+    "lat": 56.2835,
+    "lon": 9.44,
+    "km": 195,
+    "region": "Midtjylland",
+    "min": 231,
+    "roadKm": 331
    }
   },
   {
@@ -8097,7 +8973,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aabenraa",
+    "lat": 55.0446,
+    "lon": 9.421,
+    "km": 215,
+    "region": "Syddanmark",
+    "min": 200,
+    "roadKm": 306
    }
   },
   {
@@ -8122,7 +9004,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "BC37 Amager",
+    "lat": 55.8365,
+    "lon": 9.2162,
+    "km": 205,
+    "region": "Syddanmark",
+    "min": 192,
+    "roadKm": 291
    }
   },
   {
@@ -8177,7 +9065,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Vinding",
+    "lat": 55.6777,
+    "lon": 9.5751,
+    "km": 184,
+    "region": "Syddanmark",
+    "min": 166,
+    "roadKm": 252
    }
   },
   {
@@ -8212,7 +9106,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brøndby",
+    "lat": 55.6441,
+    "lon": 12.4217,
+    "km": 27,
+    "region": "Hovedstaden",
+    "min": 26,
+    "roadKm": 32
    }
   },
   {
@@ -8247,7 +9147,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brøndby",
+    "lat": 55.6441,
+    "lon": 12.4217,
+    "km": 27,
+    "region": "Hovedstaden",
+    "min": 26,
+    "roadKm": 32
    }
   },
   {
@@ -8302,7 +9208,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Horn",
+    "lat": 56.2523,
+    "lon": 9.7099,
+    "km": 178,
+    "region": "Midtjylland",
+    "min": 230,
+    "roadKm": 332
    }
   },
   {
@@ -8339,7 +9251,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Birkerød BK13",
+    "lat": 55.8403,
+    "lon": 12.4288,
+    "km": 6,
+    "region": "Hovedstaden",
+    "min": 14,
+    "roadKm": 9
    }
   },
   {
@@ -8422,7 +9340,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brabrand",
+    "lat": 56.1566,
+    "lon": 10.1056,
+    "km": 152,
+    "region": "Midtjylland",
+    "min": 212,
+    "roadKm": 321
    }
   },
   {
@@ -8495,7 +9419,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brande",
+    "lat": 55.9445,
+    "lon": 9.1283,
+    "km": 210,
+    "region": "Midtjylland",
+    "min": 196,
+    "roadKm": 301
    }
   },
   {
@@ -8522,7 +9452,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Dragør",
+    "lat": 55.5925,
+    "lon": 12.672,
+    "km": 34,
+    "region": "Hovedstaden",
+    "min": 46,
+    "roadKm": 53
    }
   },
   {
@@ -8571,7 +9507,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Farum",
+    "lat": 55.8101,
+    "lon": 12.3703,
+    "km": 11,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 15
    }
   },
   {
@@ -8649,7 +9591,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Fjerritslev",
+    "lat": 57.0888,
+    "lon": 9.2731,
+    "km": 239,
+    "region": "Nordjylland",
+    "min": 306,
+    "roadKm": 449
    }
   },
   {
@@ -8684,7 +9632,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Holte",
+    "lat": 55.8125,
+    "lon": 12.4688,
+    "km": 8,
+    "region": "Hovedstaden",
+    "min": 14,
+    "roadKm": 10
    }
   },
   {
@@ -8709,7 +9663,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Højbjerg",
+    "lat": 56.1134,
+    "lon": 10.2064,
+    "km": 145,
+    "region": "Midtjylland",
+    "min": 216,
+    "roadKm": 324
    }
   },
   {
@@ -8755,7 +9715,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lyngby",
+    "lat": 55.7719,
+    "lon": 12.5051,
+    "km": 12,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 16
    }
   },
   {
@@ -8849,7 +9815,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Broby",
+    "lat": 55.2547,
+    "lon": 10.2322,
+    "km": 159,
+    "region": "Syddanmark",
+    "min": 138,
+    "roadKm": 197
    }
   },
   {
@@ -8921,7 +9893,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Næstved-Herlufsholm",
+    "lat": 55.2454,
+    "lon": 11.7465,
+    "km": 85,
+    "region": "Sjælland",
+    "min": 82,
+    "roadKm": 104
    }
   },
   {
@@ -8947,7 +9925,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Solrød Strand",
+    "lat": 55.5343,
+    "lon": 12.2193,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 42,
+    "roadKm": 53
    }
   },
   {
@@ -8972,7 +9956,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "abc",
+    "lat": 55.6977,
+    "lon": 12.5799,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 24
    }
   },
   {
@@ -9027,7 +10017,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Sandved",
+    "lat": 55.2626,
+    "lon": 11.5209,
+    "km": 92,
+    "region": "Sjælland",
+    "min": 97,
+    "roadKm": 116
    }
   },
   {
@@ -9081,7 +10077,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aabenraa",
+    "lat": 55.0446,
+    "lon": 9.421,
+    "km": 215,
+    "region": "Syddanmark",
+    "min": 200,
+    "roadKm": 306
    }
   },
   {
@@ -9149,7 +10151,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "København",
+    "lat": 55.6867,
+    "lon": 12.5701,
+    "km": 22,
+    "region": "Hovedstaden",
+    "min": 27,
+    "roadKm": 25
    }
   },
   {
@@ -9223,7 +10231,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lolland-Falster",
+    "lat": 54.6989,
+    "lon": 11.4425,
+    "km": 147,
+    "region": "Sjælland",
+    "min": 121,
+    "roadKm": 177
    }
   },
   {
@@ -9312,7 +10326,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bornholm",
+    "lat": 55.1431,
+    "lon": 14.9226,
+    "km": 173,
+    "region": "Hovedstaden",
+    "min": 208,
+    "roadKm": 224
    }
   },
   {
@@ -9340,7 +10360,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hjørring",
+    "lat": 57.4572,
+    "lon": 9.9856,
+    "km": 233,
+    "region": "Nordjylland",
+    "min": 313,
+    "roadKm": 486
    }
   },
   {
@@ -9415,7 +10441,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aabybro",
+    "lat": 57.1606,
+    "lon": 9.734,
+    "km": 221,
+    "region": "Nordjylland",
+    "min": 301,
+    "roadKm": 458
    }
   },
   {
@@ -9490,7 +10522,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brande",
+    "lat": 55.9445,
+    "lon": 9.1283,
+    "km": 210,
+    "region": "Midtjylland",
+    "min": 196,
+    "roadKm": 301
    }
   },
   {
@@ -9568,7 +10606,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hammel",
+    "lat": 56.2526,
+    "lon": 9.8611,
+    "km": 169,
+    "region": "Midtjylland",
+    "min": 229,
+    "roadKm": 337
    }
   },
   {
@@ -9644,7 +10688,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ribe",
+    "lat": 55.3284,
+    "lon": 8.7648,
+    "km": 243,
+    "region": "Syddanmark",
+    "min": 211,
+    "roadKm": 303
    }
   },
   {
@@ -9750,7 +10800,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Badmintonklub København",
+    "lat": 55.6858,
+    "lon": 12.4811,
+    "km": 22,
+    "region": "Hovedstaden",
+    "min": 28,
+    "roadKm": 28
    }
   },
   {
@@ -9786,7 +10842,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Farum",
+    "lat": 55.8101,
+    "lon": 12.3703,
+    "km": 11,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 15
    }
   },
   {
@@ -9812,7 +10874,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Herlev",
+    "lat": 55.7338,
+    "lon": 12.4294,
+    "km": 17,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 24
    }
   },
   {
@@ -9838,7 +10906,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Jernløse",
+    "lat": 55.6589,
+    "lon": 11.6228,
+    "km": 60,
+    "region": "Sjælland",
+    "min": 68,
+    "roadKm": 91
    }
   },
   {
@@ -9864,7 +10938,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Køge",
+    "lat": 55.4565,
+    "lon": 12.1819,
+    "km": 51,
+    "region": "Sjælland",
+    "min": 51,
+    "roadKm": 63
    }
   },
   {
@@ -9892,7 +10972,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -9927,7 +11013,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Toksværd",
+    "lat": 55.2522,
+    "lon": 11.8822,
+    "km": 80,
+    "region": "Sjælland",
+    "min": 71,
+    "roadKm": 95
    }
   },
   {
@@ -10017,7 +11109,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Værløse",
+    "lat": 55.7833,
+    "lon": 12.3833,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 27
    }
   },
   {
@@ -10093,7 +11191,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Åby",
+    "lat": 55.4578,
+    "lon": 9.8785,
+    "km": 171,
+    "region": "Syddanmark",
+    "min": 147,
+    "roadKm": 218
    }
   },
   {
@@ -10162,7 +11266,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Middelfart",
+    "lat": 55.4993,
+    "lon": 9.7392,
+    "km": 178,
+    "region": "Syddanmark",
+    "min": 152,
+    "roadKm": 228
    }
   },
   {
@@ -10217,7 +11327,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Grindsted",
+    "lat": 55.7571,
+    "lon": 8.9278,
+    "km": 224,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 296
    }
   },
   {
@@ -10272,7 +11388,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Grindsted",
+    "lat": 55.7571,
+    "lon": 8.9278,
+    "km": 224,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 296
    }
   },
   {
@@ -10297,7 +11419,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slovenia",
+    "lat": 55.6821,
+    "lon": 12.5918,
+    "km": 23,
+    "region": "Hovedstaden",
+    "min": 30,
+    "roadKm": 27
    }
   },
   {
@@ -10322,7 +11450,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lillerød",
+    "lat": 55.8708,
+    "lon": 12.3557,
+    "km": 9,
+    "region": "Hovedstaden",
+    "min": 17,
+    "roadKm": 12
    }
   },
   {
@@ -10350,7 +11484,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aalborg",
+    "lat": 57.0463,
+    "lon": 9.9215,
+    "km": 205,
+    "region": "Nordjylland",
+    "min": 281,
+    "roadKm": 434
    }
   },
   {
@@ -10405,7 +11545,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Elbo (Taulov)",
+    "lat": 55.5338,
+    "lon": 9.6221,
+    "km": 184,
+    "region": "Syddanmark",
+    "min": 156,
+    "roadKm": 236
    }
   },
   {
@@ -10475,7 +11621,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Dragør",
+    "lat": 55.5925,
+    "lon": 12.672,
+    "km": 34,
+    "region": "Hovedstaden",
+    "min": 46,
+    "roadKm": 53
    }
   },
   {
@@ -10552,7 +11704,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Dybbøl",
+    "lat": 54.9148,
+    "lon": 9.7212,
+    "km": 206,
+    "region": "Syddanmark",
+    "min": 219,
+    "roadKm": 339
    }
   },
   {
@@ -10573,7 +11731,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "ETC",
+    "lat": 55.7133,
+    "lon": 12.5778,
+    "km": 19,
+    "region": "Hovedstaden",
+    "min": 24,
+    "roadKm": 23
    }
   },
   {
@@ -10610,7 +11774,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Græsted",
+    "lat": 56.0632,
+    "lon": 12.2844,
+    "km": 24,
+    "region": "Hovedstaden",
+    "min": 34,
+    "roadKm": 31
    }
   },
   {
@@ -10695,7 +11865,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hadsund",
+    "lat": 56.7194,
+    "lon": 10.1151,
+    "km": 174,
+    "region": "Nordjylland",
+    "min": 266,
+    "roadKm": 386
    }
   },
   {
@@ -10741,7 +11917,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Helsinge",
+    "lat": 56.0211,
+    "lon": 12.1951,
+    "km": 25,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 29
    }
   },
   {
@@ -10768,7 +11950,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hørsholm",
+    "lat": 55.8833,
+    "lon": 12.5,
+    "km": 0,
+    "region": "Hovedstaden",
+    "min": 5,
+    "roadKm": 2
    }
   },
   {
@@ -10795,7 +11983,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "KBK",
+    "lat": 55.9922,
+    "lon": 12.5014,
+    "km": 12,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 18
    }
   },
   {
@@ -10868,7 +12062,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kerteminde",
+    "lat": 55.4533,
+    "lon": 10.6548,
+    "km": 125,
+    "region": "Syddanmark",
+    "min": 126,
+    "roadKm": 174
    }
   },
   {
@@ -10994,7 +12194,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "TC SYD",
+    "lat": 56.707,
+    "lon": 10.1205,
+    "km": 173,
+    "region": "Nordjylland",
+    "min": 265,
+    "roadKm": 385
    }
   },
   {
@@ -11067,7 +12273,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Sydøstjylland",
+    "lat": 55.8701,
+    "lon": 9.8507,
+    "km": 165,
+    "region": "Midtjylland",
+    "min": 190,
+    "roadKm": 283
    }
   },
   {
@@ -11144,7 +12356,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kjellerup",
+    "lat": 56.2835,
+    "lon": 9.44,
+    "km": 195,
+    "region": "Midtjylland",
+    "min": 231,
+    "roadKm": 331
    }
   },
   {
@@ -11172,7 +12390,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Langhøj",
+    "lat": 56.9588,
+    "lon": 8.6725,
+    "km": 264,
+    "region": "Nordjylland",
+    "min": 307,
+    "roadKm": 432
    }
   },
   {
@@ -11197,7 +12421,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kolding",
+    "lat": 55.4895,
+    "lon": 9.4791,
+    "km": 194,
+    "region": "Syddanmark",
+    "min": 168,
+    "roadKm": 250
    }
   },
   {
@@ -11244,7 +12474,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lillerød",
+    "lat": 55.8708,
+    "lon": 12.3557,
+    "km": 9,
+    "region": "Hovedstaden",
+    "min": 17,
+    "roadKm": 12
    }
   },
   {
@@ -11272,7 +12508,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nivå-Kokkedal",
+    "lat": 55.93,
+    "lon": 12.5198,
+    "km": 6,
+    "region": "Hovedstaden",
+    "min": 13,
+    "roadKm": 9
    }
   },
   {
@@ -11307,7 +12549,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Odense",
+    "lat": 55.3997,
+    "lon": 10.3852,
+    "km": 143,
+    "region": "Syddanmark",
+    "min": 129,
+    "roadKm": 183
    }
   },
   {
@@ -11342,7 +12590,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skovshoved",
+    "lat": 55.7596,
+    "lon": 12.5957,
+    "km": 15,
+    "region": "Hovedstaden",
+    "min": 24,
+    "roadKm": 20
    }
   },
   {
@@ -11367,7 +12621,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slagelse",
+    "lat": 55.4061,
+    "lon": 11.3525,
+    "km": 89,
+    "region": "Sjælland",
+    "min": 81,
+    "roadKm": 113
    }
   },
   {
@@ -11412,7 +12672,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -11449,7 +12715,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Taastrup",
+    "lat": 55.6522,
+    "lon": 12.292,
+    "km": 29,
+    "region": "Hovedstaden",
+    "min": 36,
+    "roadKm": 42
    }
   },
   {
@@ -11511,7 +12783,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Esbjerg",
+    "lat": 55.4665,
+    "lon": 8.4521,
+    "km": 258,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 316
    }
   },
   {
@@ -11596,7 +12874,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bornholm",
+    "lat": 55.1431,
+    "lon": 14.9226,
+    "km": 173,
+    "region": "Hovedstaden",
+    "min": 208,
+    "roadKm": 224
    }
   },
   {
@@ -11635,7 +12919,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Silkeborg",
+    "lat": 56.1695,
+    "lon": 9.5495,
+    "km": 186,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 313
    }
   },
   {
@@ -11707,7 +12997,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skødstrup",
+    "lat": 56.263,
+    "lon": 10.3039,
+    "km": 143,
+    "region": "Midtjylland",
+    "min": 224,
+    "roadKm": 340
    }
   },
   {
@@ -11736,7 +13032,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Solrød Strand",
+    "lat": 55.5343,
+    "lon": 12.2193,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 42,
+    "roadKm": 53
    }
   },
   {
@@ -11764,7 +13066,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Store Restrup",
+    "lat": 57.0051,
+    "lon": 9.7747,
+    "km": 209,
+    "region": "Nordjylland",
+    "min": 282,
+    "roadKm": 432
    }
   },
   {
@@ -11836,7 +13144,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Starup",
+    "lat": 55.2401,
+    "lon": 9.5414,
+    "km": 199,
+    "region": "Syddanmark",
+    "min": 194,
+    "roadKm": 286
    }
   },
   {
@@ -11864,7 +13178,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Taastrup",
+    "lat": 55.6522,
+    "lon": 12.292,
+    "km": 29,
+    "region": "Hovedstaden",
+    "min": 36,
+    "roadKm": 42
    }
   },
   {
@@ -11905,7 +13225,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Toksværd",
+    "lat": 55.2522,
+    "lon": 11.8822,
+    "km": 80,
+    "region": "Sjælland",
+    "min": 71,
+    "roadKm": 95
    }
   },
   {
@@ -11950,7 +13276,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Greve",
+    "lat": 55.5834,
+    "lon": 12.2999,
+    "km": 35,
+    "region": "Sjælland",
+    "min": 38,
+    "roadKm": 45
    }
   },
   {
@@ -12040,7 +13372,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Silkeborg",
+    "lat": 56.1695,
+    "lon": 9.5495,
+    "km": 186,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 313
    }
   },
   {
@@ -12104,7 +13442,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Solrød Strand",
+    "lat": 55.5343,
+    "lon": 12.2193,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 42,
+    "roadKm": 53
    }
   },
   {
@@ -12168,7 +13512,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Store Restrup",
+    "lat": 57.0051,
+    "lon": 9.7747,
+    "km": 209,
+    "region": "Nordjylland",
+    "min": 282,
+    "roadKm": 432
    }
   },
   {
@@ -12263,7 +13613,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Thorsager",
+    "lat": 56.3458,
+    "lon": 10.4561,
+    "km": 137,
+    "region": "Midtjylland",
+    "min": 234,
+    "roadKm": 355
    }
   },
   {
@@ -12349,7 +13705,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Lyndelse",
+    "lat": 55.3007,
+    "lon": 10.3944,
+    "km": 147,
+    "region": "Syddanmark",
+    "min": 127,
+    "roadKm": 186
    }
   },
   {
@@ -12377,7 +13739,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Svenstrup",
+    "lat": 56.9773,
+    "lon": 9.8526,
+    "km": 203,
+    "region": "Nordjylland",
+    "min": 274,
+    "roadKm": 425
    }
   },
   {
@@ -12427,7 +13795,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Toksværd",
+    "lat": 55.2522,
+    "lon": 11.8822,
+    "km": 80,
+    "region": "Sjælland",
+    "min": 71,
+    "roadKm": 95
    }
   },
   {
@@ -12455,7 +13829,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Silkeborg",
+    "lat": 56.1695,
+    "lon": 9.5495,
+    "km": 186,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 313
    }
   },
   {
@@ -12490,7 +13870,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Roskilde",
+    "lat": 55.6433,
+    "lon": 12.0819,
+    "km": 37,
+    "region": "Sjælland",
+    "min": 44,
+    "roadKm": 52
    }
   },
   {
@@ -12590,7 +13976,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Sønderjylland",
+    "lat": 55.0629,
+    "lon": 9.3776,
+    "km": 217,
+    "region": "Syddanmark",
+    "min": 197,
+    "roadKm": 302
    }
   },
   {
@@ -12636,7 +14028,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gentofte",
+    "lat": 55.7536,
+    "lon": 12.5414,
+    "km": 14,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 17
    }
   },
   {
@@ -12685,7 +14083,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gug",
+    "lat": 57.0136,
+    "lon": 9.9332,
+    "km": 202,
+    "region": "Nordjylland",
+    "min": 279,
+    "roadKm": 432
    }
   },
   {
@@ -12725,7 +14129,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Herlev",
+    "lat": 55.7338,
+    "lon": 12.4294,
+    "km": 17,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 24
    }
   },
   {
@@ -12750,7 +14160,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hillerød",
+    "lat": 55.9286,
+    "lon": 12.3064,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 21,
+    "roadKm": 18
    }
   },
   {
@@ -12785,7 +14201,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Humlebæk",
+    "lat": 55.9619,
+    "lon": 12.5305,
+    "km": 9,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 17
    }
   },
   {
@@ -12822,7 +14244,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hvidovre",
+    "lat": 55.6442,
+    "lon": 12.4772,
+    "km": 26,
+    "region": "Hovedstaden",
+    "min": 33,
+    "roadKm": 38
    }
   },
   {
@@ -12900,7 +14328,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hørning",
+    "lat": 56.0859,
+    "lon": 10.0356,
+    "km": 155,
+    "region": "Midtjylland",
+    "min": 207,
+    "roadKm": 310
    }
   },
   {
@@ -12937,7 +14371,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kirke Hyllinge",
+    "lat": 55.7068,
+    "lon": 11.8985,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 59,
+    "roadKm": 72
    }
   },
   {
@@ -12965,7 +14405,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lindholm",
+    "lat": 55.0061,
+    "lon": 12.2236,
+    "km": 99,
+    "region": "Sjælland",
+    "min": 108,
+    "roadKm": 141
    }
   },
   {
@@ -12993,7 +14439,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -13074,7 +14526,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Svenstrup",
+    "lat": 56.9773,
+    "lon": 9.8526,
+    "km": 203,
+    "region": "Nordjylland",
+    "min": 274,
+    "roadKm": 425
    }
   },
   {
@@ -13129,7 +14587,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Valby",
+    "lat": 55.6638,
+    "lon": 12.5136,
+    "km": 24,
+    "region": "Hovedstaden",
+    "min": 33,
+    "roadKm": 28
    }
   },
   {
@@ -13154,7 +14618,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Værløse",
+    "lat": 55.7833,
+    "lon": 12.3833,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 27
    }
   },
   {
@@ -13234,7 +14704,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Vejrup",
+    "lat": 55.5216,
+    "lon": 8.7794,
+    "km": 237,
+    "region": "Syddanmark",
+    "min": 191,
+    "roadKm": 292
    }
   },
   {
@@ -13259,7 +14735,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "SWEDISH",
+    "lat": 55.6641,
+    "lon": 12.5612,
+    "km": 24,
+    "region": "Hovedstaden",
+    "min": 33,
+    "roadKm": 29
    }
   },
   {
@@ -13475,7 +14957,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brønderslev",
+    "lat": 57.27,
+    "lon": 9.9449,
+    "km": 220,
+    "region": "Nordjylland",
+    "min": 299,
+    "roadKm": 464
    }
   },
   {
@@ -13548,7 +15036,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Langhøj",
+    "lat": 56.9588,
+    "lon": 8.6725,
+    "km": 264,
+    "region": "Nordjylland",
+    "min": 307,
+    "roadKm": 432
    }
   },
   {
@@ -13574,7 +15068,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gentofte",
+    "lat": 55.7536,
+    "lon": 12.5414,
+    "km": 14,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 17
    }
   },
   {
@@ -13613,7 +15113,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gladsaxe Søborg",
+    "lat": 55.7328,
+    "lon": 12.4967,
+    "km": 16,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 21
    }
   },
   {
@@ -13640,7 +15146,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Helsinge",
+    "lat": 56.0211,
+    "lon": 12.1951,
+    "km": 25,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 29
    }
   },
   {
@@ -13701,7 +15213,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Åby",
+    "lat": 55.4578,
+    "lon": 9.8785,
+    "km": 171,
+    "region": "Syddanmark",
+    "min": 147,
+    "roadKm": 218
    }
   },
   {
@@ -13983,7 +15501,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Støvring",
+    "lat": 56.8847,
+    "lon": 9.8331,
+    "km": 199,
+    "region": "Nordjylland",
+    "min": 268,
+    "roadKm": 416
    }
   },
   {
@@ -14056,7 +15580,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Søften",
+    "lat": 56.2353,
+    "lon": 10.0873,
+    "km": 155,
+    "region": "Midtjylland",
+    "min": 218,
+    "roadKm": 330
    }
   },
   {
@@ -14083,7 +15613,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Værløse",
+    "lat": 55.7833,
+    "lon": 12.3833,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 27
    }
   },
   {
@@ -14142,7 +15678,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "ØBG Silkeborg",
+    "lat": 56.1849,
+    "lon": 9.5094,
+    "km": 189,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 322
    }
   },
   {
@@ -14178,7 +15720,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ølstykke",
+    "lat": 55.7958,
+    "lon": 12.1593,
+    "km": 23,
+    "region": "Hovedstaden",
+    "min": 37,
+    "roadKm": 32
    }
   },
   {
@@ -14252,7 +15800,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bornholm",
+    "lat": 55.1431,
+    "lon": 14.9226,
+    "km": 173,
+    "region": "Hovedstaden",
+    "min": 208,
+    "roadKm": 224
    }
   },
   {
@@ -14312,7 +15866,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Sydøstjylland",
+    "lat": 55.8701,
+    "lon": 9.8507,
+    "km": 165,
+    "region": "Midtjylland",
+    "min": 190,
+    "roadKm": 283
    }
   },
   {
@@ -14473,7 +16033,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hvidovre",
+    "lat": 55.6442,
+    "lon": 12.4772,
+    "km": 26,
+    "region": "Hovedstaden",
+    "min": 33,
+    "roadKm": 38
    }
   },
   {
@@ -14570,7 +16136,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bjergby-Mygdal",
+    "lat": 57.5101,
+    "lon": 10.0313,
+    "km": 236,
+    "region": "Nordjylland",
+    "min": 316,
+    "roadKm": 493
    }
   },
   {
@@ -14596,7 +16168,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Herlev",
+    "lat": 55.7338,
+    "lon": 12.4294,
+    "km": 17,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 24
    }
   },
   {
@@ -14678,7 +16256,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skive-Resen",
+    "lat": 56.5914,
+    "lon": 9.032,
+    "km": 228,
+    "region": "Midtjylland",
+    "min": 260,
+    "roadKm": 380
    }
   },
   {
@@ -14799,7 +16383,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "abc",
+    "lat": 55.6977,
+    "lon": 12.5799,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 24
    }
   },
   {
@@ -14854,7 +16444,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Horn",
+    "lat": 56.2523,
+    "lon": 9.7099,
+    "km": 178,
+    "region": "Midtjylland",
+    "min": 230,
+    "roadKm": 332
    }
   },
   {
@@ -15080,7 +16676,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hjørring",
+    "lat": 57.4572,
+    "lon": 9.9856,
+    "km": 233,
+    "region": "Nordjylland",
+    "min": 313,
+    "roadKm": 486
    }
   },
   {
@@ -15129,7 +16731,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Jernløse",
+    "lat": 55.6589,
+    "lon": 11.6228,
+    "km": 60,
+    "region": "Sjælland",
+    "min": 68,
+    "roadKm": 91
    }
   },
   {
@@ -15186,7 +16794,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Køge",
+    "lat": 55.4565,
+    "lon": 12.1819,
+    "km": 51,
+    "region": "Sjælland",
+    "min": 51,
+    "roadKm": 63
    }
   },
   {
@@ -15213,7 +16827,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ledøje-Smørum",
+    "lat": 55.7159,
+    "lon": 12.3196,
+    "km": 22,
+    "region": "Hovedstaden",
+    "min": 28,
+    "roadKm": 34
    }
   },
   {
@@ -15319,7 +16939,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -15470,7 +17096,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Haderslev",
+    "lat": 55.2501,
+    "lon": 9.4998,
+    "km": 201,
+    "region": "Syddanmark",
+    "min": 188,
+    "roadKm": 282
    }
   },
   {
@@ -15595,7 +17227,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "BC37 Amager",
+    "lat": 55.8365,
+    "lon": 9.2162,
+    "km": 205,
+    "region": "Syddanmark",
+    "min": 192,
+    "roadKm": 291
    }
   },
   {
@@ -15623,7 +17261,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Farum",
+    "lat": 55.8101,
+    "lon": 12.3703,
+    "km": 11,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 15
    }
   },
   {
@@ -15734,7 +17378,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Herlev",
+    "lat": 55.7338,
+    "lon": 12.4294,
+    "km": 17,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 24
    }
   },
   {
@@ -15784,7 +17434,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Middelfart",
+    "lat": 55.4993,
+    "lon": 9.7392,
+    "km": 178,
+    "region": "Syddanmark",
+    "min": 152,
+    "roadKm": 228
    }
   },
   {
@@ -15810,7 +17466,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Lyndelse",
+    "lat": 55.3007,
+    "lon": 10.3944,
+    "km": 147,
+    "region": "Syddanmark",
+    "min": 127,
+    "roadKm": 186
    }
   },
   {
@@ -15885,7 +17547,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Silkeborg",
+    "lat": 56.1695,
+    "lon": 9.5495,
+    "km": 186,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 313
    }
   },
   {
@@ -15934,7 +17602,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Solbjerg",
+    "lat": 56.0398,
+    "lon": 10.0904,
+    "km": 151,
+    "region": "Midtjylland",
+    "min": 212,
+    "roadKm": 314
    }
   },
   {
@@ -16245,7 +17919,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Farum",
+    "lat": 55.8101,
+    "lon": 12.3703,
+    "km": 11,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 15
    }
   },
   {
@@ -16271,7 +17951,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hillerød",
+    "lat": 55.9286,
+    "lon": 12.3064,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 21,
+    "roadKm": 18
    }
   },
   {
@@ -16296,7 +17982,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hvidovre",
+    "lat": 55.6442,
+    "lon": 12.4772,
+    "km": 26,
+    "region": "Hovedstaden",
+    "min": 33,
+    "roadKm": 38
    }
   },
   {
@@ -16496,7 +18188,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ikast",
+    "lat": 56.139,
+    "lon": 9.1548,
+    "km": 210,
+    "region": "Midtjylland",
+    "min": 217,
+    "roadKm": 335
    }
   },
   {
@@ -16545,7 +18243,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Jernløse",
+    "lat": 55.6589,
+    "lon": 11.6228,
+    "km": 60,
+    "region": "Sjælland",
+    "min": 68,
+    "roadKm": 91
    }
   },
   {
@@ -16573,7 +18277,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Kolding",
+    "lat": 55.4895,
+    "lon": 9.4791,
+    "km": 194,
+    "region": "Syddanmark",
+    "min": 168,
+    "roadKm": 250
    }
   },
   {
@@ -16671,7 +18381,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Sabro",
+    "lat": 56.2121,
+    "lon": 10.0342,
+    "km": 158,
+    "region": "Midtjylland",
+    "min": 215,
+    "roadKm": 325
    }
   },
   {
@@ -16716,7 +18432,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -16741,7 +18463,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Viby J",
+    "lat": 56.122,
+    "lon": 10.1597,
+    "km": 148,
+    "region": "Midtjylland",
+    "min": 210,
+    "roadKm": 320
    }
   },
   {
@@ -16796,7 +18524,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Broby",
+    "lat": 55.2547,
+    "lon": 10.2322,
+    "km": 159,
+    "region": "Syddanmark",
+    "min": 138,
+    "roadKm": 197
    }
   },
   {
@@ -17046,7 +18780,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Odense",
+    "lat": 55.3997,
+    "lon": 10.3852,
+    "km": 143,
+    "region": "Syddanmark",
+    "min": 129,
+    "roadKm": 183
    }
   },
   {
@@ -17095,7 +18835,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Birkerød BK13",
+    "lat": 55.8403,
+    "lon": 12.4288,
+    "km": 6,
+    "region": "Hovedstaden",
+    "min": 14,
+    "roadKm": 9
    }
   },
   {
@@ -17169,7 +18915,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bjergby-Mygdal",
+    "lat": 57.5101,
+    "lon": 10.0313,
+    "km": 236,
+    "region": "Nordjylland",
+    "min": 316,
+    "roadKm": 493
    }
   },
   {
@@ -17264,7 +19016,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Fredericia",
+    "lat": 55.5653,
+    "lon": 9.7562,
+    "km": 175,
+    "region": "Syddanmark",
+    "min": 157,
+    "roadKm": 234
    }
   },
   {
@@ -17311,7 +19069,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gladsaxe Søborg",
+    "lat": 55.7328,
+    "lon": 12.4967,
+    "km": 16,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 21
    }
   },
   {
@@ -17486,7 +19250,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hillerød",
+    "lat": 55.9286,
+    "lon": 12.3064,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 21,
+    "roadKm": 18
    }
   },
   {
@@ -17523,7 +19293,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lyngby",
+    "lat": 55.7719,
+    "lon": 12.5051,
+    "km": 12,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 16
    }
   },
   {
@@ -17616,7 +19392,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Rosendal",
+    "lat": 55.2247,
+    "lon": 12.1107,
+    "km": 77,
+    "region": "Sjælland",
+    "min": 79,
+    "roadKm": 100
    }
   },
   {
@@ -17726,7 +19508,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ulstrup",
+    "lat": 55.5399,
+    "lon": 11.2555,
+    "km": 87,
+    "region": "Sjælland",
+    "min": 94,
+    "roadKm": 118
    }
   },
   {
@@ -17868,7 +19656,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bornholm",
+    "lat": 55.1431,
+    "lon": 14.9226,
+    "km": 173,
+    "region": "Hovedstaden",
+    "min": 208,
+    "roadKm": 224
    }
   },
   {
@@ -18016,7 +19810,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Thorsager",
+    "lat": 56.3458,
+    "lon": 10.4561,
+    "km": 137,
+    "region": "Midtjylland",
+    "min": 234,
+    "roadKm": 355
    }
   },
   {
@@ -18111,7 +19911,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "BC37 Amager",
+    "lat": 55.8365,
+    "lon": 9.2162,
+    "km": 205,
+    "region": "Syddanmark",
+    "min": 192,
+    "roadKm": 291
    }
   },
   {
@@ -18162,7 +19968,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Dalum Hjallese",
+    "lat": 55.3634,
+    "lon": 10.3739,
+    "km": 145,
+    "region": "Syddanmark",
+    "min": 123,
+    "roadKm": 183
    }
   },
   {
@@ -18224,7 +20036,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Åby",
+    "lat": 55.4578,
+    "lon": 9.8785,
+    "km": 171,
+    "region": "Syddanmark",
+    "min": 147,
+    "roadKm": 218
    }
   },
   {
@@ -18252,7 +20070,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aalborg",
+    "lat": 57.0463,
+    "lon": 9.9215,
+    "km": 205,
+    "region": "Nordjylland",
+    "min": 281,
+    "roadKm": 434
    }
   },
   {
@@ -18336,7 +20160,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Blans Sundeved",
+    "lat": 54.9881,
+    "lon": 9.6633,
+    "km": 205,
+    "region": "Syddanmark",
+    "min": 219,
+    "roadKm": 337
    }
   },
   {
@@ -18374,7 +20204,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Holbæk",
+    "lat": 55.7186,
+    "lon": 11.7135,
+    "km": 52,
+    "region": "Sjælland",
+    "min": 65,
+    "roadKm": 83
    }
   },
   {
@@ -18401,7 +20237,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Holte",
+    "lat": 55.8125,
+    "lon": 12.4688,
+    "km": 8,
+    "region": "Hovedstaden",
+    "min": 14,
+    "roadKm": 10
    }
   },
   {
@@ -18436,7 +20278,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lillerød",
+    "lat": 55.8708,
+    "lon": 12.3557,
+    "km": 9,
+    "region": "Hovedstaden",
+    "min": 17,
+    "roadKm": 12
    }
   },
   {
@@ -18463,7 +20311,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nivå-Kokkedal",
+    "lat": 55.93,
+    "lon": 12.5198,
+    "km": 6,
+    "region": "Hovedstaden",
+    "min": 13,
+    "roadKm": 9
    }
   },
   {
@@ -18512,7 +20366,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Næstved-Herlufsholm",
+    "lat": 55.2454,
+    "lon": 11.7465,
+    "km": 85,
+    "region": "Sjælland",
+    "min": 82,
+    "roadKm": 104
    }
   },
   {
@@ -18537,7 +20397,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skovshoved",
+    "lat": 55.7596,
+    "lon": 12.5957,
+    "km": 15,
+    "region": "Hovedstaden",
+    "min": 24,
+    "roadKm": 20
    }
   },
   {
@@ -18662,7 +20528,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Viborg",
+    "lat": 56.4469,
+    "lon": 9.4059,
+    "km": 202,
+    "region": "Midtjylland",
+    "min": 247,
+    "roadKm": 344
    }
   },
   {
@@ -18748,7 +20620,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Lyndelse",
+    "lat": 55.3007,
+    "lon": 10.3944,
+    "km": 147,
+    "region": "Syddanmark",
+    "min": 127,
+    "roadKm": 186
    }
   },
   {
@@ -18822,7 +20700,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Horn",
+    "lat": 56.2523,
+    "lon": 9.7099,
+    "km": 178,
+    "region": "Midtjylland",
+    "min": 230,
+    "roadKm": 332
    }
   },
   {
@@ -19029,7 +20913,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aalborg",
+    "lat": 57.0463,
+    "lon": 9.9215,
+    "km": 205,
+    "region": "Nordjylland",
+    "min": 281,
+    "roadKm": 434
    }
   },
   {
@@ -19057,7 +20947,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Roskilde",
+    "lat": 55.6433,
+    "lon": 12.0819,
+    "km": 37,
+    "region": "Sjælland",
+    "min": 44,
+    "roadKm": 52
    }
   },
   {
@@ -19344,7 +21240,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "KBK",
+    "lat": 55.9922,
+    "lon": 12.5014,
+    "km": 12,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 18
    }
   },
   {
@@ -19389,7 +21291,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Karlslunde",
+    "lat": 55.5663,
+    "lon": 12.2697,
+    "km": 38,
+    "region": "Sjælland",
+    "min": 39,
+    "roadKm": 48
    }
   },
   {
@@ -19495,7 +21403,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nørre Broby",
+    "lat": 55.2547,
+    "lon": 10.2322,
+    "km": 159,
+    "region": "Syddanmark",
+    "min": 138,
+    "roadKm": 197
    }
   },
   {
@@ -19599,7 +21513,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Taastrup",
+    "lat": 55.6522,
+    "lon": 12.292,
+    "km": 29,
+    "region": "Hovedstaden",
+    "min": 36,
+    "roadKm": 42
    }
   },
   {
@@ -19759,7 +21679,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Bornholm",
+    "lat": 55.1431,
+    "lon": 14.9226,
+    "km": 173,
+    "region": "Hovedstaden",
+    "min": 208,
+    "roadKm": 224
    }
   },
   {
@@ -20015,7 +21941,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Greve",
+    "lat": 55.5834,
+    "lon": 12.2999,
+    "km": 35,
+    "region": "Sjælland",
+    "min": 38,
+    "roadKm": 45
    }
   },
   {
@@ -20043,7 +21975,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hadsund",
+    "lat": 56.7194,
+    "lon": 10.1151,
+    "km": 174,
+    "region": "Nordjylland",
+    "min": 266,
+    "roadKm": 386
    }
   },
   {
@@ -20386,7 +22324,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Varde",
+    "lat": 55.6177,
+    "lon": 8.4812,
+    "km": 253,
+    "region": "Syddanmark",
+    "min": 209,
+    "roadKm": 316
    }
   },
   {
@@ -20423,7 +22367,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ringsted",
+    "lat": 55.4468,
+    "lon": 11.7975,
+    "km": 65,
+    "region": "Sjælland",
+    "min": 61,
+    "roadKm": 84
    }
   },
   {
@@ -20534,7 +22484,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Brønderslev",
+    "lat": 57.27,
+    "lon": 9.9449,
+    "km": 220,
+    "region": "Nordjylland",
+    "min": 299,
+    "roadKm": 464
    }
   },
   {
@@ -20623,7 +22579,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gug",
+    "lat": 57.0136,
+    "lon": 9.9332,
+    "km": 202,
+    "region": "Nordjylland",
+    "min": 279,
+    "roadKm": 432
    }
   },
   {
@@ -20652,7 +22614,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Horsens",
+    "lat": 55.8612,
+    "lon": 9.8445,
+    "km": 166,
+    "region": "Midtjylland",
+    "min": 189,
+    "roadKm": 282
    }
   },
   {
@@ -20689,7 +22657,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Karlslunde",
+    "lat": 55.5663,
+    "lon": 12.2697,
+    "km": 38,
+    "region": "Sjælland",
+    "min": 39,
+    "roadKm": 48
    }
   },
   {
@@ -20740,7 +22714,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Odense",
+    "lat": 55.3997,
+    "lon": 10.3852,
+    "km": 143,
+    "region": "Syddanmark",
+    "min": 129,
+    "roadKm": 183
    }
   },
   {
@@ -20766,7 +22746,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skovshoved",
+    "lat": 55.7596,
+    "lon": 12.5957,
+    "km": 15,
+    "region": "Hovedstaden",
+    "min": 24,
+    "roadKm": 20
    }
   },
   {
@@ -20803,7 +22789,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Værløse",
+    "lat": 55.7833,
+    "lon": 12.3833,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 25,
+    "roadKm": 27
    }
   },
   {
@@ -20850,7 +22842,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "BC37 Amager",
+    "lat": 55.8365,
+    "lon": 9.2162,
+    "km": 205,
+    "region": "Syddanmark",
+    "min": 192,
+    "roadKm": 291
    }
   },
   {
@@ -20973,7 +22971,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Rønde",
+    "lat": 56.3016,
+    "lon": 10.4754,
+    "km": 134,
+    "region": "Midtjylland",
+    "min": 234,
+    "roadKm": 354
    }
   },
   {
@@ -21010,7 +23014,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Svenstrup",
+    "lat": 56.9773,
+    "lon": 9.8526,
+    "km": 203,
+    "region": "Nordjylland",
+    "min": 274,
+    "roadKm": 425
    }
   },
   {
@@ -21108,7 +23118,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Farum",
+    "lat": 55.8101,
+    "lon": 12.3703,
+    "km": 11,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 15
    }
   },
   {
@@ -21181,7 +23197,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Aabenraa",
+    "lat": 55.0446,
+    "lon": 9.421,
+    "km": 215,
+    "region": "Syddanmark",
+    "min": 200,
+    "roadKm": 306
    }
   },
   {
@@ -21349,7 +23371,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Dalum Hjallese",
+    "lat": 55.3634,
+    "lon": 10.3739,
+    "km": 145,
+    "region": "Syddanmark",
+    "min": 123,
+    "roadKm": 183
    }
   },
   {
@@ -21389,7 +23417,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Horn",
+    "lat": 56.2523,
+    "lon": 9.7099,
+    "km": 178,
+    "region": "Midtjylland",
+    "min": 230,
+    "roadKm": 332
    }
   },
   {
@@ -21578,7 +23612,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Dalum Hjallese",
+    "lat": 55.3634,
+    "lon": 10.3739,
+    "km": 145,
+    "region": "Syddanmark",
+    "min": 123,
+    "roadKm": 183
    }
   },
   {
@@ -21674,7 +23714,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Herlev",
+    "lat": 55.7338,
+    "lon": 12.4294,
+    "km": 17,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 24
    }
   },
   {
@@ -21716,7 +23762,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hillerød",
+    "lat": 55.9286,
+    "lon": 12.3064,
+    "km": 13,
+    "region": "Hovedstaden",
+    "min": 21,
+    "roadKm": 18
    }
   },
   {
@@ -21839,7 +23891,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lindholm",
+    "lat": 55.0061,
+    "lon": 12.2236,
+    "km": 99,
+    "region": "Sjælland",
+    "min": 108,
+    "roadKm": 141
    }
   },
   {
@@ -21889,7 +23947,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Nyborg",
+    "lat": 55.3098,
+    "lon": 10.7977,
+    "km": 124,
+    "region": "Syddanmark",
+    "min": 103,
+    "roadKm": 151
    }
   },
   {
@@ -21952,7 +24016,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Silkeborg",
+    "lat": 56.1695,
+    "lon": 9.5495,
+    "km": 186,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 313
    }
   },
   {
@@ -21999,7 +24069,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slagelse",
+    "lat": 55.4061,
+    "lon": 11.3525,
+    "km": 89,
+    "region": "Sjælland",
+    "min": 81,
+    "roadKm": 113
    }
   },
   {
@@ -22076,7 +24152,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Vejle",
+    "lat": 55.7079,
+    "lon": 9.5329,
+    "km": 186,
+    "region": "Syddanmark",
+    "min": 170,
+    "roadKm": 255
    }
   },
   {
@@ -22362,7 +24444,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Farum",
+    "lat": 55.8101,
+    "lon": 12.3703,
+    "km": 11,
+    "region": "Hovedstaden",
+    "min": 23,
+    "roadKm": 15
    }
   },
   {
@@ -22510,7 +24598,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Holte",
+    "lat": 55.8125,
+    "lon": 12.4688,
+    "km": 8,
+    "region": "Hovedstaden",
+    "min": 14,
+    "roadKm": 10
    }
   },
   {
@@ -22549,7 +24643,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Ledøje-Smørum",
+    "lat": 55.7159,
+    "lon": 12.3196,
+    "km": 22,
+    "region": "Hovedstaden",
+    "min": 28,
+    "roadKm": 34
    }
   },
   {
@@ -22574,7 +24674,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Lillerød",
+    "lat": 55.8708,
+    "lon": 12.3557,
+    "km": 9,
+    "region": "Hovedstaden",
+    "min": 17,
+    "roadKm": 12
    }
   },
   {
@@ -22635,7 +24741,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Randers",
+    "lat": 56.4355,
+    "lon": 10.0426,
+    "km": 164,
+    "region": "Midtjylland",
+    "min": 231,
+    "roadKm": 352
    }
   },
   {
@@ -22672,7 +24784,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Taastrup",
+    "lat": 55.6522,
+    "lon": 12.292,
+    "km": 29,
+    "region": "Hovedstaden",
+    "min": 36,
+    "roadKm": 42
    }
   },
   {
@@ -22787,7 +24905,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Esbjerg",
+    "lat": 55.4665,
+    "lon": 8.4521,
+    "km": 258,
+    "region": "Syddanmark",
+    "min": 208,
+    "roadKm": 316
    }
   },
   {
@@ -22861,7 +24985,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Dybbøl",
+    "lat": 54.9148,
+    "lon": 9.7212,
+    "km": 206,
+    "region": "Syddanmark",
+    "min": 219,
+    "roadKm": 339
    }
   },
   {
@@ -22896,7 +25026,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Gentofte",
+    "lat": 55.7536,
+    "lon": 12.5414,
+    "km": 14,
+    "region": "Hovedstaden",
+    "min": 18,
+    "roadKm": 17
    }
   },
   {
@@ -23021,7 +25157,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Køge",
+    "lat": 55.4565,
+    "lon": 12.1819,
+    "km": 51,
+    "region": "Sjælland",
+    "min": 51,
+    "roadKm": 63
    }
   },
   {
@@ -23070,7 +25212,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Odense",
+    "lat": 55.3997,
+    "lon": 10.3852,
+    "km": 143,
+    "region": "Syddanmark",
+    "min": 129,
+    "roadKm": 183
    }
   },
   {
@@ -23111,7 +25259,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Skalborg",
+    "lat": 57.0079,
+    "lon": 9.8979,
+    "km": 203,
+    "region": "Nordjylland",
+    "min": 278,
+    "roadKm": 431
    }
   },
   {
@@ -23226,7 +25380,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Slangerup",
+    "lat": 55.8456,
+    "lon": 12.1744,
+    "km": 21,
+    "region": "Hovedstaden",
+    "min": 32,
+    "roadKm": 27
    }
   },
   {
@@ -23261,7 +25421,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Solrød Strand",
+    "lat": 55.5343,
+    "lon": 12.2193,
+    "km": 42,
+    "region": "Sjælland",
+    "min": 42,
+    "roadKm": 53
    }
   },
   {
@@ -23307,7 +25473,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Svenstrup",
+    "lat": 56.9773,
+    "lon": 9.8526,
+    "km": 203,
+    "region": "Nordjylland",
+    "min": 274,
+    "roadKm": 425
    }
   },
   {
@@ -23381,7 +25553,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Vinding",
+    "lat": 55.6777,
+    "lon": 9.5751,
+    "km": 184,
+    "region": "Syddanmark",
+    "min": 166,
+    "roadKm": 252
    }
   },
   {
@@ -23728,7 +25906,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Sønderjylland",
+    "lat": 55.0629,
+    "lon": 9.3776,
+    "km": 217,
+    "region": "Syddanmark",
+    "min": 197,
+    "roadKm": 302
    }
   },
   {
@@ -23805,7 +25989,13 @@
     }
    ],
    "place": {
-    "unknown": true
+    "name": "Hammel",
+    "lat": 56.2526,
+    "lon": 9.8611,
+    "km": 169,
+    "region": "Midtjylland",
+    "min": 229,
+    "roadKm": 337
    }
   },
   {
