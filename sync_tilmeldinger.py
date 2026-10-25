@@ -30,6 +30,7 @@ def fetch_rows(url, key):
         obj = json.loads(r.read().decode("utf-8"))
     if not obj.get("ok"):
         raise SystemExit(f"FEJL fra Apps Script: {obj.get('error')}")
+    fetch_rows.new_version = "lineups" in obj   # nyere Apps Script-version (holdopstilling) sender altid "lineups"
     return obj["rows"], obj.get("lineups", [])
 
 
@@ -97,6 +98,7 @@ def main():
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "status": [{"e": e, "p": p, "n": n, "s": s, "ts": ts} for e, p, n, s, ts in latest],
         "lineups": lineups,
+        "scriptHasLineups": bool(getattr(fetch_rows, "new_version", False)),
     }
     with open("data/tilmeldinger.json", "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
