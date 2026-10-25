@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
-:root{--tour:#88001B;--ink:#0E2236;--muted:#4A5866;--muted2:#6A7682;--ground:#F7F7F2;--card:#FFFFFF;--line:#E2E5DC;--line2:#EDEFE8;--accent:#D4F25A;--loss:#F3D6D2;--draw:#E7ECF1;--soft:#F1F2EC;--hi:#F4FBD9;--navy2:#1B3550;--seg:#E7EAE1}
+:root{--tour:#1E6B3A;--ink:#0E2236;--muted:#4A5866;--muted2:#6A7682;--ground:#F7F7F2;--card:#FFFFFF;--line:#E2E5DC;--line2:#EDEFE8;--accent:#D4F25A;--loss:#F3D6D2;--draw:#E7ECF1;--soft:#F1F2EC;--hi:#F4FBD9;--navy2:#1B3550;--seg:#E7EAE1}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--ground);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.4;-webkit-text-size-adjust:100%}
 button{font-family:inherit;color:inherit;cursor:pointer}
@@ -138,7 +138,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .rb.follow{align-self:flex-start;min-height:44px;font-size:14px}
 .rb.follow[aria-pressed=true]{background:var(--accent);border-color:var(--accent)}
 .star{color:#C99A06}
-.news{color:var(--tour,#88001B);font-weight:600}
+.news{color:var(--tour,#1E6B3A);font-weight:600}
 .route{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:14px;text-decoration:none;align-self:flex-start}
 .route svg{flex:none}
 .tlinks{display:flex;flex-wrap:wrap;gap:8px}
@@ -162,7 +162,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .tcard{display:grid;grid-template-columns:66px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;padding:10px 12px;text-align:left;font-size:inherit;background:#fff;border:1px solid var(--line);border-left:5px solid var(--tour);border-radius:14px}
 .tdate{display:flex;flex-direction:column;line-height:1.2}
 .tdate b{font-family:Archivo,sans-serif;font-size:15px}
-.cls{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:#F8E4E7;color:#6E0016;margin:2px 4px 0 0}
+.cls{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:#E2F1E6;color:#124526;margin:2px 4px 0 0}
 .cls.fit{background:var(--tour);color:#fff}
 .dl{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
 .dl.open{background:var(--hi);color:var(--ink)}
@@ -1049,7 +1049,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
           var matches = ce.filter(function (e) { return e.kind === 'match'; });
           count += matches.length;
           var tourDay = ce.some(function (e) { return e.kind === 'tour'; });
-          var dot = matches.length ? matches[0].bg : (tourDay ? '#88001B' : (ce.length ? '#9AA6B1' : ''));
+          var dot = matches.length ? matches[0].bg : (tourDay ? '#1E6B3A' : (ce.length ? '#9AA6B1' : ''));
           cells += '<button class="yd' + (matches.length ? ' has' : '') + (cds === today ? ' now' : '') + '" data-go="#/kalender/dag/' + cds + '" aria-label="' + dd + '. ' + MON_FULL[cd.getMonth()] + (matches.length ? ', ' + matches.length + ' kampe' : '') + '">' + dd +
                    (dot ? '<i style="background:' + dot + '"></i>' : '') + '</button>';
         }
