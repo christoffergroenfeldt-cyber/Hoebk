@@ -1,10 +1,10 @@
 {
- "updated": "2026-10-25T20:36:20+00:00",
- "scriptVersion": "2026-10-25.4",
+ "updated": "2026-10-25T22:06:05+00:00",
+ "scriptVersion": "2026-10-25.5",
  "latest": {
   "players": 2,
   "emails": 2,
-  "loggedIn": 2,
+  "loggedIn": 3,
   "active7": 2,
   "active30": 2,
   "followers": 1,
@@ -19,7 +19,7 @@
   {
    "players": 2,
    "emails": 2,
-   "loggedIn": 2,
+   "loggedIn": 3,
    "active7": 2,
    "active30": 2,
    "followers": 1,

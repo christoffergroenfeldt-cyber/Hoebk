@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T20:36:20+00:00",
+ "updated": "2026-10-25T22:06:05+00:00",
  "status": [
   {
    "e": "m:507825",
@@ -44,6 +44,99 @@
    "ts": "2026-10-25T14:51:20.818Z"
   }
  ],
- "lineups": [],
+ "lineups": [
+  {
+   "e": "m:514330",
+   "team": "U15 B",
+   "status": "udkast",
+   "t": 1792965653808,
+   "squad": [
+    {
+     "id": "335592",
+     "name": "William Vedsted Nørrelund"
+    },
+    {
+     "id": "335593",
+     "name": "Oliver Vedsted Nørrelund"
+    },
+    {
+     "id": "337844",
+     "name": "Ellen Krogh-Larsen"
+    },
+    {
+     "id": "346992",
+     "name": "Carl Grønfeldt"
+    },
+    {
+     "id": "346993",
+     "name": "Mikkel Christian Korsholm"
+    },
+    {
+     "id": "357481",
+     "name": "Nikolaj Feodor Nilsson"
+    },
+    {
+     "id": "362142",
+     "name": "Maximilian Vessel Nielsen"
+    }
+   ],
+   "games": [
+    {
+     "k": "1. D",
+     "p": [
+      "335593",
+      "337844"
+     ]
+    },
+    {
+     "k": "4. D",
+     "p": [
+      "346992",
+      "357481"
+     ]
+    },
+    {
+     "k": "2. D",
+     "p": [
+      "335593",
+      "357481"
+     ]
+    },
+    {
+     "k": "3. D",
+     "p": [
+      "337844",
+      "362142"
+     ]
+    },
+    {
+     "k": "1. S",
+     "p": [
+      "335593"
+     ]
+    },
+    {
+     "k": "2. S",
+     "p": [
+      "357481"
+     ]
+    },
+    {
+     "k": "3. S",
+     "p": [
+      "337844"
+     ]
+    },
+    {
+     "k": "4. S",
+     "p": [
+      "362142"
+     ]
+    }
+   ],
+   "note": "",
+   "by": "Anders Vedsted Nørrelund"
+  }
+ ],
  "scriptHasLineups": true
 }
