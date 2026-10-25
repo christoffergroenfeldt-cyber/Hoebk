@@ -1,0 +1,5 @@
+{
+  "_info": "Håndrettelser af hvor en turnering foregår. Nøgle = arrangør-teksten præcis som i turneringer.json. Værdi: {\"sted\": \"Bynavn\"} eller {\"lat\": 55.0, \"lon\": 12.0} eller {\"ukendt\": true}. Slå et sted op igen ved at slette dets linje i data/steder.json.",
+  "Denmark Open 2026 Super 750": { "sted": "Odense" },
+  "Skovbakken": { "sted": "Aarhus" }
+}

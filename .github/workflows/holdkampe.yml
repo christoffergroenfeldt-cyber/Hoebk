@@ -92,7 +92,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/holdkampe.json data/spillere.json data/turneringer.json
+          git add data/holdkampe.json data/spillere.json data/turneringer.json data/steder.json
           if git diff --cached --quiet; then
             echo "Ingen ændringer."
           else

@@ -535,9 +535,11 @@ def parse_seasonplan(fragment, season):
                 month, year = MONTHS_DA[mm.group(1)], int(mm.group(2))
             continue
         row, links = m.group(2), m.group(3)
-        tid = re.search(r"DeltagerListe/(\d+)", links) or re.search(r"VisResultater/#(\d+)", links)
-        if not tid or not month:
+        if not month:
             continue
+        # Turnerings-id fra et af linkene — mange kommende turneringer har kun Invitation/Tilmeld endnu
+        tid = (re.search(r"DeltagerListe/(\d+)", links) or re.search(r"VisResultater/#(\d+)", links)
+               or re.search(r"VisInvitation/#(\d+)", links) or re.search(r"TilmeldTurnering/#(\d+)", links))
         cells = dict()
         for cls, inner in re.findall(r"<td class='(week|date|title)'>(.*?)</td>", row, re.S):
             cells.setdefault(cls, []).append(text(inner))
@@ -563,12 +565,20 @@ def parse_seasonplan(fragment, season):
             c = parse_class(text(cn))
             c["days"] = text(cd)
             classes.append(c)
+        organiser = (cells.get("title") or [""])[0]
+        if tid:
+            t_id = tid.group(1)
+        else:                                  # fx kun ekstern invitationsfil: stabilt id ud fra dato + arrangør
+            import hashlib
+            t_id = "x" + hashlib.sha1(f"{start}|{organiser}".encode("utf-8")).hexdigest()[:10]
         out.append({
-            "id": tid.group(1),
+            "id": t_id,
+            "entryOpen": "TilmeldTurnering" in links,
+            "hasResults": "VisResultater" in links and "Program" not in links,
             "start": start, "end": end,
             "week": (cells.get("week") or [""])[0],
             "deadline": deadline,
-            "organiser": (cells.get("title") or [""])[0],
+            "organiser": organiser,
             "classes": classes,
         })
     return out
@@ -591,6 +601,151 @@ def fetch_tournaments(token, season, dump, max_pages=20):
             break
     allt.sort(key=lambda t: (t["start"], t["organiser"]))
     return allt
+
+
+
+# ---------- Sted, region og afstand for turneringer ----------
+# Arrangørens navn → stednavn → koordinater via Danmarks Adressers Web API (api.dataforsyningen.dk, åbent, ingen nøgle).
+# Resultater gemmes i data/steder.json (slås kun op én gang). Rettelser i hånden: data/steder_rettelser.json
+#   {"Rosendal": {"sted": "Gentofte"}}  eller  {"KMB2010": {"lat": 55.68, "lon": 12.57}}  eller  {"Kredsmatch": {"ukendt": true}}
+DAWA = "https://api.dataforsyningen.dk"
+HOME = (55.8806, 12.5007)          # Hørsholm
+ABROAD_RE = re.compile(r"\b(International|Open|IC|IS|FS|German|Irish|Swedish|Norwegian|Polish|Czech|Hellas|Bulgarien|Ungarn|"
+                       r"Türkiye|Croatian|Lithuanian|Belgian|Dutch|Artic|Ruhr)\b")
+NOISE = {"badminton", "bk", "bc", "sk", "sf", "if", "ic", "obk", "tik", "ab", "dgi", "hb2000", "hsb85", "begynderturnering",
+         "introturnering", "kredsmesterskab", "victor", "denmark", "junior", "senior", "lbs", "hallen", "kultur", "og",
+         "idrætscenter", "stævne", "monrad", "tpi", "bec", "circuit", "mgp", "dmc", "efterskole", "aflyst", "pulje-cup",
+         "turnering", "alle", "kategorier", "niveau", "puljeturnering", "double", "mix", "danish", "cup", "pigetræningsdag",
+         "jyske", "mesterskaber", "d.", "efterskoleturnering", "specielle", "tilmeldingsbetingelser", "-", "–", "i", "super",
+         "storstrømmen"}
+ABBREV = {"kbh.": "København", "kbh": "København", "nr.": "Nørre", "sdr.": "Søndre", "st.": "Store", "ll.": "Lille"}
+
+
+def place_candidates(org):
+    """Mulige stednavne i en arrangør-tekst, mest sandsynlige først."""
+    parts = [org]
+    if " i " in org:
+        parts.insert(0, org.split(" i ")[-1])
+    if ":" in org:
+        a, b = org.split(":", 1)
+        parts += [b, a]
+    out = []
+    for part in parts:
+        words = [w.strip(":;.") if w.lower() not in ABBREV else w for w in re.split(r"[\s/,]+", part) if w]
+        words = [ABBREV.get(w.lower(), w) for w in words if w]
+        words = [re.sub(r"(?i)hallen$", "", w) if len(w) > 9 else w for w in words]
+        words = [w for w in words if w.lower() not in NOISE and not re.match(r"^(U\d|\d)", w)]
+        if not words:
+            continue
+        joined = " ".join(words)
+        for c in [joined] + [" ".join(words[i:i + 2]) for i in range(len(words) - 1)] + words:
+            for v in (c, c.split("-")[0]):
+                v = v.strip(" .-")
+                if len(v) >= 3 and v not in out:
+                    out.append(v)
+    return out[:8]
+
+
+def _find_center(obj):
+    if isinstance(obj, dict):
+        for k in ("visueltcenter", "visueltCenter"):
+            v = obj.get(k)
+            if isinstance(v, list) and len(v) == 2 and all(isinstance(x, (int, float)) for x in v):
+                return v
+        for v in obj.values():
+            r = _find_center(v)
+            if r:
+                return r
+    elif isinstance(obj, list):
+        for v in obj:
+            r = _find_center(v)
+            if r:
+                return r
+    return None
+
+
+def dawa(path):
+    try:
+        status, final, body = http(DAWA + path, extra_headers={"Accept": "application/json"})
+        return json.loads(body)
+    except Exception:
+        return None
+
+
+def geocode(name):
+    q = urllib.parse.quote(name)
+    for path in (f"/postnumre?navn={q}", f"/stednavne2?navn={q}&hovedtype=Bebyggelse",
+                 f"/steder?primærtnavn={q}", f"/postnumre/autocomplete?q={q}"):
+        res = dawa(path)
+        time.sleep(0.15)
+        c = _find_center(res) if res else None
+        if c:
+            return {"lon": c[0], "lat": c[1], "via": path.split("?")[0]}
+    return None
+
+
+def region_of(lat, lon):
+    res = dawa(f"/regioner/reverse?x={lon}&y={lat}")
+    name = (res or {}).get("navn", "") if isinstance(res, dict) else ""
+    return name.replace("Region ", "") or ""
+
+
+def km_from_home(lat, lon):
+    import math
+    r = 6371.0
+    p1, p2 = math.radians(HOME[0]), math.radians(lat)
+    dp, dl = p2 - p1, math.radians(lon - HOME[1])
+    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    return round(2 * r * math.asin(math.sqrt(a)))
+
+
+def locate_tournaments(tours, data_dir):
+    cache_p = os.path.join(data_dir, "steder.json")
+    fix_p = os.path.join(data_dir, "steder_rettelser.json")
+    cache = json.load(open(cache_p, encoding="utf-8")) if os.path.exists(cache_p) else {}
+    fixes = json.load(open(fix_p, encoding="utf-8")) if os.path.exists(fix_p) else {}
+    fixes = {k: v for k, v in fixes.items() if not k.startswith("_")}
+    for t in tours:
+        org = t["organiser"]
+        fix = fixes.get(org)
+        if fix is None and org not in cache:
+            entry = None
+            if ABROAD_RE.search(org) and not re.search(r"Denmark|Danish", org):
+                entry = {"abroad": True}
+            else:
+                for cand in place_candidates(org):
+                    g = geocode(cand)
+                    if g:
+                        entry = {"sted": cand, "lat": round(g["lat"], 4), "lon": round(g["lon"], 4), "via": g["via"]}
+                        entry["region"] = region_of(entry["lat"], entry["lon"])
+                        break
+                if entry is None:
+                    entry = {"ukendt": True, "prøvet": place_candidates(org)}
+            cache[org] = entry
+        e = dict(cache.get(org, {}))
+        if fix:                                   # håndrettelse vinder altid
+            if fix.get("sted") and not ("lat" in fix):
+                g = geocode(fix["sted"])
+                e = {"sted": fix["sted"], "lat": round(g["lat"], 4), "lon": round(g["lon"], 4)} if g else {"ukendt": True}
+                if g:
+                    e["region"] = region_of(e["lat"], e["lon"])
+            else:
+                e = dict(fix)
+                if "lat" in e and "region" not in e:
+                    e["region"] = region_of(e["lat"], e["lon"])
+        if "lat" in e:
+            t["place"] = {"name": e.get("sted", org), "lat": e["lat"], "lon": e["lon"],
+                          "km": km_from_home(e["lat"], e["lon"]), "region": e.get("region", "")}
+        elif e.get("abroad"):
+            t["place"] = {"abroad": True, "region": "Udland"}
+        else:
+            t["place"] = {"unknown": True}
+    with open(cache_p, "w", encoding="utf-8") as fh:
+        json.dump(dict(sorted(cache.items())), fh, ensure_ascii=False, indent=1)
+    found = sum(1 for t in tours if "km" in t.get("place", {}))
+    print(f"Steder: {found}/{len(tours)} turneringer placeret, "
+          f"{sum(1 for t in tours if t['place'].get('abroad'))} i udlandet, "
+          f"{sum(1 for t in tours if t['place'].get('unknown'))} ukendte (ret i data/steder_rettelser.json)")
 
 
 # ---------- Hovedflow ----------
@@ -735,6 +890,10 @@ def main():
     if opts.tournaments:
         try:
             tours = fetch_tournaments(token, opts.season, dump)
+            try:
+                locate_tournaments(tours, os.path.dirname(opts.out) or ".")
+            except Exception as e:  # steder må ikke vælte turneringerne
+                print(f"ADVARSEL: stedopslag fejlede: {e}", file=sys.stderr)
             t_out = os.path.join(os.path.dirname(opts.out) or ".", "turneringer.json")
             with open(t_out, "w", encoding="utf-8") as fh:
                 json.dump({"updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

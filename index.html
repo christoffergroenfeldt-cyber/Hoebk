@@ -474,6 +474,36 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     });
     return out;
   }
+  // Region/afstand-filter for turneringer (huskes på telefonen)
+  var TF = { region: 'alle', km: 0 };
+  try { var tfs = JSON.parse(localStorage.getItem('hoebk_tf') || 'null'); if (tfs) TF = tfs; } catch (e) {}
+  function saveTF() { try { localStorage.setItem('hoebk_tf', JSON.stringify(TF)); } catch (e) {} }
+  function tourRegion(t) { var p = t.place || {}; return p.abroad ? 'Udland' : (p.region || 'Ukendt'); }
+  function tourPass(t) {
+    if (TF.region !== 'alle' && tourRegion(t) !== TF.region) return false;
+    if (TF.km && !(t.place && typeof t.place.km === 'number' && t.place.km <= TF.km)) return false;
+    return true;
+  }
+  function tourFilterUI() {
+    var regs = {}; (D.tours || []).forEach(function (t) { regs[tourRegion(t)] = 1; });
+    var order = ['Hovedstaden', 'Sjælland', 'Syddanmark', 'Midtjylland', 'Nordjylland', 'Udland', 'Ukendt'];
+    var list = Object.keys(regs).sort(function (a, b) { return (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99); });
+    return '<div class="filters"><select id="tfRegion" aria-label="Region"><option value="alle">Hele landet</option>' +
+      list.map(function (r) { return '<option value="' + esc(r) + '"' + (TF.region === r ? ' selected' : '') + '>' + (r === 'Udland' || r === 'Ukendt' ? esc(r) : 'Region ' + esc(r)) + '</option>'; }).join('') +
+      '</select><select id="tfKm" aria-label="Afstand fra Hørsholm">' + [[0, 'Alle afstande'], [25, 'Inden for 25 km'], [50, 'Inden for 50 km'], [100, 'Inden for 100 km'], [200, 'Inden for 200 km']].map(function (o) {
+        return '<option value="' + o[0] + '"' + (+TF.km === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div>';
+  }
+  function bindTourFilters() {
+    var r = document.getElementById('tfRegion'), k = document.getElementById('tfKm');
+    if (r) r.addEventListener('change', function (e) { TF.region = e.target.value; saveTF(); route(true); });
+    if (k) k.addEventListener('change', function (e) { TF.km = +e.target.value; saveTF(); route(true); });
+  }
+  function placeTxt(t) {
+    var p = t.place || {};
+    if (p.abroad) return 'Udlandet';
+    if (typeof p.km === 'number') return p.km + ' km' + (p.region ? ' · ' + p.region : '');
+    return '';
+  }
   function tourFits(t, keys) { return keys.some(function (k) { return tourInLevel(t, k); }); }
   function dRange(t) {
     var a = parseD(t.start), b = parseD(t.end || t.start);
@@ -494,13 +524,14 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     }).join('');
     return '<button class="tcard" data-go="#/turnering/' + esc(t.id) + '">' +
       '<span class="tdate"><b>' + a.getDate() + '. ' + MONS[a.getMonth()] + '</b><span class="xs">' + (t.start !== t.end ? dRange(t).split('–')[0].split(' ')[0] + '–' + dRange(t).split('–')[1].split(' ')[0] : DAYS[a.getDay()]) + ' · uge ' + esc(t.week) + '</span></span>' +
-      '<span class="col"><b class="ellip" style="font-size:14px">' + esc(t.organiser) + '</b><span>' + cls + '</span></span>' +
+      '<span class="col"><b class="ellip" style="font-size:14px">' + esc(t.organiser) + '</b>' +
+      (placeTxt(t) ? '<span class="xs">' + esc(placeTxt(t)) + '</span>' : '') + '<span>' + cls + '</span></span>' +
       deadlinePill(t) + '</button>';
   }
   function viewTurneringer() {
     setTab('kalender');
     var today = iso(new Date());
-    var list = (D.tours || []).filter(function (t) { return TU.past || (t.end || t.start) >= today; });
+    var list = (D.tours || []).filter(function (t) { return (TU.past || (t.end || t.start) >= today) && tourPass(t); });
     var ages = {};
     list.forEach(function (t) { t.classes.forEach(function (c) { c.ages.forEach(function (a) { ages[a] = (ages[a] || 0) + 1; }); }); });
     var ageList = Object.keys(ages).sort(function (a, b) { return ageRank(a) - ageRank(b); });
@@ -509,7 +540,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (!D.tours || !D.tours.length) return '<p class="empty">Turneringskalenderen er ikke hentet endnu — den kommer med næste opdatering.</p>';
     var h = '<div class="chips" role="group" aria-label="Aldersgruppe">' + ageList.map(function (a) {
       return '<button class="chip" aria-pressed="' + (TU.age === a) + '" data-tuage="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div>';
-    h += '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="tuPast"' + (TU.past ? ' checked' : '') + '> Vis afholdte</label>';
+    h += tourFilterUI() + '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="tuPast"' + (TU.past ? ' checked' : '') + '> Vis afholdte</label>';
     var byLevel = {};
     list.forEach(function (t) {
       LEVEL_ORDER.forEach(function (l) { if (tourInLevel(t, TU.age + ' ' + l)) (byLevel[l] = byLevel[l] || []).push(t); });
@@ -535,7 +566,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       '<span class="h" style="font-size:22px;line-height:1.15">' + esc(t.organiser) + '</span>' +
       '<span style="font-weight:600">' + dRange(t) + ' · uge ' + esc(t.week) + '</span>' +
       (t.deadline ? '<span class="s">Tilmeldingsfrist: ' + dTxt(t.deadline) + (t.deadline < today ? ' (lukket)' : '') + '</span>' : '') +
-      '<span class="xs">Arrangør: ' + esc(t.organiser) + '. Spillested og program offentliggøres af arrangøren.</span></div>';
+      (placeTxt(t) ? '<span class="s">' + esc((t.place && t.place.name && t.place.name !== t.organiser ? t.place.name + ' · ' : '') + placeTxt(t)) + ' fra Hørsholm (i luftlinje)</span>' : '') +
+      (t.entryOpen ? '<span class="dl open" style="align-self:flex-start">Tilmelding åben</span>' : '') +
+      '<span class="xs">Arrangør: ' + esc(t.organiser) + '. Placering er beregnet ud fra arrangørens navn; spillested og program offentliggøres af arrangøren.</span></div>';
     h += '<span class="lbl">Rækker</span><div class="card" style="overflow:hidden">' + t.classes.map(function (c, i) {
       return '<div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:10px 12px;' + (i ? 'border-top:1px solid var(--line2)' : '') + '">' +
         '<b style="font-size:14px">' + esc(c.raw) + '</b><span class="xs">' + esc(c.days || '') + '</span></div>'; }).join('') + '</div>';
@@ -553,9 +586,11 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     var keys = playerLevels(p);
     if (!keys.length) return '';
     var today = iso(new Date());
-    var ts = (D.tours || []).filter(function (t) { return (t.end || t.start) >= today && tourFits(t, keys); });
+    var ts = (D.tours || []).filter(function (t) { return (t.end || t.start) >= today && tourFits(t, keys) && tourPass(t); });
+    var fl = [TF.region !== 'alle' ? TF.region : '', TF.km ? '≤ ' + TF.km + ' km' : ''].filter(String).join(', ');
     var h = '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Turneringer for dit niveau · ' + esc(keys.join(', ')) + '</span>' +
-      '<button class="pl xs" data-tuage="' + esc(keys[0].split(' ')[0]) + '" data-go="#/turneringer">Alle ›</button></div>';
+      '<button class="pl xs" data-tuage="' + esc(keys[0].split(' ')[0]) + '" data-go="#/turneringer">Alle ›</button></div>' +
+      (fl ? '<p class="note" style="margin:-4px 4px 0">Filter: ' + esc(fl) + ' (ændres i turneringslisten)</p>' : '');
     if (!D.tours || !D.tours.length) return h + '<p class="empty">Turneringskalenderen er ikke hentet endnu.</p>';
     h += ts.length ? ts.slice(0, max || 8).map(function (t) { return tourCard(t, keys); }).join('') +
       (ts.length > (max || 8) ? '<p class="note">+ ' + (ts.length - (max || 8)) + ' flere — se Alle.</p>' : '')
@@ -566,7 +601,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   // ---------- Kalender ----------
   var MON_FULL = ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'];
   var DAY_FULL = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
-  var CAL = { team: 'alle', training: true, tours: false, level: 'alle' };
+  var CAL = { team: 'alle', training: true, tours: false, level: 'alle', matches: true };
   var EVENTS = {};   // 'YYYY-MM-DD' -> [event]
   function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
   function parseD(x) { var p = x.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
@@ -617,8 +652,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   function evFor(ds) {
     return (EVENTS[ds] || []).filter(function (e) {
       if (e.kind === 'training') return CAL.training && (CAL.team === 'alle' || CAL.team === 'træning');
-      if (e.kind === 'tour') return CAL.tours && (CAL.team === 'alle' || CAL.team === 'turneringer') && tourInLevel(e.tour, CAL.level);
-      return CAL.team === 'alle' || CAL.team === e.team;
+      if (e.kind === 'tour') return CAL.tours && (CAL.team === 'alle' || CAL.team === 'turneringer') && tourInLevel(e.tour, CAL.level) && tourPass(e.tour);
+      return CAL.matches && (CAL.team === 'alle' || CAL.team === e.team);
     });
   }
   function evCard(e) {
@@ -647,12 +682,13 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       D.teams.map(function (t) { return '<option value="' + esc(t.label) + '"' + (CAL.team === t.label ? ' selected' : '') + '>' + esc(t.label) + ' · ' + esc(t.name) + '</option>'; }).join('') +
       '<option value="træning"' + (CAL.team === 'træning' ? ' selected' : '') + '>Kun træning</option>' +
       '<option value="turneringer"' + (CAL.team === 'turneringer' ? ' selected' : '') + '>Kun turneringer</option></select>' +
+      '<label class="toggle"><input type="checkbox" id="calMa"' + (CAL.matches ? ' checked' : '') + '> Holdkampe</label>' +
       '<label class="toggle"><input type="checkbox" id="calTr"' + (CAL.training ? ' checked' : '') + '> Træning</label>' +
       '<label class="toggle"><input type="checkbox" id="calTu"' + (CAL.tours ? ' checked' : '') + '> Turneringer</label></div>';
     if (CAL.tours) {
       h += '<div class="filters"><select id="calLv" aria-label="Turneringsniveau"><option value="alle">Alle niveauer</option>' +
         allLevelKeys().map(function (k) { return '<option value="' + esc(k) + '"' + (CAL.level === k ? ' selected' : '') + '>' + esc(k) + '</option>'; }).join('') +
-        '</select><button class="toggle" data-go="#/turneringer">Turneringsliste ›</button></div>';
+        '</select><button class="toggle" data-go="#/turneringer">Turneringsliste ›</button></div>' + tourFilterUI();
     }
     h += '<div class="legend"><span><i class="sw" style="background:#2F6FB3"></i>Senior</span><span><i class="sw" style="background:#7FD3F7"></i>4 spillere</span>' +
       '<span><i class="sw" style="background:#E58A2E"></i>Motion</span><span><i class="sw" style="background:#0E2236"></i>Ungdom</span>' +
@@ -742,7 +778,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       });
       if (lh) h += '<span class="lbl">Månedens kampe</span>' + lh;
       if (CAL.tours) {
-        var mt = (D.tours || []).filter(function (t) { return t.start.slice(0, 7) === iso(f).slice(0, 7) && tourInLevel(t, CAL.level); });
+        var mt = (D.tours || []).filter(function (t) { return t.start.slice(0, 7) === iso(f).slice(0, 7) && tourInLevel(t, CAL.level) && tourPass(t); });
         if (mt.length) h += '<span class="lbl">Månedens turneringer' + (CAL.level !== 'alle' ? ' · ' + esc(CAL.level) : '') + '</span>' + mt.map(function (t) { return tourCard(t); }).join('');
       }
     }
@@ -1326,6 +1362,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (parts[0] === 'kalender') {
       document.getElementById('calTeam').addEventListener('change', function (e) { CAL.team = e.target.value; route(); });
       document.getElementById('calTr').addEventListener('change', function (e) { CAL.training = e.target.checked; route(); });
+      document.getElementById('calMa').addEventListener('change', function (e) { CAL.matches = e.target.checked; route(); });
+      bindTourFilters();
       document.getElementById('calTu').addEventListener('change', function (e) { CAL.tours = e.target.checked; route(); });
       var lv = document.getElementById('calLv'); if (lv) lv.addEventListener('change', function (e) { CAL.level = e.target.value; route(); });
     }
@@ -1375,6 +1413,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     }
     if (parts[0] === 'turneringer') {
       var tp = document.getElementById('tuPast'); if (tp) tp.addEventListener('change', function (e) { TU.past = e.target.checked; route(true); });
+      bindTourFilters();
     }
   }
   var prevHash = null;
