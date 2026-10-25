@@ -1015,6 +1015,7 @@ def main():
             "leagueGroupID": a.get("leagueGroupID", ""),
             "ageGroupID": a.get("ageGroupID", ""),
             "leagueGroupTeamID": a.get("leagueGroupTeamID", ""),
+            "bpArgs": {k: v for k, v in a.items() if k not in ("subPage", "leagueMatchID")},   # til hurtig opdatering (fetch_live.py)
             "url": PUBLIC_LINK.format(hash_of(a)),
             "standingUrl": PUBLIC_LINK.format(hash_of(standing_args)),
             "matches": matches,

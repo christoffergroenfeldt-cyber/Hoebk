@@ -1,0 +1,58 @@
+name: HØBK kampdag (hurtig opdatering)
+
+# Hver halve time i dagtimerne: kun hold med kamp i dag → resultater, opstillinger, stilling.
+# Stopper efter få sekunder, hvis ingen hold har kamp i dag.
+on:
+  schedule:
+    - cron: "7,37 8-20 * * *"   # ca. 09:07–22:37 dansk vintertid (10:07–23:37 sommertid)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Kamp i dag?
+        id: due
+        run: echo "due=$(python3 fetch_live.py --check)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        if: steps.due.outputs.due == 'ja'
+        with:
+          python-version: "3.12"
+
+      - name: Hent dagens kampe
+        if: steps.due.outputs.due == 'ja'
+        run: |
+          cp data/holdkampe.json /tmp/holdkampe_old.json
+          python fetch_live.py
+
+      - name: Notifikationer (resultater og ændringer)
+        if: steps.due.outputs.due == 'ja'
+        env:
+          REG_URL: ${{ secrets.REG_URL }}
+          REG_KEY: ${{ secrets.REG_KEY }}
+          VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+        run: |
+          pip install -q pywebpush || true
+          python notify_turneringer.py --only-teams --old data/turneringer.json --new data/turneringer.json --old-hold /tmp/holdkampe_old.json
+
+      - name: Commit
+        if: steps.due.outputs.due == 'ja'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/holdkampe.json data/notifikationer.json data/turnering_nyt.json
+          if git diff --cached --quiet; then echo "Ingen ændringer."; else
+            git commit -m "Kampdag $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase -q origin main && git push
+          fi

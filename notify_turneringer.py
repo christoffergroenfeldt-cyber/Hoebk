@@ -165,6 +165,7 @@ def main():
     ap.add_argument("--today", default="")
     ap.add_argument("--old-hold", default="", help="forrige data/holdkampe.json (til hold-notifikationer)")
     ap.add_argument("--new-hold", default="data/holdkampe.json")
+    ap.add_argument("--only-teams", action="store_true", help="kun hold (bruges af den hurtige kampdags-opdatering)")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
 
@@ -173,7 +174,10 @@ def main():
         print("Ingen turneringer — springer over.")
         return 0
     old = load(a.old) or {"tournaments": []}
-    today = a.today or datetime.now(timezone.utc).astimezone().date().isoformat()
+    if a.only_teams:
+        old = new                                 # ingen turneringsændringer i den hurtige kørsel
+    from zoneinfo import ZoneInfo
+    today = a.today or datetime.now(ZoneInfo("Europe/Copenhagen")).date().isoformat()
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     olds = {t["id"]: t for t in old.get("tournaments", [])}
     news_all = load(a.news) or {"tournaments": {}, "alias": {}}
@@ -205,7 +209,7 @@ def main():
 
     # Påmindelser om tilmeldingsfrist
     sent = state.setdefault("sent", {})
-    for t in new["tournaments"]:
+    for t in ([] if a.only_teams else new["tournaments"]):
         dl = t.get("deadline")
         if not dl or dl < today or "aflyst" in t.get("organiser", "").lower():
             continue
