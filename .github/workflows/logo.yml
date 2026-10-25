@@ -15,10 +15,9 @@ jobs:
           mkdir -p assets/hoebk
           cd assets/hoebk
           curl -sSfL -A "Mozilla/5.0" -o logo-hvid.png "https://hoebk.dk/images/billeder/Hobk%20logo%20mindre%20hvid%20top.png" || true
-          curl -sSfL -A "Mozilla/5.0" -o favicon.ico "https://hoebk.dk/favicon.ico" || true
-          curl -sSfL -A "Mozilla/5.0" -o forside.html "https://hoebk.dk/" || true
-          grep -oiE "(src|href)=\"[^\"]*\.(png|svg|jpg|jpeg|ico|webp)[^\"]*\"" forside.html | grep -viE "sponsor" | sort -u > billeder.txt || true
-          rm -f forside.html
+          curl -sSfL -A "Mozilla/5.0" -o favicon.ico "https://hoebk.dk/images/billeder/favicon.ico" || true
+          curl -sSfL -A "Mozilla/5.0" -o apple-touch-icon-180.png "https://hoebk.dk/images/billeder/apple-touch-icon-180x180.png" || true
+          curl -sSfL -A "Mozilla/5.0" -o apple-touch-icon.png "https://hoebk.dk/images/billeder/apple-touch-icon.png" || true
           ls -la
       - name: Commit
         run: |
