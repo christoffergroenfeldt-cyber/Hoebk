@@ -1,0 +1,7259 @@
+{
+ "updated": "2026-10-25T15:05:13+00:00",
+ "season": "2026",
+ "source": "badmintonplayer.dk sæsonplan",
+ "levels": [
+  "E",
+  "M",
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "tournaments": [
+  {
+   "id": "119825",
+   "start": "2026-08-10",
+   "end": "2026-08-15",
+   "week": "33",
+   "deadline": "2026-08-23",
+   "organiser": "Elitetalentcenter Øst 2026/2027",
+   "classes": [
+    {
+     "raw": "Andet X",
+     "ages": [],
+     "levels": [],
+     "days": "ma 10-ma 15"
+    }
+   ]
+  },
+  {
+   "id": "118392",
+   "start": "2026-08-15",
+   "end": "2026-08-15",
+   "week": "33",
+   "deadline": "2026-07-30",
+   "organiser": "Humlebæk",
+   "classes": [
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 15"
+    }
+   ]
+  },
+  {
+   "id": "115651",
+   "start": "2026-08-15",
+   "end": "2026-08-16",
+   "week": "33",
+   "deadline": "2026-07-30",
+   "organiser": "Hørsholm",
+   "classes": [
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U15 A,B,C",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C"
+     ],
+     "days": "lø 15-sø 16"
+    }
+   ]
+  },
+  {
+   "id": "115477",
+   "start": "2026-08-15",
+   "end": "2026-08-16",
+   "week": "33",
+   "deadline": "2026-07-30",
+   "organiser": "Ikast",
+   "classes": [
+    {
+     "raw": "SEN M,A",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "M",
+      "A"
+     ],
+     "days": "lø 15-sø 16"
+    }
+   ]
+  },
+  {
+   "id": "117972",
+   "start": "2026-08-15",
+   "end": "2026-08-16",
+   "week": "33",
+   "deadline": "2026-07-30",
+   "organiser": "Odense OBK",
+   "classes": [
+    {
+     "raw": "U13 A,B,C",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C"
+     ],
+     "days": "lø 15"
+    },
+    {
+     "raw": "U15 A,B,C",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C"
+     ],
+     "days": "sø 16"
+    }
+   ]
+  },
+  {
+   "id": "119128",
+   "start": "2026-08-15",
+   "end": "2026-08-16",
+   "week": "33",
+   "deadline": "2026-07-30",
+   "organiser": "Rønde Efterskole",
+   "classes": [
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 15"
+    },
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 15-sø 16"
+    }
+   ]
+  },
+  {
+   "id": "115844",
+   "start": "2026-08-15",
+   "end": "2026-08-16",
+   "week": "33",
+   "deadline": "2026-07-30",
+   "organiser": "Viby J",
+   "classes": [
+    {
+     "raw": "U15 M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U15 B",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "sø 16"
+    }
+   ]
+  },
+  {
+   "id": "119093",
+   "start": "2026-08-15",
+   "end": "2026-08-16",
+   "week": "33",
+   "deadline": "2026-07-30",
+   "organiser": "Værløse",
+   "classes": [
+    {
+     "raw": "U17/U19 B",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 15"
+    },
+    {
+     "raw": "U15 M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 15-sø 16"
+    }
+   ]
+  },
+  {
+   "id": "118110",
+   "start": "2026-08-21",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-07-19",
+   "organiser": "Hvidovre: Danish Junior Cup U17",
+   "classes": [
+    {
+     "raw": "U17 E",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "fr 21-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "116621",
+   "start": "2026-08-22",
+   "end": "2026-08-22",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Aabenraa",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    }
+   ]
+  },
+  {
+   "id": "116111",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Aarhus AB",
+   "classes": [
+    {
+     "raw": "U13 B",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 22-sø 23"
+    },
+    {
+     "raw": "U11 B,C",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C"
+     ],
+     "days": "sø 23"
+    }
+   ]
+  },
+  {
+   "id": "118347",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Badminton Esbjerg - Pulje-cup turnering alle kategorier",
+   "classes": [
+    {
+     "raw": "U15 E",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "lø 22-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "118206",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Bjergby-Mygdal",
+   "classes": [
+    {
+     "raw": "U15 M,A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M",
+      "A"
+     ],
+     "days": "lø 22-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "117285",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Greve",
+   "classes": [
+    {
+     "raw": "U15 M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 22-sø 23"
+    },
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 22-sø 23"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 22-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "115855",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Herlev/Hjorten",
+   "classes": [
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 22-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "119675",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Hillerød: Niveau puljeturnering i mix",
+   "classes": [
+    {
+     "raw": "U13 M",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 22-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "116892",
+   "start": "2026-08-22",
+   "end": "2026-08-22",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Horn/Fårvang",
+   "classes": [
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    }
+   ]
+  },
+  {
+   "id": "119394",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Jyllinge",
+   "classes": [
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 22-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "118730",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Nr. Lyndelse",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 23"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 23"
+    }
+   ]
+  },
+  {
+   "id": "118511",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Taastrup TIK",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 23"
+    },
+    {
+     "raw": "U15 C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 23"
+    }
+   ]
+  },
+  {
+   "id": "115846",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Viby J",
+   "classes": [
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 22-sø 23"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 22-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "116667",
+   "start": "2026-08-22",
+   "end": "2026-08-23",
+   "week": "34",
+   "deadline": "2026-08-06",
+   "organiser": "Ølstykke",
+   "classes": [
+    {
+     "raw": "U11 B",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U13 B",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 22"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 22-sø 23"
+    }
+   ]
+  },
+  {
+   "id": "119223",
+   "start": "2026-08-28",
+   "end": "2026-08-30",
+   "week": "35",
+   "deadline": "2026-08-13",
+   "organiser": "Højbjerg: DMC",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "fr 28-sø 30"
+    }
+   ]
+  },
+  {
+   "id": "115342",
+   "start": "2026-08-29",
+   "end": "2026-08-30",
+   "week": "35",
+   "deadline": "2026-08-13",
+   "organiser": "Jernløse",
+   "classes": [
+    {
+     "raw": "SEN A,B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    }
+   ]
+  },
+  {
+   "id": "116024",
+   "start": "2026-09-05",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Aalborg Triton",
+   "classes": [
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U17/U19 B,C",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 05-sø 06"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 05-sø 06"
+    },
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 06"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    }
+   ]
+  },
+  {
+   "id": "116530",
+   "start": "2026-09-05",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Dalum Hjallese BK",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U15 M,A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M",
+      "A"
+     ],
+     "days": "lø 05-sø 06"
+    }
+   ]
+  },
+  {
+   "id": "116736",
+   "start": "2026-09-05",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Hørning IF",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 05-sø 06"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 05-sø 06"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05-sø 06"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05-sø 06"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05-sø 06"
+    }
+   ]
+  },
+  {
+   "id": "118315",
+   "start": "2026-09-05",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Køge",
+   "classes": [
+    {
+     "raw": "U15 B",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 05-sø 06"
+    },
+    {
+     "raw": "U15 C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    }
+   ]
+  },
+  {
+   "id": "117815",
+   "start": "2026-09-05",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Ledøje-Smørum",
+   "classes": [
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 05-sø 06"
+    }
+   ]
+  },
+  {
+   "id": "119116",
+   "start": "2026-09-05",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Nivå-Kokkedal",
+   "classes": [
+    {
+     "raw": "U17/U19 B",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 05-sø 06"
+    },
+    {
+     "raw": "U17/U19 C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    }
+   ]
+  },
+  {
+   "id": "118152",
+   "start": "2026-09-05",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Varde",
+   "classes": [
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 05"
+    },
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 06"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    }
+   ]
+  },
+  {
+   "id": "116410",
+   "start": "2026-09-06",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Hillerød",
+   "classes": [
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    }
+   ]
+  },
+  {
+   "id": "115801",
+   "start": "2026-09-06",
+   "end": "2026-09-06",
+   "week": "36",
+   "deadline": "2026-08-20",
+   "organiser": "Solrød Strand",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 06"
+    }
+   ]
+  },
+  {
+   "id": "119830",
+   "start": "2026-09-07",
+   "end": "2026-09-09",
+   "week": "37",
+   "deadline": "2026-07-05",
+   "organiser": "Irish Junior U19 2026",
+   "classes": [
+    {
+     "raw": "U19 E",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "ma 07-on 09"
+    }
+   ]
+  },
+  {
+   "id": "119776",
+   "start": "2026-09-09",
+   "end": "2026-09-12",
+   "week": "37",
+   "deadline": "2026-08-09",
+   "organiser": "Belgian International IC",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "on 09-lø 12"
+    }
+   ]
+  },
+  {
+   "id": "119777",
+   "start": "2026-09-10",
+   "end": "2026-09-10",
+   "week": "37",
+   "deadline": "2026-08-09",
+   "organiser": "Lithuanian International FS",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 10"
+    }
+   ]
+  },
+  {
+   "id": "117620",
+   "start": "2026-09-11",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-09",
+   "organiser": "Gentofte: Danish Junior Cup",
+   "classes": [
+    {
+     "raw": "U19 E",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "fr 11-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "116704",
+   "start": "2026-09-12",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-27",
+   "organiser": "Skovbakken",
+   "classes": [
+    {
+     "raw": "SEN M,A,B",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "M",
+      "A",
+      "B"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "119242",
+   "start": "2026-09-12",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-27",
+   "organiser": "VICTOR LBS U13BCD-U15CD i Søften Kultur og Idrætscenter",
+   "classes": [
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 12-sø 13"
+    },
+    {
+     "raw": "U15 C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "119240",
+   "start": "2026-09-12",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-27",
+   "organiser": "VICTOR LBS U13MA i Rønbækhallen, Hinnerup",
+   "classes": [
+    {
+     "raw": "U13 M,A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "M",
+      "A"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "119247",
+   "start": "2026-09-12",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-27",
+   "organiser": "VICTOR LBS U15A-U15B Hadsten Hallen",
+   "classes": [
+    {
+     "raw": "U15 A,B",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "119245",
+   "start": "2026-09-12",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-27",
+   "organiser": "VICTOR LBS U15E-U17E-U19M i Højbjerg og U15M i Haldum Hinnerup Hallen/Højbjerg",
+   "classes": [
+    {
+     "raw": "U15 E,M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "E",
+      "M"
+     ],
+     "days": "lø 12-sø 13"
+    },
+    {
+     "raw": "U17 E",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "lø 12-sø 13"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "119254",
+   "start": "2026-09-12",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-27",
+   "organiser": "VICTOR LBS U17/U19 AB i Hammel",
+   "classes": [
+    {
+     "raw": "U17/U19 A,B",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "119252",
+   "start": "2026-09-12",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-27",
+   "organiser": "VICTOR LBS U17M-U17/U19C i Hammel",
+   "classes": [
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 12-sø 13"
+    },
+    {
+     "raw": "U17/U19 C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "119236",
+   "start": "2026-09-12",
+   "end": "2026-09-13",
+   "week": "37",
+   "deadline": "2026-08-27",
+   "organiser": "VICTOR LBS U9CD-U11ABCD i Ulstrup",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 12"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 12"
+    },
+    {
+     "raw": "U11 A,B",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "A",
+      "B"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "119778",
+   "start": "2026-09-16",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-08-16",
+   "organiser": "Polish International IS",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "on 16-sø 20"
+    }
+   ]
+  },
+  {
+   "id": "117037",
+   "start": "2026-09-19",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-09-03",
+   "organiser": "KMB2010",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 20"
+    }
+   ]
+  },
+  {
+   "id": "118550",
+   "start": "2026-09-19",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-09-03",
+   "organiser": "Slangerup",
+   "classes": [
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 19-sø 20"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 19-sø 20"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 20"
+    }
+   ]
+  },
+  {
+   "id": "119939",
+   "start": "2026-09-19",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-09-03",
+   "organiser": "Slangerup",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    }
+   ]
+  },
+  {
+   "id": "117723",
+   "start": "2026-09-19",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-09-03",
+   "organiser": "Svenstrup",
+   "classes": [
+    {
+     "raw": "U11 C",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "sø 20"
+    }
+   ]
+  },
+  {
+   "id": "116500",
+   "start": "2026-09-19",
+   "end": "2026-09-19",
+   "week": "38",
+   "deadline": "2026-09-03",
+   "organiser": "Vejle",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    }
+   ]
+  },
+  {
+   "id": "116710",
+   "start": "2026-09-19",
+   "end": "2026-09-19",
+   "week": "38",
+   "deadline": "2026-09-03",
+   "organiser": "Viborg",
+   "classes": [
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 19"
+    }
+   ]
+  },
+  {
+   "id": "119879",
+   "start": "2026-09-20",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-09-07",
+   "organiser": "Begynderturnering i Kirke Hyllinge",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    }
+   ]
+  },
+  {
+   "id": "119881",
+   "start": "2026-09-20",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-09-07",
+   "organiser": "Begynderturnering i Kirke Hyllinge",
+   "classes": [
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    }
+   ]
+  },
+  {
+   "id": "119952",
+   "start": "2026-09-20",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-09-15",
+   "organiser": "TPI Badminton Monrad stævne",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    }
+   ]
+  },
+  {
+   "id": "115850",
+   "start": "2026-09-20",
+   "end": "2026-09-20",
+   "week": "38",
+   "deadline": "2026-09-03",
+   "organiser": "Viby J",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 20"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 20"
+    }
+   ]
+  },
+  {
+   "id": "119933",
+   "start": "2026-09-23",
+   "end": "2026-09-23",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Efterskoleturnering - specielle tilmeldingsbetingelser",
+   "classes": [
+    {
+     "raw": "E-M*-række",
+     "ages": [],
+     "levels": [],
+     "days": "on 23"
+    }
+   ]
+  },
+  {
+   "id": "119779",
+   "start": "2026-09-24",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-08-23",
+   "organiser": "Croatian International FS",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 24-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "119224",
+   "start": "2026-09-25",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Svendborg: DMC",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "fr 25-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "116113",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Aarhus AB: Niveau puljeturnering i double",
+   "classes": [
+    {
+     "raw": "U13 M",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "116467",
+   "start": "2026-09-26",
+   "end": "2026-09-26",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Brøndby Strand",
+   "classes": [
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    }
+   ]
+  },
+  {
+   "id": "116357",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Brønderslev",
+   "classes": [
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U15 M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 26-sø 27"
+    },
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "116932",
+   "start": "2026-09-26",
+   "end": "2026-09-26",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "DGI Vestjylland i Mejrup",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    }
+   ]
+  },
+  {
+   "id": "117621",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Gentofte",
+   "classes": [
+    {
+     "raw": "U15 E",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "118113",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Hvidovre",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U11C",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "115626",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Hvidovre HB2000",
+   "classes": [
+    {
+     "raw": "U15 A,C",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "C"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U15 B,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "115466",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "KBK Kbh.",
+   "classes": [
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 26-sø 27"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "118424",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Karlslunde",
+   "classes": [
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 26-sø 27"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "116291",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Kolding BK",
+   "classes": [
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 26-sø 27"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 26-sø 27"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "117687",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Kullerup/Refsvindinge",
+   "classes": [
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 26-sø 27"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "119613",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Lillerød",
+   "classes": [
+    {
+     "raw": "U15 M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "117578",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Nyborg",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "118177",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Rosendal",
+   "classes": [
+    {
+     "raw": "SEN A,B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "115447",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "SAIF Kbh.",
+   "classes": [
+    {
+     "raw": "SEN A,B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "115884",
+   "start": "2026-09-26",
+   "end": "2026-09-26",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Søften",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    }
+   ]
+  },
+  {
+   "id": "117516",
+   "start": "2026-09-26",
+   "end": "2026-09-26",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Vinding SF",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26"
+    }
+   ]
+  },
+  {
+   "id": "119110",
+   "start": "2026-09-26",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Værløse",
+   "classes": [
+    {
+     "raw": "SEN+30 B,C,D",
+     "ages": [
+      "SEN+30"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 26-sø 27"
+    }
+   ]
+  },
+  {
+   "id": "117135",
+   "start": "2026-09-27",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "DGI Bornholm",
+   "classes": [
+    {
+     "raw": "SEN A,B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "117567",
+   "start": "2026-09-27",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Hobro",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "119896",
+   "start": "2026-09-27",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-22",
+   "organiser": "Monrad stævne i Hjallesehallen",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "115819",
+   "start": "2026-09-27",
+   "end": "2026-09-27",
+   "week": "39",
+   "deadline": "2026-09-10",
+   "organiser": "Toksværd",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U15 C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "119780",
+   "start": "2026-09-30",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-08-30",
+   "organiser": "Dutch Open IC",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "on 30-sø 04"
+    }
+   ]
+  },
+  {
+   "id": "119832",
+   "start": "2026-10-01",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-08-30",
+   "organiser": "Bulgarien International FS 2026",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 01-sø 04"
+    }
+   ]
+  },
+  {
+   "id": "118401",
+   "start": "2026-10-03",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-09-17",
+   "organiser": "Horsens",
+   "classes": [
+    {
+     "raw": "U11 B",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 03"
+    }
+   ]
+  },
+  {
+   "id": "119051",
+   "start": "2026-10-03",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-09-17",
+   "organiser": "Lunderskov",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 04"
+    }
+   ]
+  },
+  {
+   "id": "117828",
+   "start": "2026-10-03",
+   "end": "2026-10-03",
+   "week": "40",
+   "deadline": "2026-09-17",
+   "organiser": "Randers BK",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    }
+   ]
+  },
+  {
+   "id": "118927",
+   "start": "2026-10-03",
+   "end": "2026-10-03",
+   "week": "40",
+   "deadline": "2026-09-17",
+   "organiser": "Skalborg SK",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 03"
+    }
+   ]
+  },
+  {
+   "id": "118385",
+   "start": "2026-10-03",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-09-17",
+   "organiser": "abc Aalborg",
+   "classes": [
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 03-sø 04"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 04"
+    }
+   ]
+  },
+  {
+   "id": "119902",
+   "start": "2026-10-04",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-09-17",
+   "organiser": "Begynderturnering Bramdrupdam",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    }
+   ]
+  },
+  {
+   "id": "119875",
+   "start": "2026-10-04",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-09-20",
+   "organiser": "Begynderturnering i Mørkøv",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    }
+   ]
+  },
+  {
+   "id": "119877",
+   "start": "2026-10-04",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-09-20",
+   "organiser": "Begynderturnering i Mørkøv",
+   "classes": [
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    }
+   ]
+  },
+  {
+   "id": "120045",
+   "start": "2026-10-04",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-10-01",
+   "organiser": "Begynderturnering i Nr. Broby",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    }
+   ]
+  },
+  {
+   "id": "119892",
+   "start": "2026-10-04",
+   "end": "2026-10-04",
+   "week": "40",
+   "deadline": "2026-09-27",
+   "organiser": "Introturnering Esbjerg",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 04"
+    }
+   ]
+  },
+  {
+   "id": "119833",
+   "start": "2026-10-06",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-08-23",
+   "organiser": "Artic Open 2026 Super 500",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "ti 06-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "119975",
+   "start": "2026-10-07",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-06",
+   "organiser": "German Ruhr U17",
+   "classes": [
+    {
+     "raw": "U17 E",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "on 07-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "119920",
+   "start": "2026-10-07",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-06",
+   "organiser": "German Ruhr U19",
+   "classes": [
+    {
+     "raw": "U19 E",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "on 07-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "119834",
+   "start": "2026-10-07",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-06",
+   "organiser": "Türkiye International IC",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "on 07-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "116414",
+   "start": "2026-10-09",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Hillerød: MGP",
+   "classes": [
+    {
+     "raw": "SEN M",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "fr 09-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "117270",
+   "start": "2026-10-10",
+   "end": "2026-10-12",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Aakirkeby",
+   "classes": [
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10-sø 11"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10-sø 11"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10-sø 11"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "117774",
+   "start": "2026-10-10",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Badminton Roskilde",
+   "classes": [
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    }
+   ]
+  },
+  {
+   "id": "118667",
+   "start": "2026-10-10",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Frederikshavn",
+   "classes": [
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "SEN B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10-sø 11"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 10-sø 11"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 10-sø 11"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 10-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "115419",
+   "start": "2026-10-10",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Haderslev",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U09 C",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C"
+     ],
+     "days": "lø 10-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "119607",
+   "start": "2026-10-10",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Herlev/Hjorten",
+   "classes": [
+    {
+     "raw": "U13 B",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 10"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 10-sø 11"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 10-sø 11"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 11"
+    }
+   ]
+  },
+  {
+   "id": "119808",
+   "start": "2026-10-10",
+   "end": "2026-10-10",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Ringsted",
+   "classes": [
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10"
+    }
+   ]
+  },
+  {
+   "id": "118211",
+   "start": "2026-10-10",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Slangerup",
+   "classes": [
+    {
+     "raw": "SEN A,B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 10-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "118444",
+   "start": "2026-10-10",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-09-24",
+   "organiser": "Viby J",
+   "classes": [
+    {
+     "raw": "SEN A,B",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B"
+     ],
+     "days": "lø 10-sø 11"
+    }
+   ]
+  },
+  {
+   "id": "119870",
+   "start": "2026-10-11",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-10-01",
+   "organiser": "Begynderturnering i Toreby Sundby",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 11"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 11"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 11"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 11"
+    }
+   ]
+  },
+  {
+   "id": "119767",
+   "start": "2026-10-11",
+   "end": "2026-10-11",
+   "week": "41",
+   "deadline": "2026-10-01",
+   "organiser": "Drive",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 11"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 11"
+    }
+   ]
+  },
+  {
+   "id": "119835",
+   "start": "2026-10-13",
+   "end": "2026-10-18",
+   "week": "42",
+   "deadline": "2026-08-30",
+   "organiser": "Denmark Open 2026 Super 750",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "ti 13-sø 18"
+    }
+   ]
+  },
+  {
+   "id": "119973",
+   "start": "2026-10-14",
+   "end": "2026-10-14",
+   "week": "42",
+   "deadline": "2026-09-30",
+   "organiser": "Pigetræningsdag i Langeskov d. 14.oktober 2026",
+   "classes": [
+    {
+     "raw": "Andet X",
+     "ages": [],
+     "levels": [],
+     "days": "on 14"
+    }
+   ]
+  },
+  {
+   "id": "119465",
+   "start": "2026-10-14",
+   "end": "2026-10-17",
+   "week": "42",
+   "deadline": "2026-09-24",
+   "organiser": "VICTOR DENMARK JUNIOR U13A-U15A-U17M Næsby",
+   "classes": [
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "on 14-to 15"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "to 15-fr 16"
+    },
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "fr 16-lø 17"
+    }
+   ]
+  },
+  {
+   "id": "119461",
+   "start": "2026-10-14",
+   "end": "2026-10-17",
+   "week": "42",
+   "deadline": "2026-09-24",
+   "organiser": "VICTOR DENMARK JUNIOR U13CD-U15BCD-U17/U19BCD Dyrup-Bellinge IC",
+   "classes": [
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "on 14-to 15"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "on 14-to 15"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "fr 16-lø 17"
+    }
+   ]
+  },
+  {
+   "id": "119453",
+   "start": "2026-10-14",
+   "end": "2026-10-17",
+   "week": "42",
+   "deadline": "2026-09-24",
+   "organiser": "VICTOR DENMARK JUNIOR U13MB-U15M-U19M Tarup-Paarup",
+   "classes": [
+    {
+     "raw": "U13 M,B",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "M",
+      "B"
+     ],
+     "days": "on 14-to 15"
+    },
+    {
+     "raw": "U15 M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "to 15-fr 16"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "fr 16-lø 17"
+    }
+   ]
+  },
+  {
+   "id": "119458",
+   "start": "2026-10-14",
+   "end": "2026-10-17",
+   "week": "42",
+   "deadline": "2026-09-24",
+   "organiser": "VICTOR DENMARK JUNIOR U15E Langeskov",
+   "classes": [
+    {
+     "raw": "U15 E",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 15-lø 17"
+    }
+   ]
+  },
+  {
+   "id": "119449",
+   "start": "2026-10-14",
+   "end": "2026-10-15",
+   "week": "42",
+   "deadline": "2026-09-24",
+   "organiser": "VICTOR DENMARK JUNIOR U9CD-U11ABCD Korup",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "on 14-to 15"
+    },
+    {
+     "raw": "U11 A,B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "on 14-to 15"
+    }
+   ]
+  },
+  {
+   "id": "119836",
+   "start": "2026-10-15",
+   "end": "2026-10-18",
+   "week": "42",
+   "deadline": "2026-09-13",
+   "organiser": "Czech Open IC 2026",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 15-sø 18"
+    }
+   ]
+  },
+  {
+   "id": "119464",
+   "start": "2026-10-15",
+   "end": "2026-10-18",
+   "week": "42",
+   "deadline": "2026-09-14",
+   "organiser": "VICTOR DENMARK JUNIOR U17 BEC Circuit",
+   "classes": [
+    {
+     "raw": "U17 E",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 15-sø 18"
+    }
+   ]
+  },
+  {
+   "id": "119466",
+   "start": "2026-10-15",
+   "end": "2026-10-18",
+   "week": "42",
+   "deadline": "2026-09-14",
+   "organiser": "VICTOR DENMARK JUNIOR, BEC Junior Circuit",
+   "classes": [
+    {
+     "raw": "U19 E",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 15-sø 18"
+    }
+   ]
+  },
+  {
+   "id": "119468",
+   "start": "2026-10-16",
+   "end": "2026-10-17",
+   "week": "42",
+   "deadline": "2026-10-01",
+   "organiser": "VICTOR DENMARK JUNIOR U17/U19A Korup",
+   "classes": [
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "fr 16-lø 17"
+    }
+   ]
+  },
+  {
+   "id": "119621",
+   "start": "2026-10-16",
+   "end": "2026-10-18",
+   "week": "42",
+   "deadline": "2026-10-02",
+   "organiser": "VICTOR DENMARK SENIOR",
+   "classes": [
+    {
+     "raw": "SEN+30 E,A",
+     "ages": [
+      "SEN+30"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+35 E,A",
+     "ages": [
+      "SEN+35"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+40 E,A",
+     "ages": [
+      "SEN+40"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+45 E,A",
+     "ages": [
+      "SEN+45"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+50 E,A",
+     "ages": [
+      "SEN+50"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+55 E,A",
+     "ages": [
+      "SEN+55"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+60 E,A",
+     "ages": [
+      "SEN+60"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+65 E,A",
+     "ages": [
+      "SEN+65"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+70 E,A",
+     "ages": [
+      "SEN+70"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    },
+    {
+     "raw": "SEN+75 E,A",
+     "ages": [
+      "SEN+75"
+     ],
+     "levels": [
+      "E",
+      "A"
+     ],
+     "days": "fr 16-sø 18"
+    }
+   ]
+  },
+  {
+   "id": "119837",
+   "start": "2026-10-20",
+   "end": "2026-10-23",
+   "week": "43",
+   "deadline": "2026-09-20",
+   "organiser": "Hellas International FS",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "ti 20-fr 23"
+    }
+   ]
+  },
+  {
+   "id": "119916",
+   "start": "2026-10-24",
+   "end": "2026-10-24",
+   "week": "43",
+   "deadline": "2026-10-08",
+   "organiser": "Begynderturnering - Højby",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 24"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 24"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 24"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 24"
+    }
+   ]
+  },
+  {
+   "id": "119925",
+   "start": "2026-10-24",
+   "end": "2026-10-24",
+   "week": "43",
+   "deadline": "2026-10-13",
+   "organiser": "Begynderturnering i Nordrup Farendløse",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 24"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 24"
+    }
+   ]
+  },
+  {
+   "id": "119940",
+   "start": "2026-10-24",
+   "end": "2026-10-24",
+   "week": "43",
+   "deadline": "2026-10-13",
+   "organiser": "Begynderturnering i Nordrup Farendløse",
+   "classes": [
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 24"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 24"
+    }
+   ]
+  },
+  {
+   "id": "120134",
+   "start": "2026-10-25",
+   "end": "2026-10-25",
+   "week": "43",
+   "deadline": "2026-10-08",
+   "organiser": "Begynderturnering i Gistrup",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 25"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 25"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 25"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 25"
+    }
+   ]
+  },
+  {
+   "id": "119838",
+   "start": "2026-10-27",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-09-13",
+   "organiser": "Hylo Open 2026 Super 500",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "ti 27-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "119839",
+   "start": "2026-10-28",
+   "end": "2026-10-31",
+   "week": "44",
+   "deadline": "2026-09-27",
+   "organiser": "Ungarn International IS 2026",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "on 28-lø 31"
+    }
+   ]
+  },
+  {
+   "id": "116782",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Aflyst - DGI Midtjylland - Kjellerup",
+   "classes": [
+    {
+     "raw": "SEN+30 B,C,D",
+     "ages": [
+      "SEN+30"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "SEN+40 B,C,D",
+     "ages": [
+      "SEN+40"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "SEN+50 B,C,D",
+     "ages": [
+      "SEN+50"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    }
+   ]
+  },
+  {
+   "id": "115370",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "BC37 Amager",
+   "classes": [
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 31-sø 01"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "115705",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Bov",
+   "classes": [
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    }
+   ]
+  },
+  {
+   "id": "119571",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Farum",
+   "classes": [
+    {
+     "raw": "SEN B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "119025",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Glamsdalen",
+   "classes": [
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U17/U19 C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 31-sø 01"
+    },
+    {
+     "raw": "U17/U19 A,B",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B"
+     ],
+     "days": "lø 31-sø 01"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "117288",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Greve",
+   "classes": [
+    {
+     "raw": "U15 C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U17/U19 C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    }
+   ]
+  },
+  {
+   "id": "116081",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Grindsted BK",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U15 M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "117939",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Hjørring",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    }
+   ]
+  },
+  {
+   "id": "117662",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Humlebæk",
+   "classes": [
+    {
+     "raw": "U15 M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 31-sø 01"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "119850",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Introturnering Ribe",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 31"
+    }
+   ]
+  },
+  {
+   "id": "117049",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "KMB2010",
+   "classes": [
+    {
+     "raw": "SEN M,A",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "M",
+      "A"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "119924",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Kredsmatch",
+   "classes": [
+    {
+     "raw": "U11 A",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 31-sø 01"
+    },
+    {
+     "raw": "U13 M",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 31-sø 01"
+    },
+    {
+     "raw": "U15 E",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "117823",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Ledøje-Smørum",
+   "classes": [
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    }
+   ]
+  },
+  {
+   "id": "116202",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Nr. Åby",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    }
+   ]
+  },
+  {
+   "id": "115385",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Sabro",
+   "classes": [
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    }
+   ]
+  },
+  {
+   "id": "118641",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Skive-Resen",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    }
+   ]
+  },
+  {
+   "id": "119921",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Skovshoved",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    }
+   ]
+  },
+  {
+   "id": "118626",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Slagelse",
+   "classes": [
+    {
+     "raw": "U15 B",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 31-sø 01"
+    },
+    {
+     "raw": "U17/U19 B",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "sø 01"
+    }
+   ]
+  },
+  {
+   "id": "117333",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Ulstrup",
+   "classes": [
+    {
+     "raw": "SEN B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "119098",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Værløse",
+   "classes": [
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 31-sø 01"
+    }
+   ]
+  },
+  {
+   "id": "115397",
+   "start": "2026-10-31",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "ØBG Silkeborg",
+   "classes": [
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 31"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 31-sø 01"
+    },
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U13 B",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "sø 01"
+    }
+   ]
+  },
+  {
+   "id": "119948",
+   "start": "2026-11-01",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Begynderturnering i Voel",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 01"
+    }
+   ]
+  },
+  {
+   "id": "117152",
+   "start": "2026-11-01",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "DGI Bornholm",
+   "classes": [
+    {
+     "raw": "SEN A,B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    }
+   ]
+  },
+  {
+   "id": "117548",
+   "start": "2026-11-01",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Solbjerg",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U15 C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U17/U19 C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    }
+   ]
+  },
+  {
+   "id": "117871",
+   "start": "2026-11-01",
+   "end": "2026-11-01",
+   "week": "44",
+   "deadline": "2026-10-15",
+   "organiser": "Storstrømmen: Faxe",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 01"
+    }
+   ]
+  },
+  {
+   "id": "119980",
+   "start": "2026-11-05",
+   "end": "2026-11-08",
+   "week": "45",
+   "deadline": "2026-10-04",
+   "organiser": "Norwegian FS",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 05-sø 08"
+    }
+   ]
+  },
+  {
+   "id": "115663",
+   "start": "2026-11-07",
+   "end": "2026-11-08",
+   "week": "45",
+   "deadline": "2026-10-22",
+   "organiser": "Holbæk",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U13 C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U15 C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 08"
+    }
+   ]
+  },
+  {
+   "id": "117666",
+   "start": "2026-11-07",
+   "end": "2026-11-08",
+   "week": "45",
+   "deadline": "2026-10-22",
+   "organiser": "Holte",
+   "classes": [
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 07-sø 08"
+    }
+   ]
+  },
+  {
+   "id": "117114",
+   "start": "2026-11-07",
+   "end": "2026-11-07",
+   "week": "45",
+   "deadline": "2026-10-22",
+   "organiser": "Højslev",
+   "classes": [
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    }
+   ]
+  },
+  {
+   "id": "117040",
+   "start": "2026-11-07",
+   "end": "2026-11-08",
+   "week": "45",
+   "deadline": "2026-10-22",
+   "organiser": "KMB2010",
+   "classes": [
+    {
+     "raw": "U15 M,A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "M",
+      "A"
+     ],
+     "days": "lø 07-sø 08"
+    }
+   ]
+  },
+  {
+   "id": "119286",
+   "start": "2026-11-07",
+   "end": "2026-11-08",
+   "week": "45",
+   "deadline": "2026-10-22",
+   "organiser": "Lindholm",
+   "classes": [
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 08"
+    }
+   ]
+  },
+  {
+   "id": "115926",
+   "start": "2026-11-07",
+   "end": "2026-11-08",
+   "week": "45",
+   "deadline": "2026-10-22",
+   "organiser": "Middelfart",
+   "classes": [
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 07"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 07-sø 08"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 07-sø 08"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 08"
+    }
+   ]
+  },
+  {
+   "id": "119981",
+   "start": "2026-11-11",
+   "end": "2026-11-14",
+   "week": "46",
+   "deadline": "2026-10-11",
+   "organiser": "Irish Open IC",
+   "classes": [
+    {
+     "raw": "SEN E",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "on 11-lø 14"
+    }
+   ]
+  },
+  {
+   "id": "120546",
+   "start": "2026-11-13",
+   "end": "2026-11-15",
+   "week": "46",
+   "deadline": "2026-10-11",
+   "organiser": "Swedish Youth Games U17",
+   "classes": [
+    {
+     "raw": "U17 E",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "fr 13-sø 15"
+    }
+   ]
+  },
+  {
+   "id": "118303",
+   "start": "2026-11-21",
+   "end": "2026-11-22",
+   "week": "47",
+   "deadline": "2026-11-05",
+   "organiser": "Brabrand",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U15 B,C",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C"
+     ],
+     "days": "sø 22"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 22"
+    }
+   ]
+  },
+  {
+   "id": "116325",
+   "start": "2026-11-21",
+   "end": "2026-11-21",
+   "week": "47",
+   "deadline": "2026-11-05",
+   "organiser": "Brande",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 21"
+    }
+   ]
+  },
+  {
+   "id": "118623",
+   "start": "2026-11-21",
+   "end": "2026-11-22",
+   "week": "47",
+   "deadline": "2026-11-05",
+   "organiser": "Dragør",
+   "classes": [
+    {
+     "raw": "SEN B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 21-sø 22"
+    }
+   ]
+  },
+  {
+   "id": "117667",
+   "start": "2026-11-21",
+   "end": "2026-11-22",
+   "week": "47",
+   "deadline": "2026-11-05",
+   "organiser": "Holte",
+   "classes": [
+    {
+     "raw": "U17 M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 21-sø 22"
+    },
+    {
+     "raw": "U19 M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 21-sø 22"
+    }
+   ]
+  },
+  {
+   "id": "115592",
+   "start": "2026-11-21",
+   "end": "2026-11-22",
+   "week": "47",
+   "deadline": "2026-11-05",
+   "organiser": "Lyngby",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U11 B,C",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C"
+     ],
+     "days": "sø 22"
+    }
+   ]
+  },
+  {
+   "id": "118851",
+   "start": "2026-11-28",
+   "end": "2026-12-02",
+   "week": "48",
+   "deadline": "2026-11-12",
+   "organiser": "Badminton København: Kredsmesterskab",
+   "classes": [
+    {
+     "raw": "U11 A",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 28-on 02"
+    },
+    {
+     "raw": "U13 M",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 28-on 02"
+    },
+    {
+     "raw": "U15 E,M",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "E",
+      "M"
+     ],
+     "days": "lø 28-on 02"
+    },
+    {
+     "raw": "U17 E,M",
+     "ages": [
+      "U17"
+     ],
+     "levels": [
+      "E",
+      "M"
+     ],
+     "days": "lø 28-on 02"
+    },
+    {
+     "raw": "U19 E,M",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "E",
+      "M"
+     ],
+     "days": "lø 28-on 02"
+    }
+   ]
+  },
+  {
+   "id": "119065",
+   "start": "2026-11-28",
+   "end": "2026-11-29",
+   "week": "48",
+   "deadline": "2026-11-12",
+   "organiser": "Badminton Lolland-Falster: Kredsmesterskab",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    }
+   ]
+  },
+  {
+   "id": "117163",
+   "start": "2026-11-28",
+   "end": "2026-11-29",
+   "week": "48",
+   "deadline": "2026-11-12",
+   "organiser": "DGI Bornholm",
+   "classes": [
+    {
+     "raw": "SEN A,B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    }
+   ]
+  },
+  {
+   "id": "116842",
+   "start": "2026-11-28",
+   "end": "2026-11-28",
+   "week": "48",
+   "deadline": "2026-11-12",
+   "organiser": "Jyske Mesterskaber i Aabybro",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    }
+   ]
+  },
+  {
+   "id": "116800",
+   "start": "2026-11-28",
+   "end": "2026-11-28",
+   "week": "48",
+   "deadline": "2026-11-12",
+   "organiser": "Jyske Mesterskaber i Brande",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    }
+   ]
+  },
+  {
+   "id": "116880",
+   "start": "2026-11-28",
+   "end": "2026-11-28",
+   "week": "48",
+   "deadline": "2026-11-12",
+   "organiser": "Jyske Mesterskaber i Hammel",
+   "classes": [
+    {
+     "raw": "U09 C,D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28"
+    }
+   ]
+  },
+  {
+   "id": "115474",
+   "start": "2026-12-12",
+   "end": "2026-12-13",
+   "week": "50",
+   "deadline": "2026-11-26",
+   "organiser": "KBK Kbh.",
+   "classes": [
+    {
+     "raw": "SEN A,B,C",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C"
+     ],
+     "days": "lø 12-sø 13"
+    }
+   ]
+  },
+  {
+   "id": "115827",
+   "start": "2026-12-27",
+   "end": "2026-12-27",
+   "week": "52",
+   "deadline": "2026-12-10",
+   "organiser": "Toksværd",
+   "classes": [
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 27"
+    }
+   ]
+  },
+  {
+   "id": "115863",
+   "start": "2026-12-29",
+   "end": "2026-12-29",
+   "week": "53",
+   "deadline": "2026-12-10",
+   "organiser": "Toksværd",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "ti 29"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "ti 29"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "ti 29"
+    }
+   ]
+  },
+  {
+   "id": "116014",
+   "start": "2027-01-24",
+   "end": "2027-01-24",
+   "week": "3",
+   "deadline": "2027-01-07",
+   "organiser": "Hjerndrup HSB85",
+   "classes": [
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 24"
+    }
+   ]
+  },
+  {
+   "id": "120229",
+   "start": "2027-01-30",
+   "end": "2027-01-31",
+   "week": "4",
+   "deadline": "2027-01-14",
+   "organiser": "Skive-Resen",
+   "classes": [
+    {
+     "raw": "SEN B,C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 30"
+    }
+   ]
+  },
+  {
+   "id": "115907",
+   "start": "2027-02-28",
+   "end": "2027-02-28",
+   "week": "8",
+   "deadline": "2027-02-11",
+   "organiser": "Hjerndrup HSB85",
+   "classes": [
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 28"
+    },
+    {
+     "raw": "U15 C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "sø 28"
+    }
+   ]
+  },
+  {
+   "id": "115951",
+   "start": "2027-05-15",
+   "end": "2027-05-16",
+   "week": "19",
+   "deadline": "2027-04-29",
+   "organiser": "Lindholm",
+   "classes": [
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 15"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 15"
+    },
+    {
+     "raw": "U13 A",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U15 A",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U17/U19 A",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 15-sø 16"
+    },
+    {
+     "raw": "U15 B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 16"
+    },
+    {
+     "raw": "U17/U19 B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "sø 16"
+    }
+   ]
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T13:14:08+00:00",
+ "updated": "2026-10-25T15:07:26+00:00",
  "season": "2026",
  "clubRanking": [
   {
@@ -174,6 +174,20 @@
   },
   {
    "rank": 13,
+   "id": "324936",
+   "name": "Aksel Schroller Broerson",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 5,
+   "won": 5,
+   "winPct": 100,
+   "pointsFor": 165,
+   "avgPoints": 33.0,
+   "avgDiff": 12.2
+  },
+  {
+   "rank": 14,
    "id": "338789",
    "name": "Charles Jordahn Brandt",
    "teams": [
@@ -187,7 +201,7 @@
    "avgDiff": 7.5
   },
   {
-   "rank": 14,
+   "rank": 15,
    "id": "362880",
    "name": "Jonas Gaudesen",
    "teams": [
@@ -201,7 +215,7 @@
    "avgDiff": 8.2
   },
   {
-   "rank": 15,
+   "rank": 16,
    "id": "236648",
    "name": "Rasmus Thorsted Mortensen",
    "teams": [
@@ -215,7 +229,7 @@
    "avgDiff": 4.2
   },
   {
-   "rank": 16,
+   "rank": 17,
    "id": "11839",
    "name": "Morten Plougmann",
    "teams": [
@@ -229,7 +243,7 @@
    "avgDiff": 3.6
   },
   {
-   "rank": 17,
+   "rank": 18,
    "id": "12813",
    "name": "Anders Vedsted Nørrelund",
    "teams": [
@@ -243,7 +257,7 @@
    "avgDiff": 3.0
   },
   {
-   "rank": 18,
+   "rank": 19,
    "id": "250810",
    "name": "Andreas Qianyou Kristensen",
    "teams": [
@@ -257,7 +271,7 @@
    "avgDiff": 2.9
   },
   {
-   "rank": 19,
+   "rank": 20,
    "id": "237819",
    "name": "Gitte Kruse",
    "teams": [
@@ -271,7 +285,7 @@
    "avgDiff": 9.2
   },
   {
-   "rank": 20,
+   "rank": 21,
    "id": "237773",
    "name": "Olivia Høberg Brams",
    "teams": [
@@ -285,7 +299,7 @@
    "avgDiff": 6.7
   },
   {
-   "rank": 21,
+   "rank": 22,
    "id": "362187",
    "name": "Max van Daalen",
    "teams": [
@@ -299,7 +313,7 @@
    "avgDiff": 3.4
   },
   {
-   "rank": 22,
+   "rank": 23,
    "id": "357023",
    "name": "Ellie Schroller Broerson",
    "teams": [
@@ -313,7 +327,7 @@
    "avgDiff": 5.2
   },
   {
-   "rank": 23,
+   "rank": 24,
    "id": "348191",
    "name": "Manfred Bjørn Kirk",
    "teams": [
@@ -327,7 +341,36 @@
    "avgDiff": 10.8
   },
   {
-   "rank": 24,
+   "rank": 25,
+   "id": "334106",
+   "name": "Malthe Larsen",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 5,
+   "won": 4,
+   "winPct": 80,
+   "pointsFor": 141,
+   "avgPoints": 28.2,
+   "avgDiff": 6.0
+  },
+  {
+   "rank": 26,
+   "id": "9643",
+   "name": "Kim Eriksen",
+   "teams": [
+    "4 Spillere A-række",
+    "MOT 4 spillere Mester"
+   ],
+   "played": 6,
+   "won": 4,
+   "winPct": 67,
+   "pointsFor": 200,
+   "avgPoints": 33.3,
+   "avgDiff": 4.3
+  },
+  {
+   "rank": 27,
    "id": "360548",
    "name": "MUHAMMAD MOHSIN Ali KHAN",
    "teams": [
@@ -342,7 +385,7 @@
    "avgDiff": 4.0
   },
   {
-   "rank": 25,
+   "rank": 28,
    "id": "320827",
    "name": "Emma Sejberg Rasmussen",
    "teams": [
@@ -356,7 +399,7 @@
    "avgDiff": 5.5
   },
   {
-   "rank": 26,
+   "rank": 29,
    "id": "275709",
    "name": "Sebastian Søbjerg Lynfort",
    "teams": [
@@ -370,7 +413,7 @@
    "avgDiff": 4.3
   },
   {
-   "rank": 27,
+   "rank": 30,
    "id": "364606",
    "name": "Torbjørn Petersson",
    "teams": [
@@ -384,7 +427,7 @@
    "avgDiff": 3.0
   },
   {
-   "rank": 28,
+   "rank": 31,
    "id": "352440",
    "name": "Ethan Jing",
    "teams": [
@@ -398,7 +441,7 @@
    "avgDiff": 11.7
   },
   {
-   "rank": 29,
+   "rank": 32,
    "id": "348495",
    "name": "Alexander Dahl Plougmann",
    "teams": [
@@ -412,7 +455,7 @@
    "avgDiff": 12.7
   },
   {
-   "rank": 30,
+   "rank": 33,
    "id": "250193",
    "name": "Hans Christian Blomberg",
    "teams": [
@@ -426,7 +469,7 @@
    "avgDiff": 14.7
   },
   {
-   "rank": 31,
+   "rank": 34,
    "id": "309153",
    "name": "Mark saejueng",
    "teams": [
@@ -440,7 +483,35 @@
    "avgDiff": 6.5
   },
   {
-   "rank": 32,
+   "rank": 35,
+   "id": "324944",
+   "name": "August Drescher",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 4,
+   "won": 3,
+   "winPct": 75,
+   "pointsFor": 109,
+   "avgPoints": 27.2,
+   "avgDiff": 8.0
+  },
+  {
+   "rank": 36,
+   "id": "320930",
+   "name": "Julius Tolsøe",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 4,
+   "won": 3,
+   "winPct": 75,
+   "pointsFor": 109,
+   "avgPoints": 27.2,
+   "avgDiff": 8.0
+  },
+  {
+   "rank": 37,
    "id": "359708",
    "name": "Marius Løkke Knutsson",
    "teams": [
@@ -454,7 +525,7 @@
    "avgDiff": 3.4
   },
   {
-   "rank": 33,
+   "rank": 38,
    "id": "339512",
    "name": "Anders Franck Berger Christensen",
    "teams": [
@@ -469,7 +540,7 @@
    "avgDiff": -1.0
   },
   {
-   "rank": 34,
+   "rank": 39,
    "id": "92804",
    "name": "Jack Søgaard",
    "teams": [
@@ -483,49 +554,7 @@
    "avgDiff": -1.5
   },
   {
-   "rank": 35,
-   "id": "324936",
-   "name": "Aksel Schroller Broerson",
-   "teams": [
-    "U15 A"
-   ],
-   "played": 2,
-   "won": 2,
-   "winPct": 100,
-   "pointsFor": 60,
-   "avgPoints": 30.0,
-   "avgDiff": 13.5
-  },
-  {
-   "rank": 36,
-   "id": "324944",
-   "name": "August Drescher",
-   "teams": [
-    "U15 A"
-   ],
-   "played": 2,
-   "won": 2,
-   "winPct": 100,
-   "pointsFor": 60,
-   "avgPoints": 30.0,
-   "avgDiff": 15.0
-  },
-  {
-   "rank": 37,
-   "id": "352483",
-   "name": "Birk Lund Dujardin",
-   "teams": [
-    "U15 A"
-   ],
-   "played": 2,
-   "won": 2,
-   "winPct": 100,
-   "pointsFor": 60,
-   "avgPoints": 30.0,
-   "avgDiff": 12.0
-  },
-  {
-   "rank": 38,
+   "rank": 40,
    "id": "156777",
    "name": "Jonas Aarup Iversen",
    "teams": [
@@ -537,34 +566,6 @@
    "pointsFor": 60,
    "avgPoints": 30.0,
    "avgDiff": 12.5
-  },
-  {
-   "rank": 39,
-   "id": "320930",
-   "name": "Julius Tolsøe",
-   "teams": [
-    "U15 A"
-   ],
-   "played": 2,
-   "won": 2,
-   "winPct": 100,
-   "pointsFor": 60,
-   "avgPoints": 30.0,
-   "avgDiff": 16.5
-  },
-  {
-   "rank": 40,
-   "id": "334106",
-   "name": "Malthe Larsen",
-   "teams": [
-    "U15 A"
-   ],
-   "played": 2,
-   "won": 2,
-   "winPct": 100,
-   "pointsFor": 60,
-   "avgPoints": 30.0,
-   "avgDiff": 13.0
   },
   {
    "rank": 41,
@@ -582,20 +583,6 @@
   },
   {
    "rank": 42,
-   "id": "9643",
-   "name": "Kim Eriksen",
-   "teams": [
-    "MOT 4 spillere Mester"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 103,
-   "avgPoints": 34.3,
-   "avgDiff": 5.7
-  },
-  {
-   "rank": 43,
    "id": "318476",
    "name": "Valdemar Bæhrenz Peetz",
    "teams": [
@@ -609,7 +596,35 @@
    "avgDiff": 2.3
   },
   {
+   "rank": 43,
+   "id": "158737",
+   "name": "Michael Schutt Nielsen",
+   "teams": [
+    "4 Spillere A-række"
+   ],
+   "played": 3,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 96,
+   "avgPoints": 32.0,
+   "avgDiff": 2.7
+  },
+  {
    "rank": 44,
+   "id": "352483",
+   "name": "Birk Lund Dujardin",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 3,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 94,
+   "avgPoints": 31.3,
+   "avgDiff": 5.3
+  },
+  {
+   "rank": 45,
    "id": "358565",
    "name": "Vincent Ziyu Ding",
    "teams": [
@@ -623,7 +638,7 @@
    "avgDiff": 0.3
   },
   {
-   "rank": 45,
+   "rank": 46,
    "id": "357024",
    "name": "Ella Baldvinsson Frewald",
    "teams": [
@@ -637,7 +652,7 @@
    "avgDiff": 6.3
   },
   {
-   "rank": 46,
+   "rank": 47,
    "id": "361298",
    "name": "Stine Lund Nielsen",
    "teams": [
@@ -651,7 +666,7 @@
    "avgDiff": 4.7
   },
   {
-   "rank": 47,
+   "rank": 48,
    "id": "350815",
    "name": "Cornelius Engen Peetz",
    "teams": [
@@ -665,7 +680,7 @@
    "avgDiff": 5.0
   },
   {
-   "rank": 48,
+   "rank": 49,
    "id": "337294",
    "name": "Julie Bille Rannes",
    "teams": [
@@ -679,7 +694,7 @@
    "avgDiff": 6.5
   },
   {
-   "rank": 49,
+   "rank": 50,
    "id": "348034",
    "name": "Dorte Glintborg",
    "teams": [
@@ -693,7 +708,7 @@
    "avgDiff": 14.5
   },
   {
-   "rank": 50,
+   "rank": 51,
    "id": "336079",
    "name": "Stefanie Flamand",
    "teams": [
@@ -707,7 +722,7 @@
    "avgDiff": 9.2
   },
   {
-   "rank": 51,
+   "rank": 52,
    "id": "11745",
    "name": "Steffen Bille Rannes",
    "teams": [
@@ -721,7 +736,7 @@
    "avgDiff": -3.5
   },
   {
-   "rank": 52,
+   "rank": 53,
    "id": "330569",
    "name": "Anders Johannessen",
    "teams": [
@@ -735,21 +750,21 @@
    "avgDiff": -2.0
   },
   {
-   "rank": 53,
-   "id": "326116",
-   "name": "Christopher Johannessen",
+   "rank": 54,
+   "id": "314546",
+   "name": "Andreas Tønnesen",
    "teams": [
-    "U15 A"
+    "4 Spillere A-række"
    ],
-   "played": 2,
+   "played": 3,
    "won": 1,
-   "winPct": 50,
-   "pointsFor": 52,
-   "avgPoints": 26.0,
-   "avgDiff": 1.0
+   "winPct": 33,
+   "pointsFor": 82,
+   "avgPoints": 27.3,
+   "avgDiff": -1.3
   },
   {
-   "rank": 54,
+   "rank": 55,
    "id": "330871",
    "name": "Peter Østergaard",
    "teams": [
@@ -763,7 +778,21 @@
    "avgDiff": -3.3
   },
   {
-   "rank": 55,
+   "rank": 56,
+   "id": "355614",
+   "name": "Kent bisgaard",
+   "teams": [
+    "4 Spillere A-række"
+   ],
+   "played": 3,
+   "won": 1,
+   "winPct": 33,
+   "pointsFor": 81,
+   "avgPoints": 27.0,
+   "avgDiff": -1.0
+  },
+  {
+   "rank": 57,
    "id": "268924",
    "name": "Marianne Seydel Jørgensen",
    "teams": [
@@ -777,7 +806,21 @@
    "avgDiff": -3.7
   },
   {
-   "rank": 56,
+   "rank": 58,
+   "id": "326116",
+   "name": "Christopher Johannessen",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 3,
+   "won": 1,
+   "winPct": 33,
+   "pointsFor": 71,
+   "avgPoints": 23.7,
+   "avgDiff": -3.0
+  },
+  {
+   "rank": 59,
    "id": "251767",
    "name": "Christian Skytt",
    "teams": [
@@ -791,7 +834,7 @@
    "avgDiff": -5.3
   },
   {
-   "rank": 57,
+   "rank": 60,
    "id": "341039",
    "name": "Ole Friis",
    "teams": [
@@ -805,7 +848,7 @@
    "avgDiff": -8.3
   },
   {
-   "rank": 58,
+   "rank": 61,
    "id": "310855",
    "name": "Emil Tvedergaard Blöndal",
    "teams": [
@@ -819,7 +862,7 @@
    "avgDiff": -4.2
   },
   {
-   "rank": 59,
+   "rank": 62,
    "id": "344356",
    "name": "Malthe Kiilerich",
    "teams": [
@@ -834,7 +877,7 @@
    "avgDiff": -6.8
   },
   {
-   "rank": 60,
+   "rank": 63,
    "id": "308293",
    "name": "Henrik Lund Frandsen",
    "teams": [
@@ -848,7 +891,7 @@
    "avgDiff": -9.0
   },
   {
-   "rank": 61,
+   "rank": 64,
    "id": "337891",
    "name": "Ina Finlander",
    "teams": [
@@ -863,7 +906,7 @@
    "avgDiff": -5.5
   },
   {
-   "rank": 62,
+   "rank": 65,
    "id": "245961",
    "name": "Jesper Østergaard",
    "teams": [
@@ -877,7 +920,7 @@
    "avgDiff": -6.3
   },
   {
-   "rank": 63,
+   "rank": 66,
    "id": "339513",
    "name": "Camilla Engel Post",
    "teams": [
@@ -891,7 +934,7 @@
    "avgDiff": -9.0
   },
   {
-   "rank": 64,
+   "rank": 67,
    "id": "330795",
    "name": "Brit Johannessen",
    "teams": [
@@ -905,7 +948,7 @@
    "avgDiff": -7.7
   },
   {
-   "rank": 65,
+   "rank": 68,
    "id": "364196",
    "name": "Fie B. Kobberup",
    "teams": [
@@ -919,7 +962,7 @@
    "avgDiff": -10.3
   },
   {
-   "rank": 66,
+   "rank": 69,
    "id": "367264",
    "name": "Pulin Dhar",
    "teams": [
@@ -933,7 +976,7 @@
    "avgDiff": -16.7
   },
   {
-   "rank": 67,
+   "rank": 70,
    "id": "336560",
    "name": "Tue Krogh-Larsen",
    "teams": [
@@ -947,7 +990,7 @@
    "avgDiff": -13.0
   },
   {
-   "rank": 68,
+   "rank": 71,
    "id": "277780",
    "name": "Mathilde Peetz",
    "teams": [
@@ -1020,26 +1063,108 @@
      ],
      "won": true,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "1. D",
+     "partner": [
+      "Malthe Larsen"
+     ],
+     "opponents": [
+      "Gustav Westergaard Clausen",
+      "Buster Nygaard Bilenberg"
+     ],
+     "sets": [
+      [
+       15,
+       9
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "3. D",
+     "partner": [
+      "Julius Tolsøe"
+     ],
+     "opponents": [
+      "Buster Nygaard Bilenberg",
+      "Victor Nørtranders Damsgaard"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "1. S",
+     "partner": [],
+     "opponents": [
+      "Gustav Westergaard Clausen"
+     ],
+     "sets": [
+      [
+       15,
+       5
+      ],
+      [
+       15,
+       17
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "won": true,
+     "walkover": ""
     }
    ],
-   "played": 2,
-   "won": 2,
+   "played": 5,
+   "won": 5,
    "lost": 0,
    "winPct": 100,
-   "pointsFor": 60,
-   "pointsAgainst": 33,
-   "avgPoints": 30.0,
-   "avgDiff": 13.5,
-   "setsWon": 4,
-   "setsLost": 0,
+   "pointsFor": 165,
+   "pointsAgainst": 104,
+   "avgPoints": 33.0,
+   "avgDiff": 12.2,
+   "setsWon": 10,
+   "setsLost": 1,
    "byDiscipline": {
     "D": {
-     "played": 1,
-     "won": 1
+     "played": 3,
+     "won": 3
     },
     "S": {
-     "played": 1,
-     "won": 1
+     "played": 2,
+     "won": 2
     }
    },
    "profile": {
@@ -2334,6 +2459,126 @@
    }
   },
   {
+   "id": "314546",
+   "name": "Andreas Tønnesen",
+   "teams": [
+    "4 Spillere A-række"
+   ],
+   "adult": true,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "2. D",
+     "partner": [
+      "Kim Eriksen"
+     ],
+     "opponents": [
+      "Nicolai Jelstrup",
+      "Ole Kofoed"
+     ],
+     "sets": [
+      [
+       10,
+       15
+      ],
+      [
+       15,
+       17
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "4. D",
+     "partner": [
+      "Michael Schutt Nielsen"
+     ],
+     "opponents": [
+      "Kenneth Olsen",
+      "Ole Kofoed"
+     ],
+     "sets": [
+      [
+       15,
+       13
+      ],
+      [
+       15,
+       9
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "5. D",
+     "partner": [
+      "Kent bisgaard"
+     ],
+     "opponents": [
+      "Steffen Olsen",
+      "Ole Kofoed"
+     ],
+     "sets": [
+      [
+       15,
+       17
+      ],
+      [
+       12,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 3,
+   "won": 1,
+   "lost": 2,
+   "winPct": 33,
+   "pointsFor": 82,
+   "pointsAgainst": 86,
+   "avgPoints": 27.3,
+   "avgDiff": -1.3,
+   "setsWon": 2,
+   "setsLost": 4,
+   "byDiscipline": {
+    "D": {
+     "played": 3,
+     "won": 1
+    }
+   },
+   "profile": {
+    "level": "1946",
+    "rankings": [
+     {
+      "list": "Double",
+      "category": "SEN",
+      "points": "1946",
+      "matches": "0",
+      "placement": ""
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "324944",
    "name": "August Drescher",
    "teams": [
@@ -2394,22 +2639,77 @@
      ],
      "won": true,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "2. D",
+     "partner": [
+      "Malthe Larsen"
+     ],
+     "opponents": [
+      "Bertram Vilhelm Arnskjold Kragh",
+      "Gustav Westergaard Clausen"
+     ],
+     "sets": [
+      [
+       8,
+       15
+      ],
+      [
+       11,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "4. S",
+     "partner": [],
+     "opponents": [
+      "Victor Nørtranders Damsgaard"
+     ],
+     "sets": [
+      [
+       15,
+       8
+      ],
+      [
+       15,
+       9
+      ]
+     ],
+     "won": true,
+     "walkover": ""
     }
    ],
-   "played": 2,
-   "won": 2,
-   "lost": 0,
-   "winPct": 100,
-   "pointsFor": 60,
-   "pointsAgainst": 30,
-   "avgPoints": 30.0,
-   "avgDiff": 15.0,
-   "setsWon": 4,
-   "setsLost": 0,
+   "played": 4,
+   "won": 3,
+   "lost": 1,
+   "winPct": 75,
+   "pointsFor": 109,
+   "pointsAgainst": 77,
+   "avgPoints": 27.2,
+   "avgDiff": 8.0,
+   "setsWon": 6,
+   "setsLost": 2,
    "byDiscipline": {
     "D": {
-     "played": 2,
+     "played": 3,
      "won": 2
+    },
+    "S": {
+     "played": 1,
+     "won": 1
     }
    },
    "profile": {
@@ -2498,25 +2798,53 @@
      ],
      "won": true,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "3. S",
+     "partner": [],
+     "opponents": [
+      "Buster Nygaard Bilenberg"
+     ],
+     "sets": [
+      [
+       15,
+       12
+      ],
+      [
+       10,
+       15
+      ],
+      [
+       9,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
     }
    ],
-   "played": 2,
+   "played": 3,
    "won": 2,
-   "lost": 0,
-   "winPct": 100,
-   "pointsFor": 60,
-   "pointsAgainst": 36,
-   "avgPoints": 30.0,
-   "avgDiff": 12.0,
-   "setsWon": 4,
-   "setsLost": 0,
+   "lost": 1,
+   "winPct": 67,
+   "pointsFor": 94,
+   "pointsAgainst": 78,
+   "avgPoints": 31.3,
+   "avgDiff": 5.3,
+   "setsWon": 5,
+   "setsLost": 2,
    "byDiscipline": {
     "D": {
      "played": 1,
      "won": 1
     },
     "S": {
-     "played": 1,
+     "played": 2,
      "won": 1
     }
    },
@@ -3464,21 +3792,48 @@
      ],
      "won": false,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "4. D",
+     "partner": [
+      "Julius Tolsøe"
+     ],
+     "opponents": [
+      "Bertram Vilhelm Arnskjold Kragh",
+      "Victor Nørtranders Damsgaard"
+     ],
+     "sets": [
+      [
+       6,
+       15
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
     }
    ],
-   "played": 2,
+   "played": 3,
    "won": 1,
-   "lost": 1,
-   "winPct": 50,
-   "pointsFor": 52,
-   "pointsAgainst": 50,
-   "avgPoints": 26.0,
-   "avgDiff": 1.0,
+   "lost": 2,
+   "winPct": 33,
+   "pointsFor": 71,
+   "pointsAgainst": 80,
+   "avgPoints": 23.7,
+   "avgDiff": -3.0,
    "setsWon": 2,
-   "setsLost": 2,
+   "setsLost": 4,
    "byDiscipline": {
     "D": {
-     "played": 1,
+     "played": 2,
      "won": 1
     },
     "S": {
@@ -6812,22 +7167,76 @@
      ],
      "won": true,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "4. D",
+     "partner": [
+      "Christopher Johannessen"
+     ],
+     "opponents": [
+      "Bertram Vilhelm Arnskjold Kragh",
+      "Victor Nørtranders Damsgaard"
+     ],
+     "sets": [
+      [
+       6,
+       15
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "3. D",
+     "partner": [
+      "Aksel Schroller Broerson"
+     ],
+     "opponents": [
+      "Buster Nygaard Bilenberg",
+      "Victor Nørtranders Damsgaard"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "won": true,
+     "walkover": ""
     }
    ],
-   "played": 2,
-   "won": 2,
-   "lost": 0,
-   "winPct": 100,
-   "pointsFor": 60,
-   "pointsAgainst": 27,
-   "avgPoints": 30.0,
-   "avgDiff": 16.5,
-   "setsWon": 4,
-   "setsLost": 0,
+   "played": 4,
+   "won": 3,
+   "lost": 1,
+   "winPct": 75,
+   "pointsFor": 109,
+   "pointsAgainst": 77,
+   "avgPoints": 27.2,
+   "avgDiff": 8.0,
+   "setsWon": 6,
+   "setsLost": 2,
    "byDiscipline": {
     "D": {
-     "played": 1,
-     "won": 1
+     "played": 3,
+     "won": 2
     },
     "S": {
      "played": 1,
@@ -7132,13 +7541,219 @@
    }
   },
   {
+   "id": "355614",
+   "name": "Kent bisgaard",
+   "teams": [
+    "4 Spillere A-række"
+   ],
+   "adult": true,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "1. D",
+     "partner": [
+      "Michael Schutt Nielsen"
+     ],
+     "opponents": [
+      "Steffen Olsen",
+      "Kenneth Olsen"
+     ],
+     "sets": [
+      [
+       14,
+       16
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "3. D",
+     "partner": [
+      "Kim Eriksen"
+     ],
+     "opponents": [
+      "Steffen Olsen",
+      "Nicolai Jelstrup"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       11
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "5. D",
+     "partner": [
+      "Andreas Tønnesen"
+     ],
+     "opponents": [
+      "Steffen Olsen",
+      "Ole Kofoed"
+     ],
+     "sets": [
+      [
+       15,
+       17
+      ],
+      [
+       12,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 3,
+   "won": 1,
+   "lost": 2,
+   "winPct": 33,
+   "pointsFor": 81,
+   "pointsAgainst": 84,
+   "avgPoints": 27.0,
+   "avgDiff": -1.0,
+   "setsWon": 2,
+   "setsLost": 4,
+   "byDiscipline": {
+    "D": {
+     "played": 3,
+     "won": 1
+    }
+   },
+   "profile": {
+    "level": "1555",
+    "rankings": [
+     {
+      "list": "Double",
+      "category": "SEN D",
+      "points": "1555",
+      "matches": "7",
+      "placement": "9412"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "9643",
    "name": "Kim Eriksen",
    "teams": [
+    "4 Spillere A-række",
     "MOT 4 spillere Mester"
    ],
    "adult": true,
    "games": [
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "2. D",
+     "partner": [
+      "Andreas Tønnesen"
+     ],
+     "opponents": [
+      "Nicolai Jelstrup",
+      "Ole Kofoed"
+     ],
+     "sets": [
+      [
+       10,
+       15
+      ],
+      [
+       15,
+       17
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "3. D",
+     "partner": [
+      "Kent bisgaard"
+     ],
+     "opponents": [
+      "Steffen Olsen",
+      "Nicolai Jelstrup"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       11
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "6. D",
+     "partner": [
+      "Michael Schutt Nielsen"
+     ],
+     "opponents": [
+      "Kenneth Olsen",
+      "Nicolai Jelstrup"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
     {
      "date": "2026-10-04",
      "team": "MOT 4 spillere Mester",
@@ -7225,20 +7840,20 @@
      "walkover": ""
     }
    ],
-   "played": 3,
-   "won": 2,
-   "lost": 1,
+   "played": 6,
+   "won": 4,
+   "lost": 2,
    "winPct": 67,
-   "pointsFor": 103,
-   "pointsAgainst": 86,
-   "avgPoints": 34.3,
-   "avgDiff": 5.7,
-   "setsWon": 5,
-   "setsLost": 2,
+   "pointsFor": 200,
+   "pointsAgainst": 174,
+   "avgPoints": 33.3,
+   "avgDiff": 4.3,
+   "setsWon": 9,
+   "setsLost": 5,
    "byDiscipline": {
     "D": {
-     "played": 3,
-     "won": 2
+     "played": 6,
+     "won": 4
     }
    },
    "profile": {
@@ -7738,22 +8353,104 @@
      ],
      "won": true,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "1. D",
+     "partner": [
+      "Aksel Schroller Broerson"
+     ],
+     "opponents": [
+      "Gustav Westergaard Clausen",
+      "Buster Nygaard Bilenberg"
+     ],
+     "sets": [
+      [
+       15,
+       9
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "2. D",
+     "partner": [
+      "August Drescher"
+     ],
+     "opponents": [
+      "Bertram Vilhelm Arnskjold Kragh",
+      "Gustav Westergaard Clausen"
+     ],
+     "sets": [
+      [
+       8,
+       15
+      ],
+      [
+       11,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 A",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "VBC/FKIF 1",
+     "matchID": "516362",
+     "discipline": "2. S",
+     "partner": [],
+     "opponents": [
+      "Bertram Vilhelm Arnskjold Kragh"
+     ],
+     "sets": [
+      [
+       16,
+       14
+      ],
+      [
+       16,
+       14
+      ]
+     ],
+     "won": true,
+     "walkover": ""
     }
    ],
-   "played": 2,
-   "won": 2,
-   "lost": 0,
-   "winPct": 100,
-   "pointsFor": 60,
-   "pointsAgainst": 34,
-   "avgPoints": 30.0,
-   "avgDiff": 13.0,
-   "setsWon": 4,
-   "setsLost": 0,
+   "played": 5,
+   "won": 4,
+   "lost": 1,
+   "winPct": 80,
+   "pointsFor": 141,
+   "pointsAgainst": 111,
+   "avgPoints": 28.2,
+   "avgDiff": 6.0,
+   "setsWon": 8,
+   "setsLost": 2,
    "byDiscipline": {
     "D": {
-     "played": 2,
-     "won": 2
+     "played": 4,
+     "won": 3
+    },
+    "S": {
+     "played": 1,
+     "won": 1
     }
    },
    "profile": {
@@ -9357,6 +10054,130 @@
       "points": "1160",
       "matches": "13",
       "placement": "15252"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
+   "id": "158737",
+   "name": "Michael Schutt Nielsen",
+   "teams": [
+    "4 Spillere A-række"
+   ],
+   "adult": true,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "1. D",
+     "partner": [
+      "Kent bisgaard"
+     ],
+     "opponents": [
+      "Steffen Olsen",
+      "Kenneth Olsen"
+     ],
+     "sets": [
+      [
+       14,
+       16
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "4. D",
+     "partner": [
+      "Andreas Tønnesen"
+     ],
+     "opponents": [
+      "Kenneth Olsen",
+      "Ole Kofoed"
+     ],
+     "sets": [
+      [
+       15,
+       13
+      ],
+      [
+       15,
+       9
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "4 Spillere A-række",
+     "teamName": "Hørsholm",
+     "opponentTeam": "Nordbyens Badmintonklub",
+     "matchID": "513112",
+     "discipline": "6. D",
+     "partner": [
+      "Kim Eriksen"
+     ],
+     "opponents": [
+      "Kenneth Olsen",
+      "Nicolai Jelstrup"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    }
+   ],
+   "played": 3,
+   "won": 2,
+   "lost": 1,
+   "winPct": 67,
+   "pointsFor": 96,
+   "pointsAgainst": 88,
+   "avgPoints": 32.0,
+   "avgDiff": 2.7,
+   "setsWon": 4,
+   "setsLost": 3,
+   "byDiscipline": {
+    "D": {
+     "played": 3,
+     "won": 2
+    }
+   },
+   "profile": {
+    "level": "2577",
+    "rankings": [
+     {
+      "list": "Double",
+      "category": "SEN A-B",
+      "points": "2577",
+      "matches": "9",
+      "placement": "2405"
      }
     ],
     "license": "Ingen"

@@ -1,17 +1,438 @@
 {
-  "updated": "2026-10-25T13:14:08+00:00",
+  "updated": "2026-10-25T15:07:26+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
   "teams": [
     {
-      "name": "Hørsholm 1",
-      "pulje": "U15 A, 7200 (4 spillere) Pulje 1",
-      "label": "U15 A",
-      "position": "2",
+      "name": "Hørsholm",
+      "pulje": "4 Spillere A-række Pulje 1",
+      "label": "4 Spillere A-række",
+      "position": "3",
       "standing": [
         {
           "pos": "1",
+          "team": "Team Nordkysten",
+          "teamID": "124299",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "4-2",
+          "sets": "10-6",
+          "points": "2"
+        },
+        {
+          "pos": "2",
+          "team": "Nordbyens Badmintonklub",
+          "teamID": "124302",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "3-3",
+          "sets": "7-6",
+          "points": "1"
+        },
+        {
+          "pos": "3",
+          "team": "Hørsholm",
+          "teamID": "124301",
+          "isUs": true,
+          "played": "1",
+          "won": "0",
+          "score": "3-3",
+          "sets": "6-7",
+          "points": "1"
+        },
+        {
+          "pos": "4",
+          "team": "Dianalund BK",
+          "teamID": "124300",
+          "isUs": false,
+          "played": "0",
+          "won": "0",
+          "score": "0-0",
+          "sets": "0-0",
+          "points": "0"
+        },
+        {
+          "pos": "5",
+          "team": "Greve 2",
+          "teamID": "124298",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "2-4",
+          "sets": "6-10",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19068",
+      "ageGroupID": "9",
+      "leagueGroupTeamID": "124301",
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19068,9,10,124301,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19068,9,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-04",
+          "time": null,
+          "home": "Dianalund BK",
+          "away": "Hørsholm",
+          "isHome": false,
+          "opponent": "Dianalund BK",
+          "organiser": "Dianalund BK",
+          "venue": "",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513110",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513110,1151,",
+          "games": []
+        },
+        {
+          "date": "2026-10-25",
+          "time": "12:00",
+          "home": "Hørsholm",
+          "away": "Nordbyens Badmintonklub",
+          "isHome": true,
+          "opponent": "Nordbyens Badmintonklub",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-2",
+          "result": "3-3",
+          "points": "1-1",
+          "outcome": "U",
+          "walkover": "",
+          "played": true,
+          "matchID": "513112",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513112,1151,",
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "355614",
+                  "name": "Kent bisgaard"
+                },
+                {
+                  "id": "158737",
+                  "name": "Michael Schutt Nielsen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "10703",
+                  "name": "Steffen Olsen"
+                },
+                {
+                  "id": "11292",
+                  "name": "Kenneth Olsen"
+                }
+              ],
+              "sets": [
+                [
+                  14,
+                  16
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "9643",
+                  "name": "Kim Eriksen"
+                },
+                {
+                  "id": "314546",
+                  "name": "Andreas Tønnesen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "10360",
+                  "name": "Nicolai Jelstrup"
+                },
+                {
+                  "id": "8489",
+                  "name": "Ole Kofoed"
+                }
+              ],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  15,
+                  17
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "355614",
+                  "name": "Kent bisgaard"
+                },
+                {
+                  "id": "9643",
+                  "name": "Kim Eriksen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "10703",
+                  "name": "Steffen Olsen"
+                },
+                {
+                  "id": "10360",
+                  "name": "Nicolai Jelstrup"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "158737",
+                  "name": "Michael Schutt Nielsen"
+                },
+                {
+                  "id": "314546",
+                  "name": "Andreas Tønnesen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "11292",
+                  "name": "Kenneth Olsen"
+                },
+                {
+                  "id": "8489",
+                  "name": "Ole Kofoed"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "5. D",
+              "home": [
+                {
+                  "id": "355614",
+                  "name": "Kent bisgaard"
+                },
+                {
+                  "id": "314546",
+                  "name": "Andreas Tønnesen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "10703",
+                  "name": "Steffen Olsen"
+                },
+                {
+                  "id": "8489",
+                  "name": "Ole Kofoed"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  17
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "6. D",
+              "home": [
+                {
+                  "id": "158737",
+                  "name": "Michael Schutt Nielsen"
+                },
+                {
+                  "id": "9643",
+                  "name": "Kim Eriksen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "11292",
+                  "name": "Kenneth Olsen"
+                },
+                {
+                  "id": "10360",
+                  "name": "Nicolai Jelstrup"
+                }
+              ],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-12-06",
+          "time": "14:00",
+          "home": "Hørsholm",
+          "away": "Greve 2",
+          "isHome": true,
+          "opponent": "Greve 2",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-2",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513115",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513115,1151,",
+          "games": []
+        },
+        {
+          "date": "2027-01-16",
+          "time": "14:30",
+          "home": "Team Nordkysten",
+          "away": "Hørsholm",
+          "isHome": false,
+          "opponent": "Team Nordkysten",
+          "organiser": "Team Nordkysten",
+          "venue": "Nordkysthallen",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513118",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513118,1151,",
+          "games": []
+        }
+      ],
+      "players": [
+        {
+          "id": "314546",
+          "name": "Andreas Tønnesen",
+          "games": 3,
+          "won": 1,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#314546"
+        },
+        {
+          "id": "355614",
+          "name": "Kent bisgaard",
+          "games": 3,
+          "won": 1,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#355614"
+        },
+        {
+          "id": "9643",
+          "name": "Kim Eriksen",
+          "games": 3,
+          "won": 2,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#9643"
+        },
+        {
+          "id": "158737",
+          "name": "Michael Schutt Nielsen",
+          "games": 3,
+          "won": 2,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#158737"
+        }
+      ]
+    },
+    {
+      "name": "Hørsholm 1",
+      "pulje": "U15 A, 7200 (4 spillere) Pulje 1",
+      "label": "U15 A",
+      "position": "1",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Hørsholm 1",
+          "teamID": "124884",
+          "isUs": true,
+          "played": "2",
+          "won": "2",
+          "score": "12-4",
+          "sets": "25-9",
+          "points": "7"
+        },
+        {
+          "pos": "2",
+          "team": "VBC/FKIF 1",
+          "teamID": "124887",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "10-6",
+          "sets": "22-16",
+          "points": "5"
+        },
+        {
+          "pos": "3",
           "team": "KBK Kbh. 2",
           "teamID": "124586",
           "isUs": false,
@@ -22,18 +443,18 @@
           "points": "4"
         },
         {
-          "pos": "2",
-          "team": "Hørsholm 1",
-          "teamID": "124884",
-          "isUs": true,
-          "played": "1",
+          "pos": "4",
+          "team": "Gladsaxe Søborg 1",
+          "teamID": "124589",
+          "isUs": false,
+          "played": "2",
           "won": "1",
-          "score": "7-1",
-          "sets": "14-2",
+          "score": "8-8",
+          "sets": "20-20",
           "points": "4"
         },
         {
-          "pos": "3",
+          "pos": "5",
           "team": "BC37/IBB 1",
           "teamID": "124885",
           "isUs": false,
@@ -44,7 +465,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
+          "pos": "5",
           "team": "Birkerød BK13 1",
           "teamID": "124881",
           "isUs": false,
@@ -55,18 +476,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
-          "team": "Gladsaxe Søborg 1",
-          "teamID": "124589",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "3",
+          "pos": "5",
           "team": "Holte 1",
           "teamID": "124882",
           "isUs": false,
@@ -77,7 +487,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
+          "pos": "5",
           "team": "Køge 1",
           "teamID": "124588",
           "isUs": false,
@@ -88,7 +498,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
+          "pos": "5",
           "team": "Lyngby 1",
           "teamID": "124886",
           "isUs": false,
@@ -99,29 +509,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
-          "team": "VBC/FKIF 1",
-          "teamID": "124887",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
           "pos": "10",
-          "team": "Nykøbing F 1",
-          "teamID": "124883",
-          "isUs": false,
-          "played": "1",
-          "won": "0",
-          "score": "1-7",
-          "sets": "2-14",
-          "points": "0"
-        },
-        {
-          "pos": "11",
           "team": "Værløse 2",
           "teamID": "124587",
           "isUs": false,
@@ -129,6 +517,17 @@
           "won": "0",
           "score": "0-8",
           "sets": "2-16",
+          "points": "0"
+        },
+        {
+          "pos": "11",
+          "team": "Nykøbing F 1",
+          "teamID": "124883",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "2-14",
+          "sets": "7-29",
           "points": "0"
         }
       ],
@@ -414,14 +813,271 @@
           "opponent": "VBC/FKIF 1",
           "organiser": "VBC/FKIF",
           "venue": "Frederiksberghal 3 3-4",
-          "result": null,
-          "points": null,
-          "outcome": null,
+          "result": "5-3",
+          "points": "3-1",
+          "outcome": "V",
           "walkover": "",
-          "played": false,
+          "played": true,
           "matchID": "516362",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516362,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "334106",
+                  "name": "Malthe Larsen"
+                },
+                {
+                  "id": "324936",
+                  "name": "Aksel Schroller Broerson"
+                }
+              ],
+              "away": [
+                {
+                  "id": "322454",
+                  "name": "Gustav Westergaard Clausen"
+                },
+                {
+                  "id": "326888",
+                  "name": "Buster Nygaard Bilenberg"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "326116",
+                  "name": "Christopher Johannessen"
+                },
+                {
+                  "id": "320930",
+                  "name": "Julius Tolsøe"
+                }
+              ],
+              "away": [
+                {
+                  "id": "329145",
+                  "name": "Bertram Vilhelm Arnskjold Kragh"
+                },
+                {
+                  "id": "329150",
+                  "name": "Victor Nørtranders Damsgaard"
+                }
+              ],
+              "sets": [
+                [
+                  6,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "334106",
+                  "name": "Malthe Larsen"
+                },
+                {
+                  "id": "324944",
+                  "name": "August Drescher"
+                }
+              ],
+              "away": [
+                {
+                  "id": "329145",
+                  "name": "Bertram Vilhelm Arnskjold Kragh"
+                },
+                {
+                  "id": "322454",
+                  "name": "Gustav Westergaard Clausen"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "324936",
+                  "name": "Aksel Schroller Broerson"
+                },
+                {
+                  "id": "320930",
+                  "name": "Julius Tolsøe"
+                }
+              ],
+              "away": [
+                {
+                  "id": "326888",
+                  "name": "Buster Nygaard Bilenberg"
+                },
+                {
+                  "id": "329150",
+                  "name": "Victor Nørtranders Damsgaard"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "324936",
+                  "name": "Aksel Schroller Broerson"
+                }
+              ],
+              "away": [
+                {
+                  "id": "322454",
+                  "name": "Gustav Westergaard Clausen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  5
+                ],
+                [
+                  15,
+                  17
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "334106",
+                  "name": "Malthe Larsen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "329145",
+                  "name": "Bertram Vilhelm Arnskjold Kragh"
+                }
+              ],
+              "sets": [
+                [
+                  16,
+                  14
+                ],
+                [
+                  16,
+                  14
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "352483",
+                  "name": "Birk Lund Dujardin"
+                }
+              ],
+              "away": [
+                {
+                  "id": "326888",
+                  "name": "Buster Nygaard Bilenberg"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  10,
+                  15
+                ],
+                [
+                  9,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "324944",
+                  "name": "August Drescher"
+                }
+              ],
+              "away": [
+                {
+                  "id": "329150",
+                  "name": "Victor Nørtranders Damsgaard"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-11-15",
@@ -572,8 +1228,8 @@
         {
           "id": "324936",
           "name": "Aksel Schroller Broerson",
-          "games": 2,
-          "won": 2,
+          "games": 5,
+          "won": 5,
           "disciplines": [
             "D",
             "S"
@@ -581,19 +1237,42 @@
           "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#324936"
         },
         {
+          "id": "334106",
+          "name": "Malthe Larsen",
+          "games": 5,
+          "won": 4,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#334106"
+        },
+        {
           "id": "324944",
           "name": "August Drescher",
-          "games": 2,
-          "won": 2,
+          "games": 4,
+          "won": 3,
           "disciplines": [
-            "D"
+            "D",
+            "S"
           ],
           "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#324944"
         },
         {
+          "id": "320930",
+          "name": "Julius Tolsøe",
+          "games": 4,
+          "won": 3,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#320930"
+        },
+        {
           "id": "352483",
           "name": "Birk Lund Dujardin",
-          "games": 2,
+          "games": 3,
           "won": 2,
           "disciplines": [
             "D",
@@ -604,34 +1283,13 @@
         {
           "id": "326116",
           "name": "Christopher Johannessen",
-          "games": 2,
+          "games": 3,
           "won": 1,
           "disciplines": [
             "D",
             "S"
           ],
           "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#326116"
-        },
-        {
-          "id": "320930",
-          "name": "Julius Tolsøe",
-          "games": 2,
-          "won": 2,
-          "disciplines": [
-            "D",
-            "S"
-          ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#320930"
-        },
-        {
-          "id": "334106",
-          "name": "Malthe Larsen",
-          "games": 2,
-          "won": 2,
-          "disciplines": [
-            "D"
-          ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#334106"
         }
       ]
     },
@@ -639,32 +1297,21 @@
       "name": "Hørsholm 1",
       "pulje": "U11 C, 5000 (4 spillere) Pulje 1",
       "label": "U11 C",
-      "position": "3",
+      "position": "2",
       "standing": [
         {
           "pos": "1",
-          "team": "Badminton Roskilde 2",
-          "teamID": "124387",
-          "isUs": false,
-          "played": "1",
-          "won": "1",
-          "score": "6-2",
-          "sets": "14-6",
-          "points": "4"
-        },
-        {
-          "pos": "2",
           "team": "Lillerød 1",
           "teamID": "124382",
           "isUs": false,
-          "played": "1",
+          "played": "2",
           "won": "1",
-          "score": "6-2",
-          "sets": "12-4",
-          "points": "4"
+          "score": "9-7",
+          "sets": "18-15",
+          "points": "5"
         },
         {
-          "pos": "3",
+          "pos": "2",
           "team": "Hørsholm 1",
           "teamID": "124385",
           "isUs": true,
@@ -675,26 +1322,37 @@
           "points": "4"
         },
         {
-          "pos": "4",
-          "team": "Humlebæk 1",
-          "teamID": "124384",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "4",
+          "pos": "3",
           "team": "Slangerup/Skibby 1",
           "teamID": "124388",
           "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
+          "played": "1",
+          "won": "1",
+          "score": "6-2",
+          "sets": "12-5",
+          "points": "4"
+        },
+        {
+          "pos": "4",
+          "team": "Badminton Roskilde 2",
+          "teamID": "124387",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "8-8",
+          "sets": "19-18",
+          "points": "4"
+        },
+        {
+          "pos": "5",
+          "team": "Humlebæk 1",
+          "teamID": "124384",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "5-3",
+          "sets": "11-6",
+          "points": "3"
         },
         {
           "pos": "6",
@@ -5135,22 +5793,22 @@
           "team": "SAIF Kbh. (N)",
           "teamID": "122003",
           "isUs": false,
-          "played": "3",
-          "won": "0",
-          "score": "6-33",
-          "sets": "17-70",
-          "points": "6"
+          "played": "4",
+          "won": "1",
+          "score": "14-38",
+          "sets": "35-83",
+          "points": "17"
         },
         {
           "pos": "8",
           "team": "Holte 2",
           "teamID": "122002",
           "isUs": false,
-          "played": "3",
+          "played": "4",
           "won": "0",
-          "score": "3-36",
-          "sets": "14-67",
-          "points": "3"
+          "score": "8-44",
+          "sets": "27-85",
+          "points": "8"
         }
       ],
       "leagueGroupID": "18858",
@@ -9014,11 +9672,11 @@
           "team": "Lynge Uggeløse 2",
           "teamID": "122643",
           "isUs": false,
-          "played": "2",
-          "won": "2",
-          "score": "9-3",
-          "sets": "19-8",
-          "points": "5"
+          "played": "3",
+          "won": "3",
+          "score": "14-4",
+          "sets": "29-10",
+          "points": "8"
         },
         {
           "pos": "2",
@@ -9091,10 +9749,10 @@
           "team": "Birkerød BK13 1",
           "teamID": "122639",
           "isUs": false,
-          "played": "0",
+          "played": "1",
           "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
+          "score": "1-5",
+          "sets": "2-10",
           "points": "0"
         },
         {
@@ -9832,149 +10490,6 @@
       "players": []
     },
     {
-      "name": "Hørsholm",
-      "pulje": "4 Spillere A-række Pulje 1",
-      "label": "4 Spillere A-række",
-      "position": "2",
-      "standing": [
-        {
-          "pos": "1",
-          "team": "Team Nordkysten",
-          "teamID": "124299",
-          "isUs": false,
-          "played": "1",
-          "won": "1",
-          "score": "4-2",
-          "sets": "10-6",
-          "points": "2"
-        },
-        {
-          "pos": "2",
-          "team": "Dianalund BK",
-          "teamID": "124300",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "2",
-          "team": "Hørsholm",
-          "teamID": "124301",
-          "isUs": true,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "2",
-          "team": "Nordbyens Badmintonklub",
-          "teamID": "124302",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "5",
-          "team": "Greve 2",
-          "teamID": "124298",
-          "isUs": false,
-          "played": "1",
-          "won": "0",
-          "score": "2-4",
-          "sets": "6-10",
-          "points": "0"
-        }
-      ],
-      "leagueGroupID": "19068",
-      "ageGroupID": "9",
-      "leagueGroupTeamID": "124301",
-      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19068,9,10,124301,,1151,",
-      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19068,9,10,,,1151,",
-      "matches": [
-        {
-          "date": "2026-10-04",
-          "time": null,
-          "home": "Dianalund BK",
-          "away": "Hørsholm",
-          "isHome": false,
-          "opponent": "Dianalund BK",
-          "organiser": "Dianalund BK",
-          "venue": "",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513110",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513110,1151,",
-          "games": []
-        },
-        {
-          "date": "2026-10-25",
-          "time": "12:00",
-          "home": "Hørsholm",
-          "away": "Nordbyens Badmintonklub",
-          "isHome": true,
-          "opponent": "Nordbyens Badmintonklub",
-          "organiser": "Hørsholm",
-          "venue": "Hørsholm Badminton Hal 1-2",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513112",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513112,1151,",
-          "games": []
-        },
-        {
-          "date": "2026-12-06",
-          "time": "14:00",
-          "home": "Hørsholm",
-          "away": "Greve 2",
-          "isHome": true,
-          "opponent": "Greve 2",
-          "organiser": "Hørsholm",
-          "venue": "Hørsholm Badminton Hal 1-2",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513115",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513115,1151,",
-          "games": []
-        },
-        {
-          "date": "2027-01-16",
-          "time": "14:30",
-          "home": "Team Nordkysten",
-          "away": "Hørsholm",
-          "isHome": false,
-          "opponent": "Team Nordkysten",
-          "organiser": "Team Nordkysten",
-          "venue": "Nordkysthallen",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513118",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513118,1151,",
-          "games": []
-        }
-      ],
-      "players": []
-    },
-    {
       "name": "Hørsholm 2",
       "pulje": "U15 B, 6200 (4 spillere) Pulje 2",
       "label": "U15 B",
@@ -10287,10 +10802,21 @@
       "name": "Hørsholm 2",
       "pulje": "U11 Dx, 4200 (4 spillere) Pulje 1",
       "label": "U11 Dx",
-      "position": "3",
+      "position": "6",
       "standing": [
         {
           "pos": "1",
+          "team": "Slagelse 2",
+          "teamID": "124652",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "7-1",
+          "sets": "9-3",
+          "points": "4"
+        },
+        {
+          "pos": "2",
           "team": "Lillerød 3",
           "teamID": "124648",
           "isUs": false,
@@ -10301,7 +10827,29 @@
           "points": "3"
         },
         {
-          "pos": "2",
+          "pos": "3",
+          "team": "Ledøje-Smørum 1",
+          "teamID": "124654",
+          "isUs": false,
+          "played": "1",
+          "won": "1",
+          "score": "5-3",
+          "sets": "11-7",
+          "points": "3"
+        },
+        {
+          "pos": "4",
+          "team": "Vallensbæk 1",
+          "teamID": "124655",
+          "isUs": false,
+          "played": "1",
+          "won": "0",
+          "score": "3-5",
+          "sets": "7-11",
+          "points": "1"
+        },
+        {
+          "pos": "5",
           "team": "Lillerød 2",
           "teamID": "124647",
           "isUs": false,
@@ -10312,7 +10860,7 @@
           "points": "1"
         },
         {
-          "pos": "3",
+          "pos": "6",
           "team": "Ganløse 1",
           "teamID": "124656",
           "isUs": false,
@@ -10323,7 +10871,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
+          "pos": "6",
           "team": "Gørlev 1",
           "teamID": "124657",
           "isUs": false,
@@ -10334,7 +10882,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
+          "pos": "6",
           "team": "Herlev/Hjorten 2",
           "teamID": "124650",
           "isUs": false,
@@ -10345,7 +10893,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
+          "pos": "6",
           "team": "Hørsholm 2",
           "teamID": "124651",
           "isUs": true,
@@ -10356,29 +10904,7 @@
           "points": "0"
         },
         {
-          "pos": "3",
-          "team": "Ledøje-Smørum 1",
-          "teamID": "124654",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "3",
-          "team": "Slagelse 2",
-          "teamID": "124652",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "3",
+          "pos": "6",
           "team": "Solrød Strand 4",
           "teamID": "124649",
           "isUs": false,
@@ -10389,25 +10915,14 @@
           "points": "0"
         },
         {
-          "pos": "3",
-          "team": "Vallensbæk 1",
-          "teamID": "124655",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "3",
+          "pos": "11",
           "team": "Ølstykke 2",
           "teamID": "124653",
           "isUs": false,
-          "played": "0",
+          "played": "1",
           "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
+          "score": "1-7",
+          "sets": "3-9",
           "points": "0"
         }
       ],
