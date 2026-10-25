@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T16:48:51+00:00",
+ "updated": "2026-10-25T20:25:19+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -5911,8 +5911,13 @@
     }
    ],
    "place": {
-    "abroad": true,
-    "region": "Udland"
+    "name": "Dyrup-Bellinge",
+    "lat": 55.3504,
+    "lon": 10.3368,
+    "km": 148,
+    "region": "Syddanmark",
+    "min": 126,
+    "roadKm": 185
    }
   },
   {
@@ -12357,13 +12362,8 @@
     }
    ],
    "place": {
-    "name": "Slovenia",
-    "lat": 55.6821,
-    "lon": 12.5918,
-    "km": 23,
-    "region": "Hovedstaden",
-    "min": 30,
-    "roadKm": 27
+    "abroad": true,
+    "region": "Udland"
    }
   },
   {
@@ -15875,13 +15875,8 @@
     }
    ],
    "place": {
-    "name": "SWEDISH",
-    "lat": 55.6641,
-    "lon": 12.5612,
-    "km": 24,
-    "region": "Hovedstaden",
-    "min": 33,
-    "roadKm": 29
+    "abroad": true,
+    "region": "Udland"
    }
   },
   {
@@ -17176,13 +17171,8 @@
     }
    ],
    "place": {
-    "name": "ICELAND",
-    "lat": 55.6774,
-    "lon": 12.5971,
-    "km": 23,
-    "region": "Hovedstaden",
-    "min": 32,
-    "roadKm": 28
+    "abroad": true,
+    "region": "Udland"
    }
   },
   {

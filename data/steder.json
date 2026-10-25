@@ -1102,13 +1102,7 @@
   "roadKm": 2
  },
  "ICELAND INTERNATIONAL": {
-  "sted": "ICELAND",
-  "lat": 55.6774,
-  "lon": 12.5971,
-  "region": "Hovedstaden",
-  "via": "nominatim",
-  "min": 32,
-  "roadKm": 28
+  "abroad": true
  },
  "Ikast": {
   "sted": "Ikast",
@@ -1697,13 +1691,7 @@
   "roadKm": 25
  },
  "SWEDISH OPEN": {
-  "sted": "SWEDISH",
-  "lat": 55.6641,
-  "lon": 12.5612,
-  "region": "Hovedstaden",
-  "via": "nominatim",
-  "min": 33,
-  "roadKm": 29
+  "abroad": true
  },
  "Sabro": {
   "sted": "Sabro",
@@ -1790,13 +1778,7 @@
   "roadKm": 27
  },
  "Slovenia FUTURE SERIES": {
-  "sted": "Slovenia",
-  "lat": 55.6821,
-  "lon": 12.5918,
-  "region": "Hovedstaden",
-  "via": "nominatim",
-  "min": 30,
-  "roadKm": 27
+  "abroad": true
  },
  "Solbjerg": {
   "sted": "Solbjerg",
@@ -1990,7 +1972,13 @@
   "roadKm": 188
  },
  "VICTOR DENMARK JUNIOR U13CD-U15BCD-U17/U19BCD Dyrup-Bellinge IC": {
-  "abroad": true
+  "sted": "Dyrup-Bellinge",
+  "lat": 55.3504,
+  "lon": 10.3368,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 126,
+  "roadKm": 185
  },
  "VICTOR DENMARK JUNIOR U13MB-U15M-U19M Tarup-Paarup": {
   "sted": "Tarup-Paarup",
@@ -2300,6 +2288,14 @@
   "min": 45,
   "km": 54
  },
+ "hal|Badmintonhallen, Helsingør|Helsingør": {
+  "lat": 56.0349,
+  "lon": 12.613,
+  "precision": "by",
+  "by": "Helsingør",
+  "min": 28,
+  "km": 26
+ },
  "hal|Frederiksberghal 3 1-2|VBC/FKIF": {
   "lat": 55.6815,
   "lon": 12.53,
@@ -2586,6 +2582,22 @@
   "min": 18,
   "km": 13
  },
+ "hal|NKK-Hallen 1-3|Nivå-Kokkedal": {
+  "lat": 55.9344,
+  "lon": 12.5013,
+  "precision": "hal",
+  "by": "Nivå",
+  "min": 14,
+  "km": 12
+ },
+ "hal|NKK-Hallen 3-5|Nivå-Kokkedal": {
+  "lat": 55.9344,
+  "lon": 12.5013,
+  "precision": "hal",
+  "by": "Nivå",
+  "min": 14,
+  "km": 12
+ },
  "hal|Nordkysthallen|Frem - Hellebæk 1": {
   "lat": 56.0731,
   "lon": 12.5247,
@@ -2698,6 +2710,22 @@
   "min": 39,
   "km": 30
  },
+ "hal|Stenvadhallen 1-3|Farum": {
+  "lat": 55.8101,
+  "lon": 12.3703,
+  "precision": "by",
+  "by": "Farum",
+  "min": 23,
+  "km": 15
+ },
+ "hal|Stenvadhallen 6-9|Farum": {
+  "lat": 55.8101,
+  "lon": 12.3703,
+  "precision": "by",
+  "by": "Farum",
+  "min": 23,
+  "km": 15
+ },
  "hal|Stenvadhallen|Farum": {
   "lat": 55.8101,
   "lon": 12.3703,
@@ -2707,6 +2735,22 @@
   "km": 15
  },
  "hal|Værløsehallerne 11-14|Værløse 5": {
+  "lat": 55.7837,
+  "lon": 12.3786,
+  "precision": "hal",
+  "by": "Værløse",
+  "min": 26,
+  "km": 28
+ },
+ "hal|Værløsehallerne 5-7|Værløse": {
+  "lat": 55.7837,
+  "lon": 12.3786,
+  "precision": "hal",
+  "by": "Værløse",
+  "min": 26,
+  "km": 28
+ },
+ "hal|Værløsehallerne 8-10|Værløse": {
   "lat": 55.7837,
   "lon": 12.3786,
   "precision": "hal",
