@@ -25,6 +25,10 @@ a{color:var(--ink)}
 .top .back{width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
 .top .back:focus-visible{outline:2px solid var(--accent)}
 .top .back[hidden]{display:none}
+.top .refresh{margin-left:auto;width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
+.top .refresh:focus-visible{outline:2px solid var(--accent)}
+.top .refresh.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .top .t{display:flex;flex-direction:column;min-width:0;padding-left:8px}
 .top.has-back .t{padding-left:0}
 .top h1{margin:0;font-family:Archivo,sans-serif;font-weight:800;font-size:21px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -145,6 +149,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
 </button>
 <div class="t"><h1 id="title">HØBK</h1><span class="sub" id="subtitle">Henter data …</span></div>
+<button class="refresh" id="refresh" aria-label="Opdater data"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></button>
 </header>
 <main id="main"><div class="loading">Henter holdkampe …</div></main>
 <nav class="tabs" aria-label="Faner"><div class="in">
@@ -172,6 +177,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   var UI = { metric: 'won', filter: 'alle', q: '', seg: 'kampe' };
   var $main = document.getElementById('main');
 
+  var FORCE = 0;   // sættes af opdater-knappen, så alt hentes helt friskt
+  function bustParam(ms) { return '?t=' + (FORCE || Math.floor(Date.now() / ms)); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function dTxt(x) { var p = x.split('-'); var dt = new Date(+p[0], +p[1] - 1, +p[2]); return DAYS[dt.getDay()] + ' ' + (+p[2]) + '. ' + MONS[+p[1] - 1]; }
@@ -182,7 +189,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   function setsTxt(sets) { return sets.map(function (x) { return x[0] + '-' + x[1]; }).join(' '); }
 
   function load() {
-    var bust = '?t=' + Math.floor(Date.now() / 60000);
+    var bust = bustParam(60000);
     return Promise.all([fetch('data/holdkampe.json' + bust).then(function (r) { return r.json(); }),
                         fetch('data/spillere.json' + bust).then(function (r) { return r.json(); }),
                         fetch('data/traening.json' + bust).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })])
@@ -579,7 +586,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     clearTimeout(toast._t); toast._t = setTimeout(function () { t.hidden = true; }, 2600);
   }
   function loadReg() {
-    var bust = '?t=' + Math.floor(Date.now() / 30000);
+    var bust = bustParam(30000);
     return fetch('config.json' + bust).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
       .then(function (cfg) {
         REG.url = (cfg && cfg.registrationUrl) || '';
@@ -867,6 +874,14 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     route();
   });
 
+  document.getElementById('refresh').addEventListener('click', function () {
+    var btn = this; if (btn.classList.contains('spin')) return;
+    btn.classList.add('spin'); FORCE = Date.now();
+    load().then(function () { return loadReg(); })
+      .then(function () { route(true); toast('Opdateret'); })
+      .catch(function () { toast('Kunne ikke opdatere — tjek forbindelsen'); })
+      .then(function () { btn.classList.remove('spin'); FORCE = 0; });
+  });
   load().then(function () { prevHash = location.hash; route(); return loadReg(); }).then(function () { route(true); }).catch(function () {
     $main.innerHTML = '<p class="empty">Kunne ikke hente data. Prøv igen om lidt.</p>';
     document.getElementById('subtitle').textContent = 'Fejl ved hentning';
