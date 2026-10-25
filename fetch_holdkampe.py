@@ -56,7 +56,7 @@ ARG_NAMES = ["subPage", "seasonID", "leagueGroupID", "ageGroupID", "regionID",
 DATE_RE = re.compile(r"\b(\d{1,2})[-./\u2011](\d{1,2})[-./\u2011](\d{4})(?:\s+(\d{1,2}[:.]\d{2}))?")
 SCORE_RE = re.compile(r"^\s*(\d{1,2})\s*-\s*(\d{1,2})\s*$")
 SET_RE = re.compile(r"\b(\d{1,2})\s*-\s*(\d{1,2})\b")
-DISC_RE = re.compile(r"^\s*(\d+)\.?\s*(HS|DS|HD|DD|MD|XD)\b", re.I)
+DISC_RE = re.compile(r"^\s*(\d+)\.?\s*([A-Za-zÆØÅæøå]{1,3})\b")  # HS/DS/HD/DD/MD, eller S/D i 4-spiller-rækker
 SHOW_RE = re.compile(r"ShowStanding\(([^)]*)\)")
 ANCHOR_RE = re.compile(r"<a\b[^>]*ShowStanding\(([^)]*)\)[^>]*>(.*?)</a>", re.S | re.I)
 PLAYER_A_RE = re.compile(r"<a\b[^>]*href=[\"'][^\"']*VisSpiller[^\"']*#(\d+)[^\"']*[\"'][^>]*>(.*?)</a>", re.S | re.I)
