@@ -248,11 +248,15 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (!p) return PARENT;
     if (!p.teams || !p.teams.length) {   // ingen holdkampe: ud fra rangliste-niveau (U… = ungdom, SEN… = senior)
       var lv = (typeof playerLevels === 'function' ? playerLevels(p) : [])[0] || ((p.profile || {}).level || '');
-      return /^U\d/.test(lv) ? teamColor('U') : /^(SEN|MOT|VET|\+)/.test(lv) ? teamColor('Serie') : PARENT;
+      return /^U\d/.test(lv) ? teamColor('U15') : /^(SEN|MOT|VET|\+)/.test(lv) ? teamColor('Serie') : PARENT;
     }
     var n = {}; (p.games || []).forEach(function (g) { n[g.team] = (n[g.team] || 0) + 1; });
     var main = p.teams.slice().sort(function (a, b) { return (n[b] || 0) - (n[a] || 0); })[0];
     return teamColor(main);
+  }
+  function isActive(p) {   // har spillet holdkamp i år eller har et niveau/rangliste på badmintonplayer.dk
+    var pr = p.profile || {};
+    return !!(p.played || (pr.rankings && pr.rankings.length) || pr.level);
   }
   function teamsTxt(p) {   // "U15 B, Serie 2" — eller niveau for spillere uden holdkampe
     if (p.teams && p.teams.length) return p.teams.join(', ');
@@ -456,7 +460,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   }
 
   function viewSpillere() {
-    setTab('spillere'); setHeader('Spillere', D.ids.length + ' spillere · ' + updTxt(), false);
+    setTab('spillere'); setHeader('Spillere', D.ids.filter(function (id) { return isActive(D.players[id]); }).length + ' aktive spillere · ' + updTxt(), false);
     return (isLeader() ? '<button class="rb ja" aria-pressed="true" style="min-height:44px" data-go="#/udtag">Udtag spillere til næste holdkamp ›</button>' : '') +
       '<label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
       '<input id="q" type="search" value="' + esc(UI.q) + '" placeholder="Søg spiller eller hold" aria-label="Søg spiller eller hold" autocomplete="off"></label>' +
@@ -464,11 +468,14 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   }
   function renderPlayerList() {
     var q = UI.q.toLowerCase().trim();
+    var inactive = D.ids.filter(function (id) { return !isActive(D.players[id]); }).length;
     var list = D.ids.filter(function (id) { var p = D.players[id];
+      if (!UI.showInactive && !q && !isActive(p)) return false;   // ved søgning vises alle
       return !q || p.name.toLowerCase().indexOf(q) >= 0 || teamsTxt(p).toLowerCase().indexOf(q) >= 0; })
       .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); });
     var el = document.getElementById('plist'); if (!el) return;
-    el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="lbl">' + list.length + ' spillere</span>' + colorLegend() + '</div>' + list.map(function (id, i) {
+    el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="lbl">' + list.length + ' spillere</span>' + colorLegend() + '</div>' +
+      (inactive && !q ? '<button class="pl xs" data-act="inactive" style="align-self:flex-start">' + (UI.showInactive ? 'Skjul ' + inactive + ' uden niveau og holdkampe' : 'Vis også ' + inactive + ' uden niveau og holdkampe') + '</button>' : '') + list.map(function (id, i) {
       var p = D.players[id];
       return '<button class="card row" style="min-height:54px;padding:8px 12px" data-go="#/spiller/' + esc(id) + '">' +
         '<span class="av" style="width:36px;height:36px;font-size:12px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
@@ -1782,6 +1789,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       }
       ME = null; saveMe(); UI.step = 'name'; toast('Du er logget ud'); route(); return;
     }
+    if (b.dataset.act === 'inactive') { UI.showInactive = !UI.showInactive; renderPlayerList(); return; }
     if (b.dataset.act === 'pushon') { pushOn(); return; }
     if (b.dataset.act === 'pushoff') { pushOff(); return; }
     if (b.dataset.group) {
