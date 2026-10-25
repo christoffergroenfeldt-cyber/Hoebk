@@ -139,6 +139,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .news{color:var(--tour,#7A4FC9);font-weight:600}
 .route{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:14px;text-decoration:none;align-self:flex-start}
 .route svg{flex:none}
+.tlinks{display:flex;flex-wrap:wrap;gap:8px}
+.rb.tlink{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:var(--ink);font-size:14px}
 .drive{display:inline-flex;align-items:center;gap:6px;font-weight:600}
 .cnt{font-size:12px;color:var(--muted);margin-left:auto}
 .who summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--ink);padding:4px 0;list-style-position:inside}
@@ -679,6 +681,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       '<span style="font-weight:600">' + dRange(t) + ' · uge ' + esc(t.week) + '</span>' +
       (t.deadline ? '<span class="s">Tilmeldingsfrist: ' + dTxt(t.deadline) + (t.deadline < today ? ' (lukket)' : '') + '</span>' : '') +
       (placeTxt(t) ? '<span class="s">' + esc((t.place && t.place.name && t.place.name !== t.organiser ? t.place.name + ' · ' : '') + placeTxt(t)) + ' fra Hørsholm' + (t.place && typeof t.place.min === 'number' ? '' : ' (i luftlinje)') + '</span>' : '') +
+      tourLinks(t) +
       routeBtn(tourDest(t)) +
       (t.entryOpen ? '<span class="dl open" style="align-self:flex-start">Tilmelding åben</span>' : '') +
       (tourStatus(t).length ? '<span class="s" style="font-weight:600">Offentliggjort: ' + esc(tourStatus(t).join(' · ')) + '</span>' : '') +
@@ -819,6 +822,21 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       if (res && res.error === 'login') { ME = null; saveMe(); toast('Log ind igen'); route(true); return; }
       toast(res && res.error === 'Ukendt handling' ? 'Klubbens server skal opdateres, før du kan følge turneringer' : (res && res.error) || 'Kunne ikke gemme');
     }).catch(function () { ME.follows = before; saveMe(); route(true); toast('Kunne ikke gemme — tjek forbindelsen'); });
+  }
+  // Links til badmintonplayer.dk fra sæsonplanen (tilmelding kræver login dér)
+  function tourLinks(t) {
+    var u = t.urls || {}, today = iso(new Date()), started = (t.start || '') <= today, out = [];
+    var open = !t.deadline || t.deadline >= today;
+    if (u.tilmelding && open) out.push(['primary', u.tilmelding, 'Tilmeld på badmintonplayer.dk']);
+    if (u.program && !started) out.push(['', u.program, 'Se programmet']);
+    else if (u.resultater && !started) out.push(['', u.resultater, 'Se programmet']);
+    if (u.resultater && started) out.push(['', u.resultater, (t.end || t.start) < today ? 'Resultater' : 'Program og resultater']);
+    if (u.deltagere) out.push(['', u.deltagere, 'Deltagerliste']);
+    if (u.invitation) out.push(['', u.invitation, 'Invitation']);
+    if (!out.length) return '';
+    return '<div class="tlinks">' + out.map(function (x) {
+      return '<a class="' + (x[0] ? 'route' : 'rb tlink') + '" href="' + esc(x[1]) + '" target="_blank" rel="noopener">' + esc(x[2]) + ' ↗</a>'; }).join('') + '</div>' +
+      (u.tilmelding && open ? '<span class="xs">Tilmelding sker på badmintonplayer.dk med dit login dér.</span>' : '');
   }
   function tourStatus(t) {   // hvad er offentliggjort
     var L = t.links || [], today = iso(new Date()), out = [];

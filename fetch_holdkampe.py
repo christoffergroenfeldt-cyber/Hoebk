@@ -576,25 +576,34 @@ def parse_seasonplan(fragment, season):
             import hashlib
             t_id = "x" + hashlib.sha1(f"{start}|{organiser}".encode("utf-8")).hexdigest()[:10]
         # Hvilke links rækken har (ændrer sig når invitation, deltagerliste, program og resultater lægges ud)
-        kinds, labels = set(), []
+        kinds, labels, urls = set(), [], {}
         for href, attrs, inner in re.findall(r"<a\b[^>]*?href=[\'\"]([^\'\"]*)[\'\"]([^>]*)>(.*?)</a>", links, re.S):
             lab = text(inner) or (re.search(r"title=[\'\"]([^\'\"]*)", attrs) or [None, ""])[1]
             labels.append(lab)
             low = (href + " " + lab).lower()
+            full = htmllib.unescape(href).strip()
+            if full.startswith("/"):
+                full = "https://www.badmintonplayer.dk" + full
+            ok = full.startswith("http") and "params=" not in full     # aldrig links med personlige parametre
+            def add(kind):
+                kinds.add(kind)
+                if ok and kind not in urls:
+                    urls[kind] = full
             if "program" in low or "lodtr" in low:
-                kinds.add("program")
+                add("program")
             if "deltagerliste" in low:
-                kinds.add("deltagere")
+                add("deltagere")
             if "visresultater" in low or "resultat" in low:
-                kinds.add("resultater")
+                add("resultater")
             if "invitation" in low or href.lower().endswith(".pdf"):
-                kinds.add("invitation")
+                add("invitation")
             if "tilmeld" in low:
-                kinds.add("tilmelding")
+                add("tilmelding")
         LINK_LABELS.update(labels)
         out.append({
             "id": t_id,
             "links": sorted(kinds),
+            "urls": urls,
             "entryOpen": "TilmeldTurnering" in links,
             "hasResults": "VisResultater" in links and "Program" not in links,
             "start": start, "end": end,

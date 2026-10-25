@@ -147,7 +147,7 @@ Written by `notify_turneringer.py`. No personal data.
   "alias": { "x1a2b3c4d5": "118000" } }   // temporary id → real id once badmintonplayer.dk assigns one
 ```
 
-Each tournament in `turneringer.json` also has `links`: which of `invitation`, `tilmelding`, `deltagere`, `program`, `resultater` the season plan currently links to. A new entry is what triggers "program ready" etc.
+Each tournament in `turneringer.json` also has `links`: which of `invitation`, `tilmelding`, `deltagere`, `program`, `resultater` the season plan currently links to. A new entry is what triggers "program ready" etc. `urls` holds the addresses of those links (`{"tilmelding": "https://www.badmintonplayer.dk/…", "program": …}`); links containing `params=` are never stored. The tournament page shows them as buttons (*Tilmeld på badmintonplayer.dk* while the deadline is open, *Se programmet*, *Resultater*, *Deltagerliste*, *Invitation*).
 
 `data/notifikationer.json` remembers which deadline reminders were sent (`"<id>:frist7:<deadline>": "<date>"`, pruned after 120 days).
 
