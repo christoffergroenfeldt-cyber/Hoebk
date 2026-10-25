@@ -91,6 +91,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .calbar .nav{width:44px;height:44px;flex:0 0 auto;border-radius:999px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center}
 .calbar .lab{flex:1 1 auto;text-align:center;font-family:Archivo,sans-serif;font-weight:800;font-size:17px}
 .calbar .today{min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--ink);background:#fff;font-weight:600;font-size:13px}
+.chip[aria-pressed=true] .xs{color:inherit;opacity:.75}
 .regchips{display:flex;flex-wrap:wrap;gap:6px;overflow:visible}
 .filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .filters select{min-height:40px;border-radius:999px;border:1px solid var(--line);background:#fff;padding:0 12px;font-family:inherit;font-size:14px;color:var(--ink);flex:1 1 160px}
@@ -566,6 +567,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   }
   function bindTourFilters() {
     var k = document.getElementById('tfKm');
+    var ag = document.querySelector('[data-tuage][aria-pressed=true]');   // vis den valgte aldersgruppe i den vandrette række
+    if (ag && ag.parentNode && ag.parentNode.scrollWidth > ag.parentNode.clientWidth) ag.parentNode.scrollLeft = ag.offsetLeft - ag.parentNode.offsetLeft - 16;
     if (k) k.addEventListener('change', function (e) { TF.km = +e.target.value; saveTF(); route(true); });
   }
   function placeTxt(t) {
@@ -639,14 +642,24 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (!D.tours || !D.tours.length) return '<p class="empty">Turneringskalenderen er ikke hentet endnu — den kommer med næste opdatering.</p>';
     var h = '<div class="chips" role="group" aria-label="Aldersgruppe">' + ageList.map(function (a) {
       return '<button class="chip" aria-pressed="' + (TU.age === a) + '" data-tuage="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div>';
-    h += tourFilterUI() + '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="tuPast"' + (TU.past ? ' checked' : '') + '> Vis afholdte</label>';
+    h += '@@LEVELS@@' + tourFilterUI() + '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="tuPast"' + (TU.past ? ' checked' : '') + '> Vis afholdte</label>';
     var byLevel = {};
     list.forEach(function (t) {
       LEVEL_ORDER.forEach(function (l) { if (tourInLevel(t, TU.age + ' ' + l)) (byLevel[l] = byLevel[l] || []).push(t); });
     });
+    // Niveaufilter pr. aldersgruppe (huskes på telefonen): tom = alle niveauer
+    TF.lv = TF.lv || {};
+    var avail = LEVEL_ORDER.filter(function (l) { return byLevel[l] && byLevel[l].length; });
+    var sel = (TF.lv[TU.age] || []).filter(function (l) { return avail.indexOf(l) >= 0; });
+    var lvh = '';
+    if (avail.length > 1) lvh = '<div class="chips regchips" role="group" aria-label="Niveau i ' + esc(TU.age) + '">' +
+      '<button class="chip" data-tulvl="__alle" aria-pressed="' + !sel.length + '">Alle niveauer</button>' +
+      avail.map(function (l) { return '<button class="chip" data-tulvl="' + l + '" aria-pressed="' + (sel.indexOf(l) >= 0) + '">' + esc(LEVEL_NAME[l]) + ' <span class="xs">' + byLevel[l].length + '</span></button>'; }).join('') + '</div>';
+    h = h.replace('@@LEVELS@@', lvh);
     var any = false;
     LEVEL_ORDER.forEach(function (l) {
-      var ts = byLevel[l]; if (!ts || !ts.length) return; any = true;
+      var ts = byLevel[l]; if (!ts || !ts.length) return;
+      if (sel.length && sel.indexOf(l) < 0) return; any = true;
       h += '<div class="lvhead"><b>' + esc(TU.age) + ' ' + LEVEL_NAME[l] + '</b><span class="xs">' + ts.length + ' turneringer</span></div>' +
         ts.map(function (t) { return tourCard(t, [TU.age + ' ' + l]); }).join('');
     });
@@ -1705,7 +1718,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl]');
     if (!b) return;
     if (b.dataset.tuage) { TU.age = b.dataset.tuage; if (!b.dataset.go) { route(true); return; } }
     if (b.dataset.pick) { var pid = b.dataset.pick; if (LU.sel[pid]) delete LU.sel[pid]; else LU.sel[pid] = (D.players[pid] ? D.players[pid].name : (availMap(matchEid(D.teams[LU.team].matches[LU.mi]))[pid] || {}).n || pid); route(true); return; }
@@ -1717,6 +1730,12 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (b.dataset.admteam) { var tl = b.dataset.admteam; if (ADM.teams[tl]) delete ADM.teams[tl]; else ADM.teams[tl] = 1; route(true); return; }
     if (b.dataset.admcancel) { ADM.pick = null; ADM.email = ''; ADM.teams = {}; route(true); return; }
     if (b.dataset.follow) { toggleFollow(b.dataset.follow); return; }
+    if (b.dataset.tulvl) {
+      TF.lv = TF.lv || {};
+      var cur = TF.lv[TU.age] || [], lv = b.dataset.tulvl, li = cur.indexOf(lv);
+      if (lv === '__alle') cur = []; else if (li >= 0) cur.splice(li, 1); else cur.push(lv);
+      TF.lv[TU.age] = cur; saveTF(); route(true); return;
+    }
     if (b.dataset.tfreg) {
       var rg = b.dataset.tfreg, ri = TF.regions.indexOf(rg);
       if (rg === '__alle') TF.regions = []; else if (ri >= 0) TF.regions.splice(ri, 1); else TF.regions.push(rg);

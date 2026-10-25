@@ -52,6 +52,7 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 
 - Upcoming away matches show *ca. 35 min i bil* in the team list, calendar and Min side; the match page shows the drive time from Hørsholm and a **Rutevejledning i Google Maps** button.
 - The button opens `https://www.google.com/maps/dir/?api=1&destination=<hall, town>&travelmode=driving` without a start point, so the phone routes from where you are.
+- Level chips under the age chips (*Alle niveauer*, Elite, Mester, A–D with counts) — pick one or more; remembered per age group (`hoebk_tf.lv`).
 - Tournament filters: region chips (pick one or more; *Hele landet* clears) and a distance select, remembered per phone (`hoebk_tf`).
 - Tournaments show drive time instead of straight-line km once looked up; the tournament page has the same button (destination = organiser club + town — check the invitation for the exact hall).
 - Wrong place? Add the organiser/venue to `data/steder_rettelser.json` (see [DATA.md](DATA.md)).
