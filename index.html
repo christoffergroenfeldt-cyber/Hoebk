@@ -1550,6 +1550,11 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       return '<p class="empty">Henter holdledere …</p>';
     }
     var h = ADM.data.error ? '<div class="warn">' + esc(ADM.data.error) + '</div>' : '';
+    var st = ADM.data.stats;
+    if (st) h += '<span class="lbl">Brugere af appen</span><div class="tiles">' +
+      [['Med profil', st.players], ['Aktive 7 dage', st.active7], ['Notifikationer', st.pushUsers]].map(function (x) {
+        return '<div class="card tile"><span class="lbl" style="margin:0">' + x[0] + '</span><b>' + esc(x[1]) + '</b></div>'; }).join('') + '</div>' +
+      '<p class="note">Aktive 30 dage: ' + esc(st.active30) + ' · følger hold/turneringer: ' + esc(st.followers) + ' (' + esc(st.teamFollows) + ' hold, ' + esc(st.tourFollows) + ' turneringer) · telefoner med notifikationer: ' + esc(st.pushDevices) + ' · holdledere: ' + esc(st.leaders) + '</p>';
     h += '<span class="lbl">Nuværende holdledere</span>';
     h += ADM.data.leaders.length ? ADM.data.leaders.map(function (l, i) {
       return '<div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;gap:8px"><span class="col"><b>' + esc(l.name || l.email) + '</b><span class="xs">' + esc(l.email) + '</span></span>' +

@@ -121,6 +121,10 @@ How it's sent: the script can't sign web-push messages, so `notify` answers GitH
 
 To replace the key pair: generate a new P-256 key, put the public key (base64url, uncompressed point) in `config.json` and the private key (base64url, 32 bytes) in `VAPID_PRIVATE`. Everyone must then switch notifications on again.
 
+## User statistics
+
+`stats_()` in the script counts users — numbers only, never emails: players with a confirmed profile, emails, active sessions, active last 7/30 days (by "sidst brugt"), followers, push devices, mail switched off, leaders. It's returned with `?action=all` (GitHub sync) and to the administrator (`leaders`). `sync_tilmeldinger.py` writes `data/statistik.json` with the latest numbers and one line per day (`history`). The administrator sees them at the top of *Holdledere*. `?action=version` returns `SCRIPT_VERSION` so a deployment can be checked from GitHub (workflow *Tjek Apps Script-version*).
+
 ## Changing the script later
 
 Saving the code is not enough — the live web app keeps running the old version until you publish a new one:

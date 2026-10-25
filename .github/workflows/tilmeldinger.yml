@@ -31,6 +31,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           [ -f data/hoebk.db ] || { echo "Ingen database endnu."; exit 0; }
           git add data/hoebk.db data/tilmeldinger.json
+          [ -f data/statistik.json ] && git add data/statistik.json
           if git diff --cached --quiet; then
             echo "Ingen nye tilmeldinger."
           else

@@ -36,7 +36,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-25.2';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-25.3';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -223,7 +223,7 @@ function leaders_(b) {
   }).filter(function (l) { return l.email; });
   var emails = {};   // spiller-id → bekræftede e-mails (kun til administrator)
   data_('Spillere').forEach(function (r) { var id = String(r[0]); (emails[id] = emails[id] || []); if (emails[id].indexOf(String(r[2])) < 0) emails[id].push(String(r[2])); });
-  return { ok: true, leaders: leaders, emails: emails };
+  return { ok: true, leaders: leaders, emails: emails, stats: stats_() };
 }
 
 function setLeader_(b) {
@@ -365,6 +365,31 @@ function notify_(b) {
   return { ok: true, sent: sent, skipped: skipped, push: jobs };
 }
 
+// Antal brugere — kun tal, ingen e-mails (bruges af sync_tilmeldinger.py og administrator-siden)
+function stats_() {
+  var now = Date.now(), day = 86400000;
+  var players = {}, emails = {};
+  data_('Spillere').forEach(function (r) { if (String(r[2])) { players[String(r[0])] = 1; emails[String(r[2]).toLowerCase()] = 1; } });
+  var active7 = {}, active30 = {}, sessions = 0;
+  data_('Sessioner').forEach(function (r) {
+    if (r[6] !== true) return;
+    sessions++;
+    var seen = r[5] instanceof Date ? r[5].getTime() : 0, pid = String(r[1]);
+    if (now - seen < 7 * day) active7[pid] = 1;
+    if (now - seen < 30 * day) active30[pid] = 1;
+  });
+  var fol = data_('Følger'), followers = {}, teamF = 0, tourF = 0;
+  fol.forEach(function (r) { followers[String(r[0]).toLowerCase()] = 1; if (/^f\d+$/.test(String(r[3]))) teamF++; else tourF++; });
+  var push = data_('Push'), pushUsers = {};
+  push.forEach(function (r) { pushUsers[String(r[0]).toLowerCase()] = 1; });
+  return { players: Object.keys(players).length, emails: Object.keys(emails).length, loggedIn: sessions,
+           active7: Object.keys(active7).length, active30: Object.keys(active30).length,
+           followers: Object.keys(followers).length, teamFollows: teamF, tourFollows: tourF,
+           pushDevices: push.length, pushUsers: Object.keys(pushUsers).length,
+           mailOff: data_('Indstillinger').filter(function (r) { return r[1] === false || String(r[1]).toUpperCase() === 'FALSE'; }).length,
+           leaders: data_('Ledere').length };
+}
+
 function register_(b) {
   var ses = session_(b.token);
   if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
@@ -416,7 +441,7 @@ function doGet(e) {
   if (action === 'all') {
     var key = PropertiesService.getScriptProperties().getProperty('KEY');
     if (!key || e.parameter.key !== key) return json_({ ok: false, error: 'Forkert nøgle' });
-    return json_({ ok: true, lineups: lineups_(), rows: rows.map(function (r) {
+    return json_({ ok: true, version: SCRIPT_VERSION, stats: stats_(), lineups: lineups_(), rows: rows.map(function (r) {
       return { ts: r[0] instanceof Date ? r[0].toISOString() : String(r[0]), type: r[1], eventId: String(r[2]),
                playerId: String(r[3]), playerName: String(r[4]), status: r[5], label: String(r[6]) };
     }) });

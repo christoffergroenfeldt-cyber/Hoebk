@@ -31,6 +31,8 @@ def fetch_rows(url, key):
     if not obj.get("ok"):
         raise SystemExit(f"FEJL fra Apps Script: {obj.get('error')}")
     fetch_rows.new_version = "lineups" in obj   # nyere Apps Script-version (holdopstilling) sender altid "lineups"
+    fetch_rows.stats = obj.get("stats")
+    fetch_rows.version = obj.get("version", "")
     return obj["rows"], obj.get("lineups", [])
 
 
@@ -86,6 +88,27 @@ def build_db(rows, path, lineups=()):
     return latest
 
 
+def log_stats(stats, version):
+    """data/statistik.json: seneste tal + én linje pr. dag (kun antal — ingen navne eller e-mails)."""
+    if not stats:
+        return
+    p = "data/statistik.json"
+    try:
+        with open(p, encoding="utf-8") as f:
+            old = json.load(f)
+    except (OSError, ValueError):
+        old = {"history": []}
+    now = datetime.now(timezone.utc)
+    day = now.date().isoformat()
+    hist = [h for h in old.get("history", []) if h.get("date") != day] + [dict(stats, date=day)]
+    out = {"updated": now.isoformat(timespec="seconds"), "scriptVersion": version, "latest": stats, "history": hist[-400:]}
+    if old.get("latest") == stats and old.get("history", [])[-1:] == hist[-1:]:
+        return                                   # intet nyt → ingen commit
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1)
+    print(f"Brugere: {stats.get('players')} med profil, {stats.get('active7')} aktive sidste 7 dage, {stats.get('pushUsers')} med notifikationer")
+
+
 def main():
     url, key = os.environ.get("REG_URL", "").strip(), os.environ.get("REG_KEY", "").strip()
     if not url or not key:
@@ -102,6 +125,7 @@ def main():
     }
     with open("data/tilmeldinger.json", "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
+    log_stats(getattr(fetch_rows, "stats", None), getattr(fetch_rows, "version", ""))
     print(f"{len(rows)} svar i alt, {len(latest)} aktuelle, {len(lineups)} holdopstillinger → data/hoebk.db + data/tilmeldinger.json")
     return 0
 
