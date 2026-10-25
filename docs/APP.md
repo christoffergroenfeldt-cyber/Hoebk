@@ -89,6 +89,10 @@ Stored in `localStorage` under `hoebk_me`: `{id, name, email, token, groups}`. `
 
 A player's circle has the colour of the division they've played most team matches in — the same colours as the calendar (`teamColor()`): Senior blue, 4 players light blue, Motion orange, Youth lime. People without team matches (parents, coming later) are grey (`PARENT`). The legend is shown above the player list.
 
+## Layout
+
+The page is a fixed frame: `html, body` don't scroll; `.app` is `100dvh` with header, `main` (the only scrolling element, `overflow-y: auto`) and the tab bar as normal flex children. This avoids iOS home-screen apps placing a `position: fixed` tab bar in the middle of the screen after resuming. Scroll position is `$main.scrollTop`, not `window.scrollY`.
+
 ## Design tokens
 
 Defined as CSS variables at the top: ink `#0E2236`, ground `#F7F7F2`, accent (lime) `#D4F25A`, loss `#F3D6D2`. Archivo for headings and numbers, Inter for text. Touch targets are at least 40–44 px; layout is phone-first, max width 560 px.
