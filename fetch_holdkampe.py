@@ -887,6 +887,99 @@ def locate_tournaments(tours, data_dir):
           f"{sum(1 for t in tours if t['place'].get('unknown'))} ukendte (ret i data/steder_rettelser.json)")
 
 
+def write_players(out_teams, out_dir, season, token=None, profiles=None, dump=lambda *a: None):
+    """Spillere: historik fra opstillinger + profil fra badmintonplayer.dk → spillere.json (inkl. klubrangliste).
+    profiles: None = ingen profiler, "all" = hent alle, "new" = genbrug fra sidste spillere.json og hent kun nye."""
+    SENIOR_AGES = {"1", "9", "16"}   # SEN, SEN+40, MOT — voksne rækker
+    players = {}
+    for t in out_teams:
+        for m in t["matches"]:
+            side = "home" if m["isHome"] else "away"
+            other = "away" if side == "home" else "home"
+            for g in m["games"]:
+                ours = g[side]
+                for p in ours:
+                    key = p["id"] or p["name"]
+                    pl = players.setdefault(key, {"id": p["id"], "name": p["name"], "teams": [],
+                                                  "adult": False, "games": []})
+                    if t["label"] not in pl["teams"]:
+                        pl["teams"].append(t["label"])
+                    if t.get("ageGroupID") in SENIOR_AGES:
+                        pl["adult"] = True
+                    pl["games"].append({
+                        "date": m["date"], "team": t["label"], "teamName": t["name"],
+                        "opponentTeam": m["opponent"], "matchID": m["matchID"],
+                        "discipline": g["discipline"],
+                        "partner": [x["name"] for x in ours if (x["id"] or x["name"]) != key],
+                        "opponents": [x["name"] for x in g[other]],
+                        "sets": g["sets"] if side == "home" else [[b, a] for a, b in g["sets"]],
+                        "won": g["winner"] == side,
+                        "walkover": g.get("walkover", ""),
+                    })
+    for pl in players.values():
+        pl["games"].sort(key=lambda x: x["date"], reverse=True)
+        real = [x for x in pl["games"] if x["sets"]]          # kampe med sætcifre (ikke W.O.)
+        pl["played"] = len(pl["games"])
+        pl["won"] = sum(1 for x in pl["games"] if x["won"])
+        pl["lost"] = pl["played"] - pl["won"]
+        pl["winPct"] = round(100 * pl["won"] / pl["played"]) if pl["played"] else 0
+        pl["pointsFor"] = sum(a for x in real for a, b in x["sets"])
+        pl["pointsAgainst"] = sum(b for x in real for a, b in x["sets"])
+        pl["avgPoints"] = round(pl["pointsFor"] / len(real), 1) if real else 0
+        pl["avgDiff"] = round((pl["pointsFor"] - pl["pointsAgainst"]) / len(real), 1) if real else 0
+        pl["setsWon"] = sum(1 for x in real for a, b in x["sets"] if a > b)
+        pl["setsLost"] = sum(1 for x in real for a, b in x["sets"] if b > a)
+        by_disc = {}
+        for x in pl["games"]:
+            k = re.sub(r"^\d+\.\s*", "", x["discipline"])
+            d = by_disc.setdefault(k, {"played": 0, "won": 0})
+            d["played"] += 1
+            d["won"] += 1 if x["won"] else 0
+        pl["byDiscipline"] = by_disc
+
+    old_prof = {}
+    if profiles == "new":                      # genbrug profiler fra sidste fulde kørsel
+        try:
+            for op in json.load(open(os.path.join(out_dir, "spillere.json"), encoding="utf-8")).get("players", []):
+                if op.get("id") and op.get("profile"):
+                    old_prof[op["id"]] = op["profile"]
+        except (OSError, ValueError):
+            pass
+    if profiles:
+        todo = [pl for pl in players.values() if pl["id"] and not (profiles == "new" and pl["id"] in old_prof)]
+        for pl in players.values():
+            if pl["id"] in old_prof and profiles == "new":
+                pl["profile"] = old_prof[pl["id"]]
+        print(f"Henter profiler for {len(todo)} af {len(players)} spillere …")
+        for pl in todo:
+            time.sleep(PAUSE)
+            try:
+                prof = player_profile(token, pl["id"])
+            except RuntimeError as e:
+                print(f"ADVARSEL: profil {pl['id']}: {e}", file=sys.stderr)
+                continue
+            prof = strip_private(prof)
+            dump(f"player_{'a' if pl['adult'] else 'y'}_{pl['id']}.json",
+                 json.dumps(prof, ensure_ascii=False, indent=1))
+            html_part = (prof.get("Html") or prof.get("html") or "") if isinstance(prof, dict) else ""
+            pl["profile"] = parse_profile(html_part)
+
+    players_out = sorted(players.values(), key=lambda p: p["name"])
+    # Klubrangliste: flest vundne kampe; ved lighed højest sejrsprocent, så flest point
+    ranked = sorted(players_out, key=lambda p: (-p["won"], -p["winPct"], -p["pointsFor"], p["name"]))
+    club_ranking = [{"rank": i + 1, "id": p["id"], "name": p["name"], "teams": p["teams"],
+                     "played": p["played"], "won": p["won"], "winPct": p["winPct"],
+                     "pointsFor": p["pointsFor"], "avgPoints": p["avgPoints"], "avgDiff": p["avgDiff"]}
+                    for i, p in enumerate(ranked)]
+    pdata = {"updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+             "season": season, "clubRanking": club_ranking, "players": players_out}
+    p_out = os.path.join(out_dir, "spillere.json")
+    with open(p_out, "w", encoding="utf-8") as f:
+        json.dump(pdata, f, ensure_ascii=False, indent=1)
+    print(f"Skrev {p_out}: {len(players_out)} spillere.")
+    return players_out
+
+
 # ---------- Hovedflow ----------
 
 def main():
@@ -1055,83 +1148,8 @@ def main():
         print(f"ADVARSEL: køretider fejlede: {e}", file=sys.stderr)
 
     # ---- Spillere: historik fra opstillinger + profil fra badmintonplayer.dk ----
-    SENIOR_AGES = {"1", "9", "16"}   # SEN, SEN+40, MOT — voksne rækker
-    players = {}
-    for t in out_teams:
-        for m in t["matches"]:
-            side = "home" if m["isHome"] else "away"
-            other = "away" if side == "home" else "home"
-            for g in m["games"]:
-                ours = g[side]
-                for p in ours:
-                    key = p["id"] or p["name"]
-                    pl = players.setdefault(key, {"id": p["id"], "name": p["name"], "teams": [],
-                                                  "adult": False, "games": []})
-                    if t["label"] not in pl["teams"]:
-                        pl["teams"].append(t["label"])
-                    if t.get("ageGroupID") in SENIOR_AGES:
-                        pl["adult"] = True
-                    pl["games"].append({
-                        "date": m["date"], "team": t["label"], "teamName": t["name"],
-                        "opponentTeam": m["opponent"], "matchID": m["matchID"],
-                        "discipline": g["discipline"],
-                        "partner": [x["name"] for x in ours if (x["id"] or x["name"]) != key],
-                        "opponents": [x["name"] for x in g[other]],
-                        "sets": g["sets"] if side == "home" else [[b, a] for a, b in g["sets"]],
-                        "won": g["winner"] == side,
-                        "walkover": g.get("walkover", ""),
-                    })
-    for pl in players.values():
-        pl["games"].sort(key=lambda x: x["date"], reverse=True)
-        real = [x for x in pl["games"] if x["sets"]]          # kampe med sætcifre (ikke W.O.)
-        pl["played"] = len(pl["games"])
-        pl["won"] = sum(1 for x in pl["games"] if x["won"])
-        pl["lost"] = pl["played"] - pl["won"]
-        pl["winPct"] = round(100 * pl["won"] / pl["played"]) if pl["played"] else 0
-        pl["pointsFor"] = sum(a for x in real for a, b in x["sets"])
-        pl["pointsAgainst"] = sum(b for x in real for a, b in x["sets"])
-        pl["avgPoints"] = round(pl["pointsFor"] / len(real), 1) if real else 0
-        pl["avgDiff"] = round((pl["pointsFor"] - pl["pointsAgainst"]) / len(real), 1) if real else 0
-        pl["setsWon"] = sum(1 for x in real for a, b in x["sets"] if a > b)
-        pl["setsLost"] = sum(1 for x in real for a, b in x["sets"] if b > a)
-        by_disc = {}
-        for x in pl["games"]:
-            k = re.sub(r"^\d+\.\s*", "", x["discipline"])
-            d = by_disc.setdefault(k, {"played": 0, "won": 0})
-            d["played"] += 1
-            d["won"] += 1 if x["won"] else 0
-        pl["byDiscipline"] = by_disc
-
-    if opts.profiles:
-        print(f"Henter profiler for {len(players)} spillere …")
-        for pl in players.values():
-            if not pl["id"]:
-                continue
-            time.sleep(PAUSE)
-            try:
-                prof = player_profile(token, pl["id"])
-            except RuntimeError as e:
-                print(f"ADVARSEL: profil {pl['id']}: {e}", file=sys.stderr)
-                continue
-            prof = strip_private(prof)
-            dump(f"player_{'a' if pl['adult'] else 'y'}_{pl['id']}.json",
-                 json.dumps(prof, ensure_ascii=False, indent=1))
-            html_part = (prof.get("Html") or prof.get("html") or "") if isinstance(prof, dict) else ""
-            pl["profile"] = parse_profile(html_part)
-
-    players_out = sorted(players.values(), key=lambda p: p["name"])
-    # Klubrangliste: flest vundne kampe; ved lighed højest sejrsprocent, så flest point
-    ranked = sorted(players_out, key=lambda p: (-p["won"], -p["winPct"], -p["pointsFor"], p["name"]))
-    club_ranking = [{"rank": i + 1, "id": p["id"], "name": p["name"], "teams": p["teams"],
-                     "played": p["played"], "won": p["won"], "winPct": p["winPct"],
-                     "pointsFor": p["pointsFor"], "avgPoints": p["avgPoints"], "avgDiff": p["avgDiff"]}
-                    for i, p in enumerate(ranked)]
-    pdata = {"updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-             "season": opts.season, "clubRanking": club_ranking, "players": players_out}
-    p_out = os.path.join(os.path.dirname(opts.out) or ".", "spillere.json")
-    with open(p_out, "w", encoding="utf-8") as f:
-        json.dump(pdata, f, ensure_ascii=False, indent=1)
-    print(f"Skrev {p_out}: {len(players_out)} spillere.")
+    write_players(out_teams, os.path.dirname(opts.out) or ".", opts.season, token,
+                  "all" if opts.profiles else None, dump)
 
     data = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

@@ -4,7 +4,8 @@ fetch_live.py — hurtig opdatering af holdkampe på kampdage.
 
 Opdaterer KUN de hold, der har kamp i dag (eller en kamp fra i går uden resultat endnu):
 kampprogram, resultater, opstillinger og stilling. Alt andet i data/holdkampe.json beholdes
-(køretider, andre hold). Spillerstatistik (data/spillere.json) opdateres ved den fulde kørsel.
+(køretider, andre hold). data/spillere.json (spillere, statistik, klubrangliste) genberegnes;
+profiler hentes kun for nye spillere — de øvrige genbruges fra sidste fulde kørsel.
 
   python fetch_live.py --check     # exit 0 og skriv "ja"/"nej": er der kampe at opdatere?
   python fetch_live.py             # opdatér data/holdkampe.json
@@ -112,6 +113,8 @@ def main():
     with open(DATA, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=2)
     print(f"Opdaterede {changed} hold med kamp i dag.")
+    if changed:   # spillerliste, statistik og klubrangliste — profiler kun for nye spillere
+        F.write_players(d["teams"], os.path.dirname(DATA) or ".", a.season, token, "new")
     return 0
 
 
