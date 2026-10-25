@@ -15,6 +15,8 @@ One self-contained file: HTML, CSS and vanilla JavaScript, no build step and no 
 
 Requests add `?t=<minute>` so phones never show data older than a minute.
 
+**App updates.** Phones (especially the iPhone home-screen app) keep `index.html` cached and resume it without reloading. The app therefore compares a fingerprint of its own code (all `<style>` + the main `<script>`) with a fresh `index.html?t=…` from the server — 1.5 s after start, every time the app comes back to the foreground, and when the refresh button is pressed. If they differ it reloads via `?v=<timestamp>` (removed from the address bar afterwards) and keeps the current screen. Returning to the app after 10+ minutes also refetches the data. A guard in `sessionStorage` stops reload loops while GitHub Pages is still rolling out.
+
 ## Screens and routes
 
 Navigation uses the URL hash, so the browser's back button works and every screen can be shared as a link.

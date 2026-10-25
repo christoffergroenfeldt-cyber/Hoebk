@@ -195,6 +195,33 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 <script>
 (function () {
   'use strict';
+  // ---- App-version: find ud af om index.html er ændret på serveren ----
+  // Telefoner (især "Føj til hjemmeskærm" på iPhone) gemmer siden og genåbner den uden at hente den igen.
+  // Vi sammenligner appens egen kode (script + stylesheet) med den nyeste udgave på GitHub Pages.
+  var SELF = document.currentScript;
+  function codeSig(doc, script) {
+    var txt = Array.prototype.map.call(doc.querySelectorAll('style'), function (x) { return x.textContent; }).join('') + (script ? script.textContent : '');
+    var h = 5381; for (var i = 0; i < txt.length; i++) h = ((h << 5) + h + txt.charCodeAt(i)) | 0;
+    return txt.length + ':' + (h >>> 0).toString(36);
+  }
+  var MY_SIG = codeSig(document, SELF);
+  try {   // fjern ?v=… fra adresselinjen efter en opdatering
+    if (/[?&]v=/.test(location.search)) history.replaceState(null, '', location.pathname + location.hash);
+  } catch (e) {}
+  function checkAppVersion(fromButton) {
+    return fetch('index.html?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (html) {
+      if (!html) return false;
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var scripts = Array.prototype.slice.call(doc.querySelectorAll('script')).sort(function (a, b) { return b.textContent.length - a.textContent.length; });
+      var sig = codeSig(doc, scripts[0]);
+      if (sig === MY_SIG) return false;
+      var tried = ''; try { tried = sessionStorage.getItem('hoebk_reload') || ''; } catch (e) {}
+      if (tried === sig && !fromButton) return false;   // undgå genindlæsnings-løkke hvis serveren endnu ikke er helt opdateret
+      try { sessionStorage.setItem('hoebk_reload', sig); } catch (e) {}
+      location.replace(location.pathname + '?v=' + Date.now() + location.hash);
+      return true;
+    }).catch(function () { return false; });
+  }
   var ORDER = ['Danmarksserien', 'Serie 2', '4 Spillere', '4 Spillere A-række', 'MOT 4+4 Elite/Mester',
     'MOT 4+4 Serie 3-4', 'MOT 4 spillere Mester', 'U15 A', 'U15 B', 'U13 B', 'U13 C-D', 'U11 C', 'U11 Dx'];
   var MONS = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
@@ -1495,11 +1522,25 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   document.getElementById('refresh').addEventListener('click', function () {
     var btn = this; if (btn.classList.contains('spin')) return;
     btn.classList.add('spin'); FORCE = Date.now();
-    load().then(function () { return loadReg(); })
+    checkAppVersion(true).then(function (reloading) {
+      if (reloading) { toast('Ny version af appen — genindlæser…'); return new Promise(function () {}); }
+      return load();
+    }).then(function () { return loadReg(); })
       .then(function () { route(true); toast('Opdateret'); })
       .catch(function () { toast('Kunne ikke opdatere — tjek forbindelsen'); })
       .then(function () { btn.classList.remove('spin'); FORCE = 0; });
   });
+  // Når appen åbnes igen fra baggrunden: tjek for ny version, og hent data hvis de er mere end 10 min gamle.
+  var lastLoad = Date.now();
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible') return;
+    checkAppVersion(false).then(function (reloading) {
+      if (reloading || Date.now() - lastLoad < 10 * 60000) return;
+      lastLoad = Date.now(); FORCE = Date.now();
+      load().then(function () { return loadReg(); }).then(function () { route(true); }).catch(function () {}).then(function () { FORCE = 0; });
+    });
+  });
+  setTimeout(function () { checkAppVersion(false); }, 1500);
   load().then(function () { prevHash = location.hash; route(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).catch(function () {
     $main.innerHTML = '<p class="empty">Kunne ikke hente data. Prøv igen om lidt.</p>';
     document.getElementById('subtitle').textContent = 'Fejl ved hentning';
