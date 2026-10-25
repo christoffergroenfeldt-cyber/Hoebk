@@ -1,0 +1,28 @@
+name: Hent logo fra hoebk.dk
+on: workflow_dispatch
+permissions:
+  contents: write
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+jobs:
+  logo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download
+        run: |
+          mkdir -p assets/hoebk
+          cd assets/hoebk
+          curl -sSfL -A "Mozilla/5.0" -o logo-hvid.png "https://hoebk.dk/images/billeder/Hobk%20logo%20mindre%20hvid%20top.png" || true
+          curl -sSfL -A "Mozilla/5.0" -o favicon.ico "https://hoebk.dk/favicon.ico" || true
+          curl -sSfL -A "Mozilla/5.0" -o forside.html "https://hoebk.dk/" || true
+          grep -oiE "(src|href)=\"[^\"]*\.(png|svg|jpg|jpeg|ico|webp)[^\"]*\"" forside.html | grep -viE "sponsor" | sort -u > billeder.txt || true
+          rm -f forside.html
+          ls -la
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/hoebk
+          git commit -m "Logo fra hoebk.dk" && git pull --rebase -q origin main && git push || echo "intet nyt"
