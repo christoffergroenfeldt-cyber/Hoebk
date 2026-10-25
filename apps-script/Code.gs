@@ -22,6 +22,8 @@
  *  verify   {email, code}                        → {token, player}
  *  me       {token}                              → {player}
  *  register {token, type, eventId, status, label}→ gemmer svar for den indloggede spiller
+ *  lineup   {token, eventId, team, status, squad[], games[], note} → holdopstilling (kun holdledere, se fanen Ledere)
+ *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
  *  logout   {token}
  *  GET ?action=status          → seneste svar pr. (begivenhed, spiller) — offentlig, uden e-mails
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
@@ -33,8 +35,13 @@ var SHEETS = {
   Tilmeldinger: ['tidspunkt', 'type', 'eventId', 'playerId', 'playerName', 'status', 'label'],
   Spillere: ['playerId', 'playerName', 'email', 'bekræftet', 'sidst set'],
   Koder: ['tidspunkt', 'email', 'kodeHash', 'playerId', 'playerName', 'forsøg', 'brugt'],
-  Sessioner: ['tokenHash', 'playerId', 'playerName', 'email', 'oprettet', 'sidst brugt', 'aktiv']
+  Sessioner: ['tokenHash', 'playerId', 'playerName', 'email', 'oprettet', 'sidst brugt', 'aktiv'],
+  Ledere: ['email', 'navn', 'hold'],
+  Opstillinger: ['tidspunkt', 'eventId', 'hold', 'status', 'gemtAf', 'data']
 };
+// Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
+// Den FØRSTE e-mail der bekræfter navnet (fanen Spillere) ejer rollen — en anden e-mail med samme navn bliver ikke admin.
+var ADMIN_PLAYER_IDS = ['12813'];   // Anders Vedsted Nørrelund
 var CODE_MINUTES = 15, MAX_CODES_PER_HOUR = 4, MAX_TRIES = 5, SESSION_DAYS = 365;
 
 // Virker både når scriptet er oprettet fra et Google Sheet (Udvidelser → Apps Script)
@@ -143,10 +150,96 @@ function verify_(b) {
         if (String(known[j][0]) === pid && String(known[j][2]) === email) { sp.getRange(j + 2, 5).setValue(new Date()); found = true; }
       }
       if (!found) sp.appendRow([safe_(pid), safe_(pname), email, new Date(), new Date()]);
-      return { ok: true, token: token, player: { id: pid, name: pname, email: email } };
+      return { ok: true, token: token, player: { id: pid, name: pname, email: email }, role: role_(email, pid) };
     }
     return { ok: false, error: 'Koden er udløbet eller forkert — bed om en ny' };
   });
+}
+
+// Holdledere: fanen "Ledere" — én række pr. leder. hold = holdlabels adskilt af komma
+// (fx "U15 B, U13 B") eller * for alle hold. Matcher på den e-mail lederen logger ind med.
+function isAdmin_(email, playerId) {
+  var em = String(email || '').toLowerCase().trim(), pid = String(playerId || '');
+  if (!em || ADMIN_PLAYER_IDS.indexOf(pid) < 0) return false;
+  var first = data_('Spillere').filter(function (r) { return String(r[0]) === pid; })
+    .sort(function (a, b) { return new Date(a[3]) - new Date(b[3]); })[0];
+  return !!first && String(first[2]).toLowerCase().trim() === em;
+}
+
+function role_(email, playerId) {
+  var em = String(email || '').toLowerCase().trim();
+  if (!em) return { leader: false, teams: [] };
+  if (isAdmin_(em, playerId)) return { leader: true, all: true, admin: true, teams: [] };
+  var teams = [], all = false;
+  data_('Ledere').forEach(function (r) {
+    if (String(r[0]).toLowerCase().trim() !== em) return;
+    String(r[2]).split(',').forEach(function (t) { t = t.trim(); if (t === '*') all = true; else if (t) teams.push(t); });
+  });
+  return { leader: all || teams.length > 0, all: all, teams: teams };
+}
+
+function saveLineup_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var team = clean_(b.team, 60), eventId = clean_(b.eventId, 80);
+  var role = role_(ses.email, ses.playerId);
+  if (!role.leader || !(role.all || role.teams.indexOf(team) >= 0)) return { ok: false, error: 'Du er ikke holdleder for ' + team };
+  if (!/^m:/.test(eventId)) return { ok: false, error: 'Ukendt kamp' };
+  var status = ['udkast', 'klar', 'indtastet'].indexOf(b.status) >= 0 ? b.status : 'udkast';
+  function people(list) {
+    return (list || []).slice(0, 30).map(function (p) { return { id: clean_(p.id, 40), name: clean_(p.name, 80) }; })
+      .filter(function (p) { return p.id && p.name; });
+  }
+  var data = {
+    squad: people(b.squad),
+    games: (b.games || []).slice(0, 20).map(function (g) { return { k: clean_(g.k, 12), p: (g.p || []).slice(0, 2).map(function (x) { return clean_(x, 40); }) }; }),
+    note: clean_(b.note, 300),
+    by: ses.playerName
+  };
+  withLock_(function () {
+    sh_('Opstillinger').appendRow([new Date(), safe_(eventId), safe_(team), status, safe_(ses.playerName), JSON.stringify(data)]);
+  });
+  return { ok: true };
+}
+
+// ---------- Administrator: holdledere ----------
+function leaders_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  var leaders = data_('Ledere').map(function (r) {
+    return { email: String(r[0]), name: String(r[1]), teams: String(r[2]).split(',').map(function (t) { return t.trim(); }).filter(String) };
+  }).filter(function (l) { return l.email; });
+  var emails = {};   // spiller-id → bekræftede e-mails (kun til administrator)
+  data_('Spillere').forEach(function (r) { var id = String(r[0]); (emails[id] = emails[id] || []); if (emails[id].indexOf(String(r[2])) < 0) emails[id].push(String(r[2])); });
+  return { ok: true, leaders: leaders, emails: emails };
+}
+
+function setLeader_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  var email = clean_(b.email, 120).toLowerCase();
+  if (!validEmail_(email)) return { ok: false, error: 'Ugyldig e-mail' };
+  var teams = (b.teams || []).map(function (t) { return clean_(t, 60); }).filter(function (t) { return t && t.toLowerCase() !== 'admin'; });
+  var name = clean_(b.name, 80);
+  return withLock_(function () {
+    var sh = sh_('Ledere'), rows = data_('Ledere');
+    for (var i = rows.length - 1; i >= 0; i--) {
+      if (String(rows[i][0]).toLowerCase().trim() === email) sh.deleteRow(i + 2);
+    }
+    if (teams.length) sh.appendRow([email, safe_(name), safe_(teams.join(', '))]);
+    return { ok: true };
+  });
+}
+
+function lineups_() {
+  var latest = {};
+  data_('Opstillinger').forEach(function (r) {
+    var ts = r[0] instanceof Date ? r[0].getTime() : 0, id = String(r[1]);
+    if (latest[id] && latest[id].t > ts) return;
+    var d = {}; try { d = JSON.parse(r[5]); } catch (e) { d = {}; }
+    latest[id] = { e: id, team: String(r[2]), status: String(r[3]), t: ts, squad: d.squad || [], games: d.games || [], note: d.note || '', by: d.by || String(r[4]) };
+  });
+  return Object.keys(latest).map(function (k) { return latest[k]; });
 }
 
 function register_(b) {
@@ -168,7 +261,10 @@ function doPost(e) {
       case 'request': return json_(request_(b));
       case 'verify': return json_(verify_(b));
       case 'register': return json_(register_(b));
-      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email } } : { ok: false, error: 'login' });
+      case 'lineup': return json_(saveLineup_(b));
+      case 'leaders': return json_(leaders_(b));
+      case 'setLeader': return json_(setLeader_(b));
+      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId) } : { ok: false, error: 'login' });
       case 'logout':
         var se = session_(b.token); if (se) sh_('Sessioner').getRange(se.row, 7).setValue(false);
         return json_({ ok: true });
@@ -185,7 +281,7 @@ function doGet(e) {
   if (action === 'all') {
     var key = PropertiesService.getScriptProperties().getProperty('KEY');
     if (!key || e.parameter.key !== key) return json_({ ok: false, error: 'Forkert nøgle' });
-    return json_({ ok: true, rows: rows.map(function (r) {
+    return json_({ ok: true, lineups: lineups_(), rows: rows.map(function (r) {
       return { ts: r[0] instanceof Date ? r[0].toISOString() : String(r[0]), type: r[1], eventId: String(r[2]),
                playerId: String(r[3]), playerName: String(r[4]), status: r[5], label: String(r[6]) };
     }) });
@@ -195,7 +291,7 @@ function doGet(e) {
     var k = r[2] + '|' + r[3], ts = r[0] instanceof Date ? r[0].getTime() : 0;
     if (!latest[k] || latest[k].t <= ts) latest[k] = { e: String(r[2]), p: String(r[3]), n: String(r[4]), s: r[5], t: ts };
   });
-  return json_({ ok: true, updated: new Date().toISOString(), status: Object.keys(latest).map(function (k) { return latest[k]; }) });
+  return json_({ ok: true, updated: new Date().toISOString(), status: Object.keys(latest).map(function (k) { return latest[k]; }), lineups: lineups_() });
 }
 
 // --- slut på filen (denne linje må gerne mangle ved kopiering) ---

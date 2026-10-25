@@ -30,10 +30,10 @@ def fetch_rows(url, key):
         obj = json.loads(r.read().decode("utf-8"))
     if not obj.get("ok"):
         raise SystemExit(f"FEJL fra Apps Script: {obj.get('error')}")
-    return obj["rows"]
+    return obj["rows"], obj.get("lineups", [])
 
 
-def build_db(rows, path):
+def build_db(rows, path, lineups=()):
     tmp = path + ".tmp"
     if os.path.exists(tmp):
         os.remove(tmp)
@@ -51,6 +51,16 @@ def build_db(rows, path):
         );
         CREATE INDEX idx_reg_event ON registrations(event_id);
         CREATE INDEX idx_reg_player ON registrations(player_id);
+        CREATE TABLE lineups (
+            event_id TEXT PRIMARY KEY,      -- m:<matchID>
+            team TEXT NOT NULL,             -- holdlabel, fx "U15 B"
+            status TEXT NOT NULL,           -- udkast | klar | indtastet
+            saved_by TEXT,
+            saved_at TEXT,
+            squad_json TEXT NOT NULL,       -- [{id, name}]
+            games_json TEXT NOT NULL,       -- [{k: "1. HS", p: [playerId, …]}]
+            note TEXT
+        );
         CREATE VIEW latest AS
             SELECT r.* FROM registrations r
             WHERE r.id = (SELECT r2.id FROM registrations r2
@@ -61,6 +71,12 @@ def build_db(rows, path):
         "INSERT INTO registrations (ts, type, event_id, player_id, player_name, status, label) VALUES (?,?,?,?,?,?,?)",
         [(r["ts"], r["type"], r["eventId"], r["playerId"], r["playerName"], r["status"], r.get("label", ""))
          for r in sorted(rows, key=lambda x: x["ts"])])
+    con.executemany(
+        "INSERT OR REPLACE INTO lineups VALUES (?,?,?,?,?,?,?,?)",
+        [(l["e"], l.get("team", ""), l.get("status", ""), l.get("by", ""),
+          datetime.fromtimestamp(l.get("t", 0) / 1000, timezone.utc).isoformat(timespec="seconds") if l.get("t") else "",
+          json.dumps(l.get("squad", []), ensure_ascii=False), json.dumps(l.get("games", []), ensure_ascii=False), l.get("note", ""))
+         for l in lineups])
     con.commit()
     latest = con.execute(
         "SELECT event_id, player_id, player_name, status, ts FROM latest ORDER BY event_id, player_name").fetchall()
@@ -74,16 +90,17 @@ def main():
     if not url or not key:
         print("REG_URL/REG_KEY er ikke sat endnu — springer over.")
         return 0
-    rows = fetch_rows(url, key)
+    rows, lineups = fetch_rows(url, key)
     os.makedirs("data", exist_ok=True)
-    latest = build_db(rows, "data/hoebk.db")
+    latest = build_db(rows, "data/hoebk.db", lineups)
     out = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "status": [{"e": e, "p": p, "n": n, "s": s, "ts": ts} for e, p, n, s, ts in latest],
+        "lineups": lineups,
     }
     with open("data/tilmeldinger.json", "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
-    print(f"{len(rows)} svar i alt, {len(latest)} aktuelle → data/hoebk.db + data/tilmeldinger.json")
+    print(f"{len(rows)} svar i alt, {len(latest)} aktuelle, {len(lineups)} holdopstillinger → data/hoebk.db + data/tilmeldinger.json")
     return 0
 
 
