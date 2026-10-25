@@ -637,8 +637,18 @@ NOMINATIM = "https://nominatim.openstreetmap.org/search"
 NOM_UA = "hoebk-app/1.0 (github.com/christoffergroenfeldt-cyber/Hoebk)"   # påkrævet af Nominatims brugsregler
 NET_FAIL = [0]   # tæller netværksfejl, så vi ikke gemmer "ukendt" pga. en midlertidig fejl
 HOME = (55.8806, 12.5007)          # Hørsholm
-ABROAD_RE = re.compile(r"\b(International|Open|IC|IS|FS|German|Irish|Swedish|Norwegian|Polish|Czech|Hellas|Bulgarien|Ungarn|"
-                       r"Türkiye|Croatian|Lithuanian|Belgian|Dutch|Artic|Ruhr)\b")
+# Udenlandske turneringer (BWF/BE-turneringer i sæsonplanen) — store/små bogstaver er ligegyldige
+ABROAD_RE = re.compile(r"\b(international|intern\.|open|ic|is|fs|future series|super \d+|challenge|youth games|junior|german|irish|"
+                       r"swedish|norwegian|polish|czech|hellas|bulgarien|ungarn|türkiye|tyrkiye|croatian|lithuanian|belgian|dutch|"
+                       r"artic|arctic|ruhr|scottish|welsh|english|sloven\w*|iceland\w*|finn\w*|eston\w*|latvi\w*|spa\w*nish|spain|"
+                       r"portug\w*|ital\w*|austria\w*|swiss|slovak\w*|hungar\w*|serbia\w*|romania\w*|gree\w*|ukrain\w*|"
+                       r"luxembourg|cyprus|malta|france|french|sweden|norway|poland|germany|netherlands|belgium|ireland|scotland|"
+                       r"wales|england|lithuania|croatia|bulgaria|turkey|faroe|greenland)\b", re.I)
+DANISH_RE = re.compile(r"\b(denmark|danish|danmark|dansk|DMC|DM|DMU|UDM|LMU|KMU|KMB)\b", re.I)
+
+
+def is_abroad(org):
+    return bool(ABROAD_RE.search(org)) and not DANISH_RE.search(org)
 NOISE = {"badminton", "bk", "bc", "sk", "sf", "if", "ic", "obk", "tik", "ab", "dgi", "hb2000", "hsb85", "begynderturnering",
          "introturnering", "kredsmesterskab", "victor", "denmark", "junior", "senior", "lbs", "hallen", "kultur", "og",
          "idrætscenter", "stævne", "monrad", "tpi", "bec", "circuit", "mgp", "dmc", "efterskole", "aflyst", "pulje-cup",
@@ -844,9 +854,13 @@ def locate_tournaments(tours, data_dir):
     for t in tours:
         org = t["organiser"]
         fix = fixes.get(org)
+        if fix is None and org in cache and bool(cache[org].get("abroad")) != is_abroad(org):
+            del cache[org]                         # udlands-reglen er ændret siden opslaget
+        if fix is None and org not in cache and is_abroad(org):
+            cache[org] = {"abroad": True}
         if fix is None and org not in cache and geo_time_left():
             entry = None
-            if ABROAD_RE.search(org) and not re.search(r"Denmark|Danish", org):
+            if is_abroad(org):
                 entry = {"abroad": True}
             else:
                 fails = NET_FAIL[0]
