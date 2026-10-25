@@ -1,0 +1,183 @@
+/**
+ * HØBK tilmeldinger — modtager til appen (login med kode på e-mail).
+ *
+ * Opsætning (én gang):
+ *  1. Opret et Google Sheet (fx "HØBK tilmeldinger") med klubbens Google-konto.
+ *  2. Udvidelser → Apps Script → erstat indholdet med denne fil → Gem.
+ *  3. Vælg funktionen "setup" i menuen øverst → Kør → godkend adgang (Sheets + send e-mail).
+ *     Loggen viser en NØGLE — gem den som GitHub-secret REG_KEY.
+ *  4. Implementer → Ny implementering → Type: Webapp
+ *       Udfør som: Mig · Hvem har adgang: Alle → Implementer.
+ *     Kopiér webapp-URL'en (slutter på /exec) — gem den som GitHub-secret REG_URL
+ *     og skriv den i config.json ("registrationUrl").
+ *  Efter ændringer i koden: Implementer → Administrer implementeringer → rediger → Ny version.
+ *
+ * Faner i arket (oprettes automatisk):
+ *  Tilmeldinger — hvert svar (synkroniseres til GitHub, UDEN e-mails)
+ *  Spillere     — hvem har bekræftet hvilken e-mail (bliver i Google — kommer aldrig i GitHub)
+ *  Koder        — engangskoder (gemmes kun som hash) · Sessioner — login-nøgler (gemmes kun som hash)
+ *
+ * Alle kald er POST {action: ...} undtagen offentlig status og synkronisering:
+ *  request  {email, playerId, playerName}       → sender 6-cifret kode (gyldig 15 min)
+ *  verify   {email, code}                        → {token, player}
+ *  me       {token}                              → {player}
+ *  register {token, type, eventId, status, label}→ gemmer svar for den indloggede spiller
+ *  logout   {token}
+ *  GET ?action=status          → seneste svar pr. (begivenhed, spiller) — offentlig, uden e-mails
+ *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
+ */
+
+var CLUB = 'Hørsholm Badminton Klub';
+var TYPES = { match: ['ja', 'nej', 'maaske'], training: ['ja', 'nej'] };
+var SHEETS = {
+  Tilmeldinger: ['tidspunkt', 'type', 'eventId', 'playerId', 'playerName', 'status', 'label'],
+  Spillere: ['playerId', 'playerName', 'email', 'bekræftet', 'sidst set'],
+  Koder: ['tidspunkt', 'email', 'kodeHash', 'playerId', 'playerName', 'forsøg', 'brugt'],
+  Sessioner: ['tokenHash', 'playerId', 'playerName', 'email', 'oprettet', 'sidst brugt', 'aktiv']
+};
+var CODE_MINUTES = 15, MAX_CODES_PER_HOUR = 4, MAX_TRIES = 5, SESSION_DAYS = 365;
+
+function setup() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  Object.keys(SHEETS).forEach(function (name) {
+    var sh = ss.getSheetByName(name) || ss.insertSheet(name);
+    if (sh.getLastRow() === 0) {
+      sh.appendRow(SHEETS[name]);
+      sh.setFrozenRows(1);
+      sh.getRange(1, 1, 1, SHEETS[name].length).setFontWeight('bold');
+    }
+  });
+  var props = PropertiesService.getScriptProperties();
+  var key = props.getProperty('KEY');
+  if (!key) { key = Utilities.getUuid().replace(/-/g, ''); props.setProperty('KEY', key); }
+  Logger.log('NØGLE til GitHub-secret REG_KEY: ' + key);
+  Logger.log('E-mails tilbage i dag (Google-kvote): ' + MailApp.getRemainingDailyQuota());
+}
+
+// ---------- hjælpere ----------
+function json_(obj) { return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON); }
+function sh_(name) { var s = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name); if (!s) { setup(); s = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name); } return s; }
+function clean_(s, max) { return String(s == null ? '' : s).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max); }
+function safe_(s) { return /^[=+\-@]/.test(s) ? "'" + s : s; }   // undgå formel-injektion i Sheets
+function hash_(s) {
+  var salt = PropertiesService.getScriptProperties().getProperty('KEY') || '';
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, salt + '|' + s)
+    .map(function (b) { return ('0' + (b & 0xff).toString(16)).slice(-2); }).join('');
+}
+function data_(name) { var s = sh_(name); return s.getLastRow() < 2 ? [] : s.getRange(2, 1, s.getLastRow() - 1, SHEETS[name].length).getValues(); }
+function validEmail_(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+function withLock_(fn) { var l = LockService.getScriptLock(); l.waitLock(10000); try { return fn(); } finally { l.releaseLock(); } }
+
+function session_(token) {
+  if (!token) return null;
+  var h = hash_('t:' + token), s = sh_('Sessioner'), rows = data_('Sessioner');
+  for (var i = 0; i < rows.length; i++) {
+    var r = rows[i];
+    if (r[0] === h && r[6] === true) {
+      if ((new Date() - new Date(r[4])) / 86400000 > SESSION_DAYS) return null;
+      s.getRange(i + 2, 6).setValue(new Date());
+      return { row: i + 2, playerId: String(r[1]), playerName: String(r[2]), email: String(r[3]) };
+    }
+  }
+  return null;
+}
+
+// ---------- handlinger ----------
+function request_(b) {
+  var email = clean_(b.email, 120).toLowerCase(), pid = clean_(b.playerId, 80), pname = clean_(b.playerName, 80);
+  if (!validEmail_(email)) return { ok: false, error: 'Ugyldig e-mail' };
+  if (!pid || !pname) return { ok: false, error: 'Vælg dit navn' };
+  return withLock_(function () {
+    var hourAgo = new Date(Date.now() - 3600000);
+    var recent = data_('Koder').filter(function (r) { return r[1] === email && new Date(r[0]) > hourAgo; }).length;
+    if (recent >= MAX_CODES_PER_HOUR) return { ok: false, error: 'For mange koder — prøv igen om en time' };
+    if (MailApp.getRemainingDailyQuota() < 1) return { ok: false, error: 'Klubbens e-mail-kvote er brugt i dag — prøv i morgen' };
+    var code = String(Math.floor(100000 + Math.random() * 900000));
+    sh_('Koder').appendRow([new Date(), email, hash_('c:' + email + ':' + code), safe_(pid), safe_(pname), 0, false]);
+    MailApp.sendEmail({
+      to: email,
+      subject: 'Din HØBK-kode: ' + code,
+      body: 'Hej ' + pname.split(' ')[0] + '\n\nDin kode til HØBK-appen er: ' + code +
+            '\n\nKoden gælder i ' + CODE_MINUTES + ' minutter. Har du ikke bedt om den, kan du se bort fra denne mail.\n\n' + CLUB,
+      name: CLUB
+    });
+    return { ok: true };
+  });
+}
+
+function verify_(b) {
+  var email = clean_(b.email, 120).toLowerCase(), code = clean_(b.code, 10).replace(/\D/g, '');
+  if (!validEmail_(email) || code.length !== 6) return { ok: false, error: 'Forkert kode' };
+  return withLock_(function () {
+    var s = sh_('Koder'), rows = data_('Koder'), limit = new Date(Date.now() - CODE_MINUTES * 60000);
+    for (var i = rows.length - 1; i >= 0; i--) {
+      var r = rows[i];
+      if (r[1] !== email || r[6] === true || new Date(r[0]) < limit) continue;
+      if (r[5] >= MAX_TRIES) return { ok: false, error: 'For mange forsøg — bed om en ny kode' };
+      if (r[2] !== hash_('c:' + email + ':' + code)) {
+        s.getRange(i + 2, 6).setValue(r[5] + 1);
+        return { ok: false, error: 'Forkert kode' };
+      }
+      s.getRange(i + 2, 7).setValue(true);
+      var pid = String(r[3]), pname = String(r[4]);
+      var token = Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '');
+      sh_('Sessioner').appendRow([hash_('t:' + token), safe_(pid), safe_(pname), email, new Date(), new Date(), true]);
+      var sp = sh_('Spillere'), known = data_('Spillere'), found = false;
+      for (var j = 0; j < known.length; j++) {
+        if (String(known[j][0]) === pid && String(known[j][2]) === email) { sp.getRange(j + 2, 5).setValue(new Date()); found = true; }
+      }
+      if (!found) sp.appendRow([safe_(pid), safe_(pname), email, new Date(), new Date()]);
+      return { ok: true, token: token, player: { id: pid, name: pname, email: email } };
+    }
+    return { ok: false, error: 'Koden er udløbet eller forkert — bed om en ny' };
+  });
+}
+
+function register_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var type = clean_(b.type, 10), status = clean_(b.status, 10), eventId = clean_(b.eventId, 80);
+  if (!TYPES[type] || TYPES[type].indexOf(status) < 0 || !eventId) return { ok: false, error: 'Ugyldigt svar' };
+  withLock_(function () {
+    sh_('Tilmeldinger').appendRow([new Date(), type, safe_(eventId), safe_(ses.playerId), safe_(ses.playerName), status, safe_(clean_(b.label, 120))]);
+  });
+  return { ok: true };
+}
+
+function doPost(e) {
+  var b;
+  try { b = JSON.parse(e.postData.contents); } catch (err) { return json_({ ok: false, error: 'Ugyldig forespørgsel' }); }
+  try {
+    switch (b.action) {
+      case 'request': return json_(request_(b));
+      case 'verify': return json_(verify_(b));
+      case 'register': return json_(register_(b));
+      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email } } : { ok: false, error: 'login' });
+      case 'logout':
+        var se = session_(b.token); if (se) sh_('Sessioner').getRange(se.row, 7).setValue(false);
+        return json_({ ok: true });
+      default: return json_({ ok: false, error: 'Ukendt handling' });
+    }
+  } catch (err) {
+    return json_({ ok: false, error: 'Serverfejl — prøv igen' });
+  }
+}
+
+function doGet(e) {
+  var action = (e && e.parameter && e.parameter.action) || 'status';
+  var rows = data_('Tilmeldinger');
+  if (action === 'all') {
+    var key = PropertiesService.getScriptProperties().getProperty('KEY');
+    if (!key || e.parameter.key !== key) return json_({ ok: false, error: 'Forkert nøgle' });
+    return json_({ ok: true, rows: rows.map(function (r) {
+      return { ts: r[0] instanceof Date ? r[0].toISOString() : String(r[0]), type: r[1], eventId: String(r[2]),
+               playerId: String(r[3]), playerName: String(r[4]), status: r[5], label: String(r[6]) };
+    }) });
+  }
+  var latest = {};
+  rows.forEach(function (r) {
+    var k = r[2] + '|' + r[3], ts = r[0] instanceof Date ? r[0].getTime() : 0;
+    if (!latest[k] || latest[k].t <= ts) latest[k] = { e: String(r[2]), p: String(r[3]), n: String(r[4]), s: r[5], t: ts };
+  });
+  return json_({ ok: true, updated: new Date().toISOString(), status: Object.keys(latest).map(function (k) { return latest[k]; }) });
+}

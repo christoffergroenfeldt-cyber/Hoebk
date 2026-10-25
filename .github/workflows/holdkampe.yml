@@ -17,6 +17,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -91,7 +95,7 @@ jobs:
             echo "Ingen ændringer."
           else
             git commit -m "Opdater holdkampe $(date -u +%Y-%m-%dT%H:%MZ)"
-            git push
+            git pull --rebase -q origin main && git push
           fi
 
       - name: Discord-besked

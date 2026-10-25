@@ -70,7 +70,7 @@ td{padding:9px 6px;border-top:1px solid var(--line2)}
 .search{display:flex;align-items:center;gap:8px;padding:0 12px;min-height:46px}
 .search input{border:0;outline:0;background:transparent;flex:1 1 auto;font-size:16px;font-family:inherit;color:var(--ink);min-width:0}
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:5;background:#fff;border-top:1px solid var(--line);padding:6px 8px calc(10px + env(safe-area-inset-bottom))}
-nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
 nav.tabs a{min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted2);font-size:12px;font-weight:700;text-decoration:none;border-radius:12px}
 nav.tabs a[aria-current=page]{color:var(--ink)}
 .empty{margin:6px 4px;color:var(--muted);font-size:14px}
@@ -115,6 +115,27 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .yd.has{color:var(--ink);font-weight:700;background:var(--soft)}
 .yd.now{outline:1.5px solid var(--ink)}
 .yd i{width:5px;height:5px;border-radius:999px;display:block}
+
+/* ---- Tilmelding ---- */
+.reg{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rb{min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;font-weight:700;font-size:13px}
+.rb[aria-pressed=true].ja{background:var(--accent);border-color:var(--accent)}
+.rb[aria-pressed=true].nej{background:var(--loss);border-color:#E3B4AD}
+.rb[aria-pressed=true].maaske{background:#FFE3C2;border-color:#F3C58F}
+.rb:disabled{opacity:.6}
+.cnt{font-size:12px;color:var(--muted);margin-left:auto}
+.who summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--ink);padding:4px 0;list-style-position:inside}
+.who ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:4px}
+.who li{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--soft)}
+.who li.ja{background:var(--hi)}
+.who li.nej{background:#FBEDEB;color:#6B3A33}
+.who li.maaske{background:#FFF2E2}
+.evwrap{display:flex;flex-direction:column;gap:8px;background:#fff;border:1px solid var(--line);border-left:5px solid #9AA6B1;border-radius:14px;padding:10px 12px}
+.evwrap.tr{border-style:dashed;border-left-style:solid;background:#FBFBF8}
+.evwrap .evtop{display:grid;grid-template-columns:66px minmax(0,1fr) auto;gap:10px;align-items:center;background:transparent;border:0;padding:0;text-align:left;font-size:inherit;width:100%}
+.me{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:600;z-index:20;box-shadow:0 6px 20px rgba(0,0,0,.2);max-width:90vw}
+.toast[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -129,10 +150,12 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 <nav class="tabs" aria-label="Faner"><div class="in">
 <a href="#/hold" data-tab="hold"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>Hold</a>
 <a href="#/kalender" data-tab="kalender"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Kalender</a>
+<a href="#/tilmeld" data-tab="tilmeld"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Min side</a>
 <a href="#/rangliste" data-tab="rang"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>Rangliste</a>
 <a href="#/spillere" data-tab="spillere"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></svg>Spillere</a>
 </div></nav>
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script>
 (function () {
@@ -232,9 +255,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         var where = (m.isHome ? 'Hjemme' : 'Ude') + ' · ' + m.venue + (m.walkover ? ' · ' + m.walkover : '');
         var inner = '<span class="col"><b style="font-size:13px">' + dTxt(m.date) + '</b><span class="xs">' + esc(m.time || '') + '</span></span>' +
           '<span class="col"><span style="font-weight:600;font-size:14px">' + (m.isHome ? 'mod ' : '@ ') + esc(m.opponent) + '</span><span class="xs ellip">' + esc(where) + '</span></span>' +
-          '<span class="score" style="background:' + (m.played ? oBg(m.outcome) : 'var(--soft)') + '">' + (m.played ? esc(m.result) : 'Kommer') + '</span>';
-        return m.played ? '<button class="mrow" data-go="#/hold/' + ti + '/kamp/' + mi + '">' + inner + '</button>'
-                        : '<div class="mrow up">' + inner + '</div>';
+          '<span class="score" style="background:' + (m.played ? oBg(m.outcome) : 'var(--soft)') + '">' + (m.played ? esc(m.result) : regChip(matchEid(m))) + '</span>';
+        return '<button class="mrow' + (m.played ? '' : ' up') + '" style="cursor:pointer" data-go="#/hold/' + ti + '/kamp/' + mi + '">' + inner + '</button>';
       }).join('');
     } else if (UI.seg === 'stilling') {
       h += '<div class="card" style="overflow:hidden"><table><thead><tr><th style="padding-left:10px">#</th><th>Hold</th><th class="r">K</th><th class="r">Score</th><th class="r" style="padding-right:10px">P</th></tr></thead><tbody>' +
@@ -257,7 +279,17 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 
   function viewMatch(ti, mi) {
     var t = D.teams[ti], m = t && t.matches[mi]; if (!m) return viewTeam(ti);
-    setTab('hold'); setHeader((m.isHome ? 'mod ' : '@ ') + m.opponent, t.label + ' · ' + dTxt(m.date), true);
+    setTab(lastTab === 'kalender' || lastTab === 'tilmeld' ? lastTab : 'hold');
+    setHeader((m.isHome ? 'mod ' : '@ ') + m.opponent, t.label + ' · ' + dTxt(m.date), true);
+    if (!m.played) {
+      var eid = matchEid(m);
+      return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px">' +
+        '<span class="lbl" style="margin:0">' + esc(t.label) + ' · ' + esc(t.name) + ' · ' + (m.isHome ? 'Hjemmekamp' : 'Udekamp') + '</span>' +
+        '<span class="h" style="font-size:22px;line-height:1.15">' + esc(m.home) + ' – ' + esc(m.away) + '</span>' +
+        '<span style="font-weight:600">' + DAY_FULL[parseD(m.date).getDay()] + ' ' + dTxt(m.date).split(' ').slice(1).join(' ') + ' kl. ' + esc(m.time || '') + '</span>' +
+        '<span class="s">' + esc(m.venue) + (m.organiser ? ' · arrangør ' + esc(m.organiser) : '') + '</span></div>' +
+        '<span class="lbl">Kan du spille?</span>' + regBlock('match', eid, t.label + ' ' + (m.isHome ? 'mod ' : '@ ') + m.opponent + ' ' + m.date, true);
+    }
     var pts = m.points ? (m.isHome ? m.points : flipScore(m.points)) : '';
     var h = '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">' +
       '<span class="xs" style="font-weight:600">' + dTxt(m.date) + ' kl. ' + esc(m.time || '') + ' · ' + esc(m.venue) + '</span>' +
@@ -397,7 +429,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         var c = teamColor(t.label);
         add({ kind: 'match', date: m.date, time: m.time || '', team: t.label, teamName: t.name, title: (m.isHome ? 'mod ' : '@ ') + m.opponent,
               home: m.isHome, place: m.venue, result: m.played ? m.result : '', outcome: m.outcome || '', bg: c.bg, fg: c.fg,
-              go: m.played ? '#/hold/' + ti + '/kamp/' + mi : '#/hold/' + ti });
+              go: '#/hold/' + ti + '/kamp/' + mi, eid: matchEid(m) });
       });
     });
     var tr = D.training;
@@ -408,7 +440,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         if (skips.some(function (k) { return ds >= k.from && ds <= k.to; })) continue;
         tr.sessions.forEach(function (ss) {
           if (ss.weekday === wd) add({ kind: 'training', date: ds, time: ss.start, end: ss.end, team: ss.group, title: 'Træning · ' + ss.group,
-                                       place: tr.venue || '', bg: '#E7ECF1', fg: '#0E2236', go: '' });
+                                       place: tr.venue || '', bg: '#E7ECF1', fg: '#0E2236', go: '', eid: 't:' + ds + ':' + ss.group });
         });
       }
     }
@@ -422,14 +454,16 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   }
   function evCard(e) {
     var right = e.kind === 'match'
-      ? (e.result ? '<span class="score" style="background:' + oBg(e.outcome) + '">' + esc(e.result) + '</span>' : '<span class="pill" style="background:var(--soft)">' + (e.home ? 'Hjemme' : 'Ude') + '</span>')
+      ? (e.result ? '<span class="score" style="background:' + oBg(e.outcome) + '">' + esc(e.result) + '</span>' : '<span class="pill" style="background:var(--soft)">' + (e.home ? 'Hjemme' : 'Ude') + regChip(e.eid, true) + '</span>')
       : '<span class="xs">til ' + esc(e.end || '') + '</span>';
     var inner = '<span class="tm">' + esc(e.time || '–') + '</span>' +
       '<span class="col"><b style="font-size:14px" class="ellip">' + (e.kind === 'match' ? esc(e.team) + ' <span style="font-weight:500">' + esc(e.title) + '</span>' : esc(e.title)) + '</b>' +
       '<span class="xs ellip">' + esc(e.kind === 'match' ? e.teamName + ' · ' + e.place : e.place) + '</span></span>' + right;
     var style = 'border-left-color:' + (e.kind === 'match' ? e.bg : '#9AA6B1');
-    return e.go ? '<button class="ev" style="' + style + '" data-go="' + e.go + '">' + inner + '</button>'
-                : '<div class="ev tr" style="' + style + '">' + inner + '</div>';
+    if (e.kind === 'training') {
+      return '<div class="evwrap tr"><div class="evtop">' + inner + '</div>' + regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
+    }
+    return '<button class="ev" style="' + style + '" data-go="' + e.go + '">' + inner + '</button>';
   }
   function calToolbar(view, label, prevD, nextD) {
     var h = '<div class="seg" role="tablist" style="grid-template-columns:repeat(4,minmax(0,1fr))">' +
@@ -530,10 +564,232 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     return h;
   }
 
+
+  // ---------- Tilmelding ----------
+  var REG = { url: '', map: {}, loaded: false };
+  var ME = null;
+  try { ME = JSON.parse(localStorage.getItem('hoebk_me') || 'null'); } catch (e) { ME = null; }
+  function saveMe() { try { if (ME) localStorage.setItem('hoebk_me', JSON.stringify(ME)); else localStorage.removeItem('hoebk_me'); } catch (e) {} }
+  var GROUPS = ['Ungdom', 'Senior', 'Senior2', 'Voksenfjer', 'Veteran'];
+  var OPTS = { match: [['ja', 'Kan spille'], ['maaske', 'Måske'], ['nej', 'Kan ikke']], training: [['ja', 'Kommer'], ['nej', 'Kommer ikke']] };
+  var WORD = { ja: { match: 'kan', training: 'kommer' }, nej: { match: 'kan ikke', training: 'kommer ikke' }, maaske: { match: 'måske', training: 'måske' } };
+  function matchEid(m) { return 'm:' + (m.matchID || (m.date + ':' + m.home + ':' + m.away)); }
+  function toast(msg) {
+    var t = document.getElementById('toast'); t.textContent = msg; t.hidden = false;
+    clearTimeout(toast._t); toast._t = setTimeout(function () { t.hidden = true; }, 2600);
+  }
+  function loadReg() {
+    var bust = '?t=' + Math.floor(Date.now() / 30000);
+    return fetch('config.json' + bust).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
+      .then(function (cfg) {
+        REG.url = (cfg && cfg.registrationUrl) || '';
+        var src = REG.url ? REG.url + '?action=status' : 'data/tilmeldinger.json' + bust;
+        return fetch(src).then(function (r) { return r.json(); })
+          .catch(function () { return REG.url ? fetch('data/tilmeldinger.json' + bust).then(function (r) { return r.json(); }) : null; });
+      })
+      .then(function (obj) {
+        REG.map = {};
+        ((obj && obj.status) || []).forEach(function (x) { REG.map[x.e + '|' + x.p] = { s: x.s, n: x.n }; });
+        REG.loaded = true;
+      }).catch(function () { REG.loaded = true; });
+  }
+  function who(eid) {
+    var out = { ja: [], maaske: [], nej: [] };
+    Object.keys(REG.map).forEach(function (k) {
+      if (k.slice(0, k.lastIndexOf('|')) !== eid) return;
+      var v = REG.map[k]; if (out[v.s]) out[v.s].push(v.n);
+    });
+    Object.keys(out).forEach(function (k) { out[k].sort(function (a, b) { return a.localeCompare(b, 'da'); }); });
+    return out;
+  }
+  function mine(eid) { return ME ? ((REG.map[eid + '|' + ME.id] || {}).s || '') : ''; }
+  function regChip(eid, inline) {
+    var w = who(eid), n = w.ja.length;
+    if (!n && !mine(eid)) return inline ? '' : 'Kommer';
+    var m = mine(eid);
+    return (inline ? ' · ' : '') + (m === 'ja' ? '✓ ' : m === 'nej' ? '✕ ' : '') + n + ' kan';
+  }
+  function regBlock(type, eid, label, open) {
+    var w = who(eid), m = mine(eid), h = '<div class="col" style="gap:8px">';
+    if (!REG.url && !Object.keys(REG.map).length) {
+      h += '<p class="note" style="margin:0">Tilmelding åbner, når klubben har koblet Google Sheet på.</p>';
+    }
+    if (ME && ME.token) {
+      h += '<div class="reg">' + OPTS[type].map(function (o) {
+        return '<button class="rb ' + o[0] + '" aria-pressed="' + (m === o[0]) + '" data-reg="' + type + '" data-eid="' + esc(eid) + '" data-status="' + o[0] + '" data-label="' + esc(label) + '"' + (REG.url ? '' : ' disabled') + '>' + o[1] + '</button>';
+      }).join('') + '</div>';
+    } else {
+      h += '<button class="rb" data-go="#/tilmeld">Log ind for at svare</button>';
+    }
+    var total = w.ja.length + w.maaske.length + w.nej.length;
+    var summary = w.ja.length + ' ' + WORD.ja[type] + (w.maaske.length ? ' · ' + w.maaske.length + ' måske' : '') + (w.nej.length ? ' · ' + w.nej.length + ' ' + WORD.nej[type] : '');
+    if (total) {
+      h += '<details class="who"' + (open ? ' open' : '') + '><summary>' + summary + '</summary><ul>' +
+        ['ja', 'maaske', 'nej'].map(function (k) { return w[k].map(function (n) { return '<li class="' + k + '">' + esc(n) + '</li>'; }).join(''); }).join('') + '</ul></details>';
+    } else {
+      h += '<span class="xs">Ingen svar endnu</span>';
+    }
+    return h + '</div>';
+  }
+  function api(body) {
+    return fetch(REG.url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json(); });
+  }
+  function sendReg(type, eid, status, label) {
+    if (!ME || !ME.token) { location.hash = '#/tilmeld'; return; }
+    if (!REG.url) { toast('Tilmelding er ikke slået til endnu'); return; }
+    var prev = REG.map[eid + '|' + ME.id];
+    REG.map[eid + '|' + ME.id] = { s: status, n: ME.name };
+    route(true);
+    var who_ = ME.id;
+    api({ action: 'register', token: ME.token, type: type, eventId: eid, status: status, label: label })
+      .then(function (res) {
+        if (res && res.error === 'login') { ME = null; saveMe(); throw new Error('login'); }
+        if (!res || !res.ok) throw new Error((res && res.error) || 'fejl');
+        toast('Gemt: ' + WORD[status][type]);
+      })
+      .catch(function (err) {
+        if (prev) REG.map[eid + '|' + who_] = prev; else delete REG.map[eid + '|' + who_];
+        route(true);
+        if (err && err.message === 'login') { toast('Log ind igen'); location.hash = '#/tilmeld'; }
+        else toast('Kunne ikke gemme — prøv igen');
+      });
+  }
+  function defaultGroups(teams) {
+    var g = [];
+    teams.forEach(function (l) {
+      if (/^U\d/.test(l)) g.push('Ungdom');
+      else if (/^MOT/.test(l)) g.push('Voksenfjer');
+      else if (/A-række/.test(l)) g.push('Veteran');
+      else g.push('Senior');
+    });
+    return g.filter(function (x, i) { return g.indexOf(x) === i; });
+  }
+  function viewTilmeld() {
+    setTab('tilmeld');
+    if (!ME || !ME.token) {
+      UI.step = UI.step || 'name';
+      if (!REG.url) {
+        setHeader('Min side', 'Log ind med kode på e-mail', false);
+        return '<div class="card" style="padding:16px"><b>Login åbner snart</b><p class="s" style="margin:6px 0 0">Når klubben har koblet sin Google-konto på, kan du logge ind med en kode på e-mail og melde dig til kampe og træning her.</p></div>';
+      }
+      if (UI.step === 'email') {
+        setHeader('Log ind', UI.pending.name, true);
+        return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">' +
+          '<b>Hvilken e-mail skal koden sendes til?</b><span class="s">Brug din egen eller en forælders e-mail. Den gemmes kun hos klubben.</span>' +
+          '<div class="card search"><input id="email" type="email" inputmode="email" autocomplete="email" placeholder="navn@eksempel.dk" aria-label="E-mail" value="' + esc(UI.email || '') + '"></div>' +
+          '<button class="rb ja" id="sendcode" aria-pressed="true" style="min-height:46px">Send kode</button></div>';
+      }
+      if (UI.step === 'code') {
+        setHeader('Indtast kode', 'Sendt til ' + UI.email, true);
+        return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">' +
+          '<b>Tjek din e-mail</b><span class="s">Vi har sendt en 6-cifret kode til ' + esc(UI.email) + '. Den gælder i 15 minutter.</span>' +
+          '<div class="card search"><input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456" aria-label="Kode" style="font-size:22px;letter-spacing:.3em"></div>' +
+          '<button class="rb ja" id="verify" aria-pressed="true" style="min-height:46px">Log ind</button>' +
+          '<button class="pl s" id="resend" style="align-self:flex-start">Send en ny kode</button></div>';
+      }
+      setHeader('Log ind', 'Vælg dit navn', false);
+      return '<p class="s" style="margin:0 4px">Vælg dit navn, så sender vi en kode til din e-mail.</p><label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
+        '<input id="mq" type="search" value="' + esc(UI.mq || '') + '" placeholder="Søg dit navn" aria-label="Søg dit navn" autocomplete="off"></label>' +
+        '<div id="mlist" class="col" style="gap:6px"></div>' +
+        '<span class="lbl">Ikke på listen?</span><div class="card search"><input id="newname" type="text" placeholder="Skriv dit fulde navn" aria-label="Dit fulde navn" autocomplete="name" maxlength="60">' +
+        '<button class="rb" id="newok" style="min-height:36px">Brug</button></div>' +
+        '<p class="note">Listen viser spillere, der har spillet holdkamp i sæsonen. Nye spillere kan skrive deres navn.</p>';
+    }
+    if (UI.pick) { UI.pick = false; }
+    var P = D.players[ME.id];
+    var myTeams = P ? P.teams : [];
+    if (!ME.groups) { ME.groups = defaultGroups(myTeams); saveMe(); }
+    setHeader('Min side', ME.email || ME.name, false);
+    var today = iso(new Date());
+    var h = '<div class="card me"><span class="av" style="background:var(--accent)">' + esc(ini(ME.name)) + '</span>' +
+      '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span></span>' +
+      '<button class="rb" data-act="logout" style="min-height:36px">Log ud</button></div>';
+
+    var myAns = Object.keys(REG.map).filter(function (k) { return k.slice(k.lastIndexOf('|') + 1) === ME.id; }).length;
+    h += '<p class="note">' + (myAns ? 'Du har svaret på ' + myAns + (myAns === 1 ? ' aktivitet.' : ' aktiviteter.') : 'Du har ikke svaret på noget endnu.') + '</p>';
+    // Holdkampe
+    var showAll = UI.allTeams || !myTeams.length;
+    var ups = [];
+    D.teams.forEach(function (t, ti) {
+      if (!showAll && myTeams.indexOf(t.label) < 0) return;
+      t.matches.forEach(function (m, mi) { if (!m.played && m.date >= today) ups.push({ t: t, ti: ti, m: m, mi: mi }); });
+    });
+    ups.sort(function (a, b) { return (a.m.date + a.m.time).localeCompare(b.m.date + b.m.time); });
+    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Kommende holdkampe</span>' +
+      (myTeams.length ? '<button class="pl xs" data-act="allteams">' + (showAll ? 'Kun mine hold' : 'Vis alle hold') + '</button>' : '') + '</div>';
+    h += ups.length ? ups.slice(0, 12).map(function (u) {
+      var label = u.t.label + ' ' + (u.m.isHome ? 'mod ' : '@ ') + u.m.opponent + ' ' + u.m.date;
+      return '<div class="evwrap" style="border-left-color:' + teamColor(u.t.label).bg + '"><button class="evtop" data-go="#/hold/' + u.ti + '/kamp/' + u.mi + '">' +
+        '<span class="col"><b style="font-size:13px">' + dTxt(u.m.date) + '</b><span class="xs">' + esc(u.m.time || '') + '</span></span>' +
+        '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.t.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc(u.m.venue) + '</span></span>' +
+        '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' + regBlock('match', matchEid(u.m), label, false) + '</div>';
+    }).join('') : '<p class="empty">Ingen kommende kampe for dine hold.</p>';
+    // Træning
+    h += '<span class="lbl">Træning de næste 14 dage</span><div class="chips" role="group" aria-label="Mine træningshold">' + GROUPS.map(function (g) {
+      return '<button class="chip" aria-pressed="' + (ME.groups.indexOf(g) >= 0) + '" data-group="' + g + '">' + g + '</button>'; }).join('') + '</div>';
+    var tr = [];
+    for (var i = 0; i < 14; i++) {
+      var ds = iso(addDays(new Date(), i));
+      (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && ME.groups.indexOf(e.team) >= 0) tr.push(e); });
+    }
+    h += tr.length ? tr.map(function (e) {
+      var d = parseD(e.date);
+      return '<div class="evwrap tr"><div class="evtop"><span class="col"><b style="font-size:13px">' + dTxt(e.date) + '</b><span class="xs">' + esc(e.time) + '</span></span>' +
+        '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + ' · ' + DAY_FULL[d.getDay()] + '</span></span><span></span></div>' +
+        regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
+    }).join('') : '<p class="empty">Vælg dine træningshold ovenfor.</p>';
+    return h;
+  }
+  function renderMeList() {
+    var el = document.getElementById('mlist'); if (!el) return;
+    var q = (UI.mq || '').toLowerCase().trim();
+    var list = D.ids.filter(function (id) { var p = D.players[id]; return !q || p.name.toLowerCase().indexOf(q) >= 0 || p.teams.join(' ').toLowerCase().indexOf(q) >= 0; })
+      .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); });
+    el.innerHTML = list.map(function (id, i) {
+      var p = D.players[id];
+      return '<button class="card row" style="min-height:52px;padding:8px 12px" data-me="' + esc(id) + '">' +
+        '<span class="av" style="width:34px;height:34px;font-size:12px;background:' + AV[i % 4] + '">' + esc(ini(p.name)) + '</span>' +
+        '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(p.teams.join(', ')) + '</span></span></button>';
+    }).join('') || '<p class="empty">Ingen match — skriv dit navn nedenfor.</p>';
+  }
+  function setMe(id, name) {
+    UI.pending = { id: id, name: name }; UI.step = 'email'; route();
+  }
+  function sendCode() {
+    var em = (document.getElementById('email') || {}).value || UI.email || '';
+    em = em.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) { toast('Skriv en gyldig e-mail'); return; }
+    UI.email = em;
+    var btn = document.getElementById('sendcode') || document.getElementById('resend'); if (btn) btn.disabled = true;
+    api({ action: 'request', email: em, playerId: UI.pending.id, playerName: UI.pending.name })
+      .then(function (res) {
+        if (!res || !res.ok) throw new Error((res && res.error) || 'Kunne ikke sende kode');
+        UI.step = 'code'; route(); toast('Kode sendt');
+        var c = document.getElementById('code'); if (c) c.focus();
+      })
+      .catch(function (err) { toast(err.message || 'Kunne ikke sende kode'); if (btn) btn.disabled = false; });
+  }
+  function verifyCode() {
+    var code = ((document.getElementById('code') || {}).value || '').replace(/\D/g, '');
+    if (code.length !== 6) { toast('Koden har 6 cifre'); return; }
+    var btn = document.getElementById('verify'); if (btn) btn.disabled = true;
+    api({ action: 'verify', email: UI.email, code: code })
+      .then(function (res) {
+        if (!res || !res.ok) throw new Error((res && res.error) || 'Forkert kode');
+        var p = res.player;
+        ME = { id: p.id, name: p.name, email: p.email, token: res.token, groups: defaultGroups(D.players[p.id] ? D.players[p.id].teams : []) };
+        saveMe(); UI.step = 'name'; UI.pending = null;
+        toast('Hej ' + p.name.split(' ')[0] + '!'); route();
+      })
+      .catch(function (err) { toast(err.message || 'Forkert kode'); if (btn) btn.disabled = false; });
+  }
+
   // ---------- Router ----------
   var lastTab = 'hold';
-  function route() {
+  function route(keepScroll) {
     if (!D) return;
+    var y = window.scrollY;
     var parts = (location.hash || '#/hold').replace(/^#\/?/, '').split('/');
     var html;
     if (parts[0] === 'hold' && parts[1] !== undefined && parts[2] === 'kamp') html = viewMatch(+parts[1], +parts[3]);
@@ -541,6 +797,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     else if (parts[0] === 'rangliste') { lastTab = 'rang'; html = viewRang(); }
     else if (parts[0] === 'spillere') { lastTab = 'spillere'; html = viewSpillere(); }
     else if (parts[0] === 'kalender') { lastTab = 'kalender'; html = viewCal(parts[1] || 'maaned', parts[2]); }
+    else if (parts[0] === 'tilmeld') { lastTab = 'tilmeld'; html = viewTilmeld(); }
     else if (parts[0] === 'spiller') { setTab(lastTab); html = viewPlayer(decodeURIComponent(parts[1] || '')); }
     else { lastTab = 'hold'; html = viewHoldList(); }
     $main.innerHTML = html;
@@ -549,6 +806,27 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       var q = document.getElementById('q');
       q.addEventListener('input', function () { UI.q = q.value; renderPlayerList(); });
     }
+    if (parts[0] === 'tilmeld' && (!ME || !ME.token) && UI.step === 'email') {
+      document.getElementById('sendcode').addEventListener('click', sendCode);
+      document.getElementById('email').addEventListener('keydown', function (e) { if (e.key === 'Enter') sendCode(); });
+    }
+    if (parts[0] === 'tilmeld' && (!ME || !ME.token) && UI.step === 'code') {
+      document.getElementById('verify').addEventListener('click', verifyCode);
+      document.getElementById('code').addEventListener('keydown', function (e) { if (e.key === 'Enter') verifyCode(); });
+      document.getElementById('code').addEventListener('input', function (e) { if (e.target.value.replace(/\D/g, '').length === 6) verifyCode(); });
+      document.getElementById('resend').addEventListener('click', sendCode);
+    }
+    if (parts[0] === 'tilmeld' && (!ME || !ME.token) && (UI.step || 'name') === 'name' && REG.url) {
+      renderMeList();
+      var mq = document.getElementById('mq');
+      mq.addEventListener('input', function () { UI.mq = mq.value; renderMeList(); });
+      document.getElementById('newok').addEventListener('click', function () {
+        var n = document.getElementById('newname').value.trim().replace(/\s+/g, ' ');
+        if (n.length < 3) { toast('Skriv dit fulde navn'); return; }
+        setMe('n:' + n.toLowerCase().replace(/[^a-z0-9æøå]+/g, '-'), n);
+      });
+    }
+    if (keepScroll) window.scrollTo(0, y);
     if (parts[0] === 'kalender') {
       document.getElementById('calTeam').addEventListener('change', function (e) { CAL.team = e.target.value; route(); });
       document.getElementById('calTr').addEventListener('change', function (e) { CAL.training = e.target.checked; route(); });
@@ -562,11 +840,26 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     route(); window.scrollTo(0, 0);
   });
   document.getElementById('back').addEventListener('click', function () {
+    if (location.hash.indexOf('#/tilmeld') === 0 && (!ME || !ME.token) && UI.step && UI.step !== 'name') {
+      UI.step = UI.step === 'code' ? 'email' : 'name'; route(); return;
+    }
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group]');
     if (!b) return;
+    if (b.dataset.reg) { sendReg(b.dataset.reg, b.dataset.eid, b.dataset.status, b.dataset.label); return; }
+    if (b.dataset.me) { setMe(b.dataset.me, D.players[b.dataset.me].name); return; }
+    if (b.dataset.act === 'logout') {
+      if (REG.url && ME && ME.token) api({ action: 'logout', token: ME.token }).catch(function () {});
+      ME = null; saveMe(); UI.step = 'name'; toast('Du er logget ud'); route(); return;
+    }
+    if (b.dataset.act === 'allteams') { UI.allTeams = !UI.allTeams; route(true); return; }
+    if (b.dataset.group) {
+      var gi = ME.groups.indexOf(b.dataset.group);
+      if (gi >= 0) ME.groups.splice(gi, 1); else ME.groups.push(b.dataset.group);
+      saveMe(); route(true); return;
+    }
     if (b.dataset.go) { location.hash = b.dataset.go; return; }
     if (b.dataset.seg) UI.seg = b.dataset.seg;
     if (b.dataset.metric) UI.metric = b.dataset.metric;
@@ -574,7 +867,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     route();
   });
 
-  load().then(function () { prevHash = location.hash; route(); }).catch(function () {
+  load().then(function () { prevHash = location.hash; route(); return loadReg(); }).then(function () { route(true); }).catch(function () {
     $main.innerHTML = '<p class="empty">Kunne ikke hente data. Prøv igen om lidt.</p>';
     document.getElementById('subtitle').textContent = 'Fejl ved hentning';
   });

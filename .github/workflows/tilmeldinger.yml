@@ -1,0 +1,39 @@
+name: HØBK tilmeldinger → SQLite
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Hent tilmeldinger fra Google Sheet
+        env:
+          REG_URL: ${{ secrets.REG_URL }}
+          REG_KEY: ${{ secrets.REG_KEY }}
+        run: python3 sync_tilmeldinger.py
+
+      - name: Commit hvis ændret
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          [ -f data/hoebk.db ] || { echo "Ingen database endnu."; exit 0; }
+          git add data/hoebk.db data/tilmeldinger.json
+          if git diff --cached --quiet; then
+            echo "Ingen nye tilmeldinger."
+          else
+            git commit -m "Tilmeldinger $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase -q origin main && git push
+          fi
