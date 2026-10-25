@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T16:50:57+00:00",
+ "updated": "2026-10-25T20:14:34+00:00",
  "season": "2026",
  "clubRanking": [
   {
@@ -188,6 +188,34 @@
   },
   {
    "rank": 14,
+   "id": "348495",
+   "name": "Alexander Dahl Plougmann",
+   "teams": [
+    "U11 C"
+   ],
+   "played": 6,
+   "won": 5,
+   "winPct": 83,
+   "pointsFor": 228,
+   "avgPoints": 38.0,
+   "avgDiff": 8.2
+  },
+  {
+   "rank": 15,
+   "id": "350815",
+   "name": "Cornelius Engen Peetz",
+   "teams": [
+    "U11 C"
+   ],
+   "played": 6,
+   "won": 5,
+   "winPct": 83,
+   "pointsFor": 190,
+   "avgPoints": 31.7,
+   "avgDiff": 2.8
+  },
+  {
+   "rank": 16,
    "id": "338789",
    "name": "Charles Jordahn Brandt",
    "teams": [
@@ -201,7 +229,7 @@
    "avgDiff": 7.5
   },
   {
-   "rank": 15,
+   "rank": 17,
    "id": "362880",
    "name": "Jonas Gaudesen",
    "teams": [
@@ -215,7 +243,7 @@
    "avgDiff": 8.2
   },
   {
-   "rank": 16,
+   "rank": 18,
    "id": "236648",
    "name": "Rasmus Thorsted Mortensen",
    "teams": [
@@ -229,7 +257,7 @@
    "avgDiff": 4.2
   },
   {
-   "rank": 17,
+   "rank": 19,
    "id": "11839",
    "name": "Morten Plougmann",
    "teams": [
@@ -243,7 +271,7 @@
    "avgDiff": 3.6
   },
   {
-   "rank": 18,
+   "rank": 20,
    "id": "12813",
    "name": "Anders Vedsted Nørrelund",
    "teams": [
@@ -257,7 +285,7 @@
    "avgDiff": 3.0
   },
   {
-   "rank": 19,
+   "rank": 21,
    "id": "250810",
    "name": "Andreas Qianyou Kristensen",
    "teams": [
@@ -271,7 +299,7 @@
    "avgDiff": 2.9
   },
   {
-   "rank": 20,
+   "rank": 22,
    "id": "237819",
    "name": "Gitte Kruse",
    "teams": [
@@ -285,7 +313,21 @@
    "avgDiff": 9.2
   },
   {
-   "rank": 21,
+   "rank": 23,
+   "id": "365654",
+   "name": "Max Han Chen",
+   "teams": [
+    "U11 Dx"
+   ],
+   "played": 4,
+   "won": 4,
+   "winPct": 100,
+   "pointsFor": 90,
+   "avgPoints": 30.0,
+   "avgDiff": 11.3
+  },
+  {
+   "rank": 24,
    "id": "237773",
    "name": "Olivia Høberg Brams",
    "teams": [
@@ -299,7 +341,7 @@
    "avgDiff": 6.7
   },
   {
-   "rank": 22,
+   "rank": 25,
    "id": "362187",
    "name": "Max van Daalen",
    "teams": [
@@ -313,7 +355,7 @@
    "avgDiff": 3.4
   },
   {
-   "rank": 23,
+   "rank": 26,
    "id": "357023",
    "name": "Ellie Schroller Broerson",
    "teams": [
@@ -327,7 +369,7 @@
    "avgDiff": 5.2
   },
   {
-   "rank": 24,
+   "rank": 27,
    "id": "348191",
    "name": "Manfred Bjørn Kirk",
    "teams": [
@@ -341,7 +383,7 @@
    "avgDiff": 10.8
   },
   {
-   "rank": 25,
+   "rank": 28,
    "id": "334106",
    "name": "Malthe Larsen",
    "teams": [
@@ -355,7 +397,21 @@
    "avgDiff": 6.0
   },
   {
-   "rank": 26,
+   "rank": 29,
+   "id": "366509",
+   "name": "Oscar spliid",
+   "teams": [
+    "U11 Dx"
+   ],
+   "played": 5,
+   "won": 4,
+   "winPct": 80,
+   "pointsFor": 101,
+   "avgPoints": 25.2,
+   "avgDiff": 6.2
+  },
+  {
+   "rank": 30,
    "id": "9643",
    "name": "Kim Eriksen",
    "teams": [
@@ -370,7 +426,7 @@
    "avgDiff": 4.3
   },
   {
-   "rank": 27,
+   "rank": 31,
    "id": "360548",
    "name": "MUHAMMAD MOHSIN Ali KHAN",
    "teams": [
@@ -385,7 +441,21 @@
    "avgDiff": 4.0
   },
   {
-   "rank": 28,
+   "rank": 32,
+   "id": "352440",
+   "name": "Ethan Jing",
+   "teams": [
+    "U11 C"
+   ],
+   "played": 6,
+   "won": 4,
+   "winPct": 67,
+   "pointsFor": 188,
+   "avgPoints": 31.3,
+   "avgDiff": 5.3
+  },
+  {
+   "rank": 33,
    "id": "320827",
    "name": "Emma Sejberg Rasmussen",
    "teams": [
@@ -399,7 +469,7 @@
    "avgDiff": 5.5
   },
   {
-   "rank": 29,
+   "rank": 34,
    "id": "275709",
    "name": "Sebastian Søbjerg Lynfort",
    "teams": [
@@ -413,7 +483,7 @@
    "avgDiff": 4.3
   },
   {
-   "rank": 30,
+   "rank": 35,
    "id": "364606",
    "name": "Torbjørn Petersson",
    "teams": [
@@ -427,35 +497,7 @@
    "avgDiff": 3.0
   },
   {
-   "rank": 31,
-   "id": "352440",
-   "name": "Ethan Jing",
-   "teams": [
-    "U11 C"
-   ],
-   "played": 3,
-   "won": 3,
-   "winPct": 100,
-   "pointsFor": 91,
-   "avgPoints": 30.3,
-   "avgDiff": 11.7
-  },
-  {
-   "rank": 32,
-   "id": "348495",
-   "name": "Alexander Dahl Plougmann",
-   "teams": [
-    "U11 C"
-   ],
-   "played": 3,
-   "won": 3,
-   "winPct": 100,
-   "pointsFor": 90,
-   "avgPoints": 30.0,
-   "avgDiff": 12.7
-  },
-  {
-   "rank": 33,
+   "rank": 36,
    "id": "250193",
    "name": "Hans Christian Blomberg",
    "teams": [
@@ -469,7 +511,7 @@
    "avgDiff": 14.7
   },
   {
-   "rank": 34,
+   "rank": 37,
    "id": "309153",
    "name": "Mark saejueng",
    "teams": [
@@ -483,7 +525,7 @@
    "avgDiff": 6.5
   },
   {
-   "rank": 35,
+   "rank": 38,
    "id": "324944",
    "name": "August Drescher",
    "teams": [
@@ -497,7 +539,7 @@
    "avgDiff": 8.0
   },
   {
-   "rank": 36,
+   "rank": 39,
    "id": "320930",
    "name": "Julius Tolsøe",
    "teams": [
@@ -511,7 +553,7 @@
    "avgDiff": 8.0
   },
   {
-   "rank": 37,
+   "rank": 40,
    "id": "359708",
    "name": "Marius Løkke Knutsson",
    "teams": [
@@ -525,7 +567,35 @@
    "avgDiff": 3.4
   },
   {
-   "rank": 38,
+   "rank": 41,
+   "id": "365721",
+   "name": "Sylvester Engen Peetz",
+   "teams": [
+    "U11 Dx"
+   ],
+   "played": 5,
+   "won": 3,
+   "winPct": 60,
+   "pointsFor": 58,
+   "avgPoints": 19.3,
+   "avgDiff": -8.3
+  },
+  {
+   "rank": 42,
+   "id": "335593",
+   "name": "Oliver Vedsted Nørrelund",
+   "teams": [
+    "U15 B"
+   ],
+   "played": 6,
+   "won": 3,
+   "winPct": 50,
+   "pointsFor": 219,
+   "avgPoints": 36.5,
+   "avgDiff": 1.5
+  },
+  {
+   "rank": 43,
    "id": "339512",
    "name": "Anders Franck Berger Christensen",
    "teams": [
@@ -540,7 +610,21 @@
    "avgDiff": -1.0
   },
   {
-   "rank": 39,
+   "rank": 44,
+   "id": "357024",
+   "name": "Ella Baldvinsson Frewald",
+   "teams": [
+    "U11 C"
+   ],
+   "played": 6,
+   "won": 3,
+   "winPct": 50,
+   "pointsFor": 156,
+   "avgPoints": 26.0,
+   "avgDiff": 0.5
+  },
+  {
+   "rank": 45,
    "id": "92804",
    "name": "Jack Søgaard",
    "teams": [
@@ -554,7 +638,7 @@
    "avgDiff": -1.5
   },
   {
-   "rank": 40,
+   "rank": 46,
    "id": "156777",
    "name": "Jonas Aarup Iversen",
    "teams": [
@@ -568,7 +652,7 @@
    "avgDiff": 12.5
   },
   {
-   "rank": 41,
+   "rank": 47,
    "id": "46285",
    "name": "Maria O. Arildsen",
    "teams": [
@@ -582,7 +666,7 @@
    "avgDiff": 6.0
   },
   {
-   "rank": 42,
+   "rank": 48,
    "id": "318476",
    "name": "Valdemar Bæhrenz Peetz",
    "teams": [
@@ -596,7 +680,7 @@
    "avgDiff": 2.3
   },
   {
-   "rank": 43,
+   "rank": 49,
    "id": "158737",
    "name": "Michael Schutt Nielsen",
    "teams": [
@@ -610,7 +694,7 @@
    "avgDiff": 2.7
   },
   {
-   "rank": 44,
+   "rank": 50,
    "id": "352483",
    "name": "Birk Lund Dujardin",
    "teams": [
@@ -624,7 +708,7 @@
    "avgDiff": 5.3
   },
   {
-   "rank": 45,
+   "rank": 51,
    "id": "358565",
    "name": "Vincent Ziyu Ding",
    "teams": [
@@ -638,21 +722,7 @@
    "avgDiff": 0.3
   },
   {
-   "rank": 46,
-   "id": "357024",
-   "name": "Ella Baldvinsson Frewald",
-   "teams": [
-    "U11 C"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 89,
-   "avgPoints": 29.7,
-   "avgDiff": 6.3
-  },
-  {
-   "rank": 47,
+   "rank": 52,
    "id": "361298",
    "name": "Stine Lund Nielsen",
    "teams": [
@@ -666,21 +736,7 @@
    "avgDiff": 4.7
   },
   {
-   "rank": 48,
-   "id": "350815",
-   "name": "Cornelius Engen Peetz",
-   "teams": [
-    "U11 C"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 81,
-   "avgPoints": 27.0,
-   "avgDiff": 5.0
-  },
-  {
-   "rank": 49,
+   "rank": 53,
    "id": "337294",
    "name": "Julie Bille Rannes",
    "teams": [
@@ -694,7 +750,7 @@
    "avgDiff": 6.5
   },
   {
-   "rank": 50,
+   "rank": 54,
    "id": "348034",
    "name": "Dorte Glintborg",
    "teams": [
@@ -708,7 +764,7 @@
    "avgDiff": 14.5
   },
   {
-   "rank": 51,
+   "rank": 55,
    "id": "336079",
    "name": "Stefanie Flamand",
    "teams": [
@@ -722,7 +778,63 @@
    "avgDiff": 9.2
   },
   {
-   "rank": 52,
+   "rank": 56,
+   "id": "346992",
+   "name": "Carl Grønfeldt",
+   "teams": [
+    "U15 B"
+   ],
+   "played": 4,
+   "won": 2,
+   "winPct": 50,
+   "pointsFor": 110,
+   "avgPoints": 27.5,
+   "avgDiff": -4.0
+  },
+  {
+   "rank": 57,
+   "id": "357481",
+   "name": "Nikolaj Feodor Nilsson",
+   "teams": [
+    "U15 B"
+   ],
+   "played": 5,
+   "won": 2,
+   "winPct": 40,
+   "pointsFor": 178,
+   "avgPoints": 35.6,
+   "avgDiff": 2.0
+  },
+  {
+   "rank": 58,
+   "id": "337844",
+   "name": "Ellen Krogh-Larsen",
+   "teams": [
+    "U15 B"
+   ],
+   "played": 5,
+   "won": 2,
+   "winPct": 40,
+   "pointsFor": 171,
+   "avgPoints": 34.2,
+   "avgDiff": -2.2
+  },
+  {
+   "rank": 59,
+   "id": "366570",
+   "name": "Malthe Hommel",
+   "teams": [
+    "U11 Dx"
+   ],
+   "played": 5,
+   "won": 2,
+   "winPct": 40,
+   "pointsFor": 108,
+   "avgPoints": 27.0,
+   "avgDiff": -5.8
+  },
+  {
+   "rank": 60,
    "id": "11745",
    "name": "Steffen Bille Rannes",
    "teams": [
@@ -736,7 +848,7 @@
    "avgDiff": -3.5
   },
   {
-   "rank": 53,
+   "rank": 61,
    "id": "330569",
    "name": "Anders Johannessen",
    "teams": [
@@ -750,7 +862,7 @@
    "avgDiff": -2.0
   },
   {
-   "rank": 54,
+   "rank": 62,
    "id": "314546",
    "name": "Andreas Tønnesen",
    "teams": [
@@ -764,7 +876,7 @@
    "avgDiff": -1.3
   },
   {
-   "rank": 55,
+   "rank": 63,
    "id": "330871",
    "name": "Peter Østergaard",
    "teams": [
@@ -778,7 +890,7 @@
    "avgDiff": -3.3
   },
   {
-   "rank": 56,
+   "rank": 64,
    "id": "355614",
    "name": "Kent bisgaard",
    "teams": [
@@ -792,7 +904,7 @@
    "avgDiff": -1.0
   },
   {
-   "rank": 57,
+   "rank": 65,
    "id": "268924",
    "name": "Marianne Seydel Jørgensen",
    "teams": [
@@ -806,7 +918,7 @@
    "avgDiff": -3.7
   },
   {
-   "rank": 58,
+   "rank": 66,
    "id": "326116",
    "name": "Christopher Johannessen",
    "teams": [
@@ -820,7 +932,7 @@
    "avgDiff": -3.0
   },
   {
-   "rank": 59,
+   "rank": 67,
    "id": "251767",
    "name": "Christian Skytt",
    "teams": [
@@ -834,7 +946,7 @@
    "avgDiff": -5.3
   },
   {
-   "rank": 60,
+   "rank": 68,
    "id": "341039",
    "name": "Ole Friis",
    "teams": [
@@ -848,7 +960,7 @@
    "avgDiff": -8.3
   },
   {
-   "rank": 61,
+   "rank": 69,
    "id": "310855",
    "name": "Emil Tvedergaard Blöndal",
    "teams": [
@@ -862,7 +974,21 @@
    "avgDiff": -4.2
   },
   {
-   "rank": 62,
+   "rank": 70,
+   "id": "362142",
+   "name": "Maximilian Vessel Nielsen",
+   "teams": [
+    "U15 B"
+   ],
+   "played": 4,
+   "won": 1,
+   "winPct": 25,
+   "pointsFor": 101,
+   "avgPoints": 25.2,
+   "avgDiff": -4.5
+  },
+  {
+   "rank": 71,
    "id": "344356",
    "name": "Malthe Kiilerich",
    "teams": [
@@ -877,7 +1003,7 @@
    "avgDiff": -6.8
   },
   {
-   "rank": 63,
+   "rank": 72,
    "id": "308293",
    "name": "Henrik Lund Frandsen",
    "teams": [
@@ -891,7 +1017,21 @@
    "avgDiff": -9.0
   },
   {
-   "rank": 64,
+   "rank": 73,
+   "id": "365636",
+   "name": "Bertram Stenbæk Bro",
+   "teams": [
+    "U11 Dx"
+   ],
+   "played": 5,
+   "won": 1,
+   "winPct": 20,
+   "pointsFor": 111,
+   "avgPoints": 22.2,
+   "avgDiff": -10.0
+  },
+  {
+   "rank": 74,
    "id": "337891",
    "name": "Ina Finlander",
    "teams": [
@@ -906,7 +1046,7 @@
    "avgDiff": -5.5
   },
   {
-   "rank": 65,
+   "rank": 75,
    "id": "245961",
    "name": "Jesper Østergaard",
    "teams": [
@@ -920,7 +1060,7 @@
    "avgDiff": -6.3
   },
   {
-   "rank": 66,
+   "rank": 76,
    "id": "352441",
    "name": "Nolan Jing",
    "teams": [
@@ -934,7 +1074,7 @@
    "avgDiff": -8.0
   },
   {
-   "rank": 67,
+   "rank": 77,
    "id": "339513",
    "name": "Camilla Engel Post",
    "teams": [
@@ -948,7 +1088,7 @@
    "avgDiff": -9.0
   },
   {
-   "rank": 68,
+   "rank": 78,
    "id": "330795",
    "name": "Brit Johannessen",
    "teams": [
@@ -962,7 +1102,7 @@
    "avgDiff": -7.7
   },
   {
-   "rank": 69,
+   "rank": 79,
    "id": "364196",
    "name": "Fie B. Kobberup",
    "teams": [
@@ -976,7 +1116,7 @@
    "avgDiff": -10.3
   },
   {
-   "rank": 70,
+   "rank": 80,
    "id": "362602",
    "name": "Marvin Nørmark",
    "teams": [
@@ -990,7 +1130,7 @@
    "avgDiff": -4.0
   },
   {
-   "rank": 71,
+   "rank": 81,
    "id": "345764",
    "name": "Emilie Drescher",
    "teams": [
@@ -1004,7 +1144,7 @@
    "avgDiff": -11.0
   },
   {
-   "rank": 72,
+   "rank": 82,
    "id": "348494",
    "name": "Mathilde Dahl Plougmann",
    "teams": [
@@ -1018,7 +1158,7 @@
    "avgDiff": -13.7
   },
   {
-   "rank": 73,
+   "rank": 83,
    "id": "367264",
    "name": "Pulin Dhar",
    "teams": [
@@ -1032,7 +1172,7 @@
    "avgDiff": -16.7
   },
   {
-   "rank": 74,
+   "rank": 84,
    "id": "336560",
    "name": "Tue Krogh-Larsen",
    "teams": [
@@ -1046,7 +1186,7 @@
    "avgDiff": -13.0
   },
   {
-   "rank": 75,
+   "rank": 85,
    "id": "277780",
    "name": "Mathilde Peetz",
    "teams": [
@@ -1060,7 +1200,7 @@
    "avgDiff": -15.5
   },
   {
-   "rank": 76,
+   "rank": 86,
    "id": "352356",
    "name": "Carl Emil Jensen",
    "teams": [
@@ -1350,26 +1490,116 @@
      ],
      "won": true,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "1. D",
+     "partner": [
+      "Cornelius Engen Peetz"
+     ],
+     "opponents": [
+      "Johan Skov Andersen",
+      "Valdemar Birkjær"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       16,
+       14
+      ],
+      [
+       15,
+       13
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "3. D",
+     "partner": [
+      "Ethan Jing"
+     ],
+     "opponents": [
+      "Aldin George",
+      "Johan Skov Andersen"
+     ],
+     "sets": [
+      [
+       16,
+       18
+      ],
+      [
+       15,
+       7
+      ],
+      [
+       18,
+       20
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "1. S",
+     "partner": [],
+     "opponents": [
+      "Johan Skov Andersen"
+     ],
+     "sets": [
+      [
+       15,
+       8
+      ],
+      [
+       12,
+       15
+      ],
+      [
+       19,
+       17
+      ]
+     ],
+     "won": true,
+     "walkover": ""
     }
    ],
-   "played": 3,
-   "won": 3,
-   "lost": 0,
-   "winPct": 100,
-   "pointsFor": 90,
-   "pointsAgainst": 52,
-   "avgPoints": 30.0,
-   "avgDiff": 12.7,
-   "setsWon": 6,
-   "setsLost": 0,
+   "played": 6,
+   "won": 5,
+   "lost": 1,
+   "winPct": 83,
+   "pointsFor": 228,
+   "pointsAgainst": 179,
+   "avgPoints": 38.0,
+   "avgDiff": 8.2,
+   "setsWon": 11,
+   "setsLost": 4,
    "byDiscipline": {
     "D": {
-     "played": 2,
-     "won": 2
+     "played": 4,
+     "won": 3
     },
     "S": {
-     "played": 1,
-     "won": 1
+     "played": 2,
+     "won": 2
     }
    },
    "profile": {
@@ -2811,6 +3041,185 @@
    }
   },
   {
+   "id": "365636",
+   "name": "Bertram Stenbæk Bro",
+   "teams": [
+    "U11 Dx"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "1. D",
+     "partner": [
+      "Sylvester Engen Peetz"
+     ],
+     "opponents": [
+      "Arvin Aranha Nørgaard",
+      "Simon Ziming Chai"
+     ],
+     "sets": [
+      [
+       4,
+       15
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "2. D",
+     "partner": [
+      "Malthe Hommel"
+     ],
+     "opponents": [
+      "Simon Ziming Chai",
+      "Albert Schiøtt"
+     ],
+     "sets": [
+      [
+       10,
+       15
+      ],
+      [
+       16,
+       14
+      ],
+      [
+       17,
+       19
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "1. S",
+     "partner": [],
+     "opponents": [
+      "Simon Ziming Chai"
+     ],
+     "sets": [
+      [
+       2,
+       15
+      ],
+      [
+       7,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "1. D",
+     "partner": [
+      "Sylvester Engen Peetz"
+     ],
+     "opponents": [
+      "Muhammad Shaheer Ahmed",
+      "Alisa Bagale"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       13
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "2. D",
+     "partner": [
+      "Malthe Hommel"
+     ],
+     "opponents": [
+      "Alisa Bagale",
+      "Tanishka Bangloori"
+     ],
+     "sets": [
+      [
+       7,
+       15
+      ],
+      [
+       5,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 5,
+   "won": 1,
+   "lost": 4,
+   "winPct": 20,
+   "pointsFor": 111,
+   "pointsAgainst": 161,
+   "avgPoints": 22.2,
+   "avgDiff": -10.0,
+   "setsWon": 3,
+   "setsLost": 8,
+   "byDiscipline": {
+    "D": {
+     "played": 4,
+     "won": 1
+    },
+    "S": {
+     "played": 1,
+     "won": 0
+    }
+   },
+   "profile": {
+    "level": "1050",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U11 D",
+      "points": "1058",
+      "matches": "3",
+      "placement": "12589"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "352483",
    "name": "Birk Lund Dujardin",
    "teams": [
@@ -3535,6 +3944,172 @@
    }
   },
   {
+   "id": "346992",
+   "name": "Carl Grønfeldt",
+   "teams": [
+    "U15 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "4. D",
+     "partner": [
+      "Maximilian Vessel Nielsen"
+     ],
+     "opponents": [
+      "Mads Berthelsen",
+      "Pranav Mutyala"
+     ],
+     "sets": [
+      [
+       11,
+       15
+      ],
+      [
+       7,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "3. D",
+     "partner": [
+      "Ellen Krogh-Larsen"
+     ],
+     "opponents": [
+      "Jacob Trolle Boding",
+      "Mads Berthelsen"
+     ],
+     "sets": [
+      [
+       6,
+       15
+      ],
+      [
+       15,
+       13
+      ],
+      [
+       9,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "4. D",
+     "partner": [
+      "Nikolaj Feodor Nilsson"
+     ],
+     "opponents": [
+      "Emma Gaudesen",
+      "Arthur Asser Kaldahl"
+     ],
+     "sets": [
+      [
+       16,
+       14
+      ],
+      [
+       16,
+       14
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "3. S",
+     "partner": [],
+     "opponents": [
+      "Arthur Asser Kaldahl"
+     ],
+     "sets": [
+      [
+       15,
+       13
+      ],
+      [
+       15,
+       12
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    }
+   ],
+   "played": 4,
+   "won": 2,
+   "lost": 2,
+   "winPct": 50,
+   "pointsFor": 110,
+   "pointsAgainst": 126,
+   "avgPoints": 27.5,
+   "avgDiff": -4.0,
+   "setsWon": 5,
+   "setsLost": 4,
+   "byDiscipline": {
+    "D": {
+     "played": 3,
+     "won": 1
+    },
+    "S": {
+     "played": 1,
+     "won": 1
+    }
+   },
+   "profile": {
+    "level": "1212",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U15 C",
+      "points": "1218",
+      "matches": "8",
+      "placement": "8164"
+     },
+     {
+      "list": "Double",
+      "category": "U15 C",
+      "points": "1156",
+      "matches": "2",
+      "placement": "15330"
+     },
+     {
+      "list": "Mix",
+      "category": "U15 C",
+      "points": "1150",
+      "matches": "0",
+      "placement": ""
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "338789",
    "name": "Charles Jordahn Brandt",
    "teams": [
@@ -4097,26 +4672,112 @@
      ],
      "won": false,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "1. D",
+     "partner": [
+      "Alexander Dahl Plougmann"
+     ],
+     "opponents": [
+      "Johan Skov Andersen",
+      "Valdemar Birkjær"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       16,
+       14
+      ],
+      [
+       15,
+       13
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "2. D",
+     "partner": [
+      "Ella Baldvinsson Frewald"
+     ],
+     "opponents": [
+      "Valdemar Birkjær",
+      "Edwin Eldhose"
+     ],
+     "sets": [
+      [
+       17,
+       15
+      ],
+      [
+       15,
+       8
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "2. S",
+     "partner": [],
+     "opponents": [
+      "Valdemar Birkjær"
+     ],
+     "sets": [
+      [
+       3,
+       15
+      ],
+      [
+       16,
+       14
+      ],
+      [
+       15,
+       13
+      ]
+     ],
+     "won": true,
+     "walkover": ""
     }
    ],
-   "played": 3,
-   "won": 2,
+   "played": 6,
+   "won": 5,
    "lost": 1,
-   "winPct": 67,
-   "pointsFor": 81,
-   "pointsAgainst": 66,
-   "avgPoints": 27.0,
-   "avgDiff": 5.0,
-   "setsWon": 4,
-   "setsLost": 2,
+   "winPct": 83,
+   "pointsFor": 190,
+   "pointsAgainst": 173,
+   "avgPoints": 31.7,
+   "avgDiff": 2.8,
+   "setsWon": 10,
+   "setsLost": 4,
    "byDiscipline": {
     "D": {
-     "played": 2,
-     "won": 2
+     "played": 4,
+     "won": 4
     },
     "S": {
-     "played": 1,
-     "won": 0
+     "played": 2,
+     "won": 1
     }
    },
    "profile": {
@@ -4345,25 +5006,103 @@
      ],
      "won": false,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "4. D",
+     "partner": [
+      "Ethan Jing"
+     ],
+     "opponents": [
+      "Aldin George",
+      "Edwin Eldhose"
+     ],
+     "sets": [
+      [
+       13,
+       15
+      ],
+      [
+       5,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "2. D",
+     "partner": [
+      "Cornelius Engen Peetz"
+     ],
+     "opponents": [
+      "Valdemar Birkjær",
+      "Edwin Eldhose"
+     ],
+     "sets": [
+      [
+       17,
+       15
+      ],
+      [
+       15,
+       8
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "3. S",
+     "partner": [],
+     "opponents": [
+      "Edwin Eldhose"
+     ],
+     "sets": [
+      [
+       9,
+       15
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
     }
    ],
-   "played": 3,
-   "won": 2,
-   "lost": 1,
-   "winPct": 67,
-   "pointsFor": 89,
-   "pointsAgainst": 70,
-   "avgPoints": 29.7,
-   "avgDiff": 6.3,
-   "setsWon": 4,
-   "setsLost": 2,
+   "played": 6,
+   "won": 3,
+   "lost": 3,
+   "winPct": 50,
+   "pointsFor": 156,
+   "pointsAgainst": 153,
+   "avgPoints": 26.0,
+   "avgDiff": 0.5,
+   "setsWon": 6,
+   "setsLost": 6,
    "byDiscipline": {
     "D": {
-     "played": 2,
-     "won": 2
+     "played": 4,
+     "won": 3
     },
     "S": {
-     "played": 1,
+     "played": 2,
      "won": 0
     }
    },
@@ -4383,6 +5122,211 @@
       "points": "1206",
       "matches": "30",
       "placement": "14020"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
+   "id": "337844",
+   "name": "Ellen Krogh-Larsen",
+   "teams": [
+    "U15 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "1. D",
+     "partner": [
+      "Oliver Vedsted Nørrelund"
+     ],
+     "opponents": [
+      "William E Greenaway-Skive",
+      "Jacob Trolle Boding"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       15,
+       13
+      ],
+      [
+       15,
+       11
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "3. D",
+     "partner": [
+      "Carl Grønfeldt"
+     ],
+     "opponents": [
+      "Jacob Trolle Boding",
+      "Mads Berthelsen"
+     ],
+     "sets": [
+      [
+       6,
+       15
+      ],
+      [
+       15,
+       13
+      ],
+      [
+       9,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "3. S",
+     "partner": [],
+     "opponents": [
+      "Jacob Trolle Boding"
+     ],
+     "sets": [
+      [
+       10,
+       15
+      ],
+      [
+       15,
+       11
+      ],
+      [
+       7,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "1. D",
+     "partner": [
+      "Oliver Vedsted Nørrelund"
+     ],
+     "opponents": [
+      "Alma Forchhammer Ali",
+      "Frederik Visby Sandbæk"
+     ],
+     "sets": [
+      [
+       15,
+       8
+      ],
+      [
+       15,
+       7
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "3. D",
+     "partner": [
+      "Maximilian Vessel Nielsen"
+     ],
+     "opponents": [
+      "Frederik Visby Sandbæk",
+      "Emma Gaudesen"
+     ],
+     "sets": [
+      [
+       11,
+       15
+      ],
+      [
+       16,
+       14
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    }
+   ],
+   "played": 5,
+   "won": 2,
+   "lost": 3,
+   "winPct": 40,
+   "pointsFor": 171,
+   "pointsAgainst": 182,
+   "avgPoints": 34.2,
+   "avgDiff": -2.2,
+   "setsWon": 7,
+   "setsLost": 7,
+   "byDiscipline": {
+    "D": {
+     "played": 4,
+     "won": 2
+    },
+    "S": {
+     "played": 1,
+     "won": 0
+    }
+   },
+   "profile": {
+    "level": "1457",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U15 A",
+      "points": "1424",
+      "matches": "15",
+      "placement": "5776"
+     },
+     {
+      "list": "Double",
+      "category": "U15 A",
+      "points": "1488",
+      "matches": "49",
+      "placement": "10179"
+     },
+     {
+      "list": "Mix",
+      "category": "U15 A",
+      "points": "1444",
+      "matches": "24",
+      "placement": "5223"
      }
     ],
     "license": "Ingen"
@@ -5175,26 +6119,108 @@
      ],
      "won": true,
      "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "4. D",
+     "partner": [
+      "Ella Baldvinsson Frewald"
+     ],
+     "opponents": [
+      "Aldin George",
+      "Edwin Eldhose"
+     ],
+     "sets": [
+      [
+       13,
+       15
+      ],
+      [
+       5,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "3. D",
+     "partner": [
+      "Alexander Dahl Plougmann"
+     ],
+     "opponents": [
+      "Aldin George",
+      "Johan Skov Andersen"
+     ],
+     "sets": [
+      [
+       16,
+       18
+      ],
+      [
+       15,
+       7
+      ],
+      [
+       18,
+       20
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 C",
+     "teamName": "Hørsholm 1",
+     "opponentTeam": "Slangerup/Skibby 1",
+     "matchID": "513402",
+     "discipline": "4. S",
+     "partner": [],
+     "opponents": [
+      "Aldin George"
+     ],
+     "sets": [
+      [
+       15,
+       13
+      ],
+      [
+       15,
+       12
+      ]
+     ],
+     "won": true,
+     "walkover": ""
     }
    ],
-   "played": 3,
-   "won": 3,
-   "lost": 0,
-   "winPct": 100,
-   "pointsFor": 91,
-   "pointsAgainst": 56,
-   "avgPoints": 30.3,
-   "avgDiff": 11.7,
-   "setsWon": 6,
-   "setsLost": 0,
+   "played": 6,
+   "won": 4,
+   "lost": 2,
+   "winPct": 67,
+   "pointsFor": 188,
+   "pointsAgainst": 156,
+   "avgPoints": 31.3,
+   "avgDiff": 5.3,
+   "setsWon": 9,
+   "setsLost": 4,
    "byDiscipline": {
     "D": {
-     "played": 2,
+     "played": 4,
      "won": 2
     },
     "S": {
-     "played": 1,
-     "won": 1
+     "played": 2,
+     "won": 2
     }
    },
    "profile": {
@@ -8367,6 +9393,162 @@
    }
   },
   {
+   "id": "366570",
+   "name": "Malthe Hommel",
+   "teams": [
+    "U11 Dx"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "2. D",
+     "partner": [
+      "Bertram Stenbæk Bro"
+     ],
+     "opponents": [
+      "Simon Ziming Chai",
+      "Albert Schiøtt"
+     ],
+     "sets": [
+      [
+       10,
+       15
+      ],
+      [
+       16,
+       14
+      ],
+      [
+       17,
+       19
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "3. S",
+     "partner": [],
+     "opponents": [
+      "Arvin Aranha Nørgaard"
+     ],
+     "sets": [
+      [
+       13,
+       15
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "4. D",
+     "partner": [
+      "Max Han Chen"
+     ],
+     "opponents": [],
+     "sets": [],
+     "won": true,
+     "walkover": "H"
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "2. D",
+     "partner": [
+      "Bertram Stenbæk Bro"
+     ],
+     "opponents": [
+      "Alisa Bagale",
+      "Tanishka Bangloori"
+     ],
+     "sets": [
+      [
+       7,
+       15
+      ],
+      [
+       5,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "2. S",
+     "partner": [],
+     "opponents": [
+      "Alisa Bagale"
+     ],
+     "sets": [
+      [
+       15,
+       13
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    }
+   ],
+   "played": 5,
+   "won": 2,
+   "lost": 3,
+   "winPct": 40,
+   "pointsFor": 108,
+   "pointsAgainst": 131,
+   "avgPoints": 27.0,
+   "avgDiff": -5.8,
+   "setsWon": 3,
+   "setsLost": 6,
+   "byDiscipline": {
+    "D": {
+     "played": 3,
+     "won": 1
+    },
+    "S": {
+     "played": 2,
+     "won": 1
+    }
+   },
+   "profile": {
+    "level": "",
+    "rankings": [],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "344356",
    "name": "Malthe Kiilerich",
    "teams": [
@@ -10381,6 +11563,131 @@
    }
   },
   {
+   "id": "365654",
+   "name": "Max Han Chen",
+   "teams": [
+    "U11 Dx"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "4. D",
+     "partner": [
+      "Oscar spliid"
+     ],
+     "opponents": [
+      "Albert Schiøtt",
+      "Thor Riise Hansen"
+     ],
+     "sets": [
+      [
+       15,
+       12
+      ],
+      [
+       15,
+       7
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "4. S",
+     "partner": [],
+     "opponents": [
+      "Thor Riise Hansen"
+     ],
+     "sets": [
+      [
+       15,
+       8
+      ],
+      [
+       15,
+       8
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "4. D",
+     "partner": [
+      "Malthe Hommel"
+     ],
+     "opponents": [],
+     "sets": [],
+     "won": true,
+     "walkover": "H"
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "3. S",
+     "partner": [],
+     "opponents": [
+      "Tanishka Bangloori"
+     ],
+     "sets": [
+      [
+       15,
+       9
+      ],
+      [
+       15,
+       12
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    }
+   ],
+   "played": 4,
+   "won": 4,
+   "lost": 0,
+   "winPct": 100,
+   "pointsFor": 90,
+   "pointsAgainst": 56,
+   "avgPoints": 30.0,
+   "avgDiff": 11.3,
+   "setsWon": 6,
+   "setsLost": 0,
+   "byDiscipline": {
+    "D": {
+     "played": 2,
+     "won": 2
+    },
+    "S": {
+     "played": 2,
+     "won": 2
+    }
+   },
+   "profile": {
+    "level": "",
+    "rankings": [],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "362187",
    "name": "Max van Daalen",
    "teams": [
@@ -10558,6 +11865,169 @@
       "points": "1160",
       "matches": "13",
       "placement": "15252"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
+   "id": "362142",
+   "name": "Maximilian Vessel Nielsen",
+   "teams": [
+    "U15 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "4. D",
+     "partner": [
+      "Carl Grønfeldt"
+     ],
+     "opponents": [
+      "Mads Berthelsen",
+      "Pranav Mutyala"
+     ],
+     "sets": [
+      [
+       11,
+       15
+      ],
+      [
+       7,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "4. S",
+     "partner": [],
+     "opponents": [
+      "William E Greenaway-Skive"
+     ],
+     "sets": [
+      [
+       7,
+       15
+      ],
+      [
+       9,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "3. D",
+     "partner": [
+      "Ellen Krogh-Larsen"
+     ],
+     "opponents": [
+      "Frederik Visby Sandbæk",
+      "Emma Gaudesen"
+     ],
+     "sets": [
+      [
+       11,
+       15
+      ],
+      [
+       16,
+       14
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "4. S",
+     "partner": [],
+     "opponents": [
+      "Emma Gaudesen"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       5
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    }
+   ],
+   "played": 4,
+   "won": 1,
+   "lost": 3,
+   "winPct": 25,
+   "pointsFor": 101,
+   "pointsAgainst": 119,
+   "avgPoints": 25.2,
+   "avgDiff": -4.5,
+   "setsWon": 3,
+   "setsLost": 6,
+   "byDiscipline": {
+    "D": {
+     "played": 2,
+     "won": 0
+    },
+    "S": {
+     "played": 2,
+     "won": 1
+    }
+   },
+   "profile": {
+    "level": "1218",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U15 C",
+      "points": "1234",
+      "matches": "17",
+      "placement": "7959"
+     },
+     {
+      "list": "Double",
+      "category": "U15 C",
+      "points": "1201",
+      "matches": "13",
+      "placement": "14115"
+     },
+     {
+      "list": "Mix",
+      "category": "U15 C",
+      "points": "1165",
+      "matches": "0",
+      "placement": ""
      }
     ],
     "license": "Ingen"
@@ -10961,6 +12431,200 @@
    }
   },
   {
+   "id": "357481",
+   "name": "Nikolaj Feodor Nilsson",
+   "teams": [
+    "U15 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "2. D",
+     "partner": [
+      "Oliver Vedsted Nørrelund"
+     ],
+     "opponents": [
+      "William E Greenaway-Skive",
+      "Pranav Mutyala"
+     ],
+     "sets": [
+      [
+       15,
+       12
+      ],
+      [
+       18,
+       20
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "2. S",
+     "partner": [],
+     "opponents": [
+      "Pranav Mutyala"
+     ],
+     "sets": [
+      [
+       16,
+       18
+      ],
+      [
+       14,
+       16
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "4. D",
+     "partner": [
+      "Carl Grønfeldt"
+     ],
+     "opponents": [
+      "Emma Gaudesen",
+      "Arthur Asser Kaldahl"
+     ],
+     "sets": [
+      [
+       16,
+       14
+      ],
+      [
+       16,
+       14
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "2. D",
+     "partner": [
+      "Oliver Vedsted Nørrelund"
+     ],
+     "opponents": [
+      "Alma Forchhammer Ali",
+      "Arthur Asser Kaldahl"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       17
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "2. S",
+     "partner": [],
+     "opponents": [
+      "Alma Forchhammer Ali"
+     ],
+     "sets": [
+      [
+       15,
+       12
+      ],
+      [
+       15,
+       5
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    }
+   ],
+   "played": 5,
+   "won": 2,
+   "lost": 3,
+   "winPct": 40,
+   "pointsFor": 178,
+   "pointsAgainst": 168,
+   "avgPoints": 35.6,
+   "avgDiff": 2.0,
+   "setsWon": 6,
+   "setsLost": 6,
+   "byDiscipline": {
+    "D": {
+     "played": 3,
+     "won": 1
+    },
+    "S": {
+     "played": 2,
+     "won": 1
+    }
+   },
+   "profile": {
+    "level": "1494",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U15 B",
+      "points": "1527",
+      "matches": "64",
+      "placement": "5070"
+     },
+     {
+      "list": "Double",
+      "category": "U15 B",
+      "points": "1325",
+      "matches": "30",
+      "placement": "11995"
+     },
+     {
+      "list": "Mix",
+      "category": "U15 B",
+      "points": "1150",
+      "matches": "0",
+      "placement": ""
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "352441",
    "name": "Nolan Jing",
    "teams": [
@@ -11224,6 +12888,235 @@
    }
   },
   {
+   "id": "335593",
+   "name": "Oliver Vedsted Nørrelund",
+   "teams": [
+    "U15 B"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "1. D",
+     "partner": [
+      "Ellen Krogh-Larsen"
+     ],
+     "opponents": [
+      "William E Greenaway-Skive",
+      "Jacob Trolle Boding"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       15,
+       13
+      ],
+      [
+       15,
+       11
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "2. D",
+     "partner": [
+      "Nikolaj Feodor Nilsson"
+     ],
+     "opponents": [
+      "William E Greenaway-Skive",
+      "Pranav Mutyala"
+     ],
+     "sets": [
+      [
+       15,
+       12
+      ],
+      [
+       18,
+       20
+      ],
+      [
+       10,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 1",
+     "matchID": "514326",
+     "discipline": "1. S",
+     "partner": [],
+     "opponents": [
+      "Mads Berthelsen"
+     ],
+     "sets": [
+      [
+       9,
+       15
+      ],
+      [
+       9,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "1. D",
+     "partner": [
+      "Ellen Krogh-Larsen"
+     ],
+     "opponents": [
+      "Alma Forchhammer Ali",
+      "Frederik Visby Sandbæk"
+     ],
+     "sets": [
+      [
+       15,
+       8
+      ],
+      [
+       15,
+       7
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "2. D",
+     "partner": [
+      "Nikolaj Feodor Nilsson"
+     ],
+     "opponents": [
+      "Alma Forchhammer Ali",
+      "Arthur Asser Kaldahl"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       17
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U15 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Nivå-Kokkedal 1",
+     "matchID": "514329",
+     "discipline": "1. S",
+     "partner": [],
+     "opponents": [
+      "Frederik Visby Sandbæk"
+     ],
+     "sets": [
+      [
+       12,
+       15
+      ],
+      [
+       15,
+       8
+      ],
+      [
+       16,
+       14
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    }
+   ],
+   "played": 6,
+   "won": 3,
+   "lost": 3,
+   "winPct": 50,
+   "pointsFor": 219,
+   "pointsAgainst": 210,
+   "avgPoints": 36.5,
+   "avgDiff": 1.5,
+   "setsWon": 8,
+   "setsLost": 8,
+   "byDiscipline": {
+    "D": {
+     "played": 4,
+     "won": 2
+    },
+    "S": {
+     "played": 2,
+     "won": 1
+    }
+   },
+   "profile": {
+    "level": "1542",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U15 B",
+      "points": "1601",
+      "matches": "46",
+      "placement": "4630"
+     },
+     {
+      "list": "Double",
+      "category": "U15 B",
+      "points": "1523",
+      "matches": "36",
+      "placement": "9754"
+     },
+     {
+      "list": "Mix",
+      "category": "U15 B",
+      "points": "1302",
+      "matches": "19",
+      "placement": "6009"
+     }
+    ],
+    "license": "Ingen"
+   }
+  },
+  {
    "id": "237773",
    "name": "Olivia Høberg Brams",
    "teams": [
@@ -11368,6 +13261,158 @@
       "placement": "3041"
      }
     ],
+    "license": "Ingen"
+   }
+  },
+  {
+   "id": "366509",
+   "name": "Oscar spliid",
+   "teams": [
+    "U11 Dx"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "4. D",
+     "partner": [
+      "Max Han Chen"
+     ],
+     "opponents": [
+      "Albert Schiøtt",
+      "Thor Riise Hansen"
+     ],
+     "sets": [
+      [
+       15,
+       12
+      ],
+      [
+       15,
+       7
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "3. D",
+     "partner": [
+      "Sylvester Engen Peetz"
+     ],
+     "opponents": [
+      "Arvin Aranha Nørgaard",
+      "Thor Riise Hansen"
+     ],
+     "sets": [
+      [
+       2,
+       15
+      ],
+      [
+       9,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "2. S",
+     "partner": [],
+     "opponents": [
+      "Albert Schiøtt"
+     ],
+     "sets": [
+      [
+       15,
+       3
+      ],
+      [
+       15,
+       12
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "3. D",
+     "partner": [
+      "Sylvester Engen Peetz"
+     ],
+     "opponents": [],
+     "sets": [],
+     "won": true,
+     "walkover": "H"
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "1. S",
+     "partner": [],
+     "opponents": [
+      "Muhammad Shaheer Ahmed"
+     ],
+     "sets": [
+      [
+       15,
+       7
+      ],
+      [
+       15,
+       5
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    }
+   ],
+   "played": 5,
+   "won": 4,
+   "lost": 1,
+   "winPct": 80,
+   "pointsFor": 101,
+   "pointsAgainst": 76,
+   "avgPoints": 25.2,
+   "avgDiff": 6.2,
+   "setsWon": 6,
+   "setsLost": 2,
+   "byDiscipline": {
+    "D": {
+     "played": 3,
+     "won": 2
+    },
+    "S": {
+     "played": 2,
+     "won": 2
+    }
+   },
+   "profile": {
+    "level": "",
+    "rankings": [],
     "license": "Ingen"
    }
   },
@@ -13561,6 +15606,150 @@
       "placement": "6344"
      }
     ],
+    "license": "Ingen"
+   }
+  },
+  {
+   "id": "365721",
+   "name": "Sylvester Engen Peetz",
+   "teams": [
+    "U11 Dx"
+   ],
+   "adult": false,
+   "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "1. D",
+     "partner": [
+      "Bertram Stenbæk Bro"
+     ],
+     "opponents": [
+      "Arvin Aranha Nørgaard",
+      "Simon Ziming Chai"
+     ],
+     "sets": [
+      [
+       4,
+       15
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Herlev/Hjorten 2",
+     "matchID": "514711",
+     "discipline": "3. D",
+     "partner": [
+      "Oscar spliid"
+     ],
+     "opponents": [
+      "Arvin Aranha Nørgaard",
+      "Thor Riise Hansen"
+     ],
+     "sets": [
+      [
+       2,
+       15
+      ],
+      [
+       9,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "1. D",
+     "partner": [
+      "Bertram Stenbæk Bro"
+     ],
+     "opponents": [
+      "Muhammad Shaheer Ahmed",
+      "Alisa Bagale"
+     ],
+     "sets": [
+      [
+       15,
+       10
+      ],
+      [
+       15,
+       13
+      ]
+     ],
+     "won": true,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "3. D",
+     "partner": [
+      "Oscar spliid"
+     ],
+     "opponents": [],
+     "sets": [],
+     "won": true,
+     "walkover": "H"
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U11 Dx",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Vallensbæk 1",
+     "matchID": "514713",
+     "discipline": "4. S",
+     "partner": [],
+     "opponents": [],
+     "sets": [],
+     "won": true,
+     "walkover": "H"
+    }
+   ],
+   "played": 5,
+   "won": 3,
+   "lost": 2,
+   "winPct": 60,
+   "pointsFor": 58,
+   "pointsAgainst": 83,
+   "avgPoints": 19.3,
+   "avgDiff": -8.3,
+   "setsWon": 2,
+   "setsLost": 4,
+   "byDiscipline": {
+    "D": {
+     "played": 4,
+     "won": 2
+    },
+    "S": {
+     "played": 1,
+     "won": 1
+    }
+   },
+   "profile": {
+    "level": "",
+    "rankings": [],
     "license": "Ingen"
    }
   },
