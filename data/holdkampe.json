@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T20:28:27+00:00",
+  "updated": "2026-10-25T20:55:38+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -7018,6 +7018,17 @@
         },
         {
           "pos": "2",
+          "team": "Virum",
+          "teamID": "122525",
+          "isUs": false,
+          "played": "4",
+          "won": "4",
+          "score": "35-17",
+          "sets": "77-39",
+          "points": "11"
+        },
+        {
+          "pos": "3",
           "team": "Ledøje-Smørum 2",
           "teamID": "122524",
           "isUs": false,
@@ -7025,17 +7036,6 @@
           "won": "3",
           "score": "38-14",
           "sets": "81-36",
-          "points": "9"
-        },
-        {
-          "pos": "3",
-          "team": "Virum",
-          "teamID": "122525",
-          "isUs": false,
-          "played": "3",
-          "won": "3",
-          "score": "28-11",
-          "sets": "61-26",
           "points": "9"
         },
         {
@@ -7054,11 +7054,11 @@
           "team": "Ølstykke 2",
           "teamID": "122518",
           "isUs": false,
-          "played": "3",
+          "played": "4",
           "won": "1",
-          "score": "17-22",
-          "sets": "33-49",
-          "points": "4"
+          "score": "23-29",
+          "sets": "46-65",
+          "points": "5"
         },
         {
           "pos": "6",
