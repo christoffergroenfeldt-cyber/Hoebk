@@ -1792,22 +1792,6 @@
   "min": 45,
   "km": 54
  },
- "hal|Frederiksberghal 3 1-2|VBC/FKIF": {
-  "lat": 55.4747,
-  "lon": 9.1337,
-  "precision": "by",
-  "by": "VBC",
-  "min": 178,
-  "km": 269
- },
- "hal|Frederiksberghal 3 3-4|VBC/FKIF": {
-  "lat": 55.4747,
-  "lon": 9.1337,
-  "precision": "by",
-  "by": "VBC",
-  "min": 178,
-  "km": 269
- },
  "hal|Frederikssundhallen|Frederikssund": {
   "lat": 55.8305,
   "lon": 12.0608,

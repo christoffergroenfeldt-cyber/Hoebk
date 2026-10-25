@@ -1,5 +1,15 @@
 {
   "_info": "Håndrettelser af hvor en turnering foregår. Nøgle = arrangør-teksten præcis som i turneringer.json. Værdi: {\"sted\": \"Bynavn\"} eller {\"lat\": 55.0, \"lon\": 12.0} eller {\"ukendt\": true}. Slå et sted op igen ved at slette dets linje i data/steder.json.",
-  "Denmark Open 2026 Super 750": { "sted": "Odense" },
-  "Skovbakken": { "sted": "Aarhus" }
+  "Denmark Open 2026 Super 750": {
+    "sted": "Odense"
+  },
+  "Skovbakken": {
+    "sted": "Aarhus"
+  },
+  "_info_haller": "Holdkampe: nøgle = hallens navn uden banenumre (fx \"Frederiksberghal 3\"), værdi {\"lat\": …, \"lon\": …, \"by\": \"Bynavn\"}. Slet hallens linje (hal|…) i data/steder.json bagefter.",
+  "Frederiksberghal 3": {
+    "lat": 55.6815,
+    "lon": 12.53,
+    "by": "Frederiksberg"
+  }
 }

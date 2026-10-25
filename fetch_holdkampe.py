@@ -771,7 +771,7 @@ def locate_matches(teams, data_dir):
                 entry = None
                 fix = fixes.get(venue) or fixes.get(hall)
                 if fix and "lat" in fix:
-                    entry = {"lat": fix["lat"], "lon": fix["lon"], "precision": "rettet"}
+                    entry = {"lat": fix["lat"], "lon": fix["lon"], "precision": "rettet", "by": fix.get("by", "")}
                 if entry is None and re.search(r"hørsholm", venue, re.I):
                     entry = {"lat": HOME_HALL[0], "lon": HOME_HALL[1], "precision": "hal"}
                 fails = NET_FAIL[0]
