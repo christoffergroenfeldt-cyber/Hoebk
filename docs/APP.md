@@ -91,7 +91,7 @@ A player's circle has the colour of the division they've played most team matche
 
 ## Layout
 
-The page is a fixed frame: `html, body` have no height or overflow rules (iOS would clip the frame at the too-small reported height) and no content in the flow; `.app` is fixed at the top with height `--app-h` (set by `fitHeight()`: in a home-screen app the full screen height, because iOS reports `innerHeight`/`100dvh` short by the status bar) with header, `main` (the only scrolling element, `overflow-y: auto`) and the tab bar as normal flex children. This avoids iOS home-screen apps placing a `position: fixed` tab bar in the middle of the screen after resuming. Scroll position is `$main.scrollTop`, not `window.scrollY`.
+The page is a fixed frame: `html, body` have no height or overflow rules (iOS would clip the frame at the too-small reported height) and no content in the flow; `.app` is `position: fixed; top: 0; bottom: 0` with header, `main` (the only scrolling element, `overflow-y: auto`) and the tab bar as normal flex children. This avoids iOS home-screen apps placing a `position: fixed` tab bar in the middle of the screen after resuming. The status bar style is `black` (not `black-translucent`): with a translucent status bar newer iOS versions make the web view shorter than the screen and leave a strip at the bottom. Changing this meta tag only takes effect after the app is removed from and re-added to the home screen. Scroll position is `$main.scrollTop`, not `window.scrollY`.
 
 ## Design tokens
 
