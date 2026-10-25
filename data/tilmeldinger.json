@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T15:40:00+00:00",
+ "updated": "2026-10-25T15:42:28+00:00",
  "status": [
   {
    "e": "m:507825",
@@ -45,5 +45,5 @@
   }
  ],
  "lineups": [],
- "scriptHasLineups": false
+ "scriptHasLineups": true
 }
