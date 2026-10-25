@@ -101,6 +101,14 @@ One row per leader: `email`, `navn`, `hold` — team labels separated by commas 
 
 Everyone sees the selected team and the status on the match page. Lineups are stored in the *Opstillinger* tab (latest per match wins) and synced to `data/hoebk.db` → table `lineups`.
 
+## Following tournaments (e-mail notifications)
+
+Logged-in players can tap **☆ Følg turneringen** on any tournament. Follows are stored in the sheet tab **Følger** (email, player, tournament id). After every data run (`holdkampe.yml`: daily ~07:17 and Sat/Sun ~21:37 Danish time) `notify_turneringer.py` compares the season plan with the previous run and sends what's new to the script (`action: notify`, protected by REG_KEY). The script mails each follower **one** summary per run and logs it in the tab **Notifikationer**.
+
+What triggers a mail: entry deadline or dates changed, classes added/removed, tournament renamed/cancelled/removed, sign-up opened/closed, invitation, participant list, program or results published, and reminders 7 and 2 days before the entry deadline (each sent once — remembered in `data/notifikationer.json`).
+
+Gmail accounts can send ~100 mails a day from Apps Script; login codes and notifications share that quota. If it runs out, notifications for the day are skipped (counted as `skipped`).
+
 ## Changing the script later
 
 Saving the code is not enough — the live web app keeps running the old version until you publish a new one:

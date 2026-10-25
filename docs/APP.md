@@ -61,6 +61,13 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 - The player profile and Min side show upcoming tournaments matching the player's level, taken from their ranking category (see [DATA.md](DATA.md)); the matching classes are highlighted.
 - The entry deadline shows as *Frist 12. nov* while open and *Lukket* after.
 
+## Following tournaments
+
+- Tournament page: **☆ Følg turneringen** / **★ Følger** (needs login). Stored in Apps Script (`action: follow`), mirrored in `hoebk_me.follows`.
+- Followed tournaments get a ★ in every list and their own section on Min side.
+- Cards show the latest news from `data/turnering_nyt.json` (last 14 days) or what's published (*Program klar · Deltagerliste*); the tournament page lists all news.
+- Mails are sent by the data workflow — see [TILMELDING.md](TILMELDING.md).
+
 ## Club ranking
 
 Computed from team-match lineups (all teams, current season):

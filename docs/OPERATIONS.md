@@ -4,7 +4,7 @@
 
 | Workflow | File | Schedule (UTC) | Does |
 |---|---|---|---|
-| **HØBK holdkampe** | `.github/workflows/holdkampe.yml` | `17 5 * * *` (≈06:17 Danish winter time) and `37 20 * * 0,6` (Sat + Sun ≈21:37) | Runs `fetch_holdkampe.py --club 1151 --pulje 19102:5 --profiles --tournaments`, commits `data/holdkampe.json`, `data/spillere.json`, `data/turneringer.json` |
+| **HØBK holdkampe** | `.github/workflows/holdkampe.yml` | `17 5 * * *` (≈06:17 Danish winter time) and `37 20 * * 0,6` (Sat + Sun ≈21:37) | Runs `fetch_holdkampe.py --club 1151 --pulje 19102:5 --profiles --tournaments`, looks up halls/towns and drive times (`data/steder.json`), then `notify_turneringer.py` mails followers about tournament news; commits `data/holdkampe.json`, `spillere.json`, `turneringer.json`, `steder.json`, `turnering_nyt.json`, `notifikationer.json` |
 | Undersøg badmintonplayer.dk (diag) | `.github/workflows/discover.yml` | manual only | Saves masked raw tournament pages to the `diag` branch for parser work |
 | **HØBK tilmeldinger → SQLite** | `.github/workflows/tilmeldinger.yml` | `*/15 * * * *` | Runs `sync_tilmeldinger.py`, commits `data/hoebk.db` + `data/tilmeldinger.json` |
 | pages build and deployment | (GitHub's own) | after every commit to `main` | Publishes the app |

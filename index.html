@@ -127,6 +127,10 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .rb[aria-pressed=true].nej{background:var(--loss);border-color:#E3B4AD}
 .rb[aria-pressed=true].maaske{background:#FFE3C2;border-color:#F3C58F}
 .rb:disabled{opacity:.6}
+.rb.follow{align-self:flex-start;min-height:44px;font-size:14px}
+.rb.follow[aria-pressed=true]{background:var(--accent);border-color:var(--accent)}
+.star{color:#C99A06}
+.news{color:var(--tour,#7A4FC9);font-weight:600}
 .route{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:14px;text-decoration:none;align-self:flex-start}
 .route svg{flex:none}
 .drive{display:inline-flex;align-items:center;gap:6px;font-weight:600}
@@ -250,9 +254,10 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     return Promise.all([fetch('data/holdkampe.json' + bust).then(function (r) { return r.json(); }),
                         fetch('data/spillere.json' + bust).then(function (r) { return r.json(); }),
                         fetch('data/traening.json' + bust).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
-                        fetch('data/turneringer.json' + bust).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })])
+                        fetch('data/turneringer.json' + bust).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+                        fetch('data/turnering_nyt.json' + bust).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })])
       .then(function (res) {
-        var hk = res[0], sp = res[1], tr = res[2], tu = res[3];
+        var hk = res[0], sp = res[1], tr = res[2], tu = res[3], nyt = res[4] || {};
         var teams = hk.teams.slice().sort(function (a, b) {
           var ia = ORDER.indexOf(a.label), ib = ORDER.indexOf(b.label);
           return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
@@ -263,7 +268,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         var overall = ids.slice().sort(function (a, b) { var A = players[a], B = players[b];
           return (B.won - A.won) || (B.winPct - A.winPct) || (B.pointsFor - A.pointsFor) || A.name.localeCompare(B.name, 'da'); });
         var clubRank = {}; overall.forEach(function (id, i) { clubRank[id] = i + 1; });
-        D = { teams: teams, players: players, ids: ids, clubRank: clubRank, updated: sp.updated || hk.updated, training: tr, tours: (tu && tu.tournaments) || [], toursUpdated: tu && tu.updated };
+        D = { teams: teams, players: players, ids: ids, clubRank: clubRank, updated: sp.updated || hk.updated, training: tr, tours: (tu && tu.tournaments) || [], toursUpdated: tu && tu.updated,
+              tourNews: nyt.tournaments || {}, tourAlias: nyt.alias || {} };
+        migrateFollows();
         buildEvents();
       });
   }
@@ -587,8 +594,10 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     }).join('');
     return '<button class="tcard" data-go="#/turnering/' + esc(t.id) + '">' +
       '<span class="tdate"><b>' + a.getDate() + '. ' + MONS[a.getMonth()] + '</b><span class="xs">' + (t.start !== t.end ? dRange(t).split('–')[0].split(' ')[0] + '–' + dRange(t).split('–')[1].split(' ')[0] : DAYS[a.getDay()]) + ' · uge ' + esc(t.week) + '</span></span>' +
-      '<span class="col"><b class="ellip" style="font-size:14px">' + esc(t.organiser) + '</b>' +
-      (placeTxt(t) ? '<span class="xs">' + esc(placeTxt(t)) + '</span>' : '') + '<span>' + cls + '</span></span>' +
+      '<span class="col"><b class="ellip" style="font-size:14px">' + (isFollowed(t.id) ? '<span class="star" aria-label="Følger">★</span> ' : '') + esc(t.organiser) + '</b>' +
+      (placeTxt(t) ? '<span class="xs">' + esc(placeTxt(t)) + '</span>' : '') +
+      (latestNews(t) ? '<span class="xs news">Nyt: ' + esc(latestNews(t).t) + '</span>' : (tourStatus(t).length ? '<span class="xs news">' + esc(tourStatus(t).join(' · ')) + '</span>' : '')) +
+      '<span>' + cls + '</span></span>' +
       deadlinePill(t) + '</button>';
   }
   function viewTurneringer() {
@@ -632,7 +641,15 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       (placeTxt(t) ? '<span class="s">' + esc((t.place && t.place.name && t.place.name !== t.organiser ? t.place.name + ' · ' : '') + placeTxt(t)) + ' fra Hørsholm' + (t.place && typeof t.place.min === 'number' ? '' : ' (i luftlinje)') + '</span>' : '') +
       routeBtn(tourDest(t)) +
       (t.entryOpen ? '<span class="dl open" style="align-self:flex-start">Tilmelding åben</span>' : '') +
+      (tourStatus(t).length ? '<span class="s" style="font-weight:600">Offentliggjort: ' + esc(tourStatus(t).join(' · ')) + '</span>' : '') +
+      '<button class="rb follow" data-follow="' + esc(t.id) + '" aria-pressed="' + isFollowed(t.id) + '">' + (isFollowed(t.id) ? '★ Følger' : '☆ Følg turneringen') + '</button>' +
+      '<span class="xs">' + (isFollowed(t.id) ? 'Du får en mail når der er nyt: ændret frist eller dato, nye rækker, deltagerliste, program og resultater — og 7 og 2 dage før tilmeldingsfristen. Tryk igen for at stoppe.'
+        : 'Følg for at få en mail ved ændringer, når program og deltagerliste er klar, og før tilmeldingsfristen.' + (ME && ME.token ? '' : ' Kræver login på Min side.')) + '</span>' +
       '<span class="xs">Arrangør: ' + esc(t.organiser) + '. Placering og køretid er beregnet ud fra arrangørens navn — tjek spillestedet i arrangørens indbydelse.</span></div>';
+    var news = (D.tourNews || {})[t.id] || [];
+    if (news.length) h += '<span class="lbl">Nyt</span><div class="card" style="overflow:hidden">' + news.map(function (n, i) {
+      return '<div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:10px 12px;' + (i ? 'border-top:1px solid var(--line2)' : '') + '">' +
+        '<span class="xs" style="font-weight:600">' + dTxt(n.d) + '</span><span style="font-size:14px">' + esc(n.t) + '</span></div>'; }).join('') + '</div>';
     h += '<span class="lbl">Rækker</span><div class="card" style="overflow:hidden">' + t.classes.map(function (c, i) {
       return '<div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:10px 12px;' + (i ? 'border-top:1px solid var(--line2)' : '') + '">' +
         '<b style="font-size:14px">' + esc(c.raw) + '</b><span class="xs">' + esc(c.days || '') + '</span></div>'; }).join('') + '</div>';
@@ -646,6 +663,49 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     h += '<p class="note">Niveau ud fra spillerens rangliste-kategori på badmintonplayer.dk. Tjek altid indbydelsen før tilmelding.</p>';
     return h;
   }
+  // ---------- Følg turneringer ----------
+  function follows() { return (ME && ME.follows) || []; }
+  function isFollowed(id) { return follows().indexOf(id) >= 0; }
+  function migrateFollows() {   // midlertidige id'er (x…) der har fået et rigtigt id
+    if (!ME || !ME.follows || !D) return;
+    ME.follows = ME.follows.map(function (id) { return D.tourAlias[id] || id; });
+  }
+  function toggleFollow(id) {
+    var t = (D.tours || []).filter(function (x) { return x.id === id; })[0];
+    if (!REG.url) { toast('Login er ikke slået til endnu'); return; }
+    if (!ME || !ME.token) { toast('Log ind på Min side for at følge turneringer'); location.hash = '#/tilmeld'; return; }
+    var on = !isFollowed(id), before = follows().slice();
+    ME.follows = on ? before.concat([id]) : before.filter(function (x) { return x !== id; });
+    saveMe(); route(true);
+    api({ action: 'follow', token: ME.token, tid: id, title: t ? t.organiser + ' ' + t.start : id, on: on }).then(function (res) {
+      if (res && res.ok) { if (Array.isArray(res.follows)) ME.follows = res.follows; saveMe(); toast(on ? 'Du følger turneringen — vi mailer når der er nyt' : 'Du følger ikke længere turneringen'); return; }
+      ME.follows = before; saveMe(); route(true);
+      if (res && res.error === 'login') { ME = null; saveMe(); toast('Log ind igen'); route(true); return; }
+      toast(res && res.error === 'Ukendt handling' ? 'Klubbens server skal opdateres, før du kan følge turneringer' : (res && res.error) || 'Kunne ikke gemme');
+    }).catch(function () { ME.follows = before; saveMe(); route(true); toast('Kunne ikke gemme — tjek forbindelsen'); });
+  }
+  function tourStatus(t) {   // hvad er offentliggjort
+    var L = t.links || [], today = iso(new Date()), out = [];
+    if (L.indexOf('resultater') >= 0 && (t.start || '') <= today) out.push('Resultater');
+    else if (L.indexOf('program') >= 0 || L.indexOf('resultater') >= 0) out.push('Program klar');
+    if (L.indexOf('deltagere') >= 0) out.push('Deltagerliste');
+    return out;
+  }
+  function latestNews(t, days) {
+    var n = (D.tourNews || {})[t.id] || [];
+    if (!n.length) return null;
+    var lim = iso(new Date(Date.now() - (days || 14) * 86400000));
+    return n[0].d >= lim ? n[0] : null;
+  }
+  function followedBlock() {
+    var ids = follows(); if (!ids.length) return '';
+    var today = iso(new Date());
+    var ts = (D.tours || []).filter(function (t) { return ids.indexOf(t.id) >= 0 && (t.end || t.start) >= today; })
+      .sort(function (a, b) { return a.start.localeCompare(b.start); });
+    return '<span class="lbl">Turneringer du følger</span>' + (ts.length ? ts.map(function (t) { return tourCard(t); }).join('')
+      : '<p class="empty">Ingen kommende turneringer blandt dem du følger.</p>');
+  }
+
   function playerTourBlock(p, max) {
     var keys = playerLevels(p);
     if (!keys.length) return '';
@@ -1012,6 +1072,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.t.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveTxt(u.m) && !u.m.isHome ? driveTxt(u.m).replace(' i bil', '') + ' · ' : '') + u.m.venue) + '</span></span>' +
         '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' + regBlock('match', matchEid(u.m), label, false) + '</div>';
     }).join('') : '<p class="empty">Ingen kommende kampe for dine hold.</p>';
+    h += followedBlock();
     if (P) h += playerTourBlock(P, 4);
     // Træning
     h += '<span class="lbl">Træning de næste 14 dage</span><div class="chips" role="group" aria-label="Mine træningshold">' + GROUPS.map(function (g) {
@@ -1066,7 +1127,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       .then(function (res) {
         if (!res || !res.ok) throw new Error((res && res.error) || 'Forkert kode');
         var p = res.player;
-        ME = { id: p.id, name: p.name, email: p.email, token: res.token, role: res.role || null, groups: defaultGroups(D.players[p.id] ? D.players[p.id].teams : []) };
+        ME = { id: p.id, name: p.name, email: p.email, token: res.token, role: res.role || null, follows: res.follows || [], groups: defaultGroups(D.players[p.id] ? D.players[p.id].teams : []) };
         saveMe(); UI.step = 'name'; UI.pending = null;
         toast('Hej ' + p.name.split(' ')[0] + '!'); route();
       })
@@ -1087,7 +1148,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   function refreshRole() {
     if (!REG.url || !ME || !ME.token) return Promise.resolve();
     return api({ action: 'me', token: ME.token }).then(function (res) {
-      if (res && res.ok) { ME.role = res.role || null; saveMe(); route(true); }
+      if (res && res.ok) { ME.role = res.role || null; if (Array.isArray(res.follows)) ME.follows = res.follows; saveMe(); route(true); }
       else if (res && res.error === 'login') { ME = null; saveMe(); route(true); }
     }).catch(function () {});
   }
@@ -1494,7 +1555,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow]');
     if (!b) return;
     if (b.dataset.tuage) { TU.age = b.dataset.tuage; if (!b.dataset.go) { route(true); return; } }
     if (b.dataset.pick) { var pid = b.dataset.pick; if (LU.sel[pid]) delete LU.sel[pid]; else LU.sel[pid] = (D.players[pid] ? D.players[pid].name : (availMap(matchEid(D.teams[LU.team].matches[LU.mi]))[pid] || {}).n || pid); route(true); return; }
@@ -1505,6 +1566,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (b.dataset.admemail) { ADM.email = b.dataset.admemail; route(true); return; }
     if (b.dataset.admteam) { var tl = b.dataset.admteam; if (ADM.teams[tl]) delete ADM.teams[tl]; else ADM.teams[tl] = 1; route(true); return; }
     if (b.dataset.admcancel) { ADM.pick = null; ADM.email = ''; ADM.teams = {}; route(true); return; }
+    if (b.dataset.follow) { toggleFollow(b.dataset.follow); return; }
     if (b.dataset.reg) { sendReg(b.dataset.reg, b.dataset.eid, b.dataset.status, b.dataset.label); return; }
     if (b.dataset.me) { setMe(b.dataset.me, D.players[b.dataset.me].name); return; }
     if (b.dataset.act === 'logout') {

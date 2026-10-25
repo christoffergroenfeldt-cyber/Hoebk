@@ -24,6 +24,9 @@
  *  register {token, type, eventId, status, label}→ gemmer svar for den indloggede spiller
  *  lineup   {token, eventId, team, status, squad[], games[], note} → holdopstilling (kun holdledere, se fanen Ledere)
  *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
+ *  follow   {token, tid, title, on}              → følg/stop med at følge en turnering (fanen Følger)
+ *  notify   {key, items[{ids[], title, lines[], url}]} → GitHub sender nyt om turneringer; mail til dem der følger
+ *  GET ?action=follows&key=NØGLE → hvilke turneringer der følges (kun id'er, ingen e-mails)
  *  logout   {token}
  *  GET ?action=status          → seneste svar pr. (begivenhed, spiller) — offentlig, uden e-mails
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
@@ -37,7 +40,9 @@ var SHEETS = {
   Koder: ['tidspunkt', 'email', 'kodeHash', 'playerId', 'playerName', 'forsøg', 'brugt'],
   Sessioner: ['tokenHash', 'playerId', 'playerName', 'email', 'oprettet', 'sidst brugt', 'aktiv'],
   Ledere: ['email', 'navn', 'hold'],
-  Opstillinger: ['tidspunkt', 'eventId', 'hold', 'status', 'gemtAf', 'data']
+  Opstillinger: ['tidspunkt', 'eventId', 'hold', 'status', 'gemtAf', 'data'],
+  'Følger': ['email', 'playerId', 'playerName', 'turneringId', 'titel', 'tidspunkt'],
+  Notifikationer: ['tidspunkt', 'email', 'emne', 'turneringer']
 };
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
 // Den FØRSTE e-mail der bekræfter navnet (fanen Spillere) ejer rollen — en anden e-mail med samme navn bliver ikke admin.
@@ -150,7 +155,7 @@ function verify_(b) {
         if (String(known[j][0]) === pid && String(known[j][2]) === email) { sp.getRange(j + 2, 5).setValue(new Date()); found = true; }
       }
       if (!found) sp.appendRow([safe_(pid), safe_(pname), email, new Date(), new Date()]);
-      return { ok: true, token: token, player: { id: pid, name: pname, email: email }, role: role_(email, pid) };
+      return { ok: true, token: token, player: { id: pid, name: pname, email: email }, role: role_(email, pid), follows: follows_(email) };
     }
     return { ok: false, error: 'Koden er udløbet eller forkert — bed om en ny' };
   });
@@ -242,6 +247,63 @@ function lineups_() {
   return Object.keys(latest).map(function (k) { return latest[k]; });
 }
 
+// ---------- Følg turneringer + notifikationer ----------
+function follows_(email) {
+  var em = String(email || '').toLowerCase();
+  return data_('Følger').filter(function (r) { return String(r[0]).toLowerCase() === em; }).map(function (r) { return String(r[3]); });
+}
+
+function follow_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var tid = clean_(b.tid, 40);
+  if (!/^x?[0-9a-f]+$/i.test(tid)) return { ok: false, error: 'Ukendt turnering' };
+  return withLock_(function () {
+    var sh = sh_('Følger'), rows = data_('Følger'), em = ses.email.toLowerCase();
+    for (var i = rows.length - 1; i >= 0; i--) {
+      if (String(rows[i][0]).toLowerCase() === em && String(rows[i][3]) === tid) sh.deleteRow(i + 2);
+    }
+    if (b.on) {
+      if (follows_(em).length >= 60) return { ok: false, error: 'Du følger allerede 60 turneringer' };
+      sh.appendRow([em, safe_(ses.playerId), safe_(ses.playerName), safe_(tid), safe_(clean_(b.title, 120)), new Date()]);
+    }
+    return { ok: true, follows: follows_(em) };
+  });
+}
+
+// Kaldes af GitHub (notify_turneringer.py) efter hver dataopdatering — én samlet mail pr. person.
+function notify_(b) {
+  var key = PropertiesService.getScriptProperties().getProperty('KEY');
+  if (!key || b.key !== key) return { ok: false, error: 'Forkert nøgle' };
+  var items = (b.items || []).slice(0, 200), byEmail = {};
+  var rows = data_('Følger');
+  items.forEach(function (it) {
+    var ids = (it.ids || []).map(String);
+    rows.forEach(function (r) {
+      if (ids.indexOf(String(r[3])) < 0) return;
+      var em = String(r[0]).toLowerCase();
+      (byEmail[em] = byEmail[em] || { name: String(r[2]), items: [] });
+      if (byEmail[em].items.indexOf(it) < 0) byEmail[em].items.push(it);
+    });
+  });
+  var sent = 0, skipped = 0, log = sh_('Notifikationer');
+  Object.keys(byEmail).forEach(function (em) {
+    if (MailApp.getRemainingDailyQuota() < 2) { skipped++; return; }
+    var p = byEmail[em], list = p.items;
+    var subject = list.length === 1 ? 'HØBK · ' + clean_(list[0].title, 80) + ': ' + clean_(list[0].lines[0] || 'nyt', 80)
+                                    : 'HØBK · nyt om ' + list.length + ' turneringer du følger';
+    var body = 'Hej ' + p.name.split(' ')[0] + '\n\n' + list.map(function (it) {
+      return clean_(it.title, 120) + (it.when ? ' (' + clean_(it.when, 60) + ')' : '') + '\n' +
+        (it.lines || []).slice(0, 8).map(function (l) { return '  • ' + clean_(l, 200); }).join('\n') +
+        (it.url ? '\n  ' + clean_(it.url, 200) : '');
+    }).join('\n\n') + '\n\nDu får denne mail, fordi du følger turneringen i HØBK-appen. Tryk "Følger" på turneringen i appen for at stoppe.\n\n' + CLUB;
+    MailApp.sendEmail({ to: em, subject: subject, body: body, name: CLUB });
+    log.appendRow([new Date(), em, subject, list.map(function (it) { return it.ids[0]; }).join(', ')]);
+    sent++;
+  });
+  return { ok: true, sent: sent, skipped: skipped };
+}
+
 function register_(b) {
   var ses = session_(b.token);
   if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
@@ -264,7 +326,9 @@ function doPost(e) {
       case 'lineup': return json_(saveLineup_(b));
       case 'leaders': return json_(leaders_(b));
       case 'setLeader': return json_(setLeader_(b));
-      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId) } : { ok: false, error: 'login' });
+      case 'follow': return json_(follow_(b));
+      case 'notify': return json_(notify_(b));
+      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId), follows: follows_(s.email) } : { ok: false, error: 'login' });
       case 'logout':
         var se = session_(b.token); if (se) sh_('Sessioner').getRange(se.row, 7).setValue(false);
         return json_({ ok: true });
@@ -277,6 +341,12 @@ function doPost(e) {
 
 function doGet(e) {
   var action = (e && e.parameter && e.parameter.action) || 'status';
+  if (action === 'follows') {
+    var k = PropertiesService.getScriptProperties().getProperty('KEY');
+    if (!k || e.parameter.key !== k) return json_({ ok: false, error: 'Forkert nøgle' });
+    var ids = {}; data_('Følger').forEach(function (r) { ids[String(r[3])] = 1; });
+    return json_({ ok: true, follows: Object.keys(ids) });
+  }
   var rows = data_('Tilmeldinger');
   if (action === 'all') {
     var key = PropertiesService.getScriptProperties().getProperty('KEY');

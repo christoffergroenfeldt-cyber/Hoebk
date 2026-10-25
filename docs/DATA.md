@@ -137,6 +137,20 @@ Classes the parser can't split (e.g. `E-M*-række`, `Andet X`) keep only `raw` w
 
 **Level matching** happens in the app: a player's level comes from the category of their national rankings in `spillere.json` (`"SEN C-D"` → `SEN C` and `SEN D`; `"U15 M"` → `U15 M`). A tournament fits when one of its classes has the same age group and one of those levels.
 
+## `data/turnering_nyt.json` — news per tournament
+
+Written by `notify_turneringer.py`. No personal data.
+
+```jsonc
+{ "updated": "…",
+  "tournaments": { "117152": [ { "d": "2026-10-25", "t": "Programmet er klar (lodtrækning og spilletider)" }, … ] },  // newest first, max 12
+  "alias": { "x1a2b3c4d5": "118000" } }   // temporary id → real id once badmintonplayer.dk assigns one
+```
+
+Each tournament in `turneringer.json` also has `links`: which of `invitation`, `tilmelding`, `deltagere`, `program`, `resultater` the season plan currently links to. A new entry is what triggers "program ready" etc.
+
+`data/notifikationer.json` remembers which deadline reminders were sent (`"<id>:frist7:<deadline>": "<date>"`, pruned after 120 days).
+
 ## `data/traening.json` — training schedule (edited by hand)
 
 ```jsonc

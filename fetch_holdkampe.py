@@ -25,6 +25,7 @@ Kun standardbiblioteket — ingen pip install nødvendig.
 """
 
 import argparse
+import collections
 import html as htmllib
 import http.cookiejar
 import json
@@ -523,6 +524,9 @@ def seasonplan(token, season, page):
     return d.get("html", "") if isinstance(d, dict) else ""
 
 
+LINK_LABELS = collections.Counter()   # linktekster i sæsonplanen (til fejlsøgning — skrives som notits i Actions)
+
+
 def parse_seasonplan(fragment, season):
     """Én side af sæsonplanen → liste af turneringer."""
     out, month, year = [], None, int(season)
@@ -571,8 +575,26 @@ def parse_seasonplan(fragment, season):
         else:                                  # fx kun ekstern invitationsfil: stabilt id ud fra dato + arrangør
             import hashlib
             t_id = "x" + hashlib.sha1(f"{start}|{organiser}".encode("utf-8")).hexdigest()[:10]
+        # Hvilke links rækken har (ændrer sig når invitation, deltagerliste, program og resultater lægges ud)
+        kinds, labels = set(), []
+        for href, attrs, inner in re.findall(r"<a\b[^>]*?href=[\'\"]([^\'\"]*)[\'\"]([^>]*)>(.*?)</a>", links, re.S):
+            lab = text(inner) or (re.search(r"title=[\'\"]([^\'\"]*)", attrs) or [None, ""])[1]
+            labels.append(lab)
+            low = (href + " " + lab).lower()
+            if "program" in low or "lodtr" in low:
+                kinds.add("program")
+            if "deltagerliste" in low:
+                kinds.add("deltagere")
+            if "visresultater" in low or "resultat" in low:
+                kinds.add("resultater")
+            if "invitation" in low or href.lower().endswith(".pdf"):
+                kinds.add("invitation")
+            if "tilmeld" in low:
+                kinds.add("tilmelding")
+        LINK_LABELS.update(labels)
         out.append({
             "id": t_id,
+            "links": sorted(kinds),
             "entryOpen": "TilmeldTurnering" in links,
             "hasResults": "VisResultater" in links and "Program" not in links,
             "start": start, "end": end,
@@ -600,6 +622,8 @@ def fetch_tournaments(token, season, dump, max_pages=20):
         if not new or (pages and page >= max(pages)) or not pages:
             break
     allt.sort(key=lambda t: (t["start"], t["organiser"]))
+    if os.environ.get("GITHUB_ACTIONS"):
+        print("::notice title=Sæsonplan-links::" + "; ".join(f"{k or '(tom)'}={v}" for k, v in LINK_LABELS.most_common(15)).replace("\n", " "))
     return allt
 
 
