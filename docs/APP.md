@@ -83,6 +83,10 @@ Ties break on games won, then win %, then points, then name. Point totals favour
 
 Stored in `localStorage` under `hoebk_me`: `{id, name, email, token, groups}`. `groups` are the training groups the player follows on Min side (defaulted from their teams, editable with chips). *Log ud* revokes the session on the server and clears it locally.
 
+## Player colours
+
+A player's circle has the colour of the division they've played most team matches in — the same colours as the calendar (`teamColor()`): Senior blue, 4 players light blue, Motion orange, Youth navy. People without team matches (parents, coming later) are grey (`PARENT`). The legend is shown above the player list.
+
 ## Design tokens
 
 Defined as CSS variables at the top: ink `#0E2236`, ground `#F7F7F2`, accent (lime) `#D4F25A`, loss `#F3D6D2`. Archivo for headings and numbers, Inter for text. Touch targets are at least 40–44 px; layout is phone-first, max width 560 px.

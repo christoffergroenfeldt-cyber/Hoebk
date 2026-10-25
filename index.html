@@ -64,6 +64,9 @@ th{color:var(--muted);font-weight:600;text-align:left;padding:8px 6px}
 td{padding:9px 6px;border-top:1px solid var(--line2)}
 .r{text-align:right}
 .us td{background:var(--hi);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:11px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:4px}
+.legend i{width:10px;height:10px;border-radius:999px;display:inline-block}
 .av{width:38px;height:38px;flex:0 0 auto;border-radius:999px;display:flex;align-items:center;justify-content:center;font-family:Archivo,sans-serif;font-weight:800;font-size:13px}
 .game{padding:10px 12px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:center}
 .pl{border:0;background:transparent;padding:0;text-align:left;font-size:13px;color:var(--ink)}
@@ -234,7 +237,20 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     'MOT 4+4 Serie 3-4', 'MOT 4 spillere Mester', 'U15 A', 'U15 B', 'U13 B', 'U13 C-D', 'U11 C', 'U11 Dx'];
   var MONS = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   var DAYS = ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'];
-  var AV = ['#D4F25A', '#DCE8F5', '#FFE3C2', '#E7ECF1'];
+  // Farve på spillerens cirkel = rækken spilleren har flest kampe i (samme farver som kalenderen).
+  // Forældre og andre uden holdkampe bliver grå.
+  var PARENT = { bg: '#C9CED3', fg: '#0E2236' };
+  function playerColor(p) {
+    if (!p || !p.teams || !p.teams.length) return PARENT;
+    var n = {}; (p.games || []).forEach(function (g) { n[g.team] = (n[g.team] || 0) + 1; });
+    var main = p.teams.slice().sort(function (a, b) { return (n[b] || 0) - (n[a] || 0); })[0];
+    return teamColor(main);
+  }
+  function avStyle(p) { var c = playerColor(p); return 'background:' + c.bg + ';color:' + c.fg; }
+  function colorLegend() {
+    return '<div class="legend">' + [['Senior', '#2F6FB3'], ['4 spillere', '#7FD3F7'], ['Motion', '#E58A2E'], ['Ungdom', '#0E2236'], ['Forælder', PARENT.bg]].map(function (x) {
+      return '<span><i style="background:' + x[1] + '"></i>' + x[0] + '</span>'; }).join('') + '</div>';
+  }
   var METRICS = { won: ['Vundne kampe', 'won', 'vundet'], pct: ['Sejr %', 'winPct', '%'],
                   pf: ['Point i alt', 'pointsFor', 'point'], avg: ['Snit pr. kamp', 'avgPoints', 'point/kamp'] };
 
@@ -348,7 +364,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       h += ps.length ? ps.map(function (p, i) {
         var P = D.players[p.id];
         return '<button class="card row" style="min-height:56px;padding:10px 12px" data-go="#/spiller/' + esc(p.id) + '">' +
-          '<span class="av" style="background:' + AV[i % 4] + '">' + esc(ini(P.name)) + '</span>' +
+          '<span class="av" style="' + avStyle(P) + '">' + esc(ini(P.name)) + '</span>' +
           '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(P.name) + '</b><span class="xs">' + p.games + ' kampe for holdet · ' + p.won + ' vundet</span></span>' +
           '<span class="h" style="font-size:15px">' + P.winPct + '%</span></button>';
       }).join('') : '<p class="empty">Spillerlisten bygges op efter holdets første kamp.</p>';
@@ -438,10 +454,10 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       return !q || p.name.toLowerCase().indexOf(q) >= 0 || p.teams.join(' ').toLowerCase().indexOf(q) >= 0; })
       .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); });
     var el = document.getElementById('plist'); if (!el) return;
-    el.innerHTML = '<span class="lbl">' + list.length + ' spillere</span>' + list.map(function (id, i) {
+    el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="lbl">' + list.length + ' spillere</span>' + colorLegend() + '</div>' + list.map(function (id, i) {
       var p = D.players[id];
       return '<button class="card row" style="min-height:54px;padding:8px 12px" data-go="#/spiller/' + esc(id) + '">' +
-        '<span class="av" style="width:36px;height:36px;font-size:12px;background:' + AV[i % 4] + '">' + esc(ini(p.name)) + '</span>' +
+        '<span class="av" style="width:36px;height:36px;font-size:12px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
         '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(p.teams.join(', ')) + '</span></span>' +
         '<span style="font-size:13px;font-weight:700;white-space:nowrap">' + p.won + '/' + p.played + '</span></button>';
     }).join('');
@@ -452,7 +468,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     setHeader(p.name, p.teams.join(', '), true);
     var prof = p.profile || { rankings: [] };
     var h = '<div style="display:flex;align-items:center;gap:12px;margin:0 2px">' +
-      '<span class="av" style="width:56px;height:56px;font-size:19px;background:var(--accent)">' + esc(ini(p.name)) + '</span>' +
+      '<span class="av" style="width:56px;height:56px;font-size:19px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
       '<span class="col"><span class="h" style="font-size:20px;line-height:1.15">' + esc(p.name) + '</span>' +
       '<span class="s">' + esc(p.teams.join(', ')) + ' · klubrangliste nr. ' + D.clubRank[id] + '</span></span></div>';
     h += '<div class="tiles">' + [['Kampe', p.played], ['Vundet', p.won], ['Sejr', p.winPct + '%'], ['Point', p.pointsFor], ['Snit', p.avgPoints], ['Sæt', p.setsWon + '-' + p.setsLost]]
@@ -1158,7 +1174,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (!ME.groups) { ME.groups = defaultGroups(myTeams); saveMe(); }
     setHeader('Min side', ME.email || ME.name, false);
     var today = iso(new Date());
-    var h = '<div class="card me"><span class="av" style="background:var(--accent)">' + esc(ini(ME.name)) + '</span>' +
+    var h = '<div class="card me"><span class="av" style="' + avStyle(P) + '">' + esc(ini(ME.name)) + '</span>' +
       '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span></span>' +
       '<button class="rb" data-act="logout" style="min-height:36px">Log ud</button></div>';
 
@@ -1217,7 +1233,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     el.innerHTML = list.map(function (id, i) {
       var p = D.players[id];
       return '<button class="card row" style="min-height:52px;padding:8px 12px" data-me="' + esc(id) + '">' +
-        '<span class="av" style="width:34px;height:34px;font-size:12px;background:' + AV[i % 4] + '">' + esc(ini(p.name)) + '</span>' +
+        '<span class="av" style="width:34px;height:34px;font-size:12px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
         '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(p.teams.join(', ')) + '</span></span></button>';
     }).join('') || '<p class="empty">Ingen match — skriv dit navn nedenfor.</p>';
   }
