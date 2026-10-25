@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T12:49:07+00:00",
+  "updated": "2026-10-25T12:51:47+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -154,7 +154,256 @@
           "played": true,
           "matchID": "516361",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516361,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "323361",
+                  "name": "Sander Skov"
+                },
+                {
+                  "id": "339401",
+                  "name": "Alfred Dyrlev"
+                }
+              ],
+              "away": [
+                {
+                  "id": "334106",
+                  "name": "Malthe Larsen"
+                },
+                {
+                  "id": "324944",
+                  "name": "August Drescher"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  6,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "360136",
+                  "name": "August Wagner Frederiksen"
+                },
+                {
+                  "id": "325930",
+                  "name": "Alfred Andersen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "320930",
+                  "name": "Julius Tolsøe"
+                },
+                {
+                  "id": "352483",
+                  "name": "Birk Lund Dujardin"
+                }
+              ],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "323361",
+                  "name": "Sander Skov"
+                },
+                {
+                  "id": "325930",
+                  "name": "Alfred Andersen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "324936",
+                  "name": "Aksel Schroller Broerson"
+                },
+                {
+                  "id": "324944",
+                  "name": "August Drescher"
+                }
+              ],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "339401",
+                  "name": "Alfred Dyrlev"
+                },
+                {
+                  "id": "360136",
+                  "name": "August Wagner Frederiksen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "334106",
+                  "name": "Malthe Larsen"
+                },
+                {
+                  "id": "326116",
+                  "name": "Christopher Johannessen"
+                }
+              ],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "339401",
+                  "name": "Alfred Dyrlev"
+                }
+              ],
+              "away": [
+                {
+                  "id": "324936",
+                  "name": "Aksel Schroller Broerson"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  9,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "323361",
+                  "name": "Sander Skov"
+                }
+              ],
+              "away": [
+                {
+                  "id": "352483",
+                  "name": "Birk Lund Dujardin"
+                }
+              ],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "325930",
+                  "name": "Alfred Andersen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "320930",
+                  "name": "Julius Tolsøe"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  5,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "360136",
+                  "name": "August Wagner Frederiksen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "326116",
+                  "name": "Christopher Johannessen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-10-25",
@@ -319,7 +568,72 @@
           "games": []
         }
       ],
-      "players": []
+      "players": [
+        {
+          "id": "324936",
+          "name": "Aksel Schroller Broerson",
+          "games": 2,
+          "won": 2,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#324936"
+        },
+        {
+          "id": "324944",
+          "name": "August Drescher",
+          "games": 2,
+          "won": 2,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#324944"
+        },
+        {
+          "id": "352483",
+          "name": "Birk Lund Dujardin",
+          "games": 2,
+          "won": 2,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#352483"
+        },
+        {
+          "id": "326116",
+          "name": "Christopher Johannessen",
+          "games": 2,
+          "won": 1,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#326116"
+        },
+        {
+          "id": "320930",
+          "name": "Julius Tolsøe",
+          "games": 2,
+          "won": 2,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#320930"
+        },
+        {
+          "id": "334106",
+          "name": "Malthe Larsen",
+          "games": 2,
+          "won": 2,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#334106"
+        }
+      ]
     },
     {
       "name": "Hørsholm 1",
@@ -427,7 +741,256 @@
           "played": true,
           "matchID": "513400",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513400,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "348495",
+                  "name": "Alexander Dahl Plougmann"
+                },
+                {
+                  "id": "350815",
+                  "name": "Cornelius Engen Peetz"
+                }
+              ],
+              "away": [
+                {
+                  "id": "358386",
+                  "name": "Jonathan Kryger"
+                },
+                {
+                  "id": "358281",
+                  "name": "Jonathan Mandrup"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "357024",
+                  "name": "Ella Baldvinsson Frewald"
+                },
+                {
+                  "id": "352440",
+                  "name": "Ethan Jing"
+                }
+              ],
+              "away": [
+                {
+                  "id": "365701",
+                  "name": "Sofie Frederiksen-Serup"
+                },
+                {
+                  "id": "366146",
+                  "name": "Ella Bjerrum Enevoldsen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  16,
+                  14
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "348495",
+                  "name": "Alexander Dahl Plougmann"
+                },
+                {
+                  "id": "352440",
+                  "name": "Ethan Jing"
+                }
+              ],
+              "away": [
+                {
+                  "id": "358386",
+                  "name": "Jonathan Kryger"
+                },
+                {
+                  "id": "365701",
+                  "name": "Sofie Frederiksen-Serup"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  6
+                ],
+                [
+                  15,
+                  6
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "357024",
+                  "name": "Ella Baldvinsson Frewald"
+                },
+                {
+                  "id": "350815",
+                  "name": "Cornelius Engen Peetz"
+                }
+              ],
+              "away": [
+                {
+                  "id": "343963",
+                  "name": "Arthur Høiberg Kruse"
+                },
+                {
+                  "id": "366146",
+                  "name": "Ella Bjerrum Enevoldsen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  6
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "348495",
+                  "name": "Alexander Dahl Plougmann"
+                }
+              ],
+              "away": [
+                {
+                  "id": "343963",
+                  "name": "Arthur Høiberg Kruse"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "350815",
+                  "name": "Cornelius Engen Peetz"
+                }
+              ],
+              "away": [
+                {
+                  "id": "358281",
+                  "name": "Jonathan Mandrup"
+                }
+              ],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "357024",
+                  "name": "Ella Baldvinsson Frewald"
+                }
+              ],
+              "away": [
+                {
+                  "id": "358386",
+                  "name": "Jonathan Kryger"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  17
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "352440",
+                  "name": "Ethan Jing"
+                }
+              ],
+              "away": [
+                {
+                  "id": "365701",
+                  "name": "Sofie Frederiksen-Serup"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-10-25",
@@ -628,7 +1191,52 @@
           "games": []
         }
       ],
-      "players": []
+      "players": [
+        {
+          "id": "348495",
+          "name": "Alexander Dahl Plougmann",
+          "games": 3,
+          "won": 3,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#348495"
+        },
+        {
+          "id": "350815",
+          "name": "Cornelius Engen Peetz",
+          "games": 3,
+          "won": 2,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#350815"
+        },
+        {
+          "id": "357024",
+          "name": "Ella Baldvinsson Frewald",
+          "games": 3,
+          "won": 2,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#357024"
+        },
+        {
+          "id": "352440",
+          "name": "Ethan Jing",
+          "games": 3,
+          "won": 3,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#352440"
+        }
+      ]
     },
     {
       "name": "Hørsholm 3",
@@ -747,7 +1355,128 @@
           "played": true,
           "matchID": "513002",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,513002,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "310509",
+                  "name": "Peter Vallgren Seyfarth"
+                }
+              ],
+              "away": [],
+              "sets": [],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "242068",
+                  "name": "Mikkel Winther Nielsen"
+                }
+              ],
+              "away": [],
+              "sets": [],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "303063",
+                  "name": "Andreas Thorndahl"
+                },
+                {
+                  "id": "21042",
+                  "name": "Kristoffer Ringsted"
+                }
+              ],
+              "away": [],
+              "sets": [],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "21042",
+                  "name": "Kristoffer Ringsted"
+                }
+              ],
+              "away": [],
+              "sets": [],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "303063",
+                  "name": "Andreas Thorndahl"
+                }
+              ],
+              "away": [],
+              "sets": [],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "310509",
+                  "name": "Peter Vallgren Seyfarth"
+                },
+                {
+                  "id": "242068",
+                  "name": "Mikkel Winther Nielsen"
+                }
+              ],
+              "away": [],
+              "sets": [],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "310509",
+                  "name": "Peter Vallgren Seyfarth"
+                },
+                {
+                  "id": "303063",
+                  "name": "Andreas Thorndahl"
+                }
+              ],
+              "away": [],
+              "sets": [],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "242068",
+                  "name": "Mikkel Winther Nielsen"
+                },
+                {
+                  "id": "21042",
+                  "name": "Kristoffer Ringsted"
+                }
+              ],
+              "away": [],
+              "sets": [],
+              "winner": "home",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-10-03",
@@ -765,7 +1494,260 @@
           "played": true,
           "matchID": "512933",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512933,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "308293",
+                  "name": "Henrik Lund Frandsen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "365912",
+                  "name": "Alex Akollor Johnson Garcia"
+                }
+              ],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  5,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "367264",
+                  "name": "Pulin Dhar"
+                }
+              ],
+              "away": [
+                {
+                  "id": "324985",
+                  "name": "Sebastian Top"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  1,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "336560",
+                  "name": "Tue Krogh-Larsen"
+                },
+                {
+                  "id": "277780",
+                  "name": "Mathilde Peetz"
+                }
+              ],
+              "away": [
+                {
+                  "id": "285947",
+                  "name": "Tobias Bruun"
+                },
+                {
+                  "id": "365912",
+                  "name": "Alex Akollor Johnson Garcia"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  6,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "310855",
+                  "name": "Emil Tvedergaard Blöndal"
+                }
+              ],
+              "away": [
+                {
+                  "id": "329405",
+                  "name": "Anton Guul Simonsen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  18,
+                  20
+                ],
+                [
+                  14,
+                  16
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "336560",
+                  "name": "Tue Krogh-Larsen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "333611",
+                  "name": "Alfred Jensen Bredsten"
+                }
+              ],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "308293",
+                  "name": "Henrik Lund Frandsen"
+                },
+                {
+                  "id": "367264",
+                  "name": "Pulin Dhar"
+                }
+              ],
+              "away": [
+                {
+                  "id": "324985",
+                  "name": "Sebastian Top"
+                },
+                {
+                  "id": "285947",
+                  "name": "Tobias Bruun"
+                }
+              ],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  5,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "308293",
+                  "name": "Henrik Lund Frandsen"
+                },
+                {
+                  "id": "310855",
+                  "name": "Emil Tvedergaard Blöndal"
+                }
+              ],
+              "away": [
+                {
+                  "id": "286351",
+                  "name": "Emil Venø Bundesen"
+                },
+                {
+                  "id": "329405",
+                  "name": "Anton Guul Simonsen"
+                }
+              ],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  14,
+                  16
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "367264",
+                  "name": "Pulin Dhar"
+                },
+                {
+                  "id": "277780",
+                  "name": "Mathilde Peetz"
+                }
+              ],
+              "away": [
+                {
+                  "id": "333611",
+                  "name": "Alfred Jensen Bredsten"
+                },
+                {
+                  "id": "286351",
+                  "name": "Emil Venø Bundesen"
+                }
+              ],
+              "sets": [
+                [
+                  4,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-10-24",
@@ -783,7 +1765,268 @@
           "played": true,
           "matchID": "512937",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512937,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "303063",
+                  "name": "Andreas Thorndahl"
+                }
+              ],
+              "away": [
+                {
+                  "id": "318476",
+                  "name": "Valdemar Bæhrenz Peetz"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  5,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "326626",
+                  "name": "Henrik Langkjær"
+                }
+              ],
+              "away": [
+                {
+                  "id": "308293",
+                  "name": "Henrik Lund Frandsen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "213014",
+                  "name": "Nicolaj Millum"
+                },
+                {
+                  "id": "356203",
+                  "name": "Simon Welner"
+                }
+              ],
+              "away": [
+                {
+                  "id": "360548",
+                  "name": "MUHAMMAD MOHSIN Ali KHAN"
+                },
+                {
+                  "id": "310855",
+                  "name": "Emil Tvedergaard Blöndal"
+                }
+              ],
+              "sets": [
+                [
+                  4,
+                  15
+                ],
+                [
+                  15,
+                  9
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "213014",
+                  "name": "Nicolaj Millum"
+                }
+              ],
+              "away": [
+                {
+                  "id": "310855",
+                  "name": "Emil Tvedergaard Blöndal"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "356203",
+                  "name": "Simon Welner"
+                }
+              ],
+              "away": [
+                {
+                  "id": "360548",
+                  "name": "MUHAMMAD MOHSIN Ali KHAN"
+                }
+              ],
+              "sets": [
+                [
+                  16,
+                  18
+                ],
+                [
+                  9,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "303063",
+                  "name": "Andreas Thorndahl"
+                },
+                {
+                  "id": "326626",
+                  "name": "Henrik Langkjær"
+                }
+              ],
+              "away": [
+                {
+                  "id": "330569",
+                  "name": "Anders Johannessen"
+                },
+                {
+                  "id": "318476",
+                  "name": "Valdemar Bæhrenz Peetz"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "303063",
+                  "name": "Andreas Thorndahl"
+                },
+                {
+                  "id": "213014",
+                  "name": "Nicolaj Millum"
+                }
+              ],
+              "away": [
+                {
+                  "id": "360548",
+                  "name": "MUHAMMAD MOHSIN Ali KHAN"
+                },
+                {
+                  "id": "330569",
+                  "name": "Anders Johannessen"
+                }
+              ],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "332938",
+                  "name": "Frederik Johannessen"
+                },
+                {
+                  "id": "326626",
+                  "name": "Henrik Langkjær"
+                }
+              ],
+              "away": [
+                {
+                  "id": "308293",
+                  "name": "Henrik Lund Frandsen"
+                },
+                {
+                  "id": "318476",
+                  "name": "Valdemar Bæhrenz Peetz"
+                }
+              ],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  15,
+                  12
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-11-14",
@@ -840,7 +2083,94 @@
           "games": []
         }
       ],
-      "players": []
+      "players": [
+        {
+          "id": "308293",
+          "name": "Henrik Lund Frandsen",
+          "games": 5,
+          "won": 1,
+          "disciplines": [
+            "S",
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#308293"
+        },
+        {
+          "id": "310855",
+          "name": "Emil Tvedergaard Blöndal",
+          "games": 4,
+          "won": 1,
+          "disciplines": [
+            "S",
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#310855"
+        },
+        {
+          "id": "360548",
+          "name": "MUHAMMAD MOHSIN Ali KHAN",
+          "games": 3,
+          "won": 3,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#360548"
+        },
+        {
+          "id": "367264",
+          "name": "Pulin Dhar",
+          "games": 3,
+          "won": 0,
+          "disciplines": [
+            "S",
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#367264"
+        },
+        {
+          "id": "318476",
+          "name": "Valdemar Bæhrenz Peetz",
+          "games": 3,
+          "won": 2,
+          "disciplines": [
+            "S",
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#318476"
+        },
+        {
+          "id": "330569",
+          "name": "Anders Johannessen",
+          "games": 2,
+          "won": 1,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#330569"
+        },
+        {
+          "id": "277780",
+          "name": "Mathilde Peetz",
+          "games": 2,
+          "won": 0,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#277780"
+        },
+        {
+          "id": "336560",
+          "name": "Tue Krogh-Larsen",
+          "games": 2,
+          "won": 0,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#336560"
+        }
+      ]
     },
     {
       "name": "Hørsholm 3",
@@ -948,7 +2278,260 @@
           "played": true,
           "matchID": "514451",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514451,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "355847",
+                  "name": "Alexander Crone"
+                },
+                {
+                  "id": "352845",
+                  "name": "Elliot Fyrst"
+                }
+              ],
+              "away": [
+                {
+                  "id": "348191",
+                  "name": "Manfred Bjørn Kirk"
+                },
+                {
+                  "id": "336079",
+                  "name": "Stefanie Flamand"
+                }
+              ],
+              "sets": [
+                [
+                  16,
+                  14
+                ],
+                [
+                  16,
+                  14
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "361377",
+                  "name": "Mathias Bjørn Eskelund-Brøste"
+                },
+                {
+                  "id": "358927",
+                  "name": "Lucas Bührmann Christensen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "359708",
+                  "name": "Marius Løkke Knutsson"
+                },
+                {
+                  "id": "357023",
+                  "name": "Ellie Schroller Broerson"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "352845",
+                  "name": "Elliot Fyrst"
+                },
+                {
+                  "id": "358927",
+                  "name": "Lucas Bührmann Christensen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "336079",
+                  "name": "Stefanie Flamand"
+                },
+                {
+                  "id": "359708",
+                  "name": "Marius Løkke Knutsson"
+                }
+              ],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  13
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "355847",
+                  "name": "Alexander Crone"
+                },
+                {
+                  "id": "361377",
+                  "name": "Mathias Bjørn Eskelund-Brøste"
+                }
+              ],
+              "away": [
+                {
+                  "id": "362187",
+                  "name": "Max van Daalen"
+                },
+                {
+                  "id": "357023",
+                  "name": "Ellie Schroller Broerson"
+                }
+              ],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "361377",
+                  "name": "Mathias Bjørn Eskelund-Brøste"
+                }
+              ],
+              "away": [
+                {
+                  "id": "348191",
+                  "name": "Manfred Bjørn Kirk"
+                }
+              ],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "355847",
+                  "name": "Alexander Crone"
+                }
+              ],
+              "away": [
+                {
+                  "id": "362187",
+                  "name": "Max van Daalen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  6
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "352845",
+                  "name": "Elliot Fyrst"
+                }
+              ],
+              "away": [
+                {
+                  "id": "359708",
+                  "name": "Marius Løkke Knutsson"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  6
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "358927",
+                  "name": "Lucas Bührmann Christensen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "336079",
+                  "name": "Stefanie Flamand"
+                }
+              ],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  6,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-10-24",
@@ -966,7 +2549,260 @@
           "played": true,
           "matchID": "514452",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19105,4,10,,514452,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "359708",
+                  "name": "Marius Løkke Knutsson"
+                },
+                {
+                  "id": "348191",
+                  "name": "Manfred Bjørn Kirk"
+                }
+              ],
+              "away": [
+                {
+                  "id": "363227",
+                  "name": "Valdemar Henrik Skott Sigtenbjerggaard"
+                },
+                {
+                  "id": "365711",
+                  "name": "Johan Matzen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "362187",
+                  "name": "Max van Daalen"
+                },
+                {
+                  "id": "357023",
+                  "name": "Ellie Schroller Broerson"
+                }
+              ],
+              "away": [
+                {
+                  "id": "352314",
+                  "name": "Asger Fjord Marschall"
+                },
+                {
+                  "id": "343257",
+                  "name": "Christoffer Vestergaard"
+                }
+              ],
+              "sets": [
+                [
+                  13,
+                  15
+                ],
+                [
+                  17,
+                  15
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "362187",
+                  "name": "Max van Daalen"
+                },
+                {
+                  "id": "359708",
+                  "name": "Marius Løkke Knutsson"
+                }
+              ],
+              "away": [
+                {
+                  "id": "363227",
+                  "name": "Valdemar Henrik Skott Sigtenbjerggaard"
+                },
+                {
+                  "id": "352314",
+                  "name": "Asger Fjord Marschall"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  12
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "357023",
+                  "name": "Ellie Schroller Broerson"
+                },
+                {
+                  "id": "348191",
+                  "name": "Manfred Bjørn Kirk"
+                }
+              ],
+              "away": [
+                {
+                  "id": "343257",
+                  "name": "Christoffer Vestergaard"
+                },
+                {
+                  "id": "365711",
+                  "name": "Johan Matzen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  4
+                ],
+                [
+                  15,
+                  4
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "348191",
+                  "name": "Manfred Bjørn Kirk"
+                }
+              ],
+              "away": [
+                {
+                  "id": "343257",
+                  "name": "Christoffer Vestergaard"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  8
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "362187",
+                  "name": "Max van Daalen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "352314",
+                  "name": "Asger Fjord Marschall"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "336079",
+                  "name": "Stefanie Flamand"
+                }
+              ],
+              "away": [
+                {
+                  "id": "365711",
+                  "name": "Johan Matzen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  4
+                ],
+                [
+                  15,
+                  2
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "357023",
+                  "name": "Ellie Schroller Broerson"
+                }
+              ],
+              "away": [
+                {
+                  "id": "363227",
+                  "name": "Valdemar Henrik Skott Sigtenbjerggaard"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-11-14",
@@ -1149,7 +2985,63 @@
           "games": []
         }
       ],
-      "players": []
+      "players": [
+        {
+          "id": "357023",
+          "name": "Ellie Schroller Broerson",
+          "games": 5,
+          "won": 4,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#357023"
+        },
+        {
+          "id": "348191",
+          "name": "Manfred Bjørn Kirk",
+          "games": 5,
+          "won": 4,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#348191"
+        },
+        {
+          "id": "359708",
+          "name": "Marius Løkke Knutsson",
+          "games": 5,
+          "won": 3,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#359708"
+        },
+        {
+          "id": "362187",
+          "name": "Max van Daalen",
+          "games": 5,
+          "won": 4,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#362187"
+        },
+        {
+          "id": "336079",
+          "name": "Stefanie Flamand",
+          "games": 4,
+          "won": 2,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#336079"
+        }
+      ]
     },
     {
       "name": "Hørsholm 2",
@@ -7239,7 +9131,226 @@
           "played": true,
           "matchID": "510401",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510401,1151,",
-          "games": []
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "251767",
+                  "name": "Christian Skytt"
+                },
+                {
+                  "id": "360548",
+                  "name": "MUHAMMAD MOHSIN Ali KHAN"
+                }
+              ],
+              "away": [
+                {
+                  "id": "9109",
+                  "name": "Jesper Theill"
+                },
+                {
+                  "id": "6991",
+                  "name": "Henrik B Pedersen"
+                }
+              ],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  10,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "245961",
+                  "name": "Jesper Østergaard"
+                },
+                {
+                  "id": "9643",
+                  "name": "Kim Eriksen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "10474",
+                  "name": "Mads Thostrup"
+                },
+                {
+                  "id": "10715",
+                  "name": "Camilla Vauvert"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  17
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "245961",
+                  "name": "Jesper Østergaard"
+                },
+                {
+                  "id": "251767",
+                  "name": "Christian Skytt"
+                }
+              ],
+              "away": [
+                {
+                  "id": "9109",
+                  "name": "Jesper Theill"
+                },
+                {
+                  "id": "10474",
+                  "name": "Mads Thostrup"
+                }
+              ],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  3,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "9643",
+                  "name": "Kim Eriksen"
+                },
+                {
+                  "id": "360548",
+                  "name": "MUHAMMAD MOHSIN Ali KHAN"
+                }
+              ],
+              "away": [
+                {
+                  "id": "6991",
+                  "name": "Henrik B Pedersen"
+                },
+                {
+                  "id": "10715",
+                  "name": "Camilla Vauvert"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "5. D",
+              "home": [
+                {
+                  "id": "251767",
+                  "name": "Christian Skytt"
+                },
+                {
+                  "id": "9643",
+                  "name": "Kim Eriksen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "9109",
+                  "name": "Jesper Theill"
+                },
+                {
+                  "id": "10715",
+                  "name": "Camilla Vauvert"
+                }
+              ],
+              "sets": [
+                [
+                  16,
+                  14
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "6. D",
+              "home": [
+                {
+                  "id": "360548",
+                  "name": "MUHAMMAD MOHSIN Ali KHAN"
+                },
+                {
+                  "id": "245961",
+                  "name": "Jesper Østergaard"
+                }
+              ],
+              "away": [
+                {
+                  "id": "10474",
+                  "name": "Mads Thostrup"
+                },
+                {
+                  "id": "6991",
+                  "name": "Henrik B Pedersen"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  14,
+                  16
+                ],
+                [
+                  12,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            }
+          ]
         },
         {
           "date": "2026-11-08",
@@ -7368,7 +9479,48 @@
           "games": []
         }
       ],
-      "players": []
+      "players": [
+        {
+          "id": "251767",
+          "name": "Christian Skytt",
+          "games": 3,
+          "won": 1,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#251767"
+        },
+        {
+          "id": "245961",
+          "name": "Jesper Østergaard",
+          "games": 3,
+          "won": 0,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#245961"
+        },
+        {
+          "id": "9643",
+          "name": "Kim Eriksen",
+          "games": 3,
+          "won": 2,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#9643"
+        },
+        {
+          "id": "360548",
+          "name": "MUHAMMAD MOHSIN Ali KHAN",
+          "games": 3,
+          "won": 1,
+          "disciplines": [
+            "D"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#360548"
+        }
+      ]
     },
     {
       "name": "Hørsholm 2",
