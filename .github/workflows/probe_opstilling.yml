@@ -1,0 +1,20 @@
+name: Holdopstilling – trin 1 (kun læsning)
+on:
+  workflow_dispatch:
+    inputs:
+      match:
+        description: "Kamp-id (tom = næste kamp)"
+        default: ""
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Læs kampen via badmintonplayer.dk (intet ændres)
+        env:
+          BP_LEADER_USER: ${{ secrets.BP_LEADER_USER }}
+          BP_LEADER_PWD: ${{ secrets.BP_LEADER_PWD }}
+        run: python3 probe_opstilling.py "${{ github.event.inputs.match }}"
