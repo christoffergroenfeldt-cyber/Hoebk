@@ -121,6 +121,21 @@ How it's sent: the script can't sign web-push messages, so `notify` answers GitH
 
 To replace the key pair: generate a new P-256 key, put the public key (base64url, uncompressed point) in `config.json` and the private key (base64url, 32 bytes) in `VAPID_PRIVATE`. Everyone must then switch notifications on again.
 
+## Lineup rules in the app
+
+`lineupWarnings()` in `index.html` checks a lineup against the 2026/27 rules ([youth](https://badminton.dk/wp-content/uploads/2026/07/Faelles-reglement-for-ungdomsholdturneringen-endeligt-300626-1.pdf), [senior DH](https://badminton.dk/wp-content/uploads/2026/07/Holdturneringsreglement-for-badminton-i-Danmark-DH-reglementet-2026-07-01-endeligt-med-bilag-3-1.pdf)) and shows *Regelbrud* (red), warnings (orange) and notes:
+
+| Team type | Checked |
+|---|---|
+| Youth (U9–U19) | matches per player by format (4 players 8-game format: 1 single + 2 doubles with different partners, 2nd/3rd double four different players; 2+2: max 3, one per category; 4+2: max 2, one HD/DD), order by today's ranking points (no tolerance; C/D/C-D/Dx may use judged strength → note), points ceiling §9 from *tilmeldingsniveau* at season start (best 4 / 2+2 / 4+2, missing player = 20 %, best-player cap from skema 1/1A — tables `SK1`/`SK1A`), max 1 player from the age group above (§8), deadline 15 min before start |
+| Danmarksserien | max 2 matches, never two in the same category, at least 6 men + 4 women, gender per category, order with 50 (single) / 100 (double) point tolerance (§38), deadline 1 hour before |
+| Serie 2, 4 Spillere, Motion | kreds tournaments with their own rules (not known yet): only gender per category, a player twice in one double, and same round on several teams |
+| All | a player also used on another team the same weekend (youth: allowed as reserve, must be on the team sheet; senior: not allowed except §43) |
+
+Gender comes from the player search (`gender` in `spillere.json`). Players without points are reported as notes, not errors.
+
+**Transfer to badmintonplayer.dk** (*Til badmintonplayer*): the button *Åbn kampen til indtastning* opens `https://www.badmintonplayer.dk/DBF/User/IndberetResultat/Kamp?match=<kamp-id>&clubId=1151`, where the team leader logs in and enters the lineup; the app shows it in the same order with player ids, plus *Kopiér opstilling*. Fully automatic transfer would use badmintonplayer.dk's internal `PUT /api/LeagueMatch/{kamp-id}/{password}` and is not built — awaiting permission from Badminton Danmark.
+
 ## Administrators
 
 Two ways, both in `Code.gs`: `ADMIN_PLAYER_IDS` (badmintonplayer id — the first email that confirmed that player owns the role; Anders Vedsted Nørrelund) and `ADMIN_EMAIL_SHA256` (SHA-256 of the lowercase login email, so the address isn't readable in the public repo — Christoffer, who isn't a team player). Add one: `printf '%s' 'name@example.dk' | sha256sum`. Administrators are leaders for all teams, appoint leaders and see user statistics.

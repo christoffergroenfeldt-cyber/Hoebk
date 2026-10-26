@@ -182,6 +182,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .slot:first-child{border-top:0}
 .slot select{width:100%;min-height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;font-family:inherit;font-size:14px;padding:0 8px;color:var(--ink)}
 .warn{font-size:12px;color:#8A4B00;background:#FFF2E2;border-radius:10px;padding:8px 10px}
+.err{font-size:12px;color:#7A1A12;background:#FBE1DD;border-radius:10px;padding:8px 10px}
+.okmsg{font-size:12px;color:#1E5A2E;background:#E3F3E6;border-radius:10px;padding:8px 10px}
+.infomsg{font-size:12px;color:#3C4A57;background:#EEF1F4;border-radius:10px;padding:8px 10px}
 .st{font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap}
 .st-udkast{background:var(--soft)} .st-klar{background:#FFE3C2} .st-indtastet{background:var(--accent)}
 .brand{flex:none;width:40px;height:43px;padding:3px 4px;background:#fff;border-radius:10px;object-fit:contain;box-sizing:border-box}
@@ -1525,7 +1528,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (!lu || !lu.squad.length) return '<p class="empty">Udtag spillere først.</p><button class="rb" data-go="#/udtag/' + ti + '/' + mi + '">Udtag spillere</button>';
     var slots = slotsFor(ti), cur = {};
     (lu.games || []).forEach(function (g) { cur[g.k] = g.p || []; });
-    var h = '<p class="s" style="margin:0 4px">Vælg spillere til hver kamp. Rækkefølgen tjekkes mod ranglistepoint (single, double, mix).</p><div class="card" style="overflow:hidden">';
+    var h = '<p class="s" style="margin:0 4px">Vælg spillere til hver kamp. Opstillingen tjekkes mod ' + esc(teamRules(t).ref) + ' (rækkefølge, antal kampe, køn' + (teamRules(t).youth ? ', niveaupoint og aldersgrupper' : '') + ').</p>' +
+      (deadlineTxt(t, m) ? '<div class="infomsg"><b>Frist:</b> ' + esc(deadlineTxt(t, m)) + '</div>' : '') + '<div class="card" style="overflow:hidden">';
     slots.forEach(function (k, si) {
       var n = isDouble(k) ? 2 : 1, sel = cur[k] || [];
       h += '<div class="slot"><b class="h">' + esc(k) + '</b><div class="col" style="gap:6px">';
@@ -1549,30 +1553,180 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     games.forEach(function (g) { g.p = g.p.map(function (x) { return x || ''; }); });
     return games;
   }
-  function lineupWarnings(ti, games) {
-    var w = [], count = {};
-    games.forEach(function (g) { g.p.filter(String).forEach(function (id) { count[id] = (count[id] || 0) + 1; }); });
-    Object.keys(count).forEach(function (id) { if (count[id] > 2) w.push(pname(id) + ' står på ' + count[id] + ' kampe.'); });
-    games.forEach(function (g) { if (isDouble(g.k) && g.p[0] && g.p[0] === g.p[1]) w.push(g.k + ': samme spiller to gange.'); });
-    var byDisc = {};
-    games.forEach(function (g) { (byDisc[discOf(g.k)] = byDisc[discOf(g.k)] || []).push(g); });
-    Object.keys(byDisc).forEach(function (d) {
-      var list = byDisc[d].filter(function (g) { return g.p.filter(String).length === (isDouble(g.k) ? 2 : 1); })
-        .sort(function (x, y) { return (parseInt(x.k, 10) || 0) - (parseInt(y.k, 10) || 0); });
-      for (var i = 1; i < list.length; i++) {
-        var a = list[i - 1].p.reduce(function (s, id) { return s + rankPts(id, list[i - 1].k); }, 0);
-        var b = list[i].p.reduce(function (s, id) { return s + rankPts(id, list[i].k); }, 0);
-        if (a && b && b > a) w.push(list[i].k + ' har flere ranglistepoint (' + b + ') end ' + list[i - 1].k + ' (' + a + ') — tjek rækkefølgen.');
+  // ---------- Regler for holdopstilling ----------
+  // Kilder: Fælles reglement for ungdomsholdturneringen 2026/27 (§7, §8, §9, §14, §15, §17) og
+  // Holdturneringsreglement for badminton i Danmark 2026/27 (§37, §38, §39, §45). Serie/4 spillere/motion er
+  // kredsturneringer med egne regler (kendes ikke endnu) — kun grundlæggende tjek.
+  // Skema 1 (4 spillere): [maks. holdpoint, maks. bedste spiller]
+  var SK1 = { 'U9 C-D': [3400, 1200], 'U9 D': [3300, 1100], 'U9 Dx': [3000, 1000],
+    'U11 B': [5600, 1650], 'U11 C': [5000, 1400], 'U11 C-D': [4700, 1250], 'U11 D': [4400, 1100], 'U11 Dx': [4200, 1050],
+    'U13 A': [6400, 1900], 'U13 B': [5600, 1650], 'U13 C': [5100, 1450], 'U13 C-D': [4800, 1300], 'U13 D': [4600, 1150], 'U13 Dx': [4400, 1100],
+    'U15 A': [7200, 2100], 'U15 B': [6200, 1800], 'U15 C': [5500, 1550], 'U15 C-D': [5100, 1400], 'U15 D': [4800, 1200], 'U15 Dx': [4600, 1150],
+    'U17/U19 M': [9600, 2900], 'U17/U19 A': [8200, 2400], 'U17/U19 B': [7200, 2100], 'U17/U19 C': [6200, 1800], 'U17/U19 C-D': [5500, 1550], 'U17/U19 D': [5100, 1275] };
+  // Skema 1A (2+2 og 4+2): [maks. holdpoint, bedste dreng, bedste pige]
+  var SK1A = { 'U13 A': [5800, 1800, 1600], 'U13 B': [5200, 1600, 1400], 'U13 C': [4800, 1400, 1300], 'U13 D': [4600, 1300, 1200],
+    'U15 M': [7800, 2200, 1800], 'U15 A': [6800, 2000, 1700], 'U15 B': [5800, 1700, 1500], 'U15 C': [5200, 1400, 1300], 'U15 D': [4800, 1300, 1200],
+    'U17/U19 M': [14000, 2900, 2400], 'U17/U19 A': [7800, 2200, 1800], 'U17/U19 B': [6800, 2000, 1700], 'U17/U19 C': [5800, 1700, 1500], 'U17/U19 D': [5000, 1400, 1300] };
+  var AGE_ORDER = ['U9', 'U11', 'U13', 'U15', 'U17', 'U19', 'SEN'];
+  function teamRules(t) {
+    var label = t.label || '', pulje = t.pulje || '';
+    var am = /^(U\d+(?:\/U\d+)?)\s*(.*)$/.exec(label);
+    if (am) {
+      var fmt = ((/\(([^)]*)\)/.exec(pulje) || [])[1] || '4 spillere').toLowerCase().replace(/\s+/g, ' ');
+      var key = am[1] + ' ' + am[2].trim(), lvl = am[2].trim();
+      var sk = /2\+2|4\+2/.test(fmt) ? SK1A[key] : SK1[key];
+      var maxTeam = +((/,\s*(\d{4,5})\s*\(/.exec(pulje) || [])[1]) || (sk ? sk[0] : 0);
+      return { youth: true, age: am[1].split('/').pop(), level: lvl, fmt: fmt, maxTeam: maxTeam,
+               best: sk ? (/2\+2|4\+2/.test(fmt) ? { M: sk[1], K: sk[2] } : { all: sk[1] }) : null,
+               strength: /^(C|D|C-D|Dx)$/.test(lvl), deadline: 15, ref: 'ungdomsreglementet' };
+    }
+    if (/danmarksserien/i.test(label)) return { youth: false, ds: true, fmt: 'senior', deadline: 60, ref: 'holdturneringsreglementet' };
+    return { youth: false, regional: true, fmt: /4 spillere/i.test(label + pulje) ? '4 spillere' : 'senior', deadline: 0, ref: 'kredsens reglement' };
+  }
+  function lvlPts(id) { var p = D.players[id]; return p && p.profile ? (+p.profile.level || 0) : 0; }   // tilmeldingsniveau ved sæsonstart
+  function genderOf(id) { var p = D.players[id]; return p && p.gender || ''; }
+  function ageOf(id) {
+    var p = D.players[id]; if (!p || !p.profile) return '';
+    var ages = (p.profile.rankings || []).map(function (r) { return (/^(U\d+|SEN)/.exec(r.category || '') || [])[1]; }).filter(Boolean);
+    return ages.sort(function (a, b) { return AGE_ORDER.indexOf(a) - AGE_ORDER.indexOf(b); })[0] || '';
+  }
+  function matchByEid(eid) {
+    var id = String(eid).replace(/^m:/, '');
+    for (var i = 0; i < D.teams.length; i++) for (var j = 0; j < D.teams[i].matches.length; j++)
+      if (D.teams[i].matches[j].matchID === id) return { t: D.teams[i], m: D.teams[i].matches[j] };
+    return null;
+  }
+  function lineupWarnings(ti, games, mi) {
+    var t = D.teams[ti], R = teamRules(t), out = [];
+    var m = t.matches[mi != null ? mi : LU.mi];
+    function add(sev, txt) { out.push({ s: sev, t: txt }); }
+    var used = {};
+    games.forEach(function (g) { g.p.filter(String).forEach(function (id) { (used[id] = used[id] || []).push(g.k); }); });
+    var ids = Object.keys(used);
+    var nDbl = games.filter(function (g) { return isDouble(g.k) && /^D$/.test(discOf(g.k)); }).length;   // 4 doubler = 8-kamps formatet (§7 stk. 1f)
+    // 1. Hvor mange kampe en spiller må spille
+    ids.forEach(function (id) {
+      var ds = used[id].map(discOf), nm = pname(id);
+      var dbl = ds.filter(function (d) { return isDouble(d); }).length, sgl = ds.length - dbl;
+      var cats = {}; ds.forEach(function (d) { cats[d] = (cats[d] || 0) + 1; });
+      var twice = Object.keys(cats).filter(function (c) { return cats[c] > 1; });
+      if (R.regional) return;   // kredsens formater (fx MOT 4+4, 4 spillere med 6 doubler) — antal kampe tjekkes ikke
+      if (R.fmt === '4 spillere' && R.youth) {
+        if (nDbl >= 4) {
+          if (sgl > 1 || dbl > 2) add('fejl', nm + ' må højst spille 1 single og 2 doubler (§7 stk. 1f).');
+          var partners = games.filter(function (g) { return /^D$/.test(discOf(g.k)) && g.p.indexOf(id) >= 0; }).map(function (g) { return g.p.filter(function (x) { return x && x !== id; })[0]; }).filter(Boolean);
+          if (partners.length === 2 && partners[0] === partners[1]) add('fejl', nm + ' spiller to doubler med samme makker — makkerne skal være forskellige (§7 stk. 1f).');
+        } else if (sgl > 1 || dbl > 1) add('fejl', nm + ' må højst spille 1 single og 1 double (§7).');
+      }
+      else if (R.fmt === '2+2') { if (ds.length > 3) add('fejl', nm + ' står på ' + ds.length + ' kampe — højst 3 (§7).'); if (twice.length) add('fejl', nm + ' spiller to gange i ' + twice.join(', ') + ' — kun én kamp pr. kategori (§7).'); }
+      else if (R.fmt === '4+2') { if (ds.length > 2) add('fejl', nm + ' står på ' + ds.length + ' kampe — højst 2 (§7).'); else if (ds.length === 2 && !ds.some(function (d) { return /HD|DD/.test(d); })) add('fejl', nm + ': den ene af to kampe skal være HD/DD (§7).'); }
+      else {
+        if (ds.length > 2) add('fejl', nm + ' står på ' + ds.length + ' kampe — højst 2' + (R.ds ? ' (§37)' : '') + '.');
+        if (twice.length && R.fmt !== '4 spillere') add('fejl', nm + ' spiller to kampe i ' + twice.join(', ') + ' — ikke tilladt' + (R.ds ? ' (§37)' : '') + '.');
+        if (R.fmt === '4 spillere' && (sgl > 1 || dbl > 1)) add(R.regional ? 'adv' : 'fejl', nm + ' spiller ' + (sgl > 1 ? sgl + ' singler' : dbl + ' doubler') + ' — normalt højst 1 af hver.');
       }
     });
+    games.forEach(function (g) { if (isDouble(g.k) && g.p[0] && g.p[0] === g.p[1]) add('fejl', g.k + ': samme spiller to gange.'); });
+    if (R.youth && R.fmt === '4 spillere' && nDbl >= 4) {   // §15 stk. 9: 2. og 3. double bytter makkere og skal bruge fire forskellige spillere
+      var d23 = games.filter(function (g) { return /^[23]\. D$/.test(g.k); }).reduce(function (a, g) { return a.concat(g.p.filter(String)); }, []);
+      if (d23.length === 4 && Object.keys(d23.reduce(function (o, x) { o[x] = 1; return o; }, {})).length < 4) add('fejl', '2. og 3. double skal bruge fire forskellige spillere (§15 stk. 9).');
+    }
+    // 2. Køn pr. kategori (kun hvor kategorien er kønsbestemt og kønnet kendes)
+    games.forEach(function (g) {
+      var d = discOf(g.k), gs = g.p.filter(String).map(genderOf);
+      if (gs.some(function (x) { return !x; })) return;
+      var bad = /^(HS|HD)$/.test(d) && gs.some(function (x) { return x !== 'M'; }) || /^(DS|DD)$/.test(d) && gs.some(function (x) { return x !== 'K'; }) ||
+        /^(MD|XD)$/.test(d) && gs.length === 2 && gs[0] === gs[1];
+      if (bad) add('fejl', g.k + ': forkert køn til kategorien.');
+    });
+    if (R.ds) {
+      var men = ids.filter(function (id) { return genderOf(id) === 'M'; }).length, women = ids.filter(function (id) { return genderOf(id) === 'K'; }).length;
+      if (ids.every(function (id) { return genderOf(id); }) && (men < 6 || women < 4)) add('fejl', 'Der skal bruges mindst 6 herrer og 4 damer — opstillingen har ' + men + ' og ' + women + ' (§37).');
+    }
+    // 3. Rækkefølge efter ranglistepoint
+    var byDisc = {};
+    games.forEach(function (g) { (byDisc[discOf(g.k)] = byDisc[discOf(g.k)] || []).push(g); });
+    if (!R.regional) Object.keys(byDisc).forEach(function (d) {   // kredsturneringer: rækkefølgen tjekkes ikke (reglerne kendes ikke)
+      var list = byDisc[d].filter(function (g) { return g.p.filter(String).length === (isDouble(g.k) ? 2 : 1); })
+        .sort(function (x, y) { return (parseInt(x.k, 10) || 0) - (parseInt(y.k, 10) || 0); });
+      if (R.youth && d === 'D' && nDbl >= 4) {   // 8-kampsformat: 1. mod 4. double og 2. mod 3. double sammenlignes (§15 stk. 9)
+        var byNo = {}; list.forEach(function (g) { byNo[parseInt(g.k, 10)] = g; });
+        list = [];
+        [[1, 4], [2, 3]].forEach(function (pr) { if (byNo[pr[0]] && byNo[pr[1]]) list.push(byNo[pr[0]], byNo[pr[1]], null); });
+      }
+      for (var i = 1; i < list.length; i++) {
+        if (!list[i] || !list[i - 1]) continue;
+        var a = list[i - 1].p.reduce(function (s2, id) { return s2 + rankPts(id, list[i - 1].k); }, 0);
+        var b = list[i].p.reduce(function (s2, id) { return s2 + rankPts(id, list[i].k); }, 0);
+        var tol = R.youth ? 0 : (isDouble(d) ? 100 : 50);
+        if (!a || !b || b - a <= tol) continue;
+        var txt = list[i].k + ' har ' + b + ' point mod ' + a + ' i ' + list[i - 1].k;
+        if (R.youth && R.strength) add('info', txt + ' — tilladt i ' + R.level + '-rækker, hvis spillerne er opstillet efter vurderet styrke (§15 stk. 4).');
+        else if (R.youth) add('fejl', txt + ' — skal byttes: opstilles efter dagens ranglistepoint (§15 stk. 2).');
+        else add(R.regional ? 'adv' : 'fejl', txt + ' — mere end ' + tol + ' point; skal byttes' + (R.ds ? ' (§38)' : ' (tjek kredsens regler)') + '.');
+      }
+    });
+    // 4. Ungdom: maks. holdpoint og bedste spiller (tilmeldingsniveau ved sæsonstart)
+    if (R.youth && R.maxTeam) {
+      var withPts = ids.map(function (id) { return { id: id, pts: lvlPts(id), g: genderOf(id) }; }).sort(function (x, y) { return y.pts - x.pts; });
+      var unknown = withPts.filter(function (x) { return !x.pts; });
+      var pick = [];
+      if (R.fmt === '2+2' || R.fmt === '4+2') {
+        var nb = R.fmt === '2+2' ? 2 : 4;
+        pick = withPts.filter(function (x) { return x.g === 'M'; }).slice(0, nb).concat(withPts.filter(function (x) { return x.g === 'K'; }).slice(0, 2));
+        var need = nb + 2;
+      } else { pick = withPts.slice(0, 4); need = 4; }
+      var miss = Math.max(0, need - pick.length);
+      var sum = pick.reduce(function (s2, x) { return s2 + x.pts; }, 0) + miss * Math.round(R.maxTeam * 0.2);
+      if (sum > R.maxTeam) add('fejl', 'Holdet har ' + sum + ' niveaupoint — maks. ' + R.maxTeam + ' i ' + t.label + ' (§9).');
+      else if (!unknown.length) add('ok', 'Niveaupoint ' + sum + ' af maks. ' + R.maxTeam + (miss ? ' (inkl. ' + miss + ' manglende spiller' + (miss > 1 ? 'e' : '') + ' à 20 %)' : '') + '.');
+      if (R.best) withPts.forEach(function (x) {
+        var lim = R.best.all || R.best[x.g];
+        if (lim && x.pts > lim) add('fejl', pname(x.id) + ' har ' + x.pts + ' niveaupoint — bedste spiller må højst have ' + lim + ' i ' + t.label + ' (§9).');
+      });
+      if (unknown.length) add('info', 'Niveaupoint mangler for ' + unknown.map(function (x) { return pname(x.id); }).join(', ') + ' — tjek pointloftet selv.');
+      // 5. Aldersgrupper (§8)
+      var teamAgeIx = AGE_ORDER.indexOf(R.age);
+      var older = ids.filter(function (id) { var a = AGE_ORDER.indexOf(ageOf(id)); return a > teamAgeIx; });
+      if (older.length > 1) add('fejl', 'Kun 1 spiller fra aldersgruppen over må spille — her: ' + older.map(pname).join(', ') + ' (§8).');
+      older.forEach(function (id) { var a = ageOf(id); if (a === 'SEN' || AGE_ORDER.indexOf(a) - teamAgeIx > 1 || (a === 'U19' && R.age === 'U15')) add('fejl', pname(id) + ' (' + a + ') må ikke spille ' + R.age + ' (§8).'); });
+    }
+    // 6. Samme runde på flere hold
+    if (m) {
+      var md = parseD(m.date);
+      Object.keys(REG.lineups || {}).forEach(function (e) {
+        if (e === matchEid(m)) return;
+        var o = matchByEid(e); if (!o || o.t === t) return;
+        if (Math.abs((parseD(o.m.date) - md) / 86400000) > 1) return;
+        var other = {}; (REG.lineups[e].games || []).forEach(function (g) { (g.p || []).forEach(function (id) { other[id] = 1; }); });
+        (REG.lineups[e].squad || []).forEach(function (p) { other[p.id] = 1; });
+        ids.filter(function (id) { return other[id]; }).forEach(function (id) {
+          if (R.youth) add('adv', pname(id) + ' er også sat på ' + o.t.label + ' samme runde — tilladt som reserve, men skal stå på holdsedlen (§17).');
+          else add('fejl', pname(id) + ' er også sat på ' + o.t.label + ' samme runde — kun ét hold pr. runde, undtagen reserve efter §43 (§45).');
+        });
+      });
+    }
     var empty = games.filter(function (g) { return g.p.filter(String).length < (isDouble(g.k) ? 2 : 1); }).length;
-    if (empty) w.push(empty + ' kamp' + (empty === 1 ? '' : 'e') + ' mangler spillere.');
-    return w;
+    if (empty) add('adv', empty + ' kamp' + (empty === 1 ? '' : 'e') + ' mangler spillere.');
+    if (R.regional) add('info', t.label + ' er en kredsturnering med egne regler. Appen tjekker kun køn, dobbelt brug af spillere og flere hold samme runde — ikke rækkefølge eller antal kampe.');
+    return out;
   }
-  function renderWarnings(ti) {
+  function deadlineTxt(t, m) {
+    var R = teamRules(t);
+    if (!m || !m.time || !R.deadline) return R.regional ? 'Indtast opstillingen på badmintonplayer.dk før kampstart (kredsens frist).' : '';
+    var d = parseD(m.date), hm = m.time.split(':');
+    d.setHours(+hm[0], +hm[1] - R.deadline, 0, 0);
+    return 'Skal være indtastet på badmintonplayer.dk senest ' + DAYS[d.getDay()] + ' ' + d.getDate() + '. ' + MONS[d.getMonth()] + ' kl. ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) +
+      ' (' + (R.deadline >= 60 ? R.deadline / 60 + ' time' : R.deadline + ' min') + ' før kampstart, ' + (R.youth ? 'ungdom §14' : '§39') + ').';
+  }
+  function warnHtml(w) {
+    var bad = w.filter(function (x) { return x.s === 'fejl' || x.s === 'adv'; }).length;
+    return (bad ? '' : '<div class="okmsg">✓ Ingen regelbrud fundet</div>') + w.map(function (x) {
+      return '<div class="' + (x.s === 'fejl' ? 'err' : x.s === 'adv' ? 'warn' : x.s === 'ok' ? 'okmsg' : 'infomsg') + '">' + (x.s === 'fejl' ? '<b>Regelbrud:</b> ' : '') + esc(x.t) + '</div>'; }).join('');
+  }
+  function renderWarnings(ti, mi) {
     var el = document.getElementById('luWarn'); if (!el) return;
-    var w = lineupWarnings(ti, collectGames(ti));
-    el.innerHTML = w.map(function (x) { return '<div class="warn">' + esc(x) + '</div>'; }).join('');
+    el.innerHTML = warnHtml(lineupWarnings(ti, collectGames(ti), mi));
   }
   function viewEksport(ti, mi) {
     var t = D.teams[ti], m = t && t.matches[mi];
@@ -1584,16 +1738,21 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     var lines = (lu.games || []).map(function (g) { return g.k + ': ' + g.p.filter(String).map(function (id) { return pname(id, lu) + (/^\d+$/.test(id) ? ' (' + id + ')' : ''); }).join(' / '); });
     var text = t.label + ' · ' + t.name + ' ' + (m.isHome ? 'mod ' : '@ ') + m.opponent + ' · ' + m.date + ' ' + (m.time || '') + ' · kamp ' + (m.matchID || '') + '\n' + lines.join('\n') +
       '\n\nUdtaget: ' + lu.squad.map(function (p) { return p.name; }).join(', ');
-    var w = lineupWarnings(ti, lu.games || []);
+    var w = lineupWarnings(ti, lu.games || [], mi);
     var h = '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">' +
       '<span class="lbl" style="margin:0">Holdkamp ' + esc(m.matchID || '') + '</span><b>' + esc(m.home) + ' – ' + esc(m.away) + '</b><span class="s">' + dTxt(m.date) + ' kl. ' + esc(m.time || '') + ' · ' + esc(m.venue) + '</span></div>';
-    h += w.map(function (x) { return '<div class="warn">' + esc(x) + '</div>'; }).join('');
+    h += (deadlineTxt(t, m) ? '<div class="infomsg"><b>Frist:</b> ' + esc(deadlineTxt(t, m)) + '</div>' : '') + warnHtml(w);
     h += '<div class="card" style="overflow:hidden">' + (lu.games || []).map(function (g, i) {
       return '<div class="slot"><b class="h">' + esc(g.k) + '</b><span style="font-size:14px">' + (g.p.filter(String).map(function (id) { return esc(pname(id, lu)) + (/^\d+$/.test(id) ? ' <span class="xs">· ' + esc(id) + '</span>' : ''); }).join('<br>') || '<span class="xs">—</span>') + '</span></div>'; }).join('') + '</div>';
-    h += '<div class="reg"><button class="rb" id="copyLineup">Kopiér opstilling</button>' + (m.url ? '<a class="rb" style="display:inline-flex;align-items:center;text-decoration:none" href="' + esc(m.url) + '" target="_blank" rel="noopener">Åbn kampen på badmintonplayer ↗</a>' : '') + '</div>';
+    // Direkte til badmintonplayer.dk's side for indtastning af holdopstilling/resultat for netop denne kamp
+    var bpEntry = m.matchID ? 'https://www.badmintonplayer.dk/DBF/User/IndberetResultat/Kamp?match=' + encodeURIComponent(m.matchID) + '&clubId=1151' : '';
+    h += '<div class="tlinks">' + (bpEntry ? '<a class="route" href="' + esc(bpEntry) + '" target="_blank" rel="noopener">Åbn kampen til indtastning på badmintonplayer.dk ↗</a>' : '') +
+      '<button class="rb tlink" id="copyLineup">Kopiér opstilling</button>' +
+      (m.url ? '<a class="rb tlink" href="' + esc(m.url) + '" target="_blank" rel="noopener">Se kampen ↗</a>' : '') + '</div>';
     h += '<ol class="s" style="margin:4px 0 0 18px;padding:0;display:flex;flex-direction:column;gap:4px">' +
-      '<li>Log ind på badmintonplayer.dk med holdlederens konto.</li><li>Find holdkamp ' + esc(m.matchID || '') + ' under Holdturnering og åbn holdopstillingen.</li>' +
-      '<li>Indtast spillerne i samme rækkefølge som ovenfor (spiller-id står ved navnet).</li><li>Gem på badmintonplayer, og tryk derefter <b>Marker som indtastet</b> her.</li></ol>';
+      '<li>Tryk <b>Åbn kampen til indtastning</b> — badmintonplayer.dk åbner holdkamp ' + esc(m.matchID || '') + '. Log ind med din holdleder-konto, hvis den beder om det.</li>' +
+      '<li>Indtast spillerne i samme rækkefølge som ovenfor — spiller-id står ved navnet, så du kan søge på det. Skift mellem appen og badmintonplayer, eller brug <b>Kopiér opstilling</b>.</li>' +
+      '<li>Gem på badmintonplayer.dk, og tryk derefter <b>Marker som indtastet</b> her.</li></ol>';
     h += lu.status === 'indtastet' ? '<p class="note">' + stPill('indtastet') + '</p>' : '<button class="rb ja" aria-pressed="true" id="markEntered" style="min-height:46px">Marker som indtastet</button>';
     h += '<textarea id="lineupText" readonly style="position:absolute;left:-9999px">' + esc(text) + '</textarea>';
     return h;
@@ -1715,8 +1874,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     }
     if (parts[0] === 'opstilling' && document.getElementById('luSaveGames')) {
       var oti = +parts[1], omi = +parts[2];
-      renderWarnings(oti);
-      document.querySelectorAll('select[data-slot]').forEach(function (s) { s.addEventListener('change', function () { renderWarnings(oti); }); });
+      renderWarnings(oti, omi);
+      document.querySelectorAll('select[data-slot]').forEach(function (s) { s.addEventListener('change', function () { renderWarnings(oti, omi); }); });
       document.getElementById('luSaveGames').addEventListener('click', function () {
         saveLineup(oti, omi, { games: collectGames(oti), note: document.getElementById('luNote').value.trim(), status: UI.luStatus || undefined }, function () { UI.luStatus = null; route(true); });
       });
