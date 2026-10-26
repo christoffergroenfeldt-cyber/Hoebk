@@ -1,9 +1,985 @@
 {
-  "updated": "2026-10-25T23:07:37+00:00",
+  "updated": "2026-10-26T11:28:12+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
   "teams": [
+    {
+      "name": "Hørsholm 2",
+      "pulje": "U13 B, 5600 (4 spillere) Pulje 2",
+      "label": "U13 B",
+      "position": "7",
+      "standing": [
+        {
+          "pos": "1",
+          "team": "Værløse 2",
+          "teamID": "124487",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "16-0",
+          "sets": "32-3",
+          "points": "8"
+        },
+        {
+          "pos": "2",
+          "team": "Holte 1",
+          "teamID": "124485",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "13-3",
+          "sets": "28-10",
+          "points": "7"
+        },
+        {
+          "pos": "3",
+          "team": "Farum 1",
+          "teamID": "124483",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "10-6",
+          "sets": "22-16",
+          "points": "6"
+        },
+        {
+          "pos": "4",
+          "team": "Birkerød BK13 1",
+          "teamID": "124482",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "8-8",
+          "sets": "19-20",
+          "points": "4"
+        },
+        {
+          "pos": "5",
+          "team": "Hillerød 1",
+          "teamID": "124481",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "6-10",
+          "sets": "18-23",
+          "points": "2"
+        },
+        {
+          "pos": "6",
+          "team": "Herlev/Hjorten 3",
+          "teamID": "124484",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "3-13",
+          "sets": "11-28",
+          "points": "1"
+        },
+        {
+          "pos": "7",
+          "team": "Hørsholm 2",
+          "teamID": "124486",
+          "isUs": true,
+          "played": "2",
+          "won": "0",
+          "score": "0-16",
+          "sets": "2-32",
+          "points": "0"
+        }
+      ],
+      "leagueGroupID": "19092",
+      "ageGroupID": "4",
+      "leagueGroupTeamID": "124486",
+      "bpArgs": {
+        "seasonID": "2026",
+        "leagueGroupID": "19092",
+        "ageGroupID": "4",
+        "regionID": "10",
+        "leagueGroupTeamID": "124486",
+        "clubID": "1151",
+        "playerID": ""
+      },
+      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19092,4,10,124486,,1151,",
+      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19092,4,10,,,1151,",
+      "matches": [
+        {
+          "date": "2026-10-25",
+          "time": "09:00",
+          "home": "Hørsholm 2",
+          "away": "Værløse 2",
+          "isHome": true,
+          "opponent": "Værløse 2",
+          "organiser": "Herlev/Hjorten",
+          "venue": "Skinderskovhallen 5-8",
+          "result": "0-8",
+          "points": "0-4",
+          "outcome": "T",
+          "walkover": "",
+          "played": true,
+          "matchID": "513973",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513973,1151,",
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "352356",
+                  "name": "Carl Emil Jensen"
+                },
+                {
+                  "id": "362602",
+                  "name": "Marvin Nørmark"
+                }
+              ],
+              "away": [
+                {
+                  "id": "345733",
+                  "name": "Oliver Trachimowicz Christensen"
+                },
+                {
+                  "id": "329184",
+                  "name": "Nova Dekkerhus"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  13,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "345764",
+                  "name": "Emilie Drescher"
+                },
+                {
+                  "id": "348494",
+                  "name": "Mathilde Dahl Plougmann"
+                }
+              ],
+              "away": [
+                {
+                  "id": "346133",
+                  "name": "Aksel Klintrup"
+                },
+                {
+                  "id": "345181",
+                  "name": "Oliver Hammer"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  14,
+                  16
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "362602",
+                  "name": "Marvin Nørmark"
+                },
+                {
+                  "id": "352441",
+                  "name": "Nolan Jing"
+                }
+              ],
+              "away": [
+                {
+                  "id": "346133",
+                  "name": "Aksel Klintrup"
+                },
+                {
+                  "id": "345733",
+                  "name": "Oliver Trachimowicz Christensen"
+                }
+              ],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "352356",
+                  "name": "Carl Emil Jensen"
+                },
+                {
+                  "id": "345764",
+                  "name": "Emilie Drescher"
+                }
+              ],
+              "away": [
+                {
+                  "id": "329184",
+                  "name": "Nova Dekkerhus"
+                },
+                {
+                  "id": "345181",
+                  "name": "Oliver Hammer"
+                }
+              ],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "362602",
+                  "name": "Marvin Nørmark"
+                }
+              ],
+              "away": [
+                {
+                  "id": "346133",
+                  "name": "Aksel Klintrup"
+                }
+              ],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  2,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "352441",
+                  "name": "Nolan Jing"
+                }
+              ],
+              "away": [
+                {
+                  "id": "345733",
+                  "name": "Oliver Trachimowicz Christensen"
+                }
+              ],
+              "sets": [
+                [
+                  9,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "348494",
+                  "name": "Mathilde Dahl Plougmann"
+                }
+              ],
+              "away": [
+                {
+                  "id": "329184",
+                  "name": "Nova Dekkerhus"
+                }
+              ],
+              "sets": [
+                [
+                  4,
+                  15
+                ],
+                [
+                  8,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "352356",
+                  "name": "Carl Emil Jensen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "345181",
+                  "name": "Oliver Hammer"
+                }
+              ],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  6,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            }
+          ],
+          "travel": {
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
+          }
+        },
+        {
+          "date": "2026-10-25",
+          "time": "11:00",
+          "home": "Holte 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Holte 1",
+          "organiser": "Herlev/Hjorten",
+          "venue": "Skinderskovhallen 5-8",
+          "result": "8-0",
+          "points": "4-0",
+          "outcome": "T",
+          "walkover": "",
+          "played": true,
+          "matchID": "513975",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513975,1151,",
+          "games": [
+            {
+              "discipline": "1. D",
+              "home": [
+                {
+                  "id": "356174",
+                  "name": "Max Krath Jørgensen"
+                },
+                {
+                  "id": "356175",
+                  "name": "Carl Philip Lundgren Hadsbjerg"
+                }
+              ],
+              "away": [
+                {
+                  "id": "352356",
+                  "name": "Carl Emil Jensen"
+                },
+                {
+                  "id": "348494",
+                  "name": "Mathilde Dahl Plougmann"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. D",
+              "home": [
+                {
+                  "id": "345835",
+                  "name": "Alexander Munch"
+                },
+                {
+                  "id": "356172",
+                  "name": "Emil Tolstrup"
+                }
+              ],
+              "away": [
+                {
+                  "id": "345764",
+                  "name": "Emilie Drescher"
+                },
+                {
+                  "id": "352441",
+                  "name": "Nolan Jing"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  12
+                ],
+                [
+                  15,
+                  10
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. D",
+              "home": [
+                {
+                  "id": "356175",
+                  "name": "Carl Philip Lundgren Hadsbjerg"
+                },
+                {
+                  "id": "356172",
+                  "name": "Emil Tolstrup"
+                }
+              ],
+              "away": [
+                {
+                  "id": "345764",
+                  "name": "Emilie Drescher"
+                },
+                {
+                  "id": "362602",
+                  "name": "Marvin Nørmark"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  8
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. D",
+              "home": [
+                {
+                  "id": "356174",
+                  "name": "Max Krath Jørgensen"
+                },
+                {
+                  "id": "345835",
+                  "name": "Alexander Munch"
+                }
+              ],
+              "away": [
+                {
+                  "id": "348494",
+                  "name": "Mathilde Dahl Plougmann"
+                },
+                {
+                  "id": "352441",
+                  "name": "Nolan Jing"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  6
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. S",
+              "home": [
+                {
+                  "id": "356174",
+                  "name": "Max Krath Jørgensen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "362602",
+                  "name": "Marvin Nørmark"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  13
+                ],
+                [
+                  6,
+                  15
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. S",
+              "home": [
+                {
+                  "id": "356175",
+                  "name": "Carl Philip Lundgren Hadsbjerg"
+                }
+              ],
+              "away": [
+                {
+                  "id": "345764",
+                  "name": "Emilie Drescher"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  9
+                ],
+                [
+                  15,
+                  7
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. S",
+              "home": [
+                {
+                  "id": "345835",
+                  "name": "Alexander Munch"
+                }
+              ],
+              "away": [
+                {
+                  "id": "352441",
+                  "name": "Nolan Jing"
+                }
+              ],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. S",
+              "home": [
+                {
+                  "id": "356172",
+                  "name": "Emil Tolstrup"
+                }
+              ],
+              "away": [
+                {
+                  "id": "348494",
+                  "name": "Mathilde Dahl Plougmann"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  11
+                ],
+                [
+                  15,
+                  3
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            }
+          ],
+          "travel": {
+            "min": 24,
+            "km": 24,
+            "precision": "hal",
+            "lat": 55.746,
+            "lon": 12.4121,
+            "query": "Skinderskovhallen, Herlev"
+          }
+        },
+        {
+          "date": "2026-11-14",
+          "time": "13:00",
+          "home": "Farum 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Farum 1",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 5-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513980",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513980,1151,",
+          "games": [],
+          "travel": {
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
+            "query": "BBK-Hallen, Birkerød BK13"
+          }
+        },
+        {
+          "date": "2026-11-14",
+          "time": "14:00",
+          "home": "Hørsholm 2",
+          "away": "Birkerød BK13 1",
+          "isHome": true,
+          "opponent": "Birkerød BK13 1",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 5-8",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513982",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513982,1151,",
+          "games": [],
+          "travel": {
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
+            "query": "BBK-Hallen, Birkerød BK13"
+          }
+        },
+        {
+          "date": "2027-01-17",
+          "time": "12:00",
+          "home": "Hørsholm 2",
+          "away": "Hillerød 1",
+          "isHome": true,
+          "opponent": "Hillerød 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-5",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513983",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513983,1151,",
+          "games": [],
+          "travel": {
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
+            "query": "Hørsholm Badminton Hal, Hørsholm"
+          }
+        },
+        {
+          "date": "2027-01-17",
+          "time": "15:00",
+          "home": "Herlev/Hjorten 3",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Herlev/Hjorten 3",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-5",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513985",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513985,1151,",
+          "games": [],
+          "travel": {
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
+            "query": "Hørsholm Badminton Hal, Hørsholm"
+          }
+        },
+        {
+          "date": "2027-02-06",
+          "time": "09:00",
+          "home": "Hillerød 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Hillerød 1",
+          "organiser": "Hillerød",
+          "venue": "Hillerød Badmintonklub 5-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513993",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513993,1151,",
+          "games": [],
+          "travel": {
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
+            "query": "Hillerød Badmintonklub, Hillerød"
+          }
+        },
+        {
+          "date": "2027-02-06",
+          "time": "11:00",
+          "home": "Hørsholm 2",
+          "away": "Holte 1",
+          "isHome": true,
+          "opponent": "Holte 1",
+          "organiser": "Hillerød",
+          "venue": "Hillerød Badmintonklub 5-6",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513995",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513995,1151,",
+          "games": [],
+          "travel": {
+            "min": 23,
+            "km": 19,
+            "precision": "hal",
+            "lat": 55.9204,
+            "lon": 12.2997,
+            "query": "Hillerød Badmintonklub, Hillerød"
+          }
+        },
+        {
+          "date": "2027-03-06",
+          "time": "10:15",
+          "home": "Hørsholm 2",
+          "away": "Herlev/Hjorten 3",
+          "isHome": true,
+          "opponent": "Herlev/Hjorten 3",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513998",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513998,1151,",
+          "games": [],
+          "travel": {
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
+            "query": "BBK-Hallen, Birkerød BK13"
+          }
+        },
+        {
+          "date": "2027-03-06",
+          "time": "11:30",
+          "home": "Birkerød BK13 1",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Birkerød BK13 1",
+          "organiser": "Birkerød BK13",
+          "venue": "BBK-Hallen 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "513999",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513999,1151,",
+          "games": [],
+          "travel": {
+            "min": 14,
+            "km": 9,
+            "precision": "by",
+            "lat": 55.8403,
+            "lon": 12.4288,
+            "query": "BBK-Hallen, Birkerød BK13"
+          }
+        },
+        {
+          "date": "2027-03-21",
+          "time": "13:30",
+          "home": "Hørsholm 2",
+          "away": "Farum 1",
+          "isHome": true,
+          "opponent": "Farum 1",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514007",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,514007,1151,",
+          "games": [],
+          "travel": {
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
+            "query": "Hørsholm Badminton Hal, Hørsholm"
+          }
+        },
+        {
+          "date": "2027-03-21",
+          "time": "15:00",
+          "home": "Værløse 2",
+          "away": "Hørsholm 2",
+          "isHome": false,
+          "opponent": "Værløse 2",
+          "organiser": "Hørsholm",
+          "venue": "Hørsholm Badminton Hal 1-4",
+          "result": null,
+          "points": null,
+          "outcome": null,
+          "walkover": "",
+          "played": false,
+          "matchID": "514010",
+          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,514010,1151,",
+          "games": [],
+          "travel": {
+            "min": 0,
+            "km": 0,
+            "precision": "hal",
+            "lat": 55.8783,
+            "lon": 12.5167,
+            "query": "Hørsholm Badminton Hal, Hørsholm"
+          }
+        }
+      ],
+      "players": [
+        {
+          "id": "345764",
+          "name": "Emilie Drescher",
+          "games": 5,
+          "won": 0,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#345764"
+        },
+        {
+          "id": "362602",
+          "name": "Marvin Nørmark",
+          "games": 5,
+          "won": 0,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#362602"
+        },
+        {
+          "id": "348494",
+          "name": "Mathilde Dahl Plougmann",
+          "games": 5,
+          "won": 0,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#348494"
+        },
+        {
+          "id": "352441",
+          "name": "Nolan Jing",
+          "games": 5,
+          "won": 0,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#352441"
+        },
+        {
+          "id": "352356",
+          "name": "Carl Emil Jensen",
+          "games": 4,
+          "won": 0,
+          "disciplines": [
+            "D",
+            "S"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#352356"
+        }
+      ]
+    },
     {
       "name": "Hørsholm 2",
       "pulje": "U11 Dx, 4200 (4 spillere) Pulje 1",
@@ -2888,732 +3864,6 @@
       ]
     },
     {
-      "name": "Hørsholm 2",
-      "pulje": "U13 B, 5600 (4 spillere) Pulje 2",
-      "label": "U13 B",
-      "position": "7",
-      "standing": [
-        {
-          "pos": "1",
-          "team": "Holte 1",
-          "teamID": "124485",
-          "isUs": false,
-          "played": "2",
-          "won": "2",
-          "score": "13-3",
-          "sets": "28-10",
-          "points": "7"
-        },
-        {
-          "pos": "2",
-          "team": "Farum 1",
-          "teamID": "124483",
-          "isUs": false,
-          "played": "2",
-          "won": "2",
-          "score": "10-6",
-          "sets": "22-16",
-          "points": "6"
-        },
-        {
-          "pos": "3",
-          "team": "Værløse 2",
-          "teamID": "124487",
-          "isUs": false,
-          "played": "1",
-          "won": "1",
-          "score": "8-0",
-          "sets": "16-3",
-          "points": "4"
-        },
-        {
-          "pos": "4",
-          "team": "Birkerød BK13 1",
-          "teamID": "124482",
-          "isUs": false,
-          "played": "2",
-          "won": "1",
-          "score": "8-8",
-          "sets": "19-20",
-          "points": "4"
-        },
-        {
-          "pos": "5",
-          "team": "Hillerød 1",
-          "teamID": "124481",
-          "isUs": false,
-          "played": "2",
-          "won": "0",
-          "score": "6-10",
-          "sets": "18-23",
-          "points": "2"
-        },
-        {
-          "pos": "6",
-          "team": "Herlev/Hjorten 3",
-          "teamID": "124484",
-          "isUs": false,
-          "played": "2",
-          "won": "0",
-          "score": "3-13",
-          "sets": "11-28",
-          "points": "1"
-        },
-        {
-          "pos": "7",
-          "team": "Hørsholm 2",
-          "teamID": "124486",
-          "isUs": true,
-          "played": "1",
-          "won": "0",
-          "score": "0-8",
-          "sets": "2-16",
-          "points": "0"
-        }
-      ],
-      "leagueGroupID": "19092",
-      "ageGroupID": "4",
-      "leagueGroupTeamID": "124486",
-      "bpArgs": {
-        "seasonID": "2026",
-        "leagueGroupID": "19092",
-        "ageGroupID": "4",
-        "regionID": "10",
-        "leagueGroupTeamID": "124486",
-        "clubID": "1151",
-        "playerID": ""
-      },
-      "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#3,2026,19092,4,10,124486,,1151,",
-      "standingUrl": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#2,2026,19092,4,10,,,1151,",
-      "matches": [
-        {
-          "date": "2026-10-25",
-          "time": "09:00",
-          "home": "Hørsholm 2",
-          "away": "Værløse 2",
-          "isHome": true,
-          "opponent": "Værløse 2",
-          "organiser": "Herlev/Hjorten",
-          "venue": "Skinderskovhallen 5-8",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513973",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513973,1151,",
-          "games": [],
-          "travel": {
-            "min": 24,
-            "km": 24,
-            "precision": "hal",
-            "lat": 55.746,
-            "lon": 12.4121,
-            "query": "Skinderskovhallen, Herlev"
-          }
-        },
-        {
-          "date": "2026-10-25",
-          "time": "11:00",
-          "home": "Holte 1",
-          "away": "Hørsholm 2",
-          "isHome": false,
-          "opponent": "Holte 1",
-          "organiser": "Herlev/Hjorten",
-          "venue": "Skinderskovhallen 5-8",
-          "result": "8-0",
-          "points": "4-0",
-          "outcome": "T",
-          "walkover": "",
-          "played": true,
-          "matchID": "513975",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513975,1151,",
-          "games": [
-            {
-              "discipline": "1. D",
-              "home": [
-                {
-                  "id": "356174",
-                  "name": "Max Krath Jørgensen"
-                },
-                {
-                  "id": "356175",
-                  "name": "Carl Philip Lundgren Hadsbjerg"
-                }
-              ],
-              "away": [
-                {
-                  "id": "352356",
-                  "name": "Carl Emil Jensen"
-                },
-                {
-                  "id": "348494",
-                  "name": "Mathilde Dahl Plougmann"
-                }
-              ],
-              "sets": [
-                [
-                  15,
-                  9
-                ],
-                [
-                  15,
-                  7
-                ]
-              ],
-              "winner": "home",
-              "walkover": ""
-            },
-            {
-              "discipline": "4. D",
-              "home": [
-                {
-                  "id": "345835",
-                  "name": "Alexander Munch"
-                },
-                {
-                  "id": "356172",
-                  "name": "Emil Tolstrup"
-                }
-              ],
-              "away": [
-                {
-                  "id": "345764",
-                  "name": "Emilie Drescher"
-                },
-                {
-                  "id": "352441",
-                  "name": "Nolan Jing"
-                }
-              ],
-              "sets": [
-                [
-                  15,
-                  12
-                ],
-                [
-                  15,
-                  10
-                ]
-              ],
-              "winner": "home",
-              "walkover": ""
-            },
-            {
-              "discipline": "2. D",
-              "home": [
-                {
-                  "id": "356175",
-                  "name": "Carl Philip Lundgren Hadsbjerg"
-                },
-                {
-                  "id": "356172",
-                  "name": "Emil Tolstrup"
-                }
-              ],
-              "away": [
-                {
-                  "id": "345764",
-                  "name": "Emilie Drescher"
-                },
-                {
-                  "id": "362602",
-                  "name": "Marvin Nørmark"
-                }
-              ],
-              "sets": [
-                [
-                  15,
-                  11
-                ],
-                [
-                  15,
-                  8
-                ]
-              ],
-              "winner": "home",
-              "walkover": ""
-            },
-            {
-              "discipline": "3. D",
-              "home": [
-                {
-                  "id": "356174",
-                  "name": "Max Krath Jørgensen"
-                },
-                {
-                  "id": "345835",
-                  "name": "Alexander Munch"
-                }
-              ],
-              "away": [
-                {
-                  "id": "348494",
-                  "name": "Mathilde Dahl Plougmann"
-                },
-                {
-                  "id": "352441",
-                  "name": "Nolan Jing"
-                }
-              ],
-              "sets": [
-                [
-                  15,
-                  13
-                ],
-                [
-                  15,
-                  6
-                ]
-              ],
-              "winner": "home",
-              "walkover": ""
-            },
-            {
-              "discipline": "1. S",
-              "home": [
-                {
-                  "id": "356174",
-                  "name": "Max Krath Jørgensen"
-                }
-              ],
-              "away": [
-                {
-                  "id": "362602",
-                  "name": "Marvin Nørmark"
-                }
-              ],
-              "sets": [
-                [
-                  15,
-                  13
-                ],
-                [
-                  6,
-                  15
-                ],
-                [
-                  15,
-                  11
-                ]
-              ],
-              "winner": "home",
-              "walkover": ""
-            },
-            {
-              "discipline": "2. S",
-              "home": [
-                {
-                  "id": "356175",
-                  "name": "Carl Philip Lundgren Hadsbjerg"
-                }
-              ],
-              "away": [
-                {
-                  "id": "345764",
-                  "name": "Emilie Drescher"
-                }
-              ],
-              "sets": [
-                [
-                  15,
-                  9
-                ],
-                [
-                  15,
-                  7
-                ]
-              ],
-              "winner": "home",
-              "walkover": ""
-            },
-            {
-              "discipline": "3. S",
-              "home": [
-                {
-                  "id": "345835",
-                  "name": "Alexander Munch"
-                }
-              ],
-              "away": [
-                {
-                  "id": "352441",
-                  "name": "Nolan Jing"
-                }
-              ],
-              "sets": [
-                [
-                  12,
-                  15
-                ],
-                [
-                  15,
-                  11
-                ],
-                [
-                  15,
-                  11
-                ]
-              ],
-              "winner": "home",
-              "walkover": ""
-            },
-            {
-              "discipline": "4. S",
-              "home": [
-                {
-                  "id": "356172",
-                  "name": "Emil Tolstrup"
-                }
-              ],
-              "away": [
-                {
-                  "id": "348494",
-                  "name": "Mathilde Dahl Plougmann"
-                }
-              ],
-              "sets": [
-                [
-                  15,
-                  11
-                ],
-                [
-                  15,
-                  3
-                ]
-              ],
-              "winner": "home",
-              "walkover": ""
-            }
-          ],
-          "travel": {
-            "min": 24,
-            "km": 24,
-            "precision": "hal",
-            "lat": 55.746,
-            "lon": 12.4121,
-            "query": "Skinderskovhallen, Herlev"
-          }
-        },
-        {
-          "date": "2026-11-14",
-          "time": "13:00",
-          "home": "Farum 1",
-          "away": "Hørsholm 2",
-          "isHome": false,
-          "opponent": "Farum 1",
-          "organiser": "Birkerød BK13",
-          "venue": "BBK-Hallen 5-8",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513980",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513980,1151,",
-          "games": [],
-          "travel": {
-            "min": 14,
-            "km": 9,
-            "precision": "by",
-            "lat": 55.8403,
-            "lon": 12.4288,
-            "query": "BBK-Hallen, Birkerød BK13"
-          }
-        },
-        {
-          "date": "2026-11-14",
-          "time": "14:00",
-          "home": "Hørsholm 2",
-          "away": "Birkerød BK13 1",
-          "isHome": true,
-          "opponent": "Birkerød BK13 1",
-          "organiser": "Birkerød BK13",
-          "venue": "BBK-Hallen 5-8",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513982",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513982,1151,",
-          "games": [],
-          "travel": {
-            "min": 14,
-            "km": 9,
-            "precision": "by",
-            "lat": 55.8403,
-            "lon": 12.4288,
-            "query": "BBK-Hallen, Birkerød BK13"
-          }
-        },
-        {
-          "date": "2027-01-17",
-          "time": "12:00",
-          "home": "Hørsholm 2",
-          "away": "Hillerød 1",
-          "isHome": true,
-          "opponent": "Hillerød 1",
-          "organiser": "Hørsholm",
-          "venue": "Hørsholm Badminton Hal 1-5",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513983",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513983,1151,",
-          "games": [],
-          "travel": {
-            "min": 0,
-            "km": 0,
-            "precision": "hal",
-            "lat": 55.8783,
-            "lon": 12.5167,
-            "query": "Hørsholm Badminton Hal, Hørsholm"
-          }
-        },
-        {
-          "date": "2027-01-17",
-          "time": "15:00",
-          "home": "Herlev/Hjorten 3",
-          "away": "Hørsholm 2",
-          "isHome": false,
-          "opponent": "Herlev/Hjorten 3",
-          "organiser": "Hørsholm",
-          "venue": "Hørsholm Badminton Hal 1-5",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513985",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513985,1151,",
-          "games": [],
-          "travel": {
-            "min": 0,
-            "km": 0,
-            "precision": "hal",
-            "lat": 55.8783,
-            "lon": 12.5167,
-            "query": "Hørsholm Badminton Hal, Hørsholm"
-          }
-        },
-        {
-          "date": "2027-02-06",
-          "time": "09:00",
-          "home": "Hillerød 1",
-          "away": "Hørsholm 2",
-          "isHome": false,
-          "opponent": "Hillerød 1",
-          "organiser": "Hillerød",
-          "venue": "Hillerød Badmintonklub 5-6",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513993",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513993,1151,",
-          "games": [],
-          "travel": {
-            "min": 23,
-            "km": 19,
-            "precision": "hal",
-            "lat": 55.9204,
-            "lon": 12.2997,
-            "query": "Hillerød Badmintonklub, Hillerød"
-          }
-        },
-        {
-          "date": "2027-02-06",
-          "time": "11:00",
-          "home": "Hørsholm 2",
-          "away": "Holte 1",
-          "isHome": true,
-          "opponent": "Holte 1",
-          "organiser": "Hillerød",
-          "venue": "Hillerød Badmintonklub 5-6",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513995",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513995,1151,",
-          "games": [],
-          "travel": {
-            "min": 23,
-            "km": 19,
-            "precision": "hal",
-            "lat": 55.9204,
-            "lon": 12.2997,
-            "query": "Hillerød Badmintonklub, Hillerød"
-          }
-        },
-        {
-          "date": "2027-03-06",
-          "time": "10:15",
-          "home": "Hørsholm 2",
-          "away": "Herlev/Hjorten 3",
-          "isHome": true,
-          "opponent": "Herlev/Hjorten 3",
-          "organiser": "Birkerød BK13",
-          "venue": "BBK-Hallen 1-4",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513998",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513998,1151,",
-          "games": [],
-          "travel": {
-            "min": 14,
-            "km": 9,
-            "precision": "by",
-            "lat": 55.8403,
-            "lon": 12.4288,
-            "query": "BBK-Hallen, Birkerød BK13"
-          }
-        },
-        {
-          "date": "2027-03-06",
-          "time": "11:30",
-          "home": "Birkerød BK13 1",
-          "away": "Hørsholm 2",
-          "isHome": false,
-          "opponent": "Birkerød BK13 1",
-          "organiser": "Birkerød BK13",
-          "venue": "BBK-Hallen 1-4",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "513999",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513999,1151,",
-          "games": [],
-          "travel": {
-            "min": 14,
-            "km": 9,
-            "precision": "by",
-            "lat": 55.8403,
-            "lon": 12.4288,
-            "query": "BBK-Hallen, Birkerød BK13"
-          }
-        },
-        {
-          "date": "2027-03-21",
-          "time": "13:30",
-          "home": "Hørsholm 2",
-          "away": "Farum 1",
-          "isHome": true,
-          "opponent": "Farum 1",
-          "organiser": "Hørsholm",
-          "venue": "Hørsholm Badminton Hal 1-4",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "514007",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,514007,1151,",
-          "games": [],
-          "travel": {
-            "min": 0,
-            "km": 0,
-            "precision": "hal",
-            "lat": 55.8783,
-            "lon": 12.5167,
-            "query": "Hørsholm Badminton Hal, Hørsholm"
-          }
-        },
-        {
-          "date": "2027-03-21",
-          "time": "15:00",
-          "home": "Værløse 2",
-          "away": "Hørsholm 2",
-          "isHome": false,
-          "opponent": "Værløse 2",
-          "organiser": "Hørsholm",
-          "venue": "Hørsholm Badminton Hal 1-4",
-          "result": null,
-          "points": null,
-          "outcome": null,
-          "walkover": "",
-          "played": false,
-          "matchID": "514010",
-          "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,514010,1151,",
-          "games": [],
-          "travel": {
-            "min": 0,
-            "km": 0,
-            "precision": "hal",
-            "lat": 55.8783,
-            "lon": 12.5167,
-            "query": "Hørsholm Badminton Hal, Hørsholm"
-          }
-        }
-      ],
-      "players": [
-        {
-          "id": "345764",
-          "name": "Emilie Drescher",
-          "games": 3,
-          "won": 0,
-          "disciplines": [
-            "D",
-            "S"
-          ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#345764"
-        },
-        {
-          "id": "348494",
-          "name": "Mathilde Dahl Plougmann",
-          "games": 3,
-          "won": 0,
-          "disciplines": [
-            "D",
-            "S"
-          ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#348494"
-        },
-        {
-          "id": "352441",
-          "name": "Nolan Jing",
-          "games": 3,
-          "won": 0,
-          "disciplines": [
-            "D",
-            "S"
-          ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#352441"
-        },
-        {
-          "id": "362602",
-          "name": "Marvin Nørmark",
-          "games": 2,
-          "won": 0,
-          "disciplines": [
-            "D",
-            "S"
-          ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#362602"
-        },
-        {
-          "id": "352356",
-          "name": "Carl Emil Jensen",
-          "games": 1,
-          "won": 0,
-          "disciplines": [
-            "D"
-          ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#352356"
-        }
-      ]
-    },
-    {
       "name": "Hørsholm",
       "pulje": "4 Spillere A-række Pulje 1",
       "label": "4 Spillere A-række",
@@ -4057,7 +4307,7 @@
       "name": "Hørsholm 1",
       "pulje": "U15 A, 7200 (4 spillere) Pulje 1",
       "label": "U15 A",
-      "position": "2",
+      "position": "3",
       "standing": [
         {
           "pos": "1",
@@ -4072,6 +4322,17 @@
         },
         {
           "pos": "2",
+          "team": "Holte 1",
+          "teamID": "124882",
+          "isUs": false,
+          "played": "2",
+          "won": "2",
+          "score": "13-3",
+          "sets": "27-7",
+          "points": "8"
+        },
+        {
+          "pos": "3",
           "team": "Hørsholm 1",
           "teamID": "124884",
           "isUs": true,
@@ -4082,7 +4343,7 @@
           "points": "7"
         },
         {
-          "pos": "3",
+          "pos": "4",
           "team": "VBC/FKIF 1",
           "teamID": "124887",
           "isUs": false,
@@ -4093,7 +4354,7 @@
           "points": "5"
         },
         {
-          "pos": "4",
+          "pos": "5",
           "team": "Gladsaxe Søborg 1",
           "teamID": "124589",
           "isUs": false,
@@ -4104,7 +4365,7 @@
           "points": "4"
         },
         {
-          "pos": "5",
+          "pos": "6",
           "team": "Værløse 2",
           "teamID": "124587",
           "isUs": false,
@@ -4115,7 +4376,29 @@
           "points": "3"
         },
         {
-          "pos": "6",
+          "pos": "7",
+          "team": "Birkerød BK13 1",
+          "teamID": "124881",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "6-10",
+          "sets": "13-21",
+          "points": "2"
+        },
+        {
+          "pos": "8",
+          "team": "Lyngby 1",
+          "teamID": "124886",
+          "isUs": false,
+          "played": "2",
+          "won": "0",
+          "score": "5-11",
+          "sets": "11-23",
+          "points": "2"
+        },
+        {
+          "pos": "9",
           "team": "Køge 1",
           "teamID": "124588",
           "isUs": false,
@@ -4126,42 +4409,9 @@
           "points": "1"
         },
         {
-          "pos": "7",
+          "pos": "10",
           "team": "BC37/IBB 1",
           "teamID": "124885",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "7",
-          "team": "Birkerød BK13 1",
-          "teamID": "124881",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "7",
-          "team": "Holte 1",
-          "teamID": "124882",
-          "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
-        },
-        {
-          "pos": "7",
-          "team": "Lyngby 1",
-          "teamID": "124886",
           "isUs": false,
           "played": "0",
           "won": "0",

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T23:07:37+00:00",
+ "updated": "2026-10-26T11:28:12+00:00",
  "season": "2026",
  "clubRanking": [
   {
@@ -1047,6 +1047,34 @@
   },
   {
    "rank": 75,
+   "id": "352441",
+   "name": "Nolan Jing",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 5,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 107,
+   "avgPoints": 21.4,
+   "avgDiff": -11.0
+  },
+  {
+   "rank": 76,
+   "id": "362602",
+   "name": "Marvin Nørmark",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 5,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 104,
+   "avgPoints": 20.8,
+   "avgDiff": -10.4
+  },
+  {
+   "rank": 77,
    "id": "245961",
    "name": "Jesper Østergaard",
    "teams": [
@@ -1060,21 +1088,35 @@
    "avgDiff": -6.3
   },
   {
-   "rank": 76,
-   "id": "352441",
-   "name": "Nolan Jing",
+   "rank": 78,
+   "id": "345764",
+   "name": "Emilie Drescher",
    "teams": [
     "U13 B"
    ],
-   "played": 3,
+   "played": 5,
    "won": 0,
    "winPct": 0,
-   "pointsFor": 78,
-   "avgPoints": 26.0,
-   "avgDiff": -8.0
+   "pointsFor": 96,
+   "avgPoints": 19.2,
+   "avgDiff": -11.0
   },
   {
-   "rank": 77,
+   "rank": 79,
+   "id": "348494",
+   "name": "Mathilde Dahl Plougmann",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 5,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 83,
+   "avgPoints": 16.6,
+   "avgDiff": -13.6
+  },
+  {
+   "rank": 80,
    "id": "339513",
    "name": "Camilla Engel Post",
    "teams": [
@@ -1088,7 +1130,7 @@
    "avgDiff": -9.0
   },
   {
-   "rank": 78,
+   "rank": 81,
    "id": "330795",
    "name": "Brit Johannessen",
    "teams": [
@@ -1102,7 +1144,21 @@
    "avgDiff": -7.7
   },
   {
-   "rank": 79,
+   "rank": 82,
+   "id": "352356",
+   "name": "Carl Emil Jensen",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 4,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 67,
+   "avgPoints": 16.8,
+   "avgDiff": -13.2
+  },
+  {
+   "rank": 83,
    "id": "364196",
    "name": "Fie B. Kobberup",
    "teams": [
@@ -1116,49 +1172,7 @@
    "avgDiff": -10.3
   },
   {
-   "rank": 80,
-   "id": "362602",
-   "name": "Marvin Nørmark",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 2,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 58,
-   "avgPoints": 29.0,
-   "avgDiff": -4.0
-  },
-  {
-   "rank": 81,
-   "id": "345764",
-   "name": "Emilie Drescher",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 3,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 57,
-   "avgPoints": 19.0,
-   "avgDiff": -11.0
-  },
-  {
-   "rank": 82,
-   "id": "348494",
-   "name": "Mathilde Dahl Plougmann",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 3,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 49,
-   "avgPoints": 16.3,
-   "avgDiff": -13.7
-  },
-  {
-   "rank": 83,
+   "rank": 84,
    "id": "367264",
    "name": "Pulin Dhar",
    "teams": [
@@ -1172,7 +1186,7 @@
    "avgDiff": -16.7
   },
   {
-   "rank": 84,
+   "rank": 85,
    "id": "336560",
    "name": "Tue Krogh-Larsen",
    "teams": [
@@ -1186,7 +1200,7 @@
    "avgDiff": -13.0
   },
   {
-   "rank": 85,
+   "rank": 86,
    "id": "277780",
    "name": "Mathilde Peetz",
    "teams": [
@@ -1198,20 +1212,6 @@
    "pointsFor": 29,
    "avgPoints": 14.5,
    "avgDiff": -15.5
-  },
-  {
-   "rank": 86,
-   "id": "352356",
-   "name": "Carl Emil Jensen",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 1,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 16,
-   "avgPoints": 16.0,
-   "avgDiff": -14.0
   }
  ],
  "players": [
@@ -1307,14 +1307,14 @@
       "category": "U17 D",
       "points": "1261",
       "matches": "15",
-      "placement": "7409"
+      "placement": "7436"
      },
      {
       "list": "Double",
       "category": "U17 D",
       "points": "1248",
       "matches": "4",
-      "placement": "13302"
+      "placement": "13497"
      },
      {
       "list": "Mix",
@@ -1379,14 +1379,14 @@
       "category": "U13 A",
       "points": "1401",
       "matches": "52",
-      "placement": "5959"
+      "placement": "5973"
      },
      {
       "list": "Double",
       "category": "U13 A",
       "points": "1432",
       "matches": "54",
-      "placement": "10827"
+      "placement": "10924"
      }
     ],
     "license": "Ingen"
@@ -1587,23 +1587,23 @@
      {
       "list": "Single",
       "category": "U15 M",
-      "points": "2008",
-      "matches": "68",
-      "placement": "2880"
+      "points": "2027",
+      "matches": "70",
+      "placement": "2821"
      },
      {
       "list": "Double",
       "category": "U15 M",
-      "points": "1884",
-      "matches": "67",
-      "placement": "5906"
+      "points": "1912",
+      "matches": "70",
+      "placement": "5728"
      },
      {
       "list": "Mix",
       "category": "U15 M",
       "points": "1639",
       "matches": "25",
-      "placement": "4145"
+      "placement": "4157"
      }
     ],
     "license": "Ingen"
@@ -1701,14 +1701,14 @@
       "category": "U17 D",
       "points": "1200",
       "matches": "6",
-      "placement": "8443"
+      "placement": "8501"
      },
      {
       "list": "Double",
       "category": "U17 D",
       "points": "1200",
       "matches": "6",
-      "placement": "14136"
+      "placement": "14405"
      }
     ],
     "license": "Ingen"
@@ -1994,16 +1994,16 @@
      {
       "list": "Single",
       "category": "U11 A-B",
-      "points": "1423",
-      "matches": "39",
-      "placement": "5789"
+      "points": "1452",
+      "matches": "41",
+      "placement": "5587"
      },
      {
       "list": "Double",
       "category": "U11 A-B",
-      "points": "1391",
-      "matches": "30",
-      "placement": "11237"
+      "points": "1424",
+      "matches": "34",
+      "placement": "11012"
      }
     ],
     "license": "Ingen"
@@ -2187,14 +2187,14 @@
       "category": "U19 B",
       "points": "1461",
       "matches": "4",
-      "placement": "10528"
+      "placement": "10615"
      },
      {
       "list": "Mix",
       "category": "U19 B",
       "points": "1489",
       "matches": "4",
-      "placement": "4933"
+      "placement": "4956"
      }
     ],
     "license": "Ingen"
@@ -2514,14 +2514,14 @@
       "category": "SEN C-D",
       "points": "1860",
       "matches": "32",
-      "placement": "6066"
+      "placement": "6076"
      },
      {
       "list": "Mix",
       "category": "SEN C-D",
       "points": "1572",
       "matches": "13",
-      "placement": "4442"
+      "placement": "4453"
      }
     ],
     "license": "Ingen"
@@ -2782,21 +2782,21 @@
       "category": "SEN E-M",
       "points": "3140",
       "matches": "10",
-      "placement": "464"
+      "placement": "458"
      },
      {
       "list": "Double",
       "category": "SEN E-M",
-      "points": "3652",
-      "matches": "28",
-      "placement": "100"
+      "points": "3656",
+      "matches": "29",
+      "placement": "97"
      },
      {
       "list": "Mix",
       "category": "SEN E-M",
-      "points": "3203",
-      "matches": "14",
-      "placement": "253"
+      "points": "3211",
+      "matches": "15",
+      "placement": "246"
      }
     ],
     "license": "Ingen"
@@ -2891,21 +2891,21 @@
       "category": "SEN B",
       "points": "2176",
       "matches": "5",
-      "placement": "2456"
+      "placement": "2452"
      },
      {
       "list": "Double",
       "category": "SEN B",
-      "points": "2360",
-      "matches": "14",
-      "placement": "3305"
+      "points": "2357",
+      "matches": "16",
+      "placement": "3311"
      },
      {
       "list": "Mix",
       "category": "SEN B",
       "points": "2298",
       "matches": "5",
-      "placement": "1879"
+      "placement": "1871"
      }
     ],
     "license": "Ingen"
@@ -3260,16 +3260,16 @@
      {
       "list": "Single",
       "category": "SEN A",
-      "points": "3144",
-      "matches": "3",
-      "placement": "455"
+      "points": "3126",
+      "matches": "4",
+      "placement": "477"
      },
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "3082",
-      "matches": "16",
-      "placement": "848"
+      "points": "3089",
+      "matches": "17",
+      "placement": "825"
      },
      {
       "list": "Mix",
@@ -3627,16 +3627,16 @@
      {
       "list": "Single",
       "category": "SEN A",
-      "points": "2913",
-      "matches": "13",
-      "placement": "825"
+      "points": "2895",
+      "matches": "14",
+      "placement": "852"
      },
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "2896",
-      "matches": "13",
-      "placement": "1342"
+      "points": "2903",
+      "matches": "14",
+      "placement": "1328"
      }
     ],
     "license": "Ingen"
@@ -3874,14 +3874,14 @@
       "category": "SEN C",
       "points": "2088",
       "matches": "4",
-      "placement": "2677"
+      "placement": "2678"
      },
      {
       "list": "Double",
       "category": "SEN C",
       "points": "1771",
       "matches": "4",
-      "placement": "6813"
+      "placement": "6823"
      }
     ],
     "license": "Ingen"
@@ -4000,10 +4000,10 @@
     "rankings": [
      {
       "list": "Double",
-      "category": "SEN",
-      "points": "1946",
-      "matches": "0",
-      "placement": ""
+      "category": "SEN C",
+      "points": "1971",
+      "matches": "3",
+      "placement": "5325"
      }
     ],
     "license": "Ingen"
@@ -4370,14 +4370,14 @@
       "category": "SEN D",
       "points": "1481",
       "matches": "6",
-      "placement": "10269"
+      "placement": "10369"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1484",
       "matches": "3",
-      "placement": "4974"
+      "placement": "4988"
      }
     ],
     "license": "Ingen"
@@ -4435,14 +4435,14 @@
       "category": "U13 C",
       "points": "1305",
       "matches": "28",
-      "placement": "6870"
+      "placement": "6892"
      },
      {
       "list": "Double",
       "category": "U13 C",
       "points": "1152",
       "matches": "18",
-      "placement": "15432"
+      "placement": "15773"
      }
     ],
     "license": "Ingen"
@@ -4687,23 +4687,23 @@
      {
       "list": "Single",
       "category": "U15 M",
-      "points": "1873",
-      "matches": "63",
-      "placement": "3305"
+      "points": "1881",
+      "matches": "64",
+      "placement": "3279"
      },
      {
       "list": "Double",
       "category": "U15 M",
-      "points": "1858",
-      "matches": "65",
-      "placement": "6080"
+      "points": "1873",
+      "matches": "68",
+      "placement": "5999"
      },
      {
       "list": "Mix",
       "category": "U15 M",
       "points": "1588",
       "matches": "9",
-      "placement": "4366"
+      "placement": "4387"
      }
     ],
     "license": "Ingen"
@@ -4941,14 +4941,14 @@
       "category": "U13 B",
       "points": "1563",
       "matches": "48",
-      "placement": "4838"
+      "placement": "4846"
      },
      {
       "list": "Double",
       "category": "U13 B",
       "points": "1431",
       "matches": "46",
-      "placement": "10839"
+      "placement": "10938"
      }
     ],
     "license": "Ingen"
@@ -5127,9 +5127,16 @@
      {
       "list": "Single",
       "category": "U11 D",
-      "points": "1058",
-      "matches": "3",
-      "placement": "12589"
+      "points": "1052",
+      "matches": "4",
+      "placement": "12934"
+     },
+     {
+      "list": "Double",
+      "category": "U11 D",
+      "points": "902",
+      "matches": "4",
+      "placement": "19910"
      }
     ],
     "license": "Ingen"
@@ -5252,14 +5259,14 @@
       "category": "SEN C-D",
       "points": "1512",
       "matches": "8",
-      "placement": "9874"
+      "placement": "9972"
      },
      {
       "list": "Mix",
       "category": "SEN C-D",
       "points": "1502",
       "matches": "2",
-      "placement": "4825"
+      "placement": "4846"
      }
     ],
     "license": "Ingen"
@@ -5381,23 +5388,23 @@
      {
       "list": "Single",
       "category": "U15 A",
-      "points": "1883",
-      "matches": "74",
-      "placement": "3276"
+      "points": "1876",
+      "matches": "76",
+      "placement": "3297"
      },
      {
       "list": "Double",
       "category": "U15 A",
-      "points": "1474",
-      "matches": "42",
-      "placement": "10366"
+      "points": "1482",
+      "matches": "43",
+      "placement": "10358"
      },
      {
       "list": "Mix",
       "category": "U15 A",
       "points": "1218",
       "matches": "5",
-      "placement": "6478"
+      "placement": "6511"
      }
     ],
     "license": "Ingen"
@@ -5430,14 +5437,14 @@
       "category": "SEN C",
       "points": "1862",
       "matches": "7",
-      "placement": "6053"
+      "placement": "6064"
      },
      {
       "list": "Mix",
       "category": "SEN C",
       "points": "1839",
       "matches": "3",
-      "placement": "3200"
+      "placement": "3206"
      }
     ],
     "license": "Ingen"
@@ -5495,7 +5502,7 @@
       "category": "SEN D",
       "points": "1690",
       "matches": "2",
-      "placement": "7958"
+      "placement": "7992"
      },
      {
       "list": "Mix",
@@ -5628,14 +5635,14 @@
       "category": "SEN B",
       "points": "1846",
       "matches": "13",
-      "placement": "6172"
+      "placement": "6182"
      },
      {
       "list": "Mix",
       "category": "SEN B",
       "points": "1956",
       "matches": "7",
-      "placement": "2831"
+      "placement": "2822"
      }
     ],
     "license": "Ingen"
@@ -5790,14 +5797,14 @@
       "category": "SEN D",
       "points": "1344",
       "matches": "10",
-      "placement": "11743"
+      "placement": "11856"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1240",
       "matches": "5",
-      "placement": "6360"
+      "placement": "6390"
      }
     ],
     "license": "Ingen"
@@ -6107,23 +6114,23 @@
      {
       "list": "Single",
       "category": "SEN M-A",
-      "points": "2583",
-      "matches": "12",
-      "placement": "1485"
+      "points": "2597",
+      "matches": "13",
+      "placement": "1453"
      },
      {
       "list": "Double",
       "category": "SEN M-A",
-      "points": "2589",
-      "matches": "15",
-      "placement": "2359"
+      "points": "2573",
+      "matches": "16",
+      "placement": "2416"
      },
      {
       "list": "Mix",
       "category": "SEN M-A",
       "points": "2606",
       "matches": "2",
-      "placement": "1198"
+      "placement": "1194"
      }
     ],
     "license": "Ingen"
@@ -6188,6 +6195,84 @@
      "date": "2026-10-25",
      "team": "U13 B",
      "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "1. D",
+     "partner": [
+      "Marvin Nørmark"
+     ],
+     "opponents": [
+      "Oliver Trachimowicz Christensen",
+      "Nova Dekkerhus"
+     ],
+     "sets": [
+      [
+       8,
+       15
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "3. D",
+     "partner": [
+      "Emilie Drescher"
+     ],
+     "opponents": [
+      "Nova Dekkerhus",
+      "Oliver Hammer"
+     ],
+     "sets": [
+      [
+       9,
+       15
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "4. S",
+     "partner": [],
+     "opponents": [
+      "Oliver Hammer"
+     ],
+     "sets": [
+      [
+       7,
+       15
+      ],
+      [
+       6,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
      "opponentTeam": "Holte 1",
      "matchID": "513975",
      "discipline": "1. D",
@@ -6212,18 +6297,22 @@
      "walkover": ""
     }
    ],
-   "played": 1,
+   "played": 4,
    "won": 0,
-   "lost": 1,
+   "lost": 4,
    "winPct": 0,
-   "pointsFor": 16,
-   "pointsAgainst": 30,
-   "avgPoints": 16.0,
-   "avgDiff": -14.0,
+   "pointsFor": 67,
+   "pointsAgainst": 120,
+   "avgPoints": 16.8,
+   "avgDiff": -13.2,
    "setsWon": 0,
-   "setsLost": 2,
+   "setsLost": 8,
    "byDiscipline": {
     "D": {
+     "played": 3,
+     "won": 0
+    },
+    "S": {
      "played": 1,
      "won": 0
     }
@@ -6238,14 +6327,14 @@
       "category": "U13 C",
       "points": "1246",
       "matches": "23",
-      "placement": "7799"
+      "placement": "7829"
      },
      {
       "list": "Double",
       "category": "U13 C",
       "points": "1287",
-      "matches": "20",
-      "placement": "12504"
+      "matches": "21",
+      "placement": "12676"
      }
     ],
     "license": "Ingen"
@@ -6397,16 +6486,16 @@
      {
       "list": "Single",
       "category": "U15 C",
-      "points": "1218",
-      "matches": "8",
-      "placement": "8164"
+      "points": "1240",
+      "matches": "9",
+      "placement": "7911"
      },
      {
       "list": "Double",
       "category": "U15 C",
-      "points": "1156",
-      "matches": "2",
-      "placement": "15330"
+      "points": "1176",
+      "matches": "5",
+      "placement": "15213"
      },
      {
       "list": "Mix",
@@ -6808,14 +6897,14 @@
       "category": "SEN D",
       "points": "1692",
       "matches": "2",
-      "placement": "7915"
+      "placement": "7948"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1726",
       "matches": "1",
-      "placement": "3677"
+      "placement": "3686"
      }
     ],
     "license": "Ingen"
@@ -7278,21 +7367,21 @@
       "category": "U19 B",
       "points": "1850",
       "matches": "11",
-      "placement": "3367"
+      "placement": "3366"
      },
      {
       "list": "Double",
       "category": "U19 B",
-      "points": "1641",
-      "matches": "12",
-      "placement": "8628"
+      "points": "1634",
+      "matches": "13",
+      "placement": "8742"
      },
      {
       "list": "Mix",
       "category": "U19 B",
-      "points": "1769",
-      "matches": "4",
-      "placement": "3487"
+      "points": "1773",
+      "matches": "5",
+      "placement": "3477"
      }
     ],
     "license": "Ingen"
@@ -7465,7 +7554,7 @@
       "category": "SEN D",
       "points": "1709",
       "matches": "6",
-      "placement": "7612"
+      "placement": "7647"
      }
     ],
     "license": "Ingen"
@@ -7545,14 +7634,14 @@
       "category": "SEN B",
       "points": "2345",
       "matches": "9",
-      "placement": "3374"
+      "placement": "3362"
      },
      {
       "list": "Mix",
       "category": "SEN B",
       "points": "2099",
       "matches": "9",
-      "placement": "2401"
+      "placement": "2399"
      }
     ],
     "license": "Ingen"
@@ -7746,7 +7835,7 @@
       "category": "SEN B",
       "points": "2345",
       "matches": "31",
-      "placement": "3374"
+      "placement": "3362"
      }
     ],
     "license": "Ingen"
@@ -7829,14 +7918,14 @@
       "category": "U17 C",
       "points": "1426",
       "matches": "7",
-      "placement": "5758"
+      "placement": "5785"
      },
      {
       "list": "Double",
       "category": "U17 C",
       "points": "1371",
       "matches": "7",
-      "placement": "11464"
+      "placement": "11570"
      }
     ],
     "license": "Ingen"
@@ -8226,16 +8315,16 @@
      {
       "list": "Single",
       "category": "U15 B",
-      "points": "1627",
-      "matches": "23",
-      "placement": "4479"
+      "points": "1611",
+      "matches": "24",
+      "placement": "4575"
      },
      {
       "list": "Double",
       "category": "U15 B",
-      "points": "1383",
-      "matches": "12",
-      "placement": "11323"
+      "points": "1394",
+      "matches": "14",
+      "placement": "11315"
      },
      {
       "list": "Mix",
@@ -8300,14 +8389,14 @@
       "category": "U13 D",
       "points": "1050",
       "matches": "4",
-      "placement": "12687"
+      "placement": "12965"
      },
      {
       "list": "Double",
       "category": "U13 D",
       "points": "1035",
       "matches": "8",
-      "placement": "18877"
+      "placement": "19403"
      }
     ],
     "license": "Ingen"
@@ -8340,14 +8429,14 @@
       "category": "U13 A",
       "points": "1392",
       "matches": "35",
-      "placement": "6029"
+      "placement": "6039"
      },
      {
       "list": "Double",
       "category": "U13 A",
       "points": "1370",
       "matches": "21",
-      "placement": "11475"
+      "placement": "11583"
      }
     ],
     "license": "Ingen"
@@ -8669,16 +8758,16 @@
      {
       "list": "Single",
       "category": "U13 C",
-      "points": "1176",
-      "matches": "21",
-      "placement": "9171"
+      "points": "1196",
+      "matches": "23",
+      "placement": "8895"
      },
      {
       "list": "Double",
       "category": "U13 C",
-      "points": "1245",
-      "matches": "19",
-      "placement": "13345"
+      "points": "1297",
+      "matches": "23",
+      "placement": "12528"
      }
     ],
     "license": "Ingen"
@@ -9018,14 +9107,14 @@
       "category": "SEN D",
       "points": "1439",
       "matches": "28",
-      "placement": "10769"
+      "placement": "10854"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1318",
       "matches": "13",
-      "placement": "5901"
+      "placement": "5925"
      }
     ],
     "license": "Ingen"
@@ -9274,16 +9363,16 @@
      {
       "list": "Single",
       "category": "U11 B",
-      "points": "1132",
-      "matches": "35",
-      "placement": "10583"
+      "points": "1124",
+      "matches": "37",
+      "placement": "10848"
      },
      {
       "list": "Double",
       "category": "U11 B",
-      "points": "1206",
-      "matches": "30",
-      "placement": "14020"
+      "points": "1241",
+      "matches": "34",
+      "placement": "13603"
      }
     ],
     "license": "Ingen"
@@ -9521,23 +9610,23 @@
      {
       "list": "Single",
       "category": "U15 A",
-      "points": "1424",
-      "matches": "15",
-      "placement": "5776"
+      "points": "1420",
+      "matches": "16",
+      "placement": "5832"
      },
      {
       "list": "Double",
       "category": "U15 A",
-      "points": "1488",
-      "matches": "49",
-      "placement": "10179"
+      "points": "1516",
+      "matches": "53",
+      "placement": "9927"
      },
      {
       "list": "Mix",
       "category": "U15 A",
       "points": "1444",
       "matches": "24",
-      "placement": "5223"
+      "placement": "5244"
      }
     ],
     "license": "Ingen"
@@ -9595,14 +9684,14 @@
       "category": "U13 A",
       "points": "1361",
       "matches": "46",
-      "placement": "6273"
+      "placement": "6290"
      },
      {
       "list": "Double",
       "category": "U13 A",
       "points": "1341",
       "matches": "34",
-      "placement": "11783"
+      "placement": "11901"
      }
     ],
     "license": "Ingen"
@@ -9805,17 +9894,17 @@
     "rankings": [
      {
       "list": "Single",
-      "category": "U13 D",
-      "points": "1076",
-      "matches": "14",
-      "placement": "12168"
+      "category": "U13 C",
+      "points": "1071",
+      "matches": "15",
+      "placement": "12614"
      },
      {
       "list": "Double",
-      "category": "U13 D",
-      "points": "1092",
-      "matches": "14",
-      "placement": "17586"
+      "category": "U13 C",
+      "points": "1159",
+      "matches": "19",
+      "placement": "15621"
      }
     ],
     "license": "Ingen"
@@ -10195,16 +10284,16 @@
      {
       "list": "Single",
       "category": "U19 C",
-      "points": "1546",
-      "matches": "3",
-      "placement": "4949"
+      "points": "1542",
+      "matches": "4",
+      "placement": "4977"
      },
      {
       "list": "Double",
       "category": "U19 C",
-      "points": "1528",
-      "matches": "3",
-      "placement": "9686"
+      "points": "1539",
+      "matches": "4",
+      "placement": "9639"
      },
      {
       "list": "Mix",
@@ -10265,6 +10354,60 @@
    ],
    "adult": false,
    "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "4. D",
+     "partner": [
+      "Mathilde Dahl Plougmann"
+     ],
+     "opponents": [
+      "Aksel Klintrup",
+      "Oliver Hammer"
+     ],
+     "sets": [
+      [
+       8,
+       15
+      ],
+      [
+       14,
+       16
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "3. D",
+     "partner": [
+      "Carl Emil Jensen"
+     ],
+     "opponents": [
+      "Nova Dekkerhus",
+      "Oliver Hammer"
+     ],
+     "sets": [
+      [
+       9,
+       15
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
     {
      "date": "2026-10-25",
      "team": "U13 B",
@@ -10344,19 +10487,19 @@
      "walkover": ""
     }
    ],
-   "played": 3,
+   "played": 5,
    "won": 0,
-   "lost": 3,
+   "lost": 5,
    "winPct": 0,
-   "pointsFor": 57,
-   "pointsAgainst": 90,
-   "avgPoints": 19.0,
+   "pointsFor": 96,
+   "pointsAgainst": 151,
+   "avgPoints": 19.2,
    "avgDiff": -11.0,
    "setsWon": 0,
-   "setsLost": 6,
+   "setsLost": 10,
    "byDiscipline": {
     "D": {
-     "played": 2,
+     "played": 4,
      "won": 0
     },
     "S": {
@@ -10372,16 +10515,16 @@
      {
       "list": "Single",
       "category": "U13 B",
-      "points": "1322",
-      "matches": "45",
-      "placement": "6657"
+      "points": "1318",
+      "matches": "46",
+      "placement": "6731"
      },
      {
       "list": "Double",
       "category": "U13 B",
       "points": "1203",
-      "matches": "30",
-      "placement": "14072"
+      "matches": "32",
+      "placement": "14335"
      }
     ],
     "license": "Ingen"
@@ -10653,23 +10796,23 @@
      {
       "list": "Single",
       "category": "U19 A",
-      "points": "1822",
-      "matches": "17",
-      "placement": "3476"
+      "points": "1806",
+      "matches": "18",
+      "placement": "3529"
      },
      {
       "list": "Double",
       "category": "U19 A",
-      "points": "1525",
-      "matches": "14",
-      "placement": "9722"
+      "points": "1549",
+      "matches": "15",
+      "placement": "9546"
      },
      {
       "list": "Mix",
       "category": "U19 A",
       "points": "1318",
       "matches": "7",
-      "placement": "5901"
+      "placement": "5925"
      }
     ],
     "license": "Ingen"
@@ -11076,17 +11219,17 @@
     "rankings": [
      {
       "list": "Single",
-      "category": "U11 D",
-      "points": "1092",
-      "matches": "15",
-      "placement": "11944"
+      "category": "U11 C",
+      "points": "1115",
+      "matches": "17",
+      "placement": "11002"
      },
      {
       "list": "Double",
-      "category": "U11 D",
-      "points": "1050",
-      "matches": "5",
-      "placement": "18213"
+      "category": "U11 C",
+      "points": "1066",
+      "matches": "9",
+      "placement": "18563"
      }
     ],
     "license": "Ingen"
@@ -11285,14 +11428,14 @@
       "category": "SEN C",
       "points": "1553",
       "matches": "8",
-      "placement": "9430"
+      "placement": "9509"
      },
      {
       "list": "Mix",
       "category": "SEN C",
       "points": "1548",
       "matches": "4",
-      "placement": "4567"
+      "placement": "4577"
      }
     ],
     "license": "Ingen"
@@ -11920,16 +12063,16 @@
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "2277",
-      "matches": "24",
-      "placement": "3676"
+      "points": "2295",
+      "matches": "26",
+      "placement": "3586"
      },
      {
       "list": "Mix",
       "category": "SEN A",
-      "points": "2506",
-      "matches": "24",
-      "placement": "1414"
+      "points": "2514",
+      "matches": "26",
+      "placement": "1391"
      }
     ],
     "license": "Ingen"
@@ -12324,14 +12467,14 @@
       "category": "SEN B-C",
       "points": "2156",
       "matches": "6",
-      "placement": "4267"
+      "placement": "4264"
      },
      {
       "list": "Mix",
       "category": "SEN B-C",
       "points": "2002",
       "matches": "3",
-      "placement": "2677"
+      "placement": "2669"
      }
     ],
     "license": "Ingen"
@@ -12436,14 +12579,14 @@
       "category": "U17 D",
       "points": "1214",
       "matches": "7",
-      "placement": "8230"
+      "placement": "8284"
      },
      {
       "list": "Double",
       "category": "U17 D",
       "points": "1200",
       "matches": "2",
-      "placement": "14136"
+      "placement": "14405"
      }
     ],
     "license": "Ingen"
@@ -12686,23 +12829,23 @@
      {
       "list": "Single",
       "category": "SEN A",
-      "points": "2478",
-      "matches": "6",
-      "placement": "1739"
+      "points": "2483",
+      "matches": "7",
+      "placement": "1726"
      },
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "2463",
-      "matches": "13",
-      "placement": "2861"
+      "points": "2487",
+      "matches": "14",
+      "placement": "2770"
      },
      {
       "list": "Mix",
       "category": "SEN A",
       "points": "2418",
       "matches": "6",
-      "placement": "1603"
+      "placement": "1601"
      }
     ],
     "license": "Ingen"
@@ -12943,16 +13086,16 @@
      {
       "list": "Single",
       "category": "SEN C-D",
-      "points": "1765",
-      "matches": "5",
-      "placement": "3672"
+      "points": "1747",
+      "matches": "6",
+      "placement": "3761"
      },
      {
       "list": "Double",
       "category": "SEN C-D",
-      "points": "1733",
-      "matches": "8",
-      "placement": "7227"
+      "points": "1740",
+      "matches": "9",
+      "placement": "7169"
      },
      {
       "list": "Mix",
@@ -12992,7 +13135,7 @@
       "category": "SEN C-D",
       "points": "1762",
       "matches": "3",
-      "placement": "6909"
+      "placement": "6925"
      }
     ],
     "license": "Ingen"
@@ -13268,23 +13411,23 @@
      {
       "list": "Single",
       "category": "SEN M",
-      "points": "3343",
-      "matches": "16",
-      "placement": "218"
+      "points": "3349",
+      "matches": "17",
+      "placement": "213"
      },
      {
       "list": "Double",
       "category": "SEN M",
-      "points": "3494",
-      "matches": "27",
-      "placement": "165"
+      "points": "3498",
+      "matches": "28",
+      "placement": "160"
      },
      {
       "list": "Mix",
       "category": "SEN M",
       "points": "3200",
       "matches": "3",
-      "placement": "257"
+      "placement": "259"
      }
     ],
     "license": "Ingen"
@@ -13683,7 +13826,7 @@
       "category": "SEN B",
       "points": "2033",
       "matches": "17",
-      "placement": "4946"
+      "placement": "4940"
      },
      {
       "list": "Mix",
@@ -13723,7 +13866,7 @@
       "category": "SEN C-D",
       "points": "1507",
       "matches": "2",
-      "placement": "9931"
+      "placement": "10032"
      },
      {
       "list": "Mix",
@@ -13835,7 +13978,7 @@
       "category": "SEN D",
       "points": "1685",
       "matches": "2",
-      "placement": "8051"
+      "placement": "8098"
      },
      {
       "list": "Mix",
@@ -14093,16 +14236,16 @@
      {
       "list": "Single",
       "category": "SEN B",
-      "points": "2353",
-      "matches": "12",
-      "placement": "2026"
+      "points": "2333",
+      "matches": "13",
+      "placement": "2067"
      },
      {
       "list": "Double",
       "category": "SEN B",
-      "points": "2252",
-      "matches": "11",
-      "placement": "3823"
+      "points": "2256",
+      "matches": "12",
+      "placement": "3788"
      }
     ],
     "license": "Ingen"
@@ -14410,14 +14553,14 @@
       "category": "SEN B",
       "points": "2265",
       "matches": "4",
-      "placement": "3751"
+      "placement": "3745"
      },
      {
       "list": "Mix",
       "category": "SEN B",
       "points": "2156",
       "matches": "2",
-      "placement": "2245"
+      "placement": "2240"
      }
     ],
     "license": "Ingen"
@@ -14550,7 +14693,7 @@
       "category": "SEN B",
       "points": "2323",
       "matches": "18",
-      "placement": "3476"
+      "placement": "3468"
      }
     ],
     "license": "Ingen"
@@ -14705,14 +14848,14 @@
       "category": "SEN A",
       "points": "2773",
       "matches": "14",
-      "placement": "1746"
+      "placement": "1739"
      },
      {
       "list": "Mix",
       "category": "SEN A",
       "points": "2788",
       "matches": "7",
-      "placement": "824"
+      "placement": "827"
      }
     ],
     "license": "Ingen"
@@ -14950,7 +15093,7 @@
       "category": "SEN C",
       "points": "1956",
       "matches": "14",
-      "placement": "5438"
+      "placement": "5440"
      },
      {
       "list": "Mix",
@@ -15080,14 +15223,14 @@
       "category": "U19 C",
       "points": "1319",
       "matches": "7",
-      "placement": "6693"
+      "placement": "6721"
      },
      {
       "list": "Double",
       "category": "U19 C",
       "points": "1258",
       "matches": "4",
-      "placement": "12957"
+      "placement": "13154"
      }
     ],
     "license": "Ingen"
@@ -15181,16 +15324,16 @@
      {
       "list": "Single",
       "category": "SEN D",
-      "points": "1486",
-      "matches": "5",
-      "placement": "5337"
+      "points": "1518",
+      "matches": "6",
+      "placement": "5140"
      },
      {
       "list": "Double",
       "category": "SEN D",
-      "points": "1536",
-      "matches": "5",
-      "placement": "9587"
+      "points": "1540",
+      "matches": "6",
+      "placement": "9626"
      }
     ],
     "license": "Ingen"
@@ -15390,14 +15533,14 @@
       "category": "SEN C-D",
       "points": "1739",
       "matches": "7",
-      "placement": "7162"
+      "placement": "7185"
      },
      {
       "list": "Mix",
       "category": "SEN C-D",
       "points": "1706",
       "matches": "2",
-      "placement": "3809"
+      "placement": "3816"
      }
     ],
     "license": "Ingen"
@@ -15793,14 +15936,14 @@
       "category": "SEN D",
       "points": "1466",
       "matches": "31",
-      "placement": "10463"
+      "placement": "10551"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1183",
       "matches": "9",
-      "placement": "6684"
+      "placement": "6728"
      }
     ],
     "license": "Ingen"
@@ -15858,14 +16001,14 @@
       "category": "SEN B",
       "points": "1989",
       "matches": "1",
-      "placement": "2936"
+      "placement": "2935"
      },
      {
       "list": "Double",
       "category": "SEN B",
       "points": "2121",
       "matches": "1",
-      "placement": "4466"
+      "placement": "4457"
      },
      {
       "list": "Mix",
@@ -16070,16 +16213,16 @@
      {
       "list": "Single",
       "category": "U15 A",
-      "points": "1757",
-      "matches": "42",
-      "placement": "3712"
+      "points": "1767",
+      "matches": "43",
+      "placement": "3668"
      },
      {
       "list": "Double",
       "category": "U15 A",
-      "points": "1749",
-      "matches": "40",
-      "placement": "7045"
+      "points": "1768",
+      "matches": "43",
+      "placement": "6857"
      },
      {
       "list": "Mix",
@@ -16722,16 +16865,16 @@
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "2563",
-      "matches": "14",
-      "placement": "2476"
+      "points": "2577",
+      "matches": "15",
+      "placement": "2400"
      },
      {
       "list": "Mix",
       "category": "SEN A",
-      "points": "2538",
-      "matches": "14",
-      "placement": "1331"
+      "points": "2547",
+      "matches": "15",
+      "placement": "1305"
      }
     ],
     "license": "Ingen"
@@ -16876,9 +17019,9 @@
      {
       "list": "Double",
       "category": "SEN D",
-      "points": "1555",
-      "matches": "7",
-      "placement": "9412"
+      "points": "1587",
+      "matches": "10",
+      "placement": "9194"
      }
     ],
     "license": "Ingen"
@@ -17113,9 +17256,9 @@
      {
       "list": "Double",
       "category": "SEN A-B",
-      "points": "2461",
-      "matches": "27",
-      "placement": "2874"
+      "points": "2510",
+      "matches": "30",
+      "placement": "2679"
      }
     ],
     "license": "Ingen"
@@ -17198,14 +17341,14 @@
       "category": "SEN D",
       "points": "1341",
       "matches": "26",
-      "placement": "11783"
+      "placement": "11901"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1146",
       "matches": "7",
-      "placement": "6922"
+      "placement": "6956"
      }
     ],
     "license": "Ingen"
@@ -17839,14 +17982,14 @@
       "category": "SEN A",
       "points": "2225",
       "matches": "1",
-      "placement": "3930"
+      "placement": "3925"
      },
      {
       "list": "Mix",
       "category": "SEN A",
       "points": "2317",
       "matches": "3",
-      "placement": "1824"
+      "placement": "1816"
      }
     ],
     "license": "Ingen"
@@ -17929,14 +18072,14 @@
       "category": "U13 D",
       "points": "1100",
       "matches": "5",
-      "placement": "11150"
+      "placement": "11355"
      },
      {
       "list": "Double",
       "category": "U13 D",
       "points": "1100",
       "matches": "5",
-      "placement": "16800"
+      "placement": "17285"
      }
     ],
     "license": "Ingen"
@@ -18212,16 +18355,16 @@
      {
       "list": "Single",
       "category": "SEN C",
-      "points": "1747",
-      "matches": "3",
-      "placement": "3752"
+      "points": "1753",
+      "matches": "4",
+      "placement": "3743"
      },
      {
       "list": "Double",
       "category": "SEN C",
-      "points": "1982",
-      "matches": "31",
-      "placement": "5259"
+      "points": "2006",
+      "matches": "33",
+      "placement": "5115"
      },
      {
       "list": "Mix",
@@ -18627,8 +18770,23 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "",
-    "rankings": [],
+    "level": "1053",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U11 D",
+      "points": "1056",
+      "matches": "2",
+      "placement": "12882"
+     },
+     {
+      "list": "Double",
+      "category": "U11 D",
+      "points": "1050",
+      "matches": "2",
+      "placement": "18807"
+     }
+    ],
     "license": "Ingen"
    }
   },
@@ -18818,14 +18976,14 @@
       "category": "SEN B-C",
       "points": "2120",
       "matches": "34",
-      "placement": "4469"
+      "placement": "4462"
      },
      {
       "list": "Mix",
       "category": "SEN B-C",
       "points": "1926",
       "matches": "13",
-      "placement": "2928"
+      "placement": "2927"
      }
     ],
     "license": "Ingen"
@@ -19025,23 +19183,23 @@
      {
       "list": "Single",
       "category": "U15 M",
-      "points": "1921",
-      "matches": "74",
-      "placement": "3149"
+      "points": "1934",
+      "matches": "75",
+      "placement": "3095"
      },
      {
       "list": "Double",
       "category": "U15 M",
-      "points": "1885",
-      "matches": "65",
-      "placement": "5891"
+      "points": "1916",
+      "matches": "69",
+      "placement": "5697"
      },
      {
       "list": "Mix",
       "category": "U15 M",
       "points": "1703",
       "matches": "19",
-      "placement": "3823"
+      "placement": "3827"
      }
     ],
     "license": "Ingen"
@@ -19238,16 +19396,16 @@
      {
       "list": "Single",
       "category": "U13 B",
-      "points": "1267",
-      "matches": "16",
-      "placement": "7336"
+      "points": "1297",
+      "matches": "18",
+      "placement": "6990"
      },
      {
       "list": "Double",
       "category": "U13 B",
-      "points": "1287",
-      "matches": "15",
-      "placement": "12504"
+      "points": "1311",
+      "matches": "18",
+      "placement": "12327"
      }
     ],
     "license": "Ingen"
@@ -19643,14 +19801,14 @@
       "category": "SEN A",
       "points": "2321",
       "matches": "1",
-      "placement": "3486"
+      "placement": "3480"
      },
      {
       "list": "Mix",
       "category": "SEN A",
       "points": "2511",
       "matches": "2",
-      "placement": "1401"
+      "placement": "1397"
      }
     ],
     "license": "Ingen"
@@ -19805,14 +19963,14 @@
       "category": "SEN C",
       "points": "1666",
       "matches": "5",
-      "placement": "8341"
+      "placement": "8376"
      },
      {
       "list": "Mix",
       "category": "SEN C",
       "points": "1713",
       "matches": "4",
-      "placement": "3764"
+      "placement": "3775"
      }
     ],
     "license": "Ingen"
@@ -20095,16 +20253,16 @@
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "2550",
-      "matches": "12",
-      "placement": "2529"
+      "points": "2554",
+      "matches": "13",
+      "placement": "2510"
      },
      {
       "list": "Mix",
       "category": "SEN A",
-      "points": "2531",
-      "matches": "13",
-      "placement": "1351"
+      "points": "2535",
+      "matches": "14",
+      "placement": "1338"
      }
     ],
     "license": "Ingen"
@@ -20177,14 +20335,14 @@
       "category": "U17 D",
       "points": "1240",
       "matches": "18",
-      "placement": "7888"
+      "placement": "7911"
      },
      {
       "list": "Double",
       "category": "U17 D",
       "points": "1303",
       "matches": "6",
-      "placement": "12287"
+      "placement": "12439"
      }
     ],
     "license": "Ingen"
@@ -20363,22 +20521,22 @@
      {
       "list": "Single",
       "category": "U15 D",
-      "points": "1150",
-      "matches": "17",
-      "placement": "9656"
+      "points": "1138",
+      "matches": "19",
+      "placement": "10571"
      },
      {
       "list": "Double",
       "category": "U15 D",
-      "points": "1198",
-      "matches": "11",
-      "placement": "14510"
+      "points": "1234",
+      "matches": "16",
+      "placement": "13718"
      },
      {
       "list": "Mix",
       "category": "U15 D",
-      "points": "1162",
-      "matches": "0",
+      "points": "1201",
+      "matches": "5",
       "placement": ""
      }
     ],
@@ -20561,14 +20719,14 @@
       "category": "SEN B-C",
       "points": "2065",
       "matches": "22",
-      "placement": "4778"
+      "placement": "4772"
      },
      {
       "list": "Mix",
       "category": "SEN B-C",
       "points": "1986",
       "matches": "14",
-      "placement": "2729"
+      "placement": "2721"
      }
     ],
     "license": "Ingen"
@@ -20776,6 +20934,84 @@
      "date": "2026-10-25",
      "team": "U13 B",
      "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "1. D",
+     "partner": [
+      "Carl Emil Jensen"
+     ],
+     "opponents": [
+      "Oliver Trachimowicz Christensen",
+      "Nova Dekkerhus"
+     ],
+     "sets": [
+      [
+       8,
+       15
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "2. D",
+     "partner": [
+      "Nolan Jing"
+     ],
+     "opponents": [
+      "Aksel Klintrup",
+      "Oliver Trachimowicz Christensen"
+     ],
+     "sets": [
+      [
+       5,
+       15
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "1. S",
+     "partner": [],
+     "opponents": [
+      "Aksel Klintrup"
+     ],
+     "sets": [
+      [
+       10,
+       15
+      ],
+      [
+       2,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
      "opponentTeam": "Holte 1",
      "matchID": "513975",
      "discipline": "2. D",
@@ -20828,23 +21064,23 @@
      "walkover": ""
     }
    ],
-   "played": 2,
+   "played": 5,
    "won": 0,
-   "lost": 2,
+   "lost": 5,
    "winPct": 0,
-   "pointsFor": 58,
-   "pointsAgainst": 66,
-   "avgPoints": 29.0,
-   "avgDiff": -4.0,
+   "pointsFor": 104,
+   "pointsAgainst": 156,
+   "avgPoints": 20.8,
+   "avgDiff": -10.4,
    "setsWon": 1,
-   "setsLost": 4,
+   "setsLost": 10,
    "byDiscipline": {
     "D": {
-     "played": 1,
+     "played": 3,
      "won": 0
     },
     "S": {
-     "played": 1,
+     "played": 2,
      "won": 0
     }
    },
@@ -20856,16 +21092,16 @@
      {
       "list": "Single",
       "category": "U13 B",
-      "points": "1341",
-      "matches": "31",
-      "placement": "6462"
+      "points": "1337",
+      "matches": "32",
+      "placement": "6513"
      },
      {
       "list": "Double",
       "category": "U13 B",
       "points": "1283",
-      "matches": "26",
-      "placement": "12589"
+      "matches": "27",
+      "placement": "12756"
      }
     ],
     "license": "Ingen"
@@ -21210,23 +21446,23 @@
      {
       "list": "Single",
       "category": "U17 E",
-      "points": "2250",
-      "matches": "59",
-      "placement": "2275"
+      "points": "2263",
+      "matches": "60",
+      "placement": "2230"
      },
      {
       "list": "Double",
       "category": "U17 E",
-      "points": "2017",
-      "matches": "48",
-      "placement": "5039"
+      "points": "2031",
+      "matches": "49",
+      "placement": "4951"
      },
      {
       "list": "Mix",
       "category": "U17 E",
       "points": "1645",
       "matches": "22",
-      "placement": "4119"
+      "placement": "4126"
      }
     ],
     "license": ""
@@ -21240,6 +21476,57 @@
    ],
    "adult": false,
    "games": [
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "4. D",
+     "partner": [
+      "Emilie Drescher"
+     ],
+     "opponents": [
+      "Aksel Klintrup",
+      "Oliver Hammer"
+     ],
+     "sets": [
+      [
+       8,
+       15
+      ],
+      [
+       14,
+       16
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "3. S",
+     "partner": [],
+     "opponents": [
+      "Nova Dekkerhus"
+     ],
+     "sets": [
+      [
+       4,
+       15
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
     {
      "date": "2026-10-25",
      "team": "U13 B",
@@ -21319,23 +21606,23 @@
      "walkover": ""
     }
    ],
-   "played": 3,
+   "played": 5,
    "won": 0,
-   "lost": 3,
+   "lost": 5,
    "winPct": 0,
-   "pointsFor": 49,
-   "pointsAgainst": 90,
-   "avgPoints": 16.3,
-   "avgDiff": -13.7,
+   "pointsFor": 83,
+   "pointsAgainst": 151,
+   "avgPoints": 16.6,
+   "avgDiff": -13.6,
    "setsWon": 0,
-   "setsLost": 6,
+   "setsLost": 10,
    "byDiscipline": {
     "D": {
-     "played": 2,
+     "played": 3,
      "won": 0
     },
     "S": {
-     "played": 1,
+     "played": 2,
      "won": 0
     }
    },
@@ -21347,16 +21634,16 @@
      {
       "list": "Single",
       "category": "U13 B",
-      "points": "1308",
-      "matches": "46",
-      "placement": "6833"
+      "points": "1303",
+      "matches": "47",
+      "placement": "6923"
      },
      {
       "list": "Double",
       "category": "U13 B",
       "points": "1268",
-      "matches": "32",
-      "placement": "12790"
+      "matches": "34",
+      "placement": "12976"
      }
     ],
     "license": "Ingen"
@@ -21508,14 +21795,14 @@
       "category": "SEN D",
       "points": "1495",
       "matches": "16",
-      "placement": "10090"
+      "placement": "10192"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1336",
       "matches": "8",
-      "placement": "5791"
+      "placement": "5823"
      }
     ],
     "license": "Ingen"
@@ -21595,14 +21882,14 @@
       "category": "U15 D",
       "points": "1150",
       "matches": "7",
-      "placement": "9656"
+      "placement": "9801"
      },
      {
       "list": "Double",
       "category": "U15 D",
       "points": "1166",
       "matches": "8",
-      "placement": "15135"
+      "placement": "15432"
      }
     ],
     "license": "Ingen"
@@ -21755,8 +22042,23 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "",
-    "rankings": [],
+    "level": "1073",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U11 D",
+      "points": "1076",
+      "matches": "2",
+      "placement": "12381"
+     },
+     {
+      "list": "Double",
+      "category": "U11 D",
+      "points": "1064",
+      "matches": "1",
+      "placement": "18591"
+     }
+    ],
     "license": "Ingen"
    }
   },
@@ -21955,16 +22257,16 @@
      {
       "list": "Single",
       "category": "U13 C",
-      "points": "1182",
-      "matches": "16",
-      "placement": "9087"
+      "points": "1186",
+      "matches": "19",
+      "placement": "9067"
      },
      {
       "list": "Double",
       "category": "U13 C",
-      "points": "1160",
-      "matches": "13",
-      "placement": "15252"
+      "points": "1215",
+      "matches": "17",
+      "placement": "14065"
      }
     ],
     "license": "Ingen"
@@ -22113,16 +22415,16 @@
      {
       "list": "Single",
       "category": "U15 C",
-      "points": "1234",
-      "matches": "17",
-      "placement": "7959"
+      "points": "1256",
+      "matches": "19",
+      "placement": "7517"
      },
      {
       "list": "Double",
       "category": "U15 C",
       "points": "1201",
-      "matches": "13",
-      "placement": "14115"
+      "matches": "15",
+      "placement": "14384"
      },
      {
       "list": "Mix",
@@ -22252,14 +22554,14 @@
       "category": "SEN C",
       "points": "1844",
       "matches": "8",
-      "placement": "6187"
+      "placement": "6200"
      },
      {
       "list": "Mix",
       "category": "SEN C",
       "points": "1799",
       "matches": "3",
-      "placement": "3367"
+      "placement": "3368"
      }
     ],
     "license": "Ingen"
@@ -22505,10 +22807,10 @@
     "rankings": [
      {
       "list": "Double",
-      "category": "SEN A-B",
-      "points": "2577",
-      "matches": "9",
-      "placement": "2405"
+      "category": "SEN A",
+      "points": "2629",
+      "matches": "12",
+      "placement": "2216"
      }
     ],
     "license": "Ingen"
@@ -23347,23 +23649,23 @@
      {
       "list": "Single",
       "category": "SEN A",
-      "points": "3095",
-      "matches": "17",
-      "placement": "525"
+      "points": "3079",
+      "matches": "18",
+      "placement": "551"
      },
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "3148",
-      "matches": "24",
-      "placement": "671"
+      "points": "3130",
+      "matches": "25",
+      "placement": "725"
      },
      {
       "list": "Mix",
       "category": "SEN A",
       "points": "2936",
       "matches": "7",
-      "placement": "575"
+      "placement": "576"
      }
     ],
     "license": "Ingen"
@@ -24034,16 +24336,16 @@
      {
       "list": "Single",
       "category": "U15 B",
-      "points": "1527",
-      "matches": "64",
-      "placement": "5070"
+      "points": "1537",
+      "matches": "66",
+      "placement": "5008"
      },
      {
       "list": "Double",
       "category": "U15 B",
-      "points": "1325",
-      "matches": "30",
-      "placement": "11995"
+      "points": "1345",
+      "matches": "33",
+      "placement": "11846"
      },
      {
       "list": "Mix",
@@ -24180,6 +24482,57 @@
      "date": "2026-10-25",
      "team": "U13 B",
      "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "2. D",
+     "partner": [
+      "Marvin Nørmark"
+     ],
+     "opponents": [
+      "Aksel Klintrup",
+      "Oliver Trachimowicz Christensen"
+     ],
+     "sets": [
+      [
+       5,
+       15
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
+     "opponentTeam": "Værløse 2",
+     "matchID": "513973",
+     "discipline": "2. S",
+     "partner": [],
+     "opponents": [
+      "Oliver Trachimowicz Christensen"
+     ],
+     "sets": [
+      [
+       9,
+       15
+      ],
+      [
+       7,
+       15
+      ]
+     ],
+     "won": false,
+     "walkover": ""
+    },
+    {
+     "date": "2026-10-25",
+     "team": "U13 B",
+     "teamName": "Hørsholm 2",
      "opponentTeam": "Holte 1",
      "matchID": "513975",
      "discipline": "4. D",
@@ -24259,23 +24612,23 @@
      "walkover": ""
     }
    ],
-   "played": 3,
+   "played": 5,
    "won": 0,
-   "lost": 3,
+   "lost": 5,
    "winPct": 0,
-   "pointsFor": 78,
-   "pointsAgainst": 102,
-   "avgPoints": 26.0,
-   "avgDiff": -8.0,
+   "pointsFor": 107,
+   "pointsAgainst": 162,
+   "avgPoints": 21.4,
+   "avgDiff": -11.0,
    "setsWon": 1,
-   "setsLost": 6,
+   "setsLost": 10,
    "byDiscipline": {
     "D": {
-     "played": 2,
+     "played": 3,
      "won": 0
     },
     "S": {
-     "played": 1,
+     "played": 2,
      "won": 0
     }
    },
@@ -24287,16 +24640,16 @@
      {
       "list": "Single",
       "category": "U13 B",
-      "points": "1322",
-      "matches": "31",
-      "placement": "6657"
+      "points": "1316",
+      "matches": "32",
+      "placement": "6753"
      },
      {
       "list": "Double",
       "category": "U13 B",
       "points": "1213",
-      "matches": "15",
-      "placement": "13877"
+      "matches": "17",
+      "placement": "14126"
      }
     ],
     "license": "Ingen"
@@ -24447,14 +24800,14 @@
       "category": "SEN C",
       "points": "1896",
       "matches": "4",
-      "placement": "5828"
+      "placement": "5846"
      },
      {
       "list": "Mix",
       "category": "SEN C",
       "points": "1878",
       "matches": "2",
-      "placement": "3063"
+      "placement": "3066"
      }
     ],
     "license": "Ingen"
@@ -24884,23 +25237,23 @@
      {
       "list": "Single",
       "category": "U15 B",
-      "points": "1601",
-      "matches": "46",
-      "placement": "4630"
+      "points": "1608",
+      "matches": "48",
+      "placement": "4596"
      },
      {
       "list": "Double",
       "category": "U15 B",
-      "points": "1523",
-      "matches": "36",
-      "placement": "9754"
+      "points": "1551",
+      "matches": "40",
+      "placement": "9523"
      },
      {
       "list": "Mix",
       "category": "U15 B",
       "points": "1302",
       "matches": "19",
-      "placement": "6009"
+      "placement": "6040"
      }
     ],
     "license": "Ingen"
@@ -25083,14 +25436,14 @@
       "category": "SEN B",
       "points": "2001",
       "matches": "1",
-      "placement": "2897"
+      "placement": "2898"
      },
      {
       "list": "Double",
       "category": "SEN B",
       "points": "2006",
       "matches": "8",
-      "placement": "5108"
+      "placement": "5115"
      },
      {
       "list": "Mix",
@@ -25367,8 +25720,23 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "",
-    "rankings": [],
+    "level": "1073",
+    "rankings": [
+     {
+      "list": "Single",
+      "category": "U11 D",
+      "points": "1078",
+      "matches": "2",
+      "placement": "12339"
+     },
+     {
+      "list": "Double",
+      "category": "U11 D",
+      "points": "1064",
+      "matches": "2",
+      "placement": "18591"
+     }
+    ],
     "license": "Ingen"
    }
   },
@@ -25870,14 +26238,14 @@
       "category": "SEN B",
       "points": "2161",
       "matches": "12",
-      "placement": "4250"
+      "placement": "4244"
      },
      {
       "list": "Mix",
       "category": "SEN B",
       "points": "2074",
       "matches": "5",
-      "placement": "2477"
+      "placement": "2472"
      }
     ],
     "license": "Ingen"
@@ -26057,7 +26425,7 @@
       "category": "SEN D",
       "points": "1676",
       "matches": "2",
-      "placement": "8193"
+      "placement": "8222"
      }
     ],
     "license": "Ingen"
@@ -26435,16 +26803,16 @@
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "3094",
-      "matches": "8",
-      "placement": "804"
+      "points": "3076",
+      "matches": "9",
+      "placement": "863"
      },
      {
       "list": "Mix",
       "category": "SEN A",
-      "points": "3055",
-      "matches": "7",
-      "placement": "405"
+      "points": "3064",
+      "matches": "8",
+      "placement": "400"
      }
     ],
     "license": "Ingen"
@@ -27141,16 +27509,16 @@
      {
       "list": "Single",
       "category": "U19 A",
-      "points": "2095",
-      "matches": "27",
-      "placement": "2661"
+      "points": "2127",
+      "matches": "28",
+      "placement": "2579"
      },
      {
       "list": "Double",
       "category": "U19 A",
-      "points": "1755",
-      "matches": "17",
-      "placement": "6982"
+      "points": "1737",
+      "matches": "18",
+      "placement": "7212"
      },
      {
       "list": "Mix",
@@ -27399,14 +27767,14 @@
       "category": "SEN A",
       "points": "2439",
       "matches": "3",
-      "placement": "1824"
+      "placement": "1816"
      },
      {
       "list": "Double",
       "category": "SEN A",
       "points": "2760",
       "matches": "3",
-      "placement": "1790"
+      "placement": "1785"
      },
      {
       "list": "Mix",
@@ -27723,16 +28091,16 @@
      {
       "list": "Double",
       "category": "SEN A",
-      "points": "2883",
-      "matches": "10",
-      "placement": "1395"
+      "points": "2876",
+      "matches": "11",
+      "placement": "1409"
      },
      {
       "list": "Mix",
       "category": "SEN A",
-      "points": "2871",
-      "matches": "10",
-      "placement": "682"
+      "points": "2875",
+      "matches": "11",
+      "placement": "674"
      }
     ],
     "license": "Ingen"
@@ -28013,21 +28381,21 @@
       "category": "SEN M-A",
       "points": "2478",
       "matches": "11",
-      "placement": "1739"
+      "placement": "1734"
      },
      {
       "list": "Double",
       "category": "SEN M-A",
-      "points": "2664",
-      "matches": "20",
-      "placement": "2106"
+      "points": "2648",
+      "matches": "21",
+      "placement": "2143"
      },
      {
       "list": "Mix",
       "category": "SEN M-A",
-      "points": "2701",
-      "matches": "9",
-      "placement": "1013"
+      "points": "2709",
+      "matches": "10",
+      "placement": "999"
      }
     ],
     "license": "Ingen"
@@ -28600,16 +28968,16 @@
      {
       "list": "Single",
       "category": "U13 C",
-      "points": "1120",
-      "matches": "10",
-      "placement": "10775"
+      "points": "1164",
+      "matches": "13",
+      "placement": "9471"
      },
      {
       "list": "Double",
       "category": "U13 C",
       "points": "1072",
-      "matches": "10",
-      "placement": "17975"
+      "matches": "13",
+      "placement": "18485"
      }
     ],
     "license": "Ingen"
@@ -28712,21 +29080,21 @@
       "category": "SEN A",
       "points": "2616",
       "matches": "6",
-      "placement": "1418"
+      "placement": "1417"
      },
      {
       "list": "Double",
       "category": "SEN A",
       "points": "2668",
       "matches": "26",
-      "placement": "2090"
+      "placement": "2087"
      },
      {
       "list": "Mix",
       "category": "SEN A",
       "points": "2558",
       "matches": "5",
-      "placement": "1291"
+      "placement": "1283"
      }
     ],
     "license": "Ingen"
@@ -28906,14 +29274,14 @@
       "category": "SEN C",
       "points": "1625",
       "matches": "10",
-      "placement": "8767"
+      "placement": "8819"
      },
      {
       "list": "Mix",
       "category": "SEN C",
       "points": "1529",
       "matches": "5",
-      "placement": "4663"
+      "placement": "4675"
      }
     ],
     "license": "Ingen"
@@ -29225,14 +29593,14 @@
       "category": "SEN D",
       "points": "1451",
       "matches": "37",
-      "placement": "10627"
+      "placement": "10723"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1243",
       "matches": "12",
-      "placement": "6344"
+      "placement": "6372"
      }
     ],
     "license": "Ingen"
@@ -29404,7 +29772,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "",
+    "level": "1014",
     "rankings": [],
     "license": "Ingen"
    }
@@ -29867,16 +30235,16 @@
      {
       "list": "Single",
       "category": "SEN D",
-      "points": "1515",
-      "matches": "10",
-      "placement": "5150"
+      "points": "1511",
+      "matches": "11",
+      "placement": "5185"
      },
      {
       "list": "Double",
       "category": "SEN D",
-      "points": "1606",
-      "matches": "11",
-      "placement": "8920"
+      "points": "1588",
+      "matches": "12",
+      "placement": "9179"
      }
     ],
     "license": "Ingen"
@@ -30262,14 +30630,14 @@
       "category": "SEN D",
       "points": "1707",
       "matches": "6",
-      "placement": "7651"
+      "placement": "7686"
      },
      {
       "list": "Mix",
       "category": "SEN D",
       "points": "1701",
       "matches": "3",
-      "placement": "3840"
+      "placement": "3846"
      }
     ],
     "license": "Ingen"
@@ -30415,14 +30783,14 @@
       "category": "SEN D",
       "points": "1469",
       "matches": "2",
-      "placement": "5466"
+      "placement": "5474"
      },
      {
       "list": "Double",
       "category": "SEN D",
       "points": "1338",
       "matches": "6",
-      "placement": "11822"
+      "placement": "11938"
      },
      {
       "list": "Mix",
@@ -30705,23 +31073,23 @@
      {
       "list": "Single",
       "category": "U17 B",
-      "points": "1654",
-      "matches": "20",
-      "placement": "4336"
+      "points": "1686",
+      "matches": "21",
+      "placement": "4133"
      },
      {
       "list": "Double",
       "category": "U17 B",
-      "points": "1608",
-      "matches": "22",
-      "placement": "8902"
+      "points": "1599",
+      "matches": "24",
+      "placement": "9065"
      },
      {
       "list": "Mix",
       "category": "U17 B",
       "points": "1510",
       "matches": "9",
-      "placement": "4770"
+      "placement": "4793"
      }
     ],
     "license": "Ingen"
@@ -31248,14 +31616,14 @@
       "category": "SEN C-D",
       "points": "1723",
       "matches": "8",
-      "placement": "7382"
+      "placement": "7426"
      },
      {
       "list": "Mix",
       "category": "SEN C-D",
       "points": "1721",
       "matches": "4",
-      "placement": "3712"
+      "placement": "3718"
      }
     ],
     "license": "Ingen"

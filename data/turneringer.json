@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T22:48:52+00:00",
+ "updated": "2026-10-26T11:09:24+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -8924,19 +8924,17 @@
   {
    "id": "118123",
    "links": [
-    "invitation",
-    "tilmelding"
+    "invitation"
    ],
    "urls": {
-    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#118123,",
-    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#118123"
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#118123,"
    },
-   "entryOpen": true,
+   "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-07",
    "end": "2026-11-07",
    "week": "45",
-   "deadline": "2026-10-25",
+   "deadline": "2026-10-22",
    "organiser": "Blans Sundeved",
    "classes": [
     {
@@ -10283,12 +10281,14 @@
    }
   },
   {
-   "id": "x78de95bc44",
+   "id": "119982",
    "links": [
+    "deltagere",
     "invitation"
    ],
    "urls": {
-    "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101535"
+    "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101535",
+    "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/119982"
    },
    "entryOpen": false,
    "hasResults": false,
@@ -10315,12 +10315,14 @@
    }
   },
   {
-   "id": "xe5b31052e6",
+   "id": "119983",
    "links": [
+    "deltagere",
     "invitation"
    ],
    "urls": {
-    "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101579"
+    "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101579",
+    "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/119983"
    },
    "entryOpen": false,
    "hasResults": false,
@@ -11702,16 +11704,14 @@
    }
   },
   {
-   "id": "119984",
+   "id": "x6461fd35a5",
    "links": [
-    "invitation",
-    "tilmelding"
+    "invitation"
    ],
    "urls": {
-    "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101580",
-    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119984"
+    "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101580"
    },
-   "entryOpen": true,
+   "entryOpen": false,
    "hasResults": false,
    "start": "2026-11-26",
    "end": "2026-11-29",
@@ -28476,6 +28476,165 @@
     "region": "Midtjylland",
     "min": 231,
     "roadKm": 352
+   }
+  },
+  {
+   "id": "121759",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
+   "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#121759,",
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#121759"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-05-29",
+   "end": "2027-05-30",
+   "week": "21",
+   "deadline": "2027-05-13",
+   "organiser": "Silkeborg BK",
+   "classes": [
+    {
+     "raw": "SEN+30 E,A,C,D",
+     "ages": [
+      "SEN+30"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+35 E,A,C,D",
+     "ages": [
+      "SEN+35"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+40 E,A,C,D",
+     "ages": [
+      "SEN+40"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+45 E,A,C,D",
+     "ages": [
+      "SEN+45"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+50 E,A,C,D",
+     "ages": [
+      "SEN+50"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+55 E,A,C,D",
+     "ages": [
+      "SEN+55"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+60 E,A,C,D",
+     "ages": [
+      "SEN+60"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+65 E,A,C,D",
+     "ages": [
+      "SEN+65"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+70 E,A,C,D",
+     "ages": [
+      "SEN+70"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    },
+    {
+     "raw": "SEN+75 E,A,C,D",
+     "ages": [
+      "SEN+75"
+     ],
+     "levels": [
+      "E",
+      "A",
+      "C",
+      "D"
+     ],
+     "days": "lø 29-sø 30"
+    }
+   ],
+   "place": {
+    "name": "Silkeborg",
+    "lat": 56.1695,
+    "lon": 9.5495,
+    "km": 186,
+    "region": "Midtjylland",
+    "min": 222,
+    "roadKm": 313
    }
   },
   {
