@@ -18,7 +18,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: data-commit
+  group: holdkampe-data
   cancel-in-progress: false
 
 jobs:
@@ -108,7 +108,7 @@ jobs:
             echo "Ingen ændringer."
           else
             git commit -m "Opdater holdkampe $(date -u +%Y-%m-%dT%H:%MZ)"
-            git pull --rebase -q origin main && git push
+            for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push && break; echo "Push afvist — prøver igen"; sleep $((i*5)); done
           fi
 
       - name: Discord-besked

@@ -12,7 +12,7 @@
 
 **Reliable schedule.** GitHub delays or skips scheduled runs on free repos (the 15/30-minute schedules ran only every few hours). The Apps Script therefore starts the workflows itself with a time trigger: `tick()` runs every 15 minutes and calls GitHub's `workflow_dispatch` API — `tilmeldinger.yml` every time, `live.yml` every 30 minutes 09–22, `holdkampe.yml` once in the morning (from 06) and once in the evening (from 21). It needs the script property `GH_TOKEN` (a fine-grained GitHub token for this repo with *Actions: Read and write*) and is installed by running `installTriggers()` once. `?action=version` shows `scheduler` (token set, triggers, last tick and the HTTP codes of the last dispatches — 204 = started). GitHub's own cron schedules stay as a backup. The token expires — renew it in GitHub and update `GH_TOKEN`.
 
-Both data workflows share the concurrency group `data-commit` so they never push at the same time, and both `git pull --rebase` before pushing. GitHub may delay scheduled runs by several minutes at busy times.
+Concurrency groups: `holdkampe-data` (full run and match-day run — they write the same files) and `tilmeldinger` (sync), so a queued run in one group never cancels a run in the other (GitHub keeps only one pending run per group). They write different files, and each push retries `git pull --rebase` + `git push` up to five times. GitHub may delay scheduled runs by several minutes at busy times.
 
 ### Running by hand
 

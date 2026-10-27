@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: data-commit
+  group: tilmeldinger
   cancel-in-progress: false
 
 jobs:
@@ -36,5 +36,5 @@ jobs:
             echo "Ingen nye tilmeldinger."
           else
             git commit -m "Tilmeldinger $(date -u +%Y-%m-%dT%H:%MZ)"
-            git pull --rebase -q origin main && git push
+            for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push && break; echo "Push afvist — prøver igen"; sleep $((i*5)); done
           fi
