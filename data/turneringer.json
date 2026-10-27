@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T11:09:24+00:00",
+ "updated": "2026-10-27T10:35:58+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -7088,13 +7088,15 @@
   {
    "id": "119838",
    "links": [
-    "deltagere"
+    "deltagere",
+    "resultater"
    ],
    "urls": {
-    "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/119838"
+    "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/119838",
+    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#119838,"
    },
    "entryOpen": false,
-   "hasResults": false,
+   "hasResults": true,
    "start": "2026-10-27",
    "end": "2026-11-01",
    "week": "44",
@@ -8887,10 +8889,14 @@
   {
    "id": "119044",
    "links": [
-    "invitation"
+    "invitation",
+    "program",
+    "resultater"
    ],
    "urls": {
-    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#119044,"
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#119044,",
+    "program": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#119044,-8",
+    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#119044,-8"
    },
    "entryOpen": false,
    "hasResults": false,
@@ -10287,7 +10293,7 @@
     "invitation"
    ],
    "urls": {
-    "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101535",
+    "invitation": "https://web.badminton.dk/upload/Invitation---NAVEK-T-rkiye-International-Future-Series-2026-1.pdf",
     "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/119982"
    },
    "entryOpen": false,
@@ -10321,7 +10327,7 @@
     "invitation"
    ],
    "urls": {
-    "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101579",
+    "invitation": "https://web.badminton.dk/upload/Invitation---Scottish-Open-2026.pdf",
     "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/119983"
    },
    "entryOpen": false,
@@ -12065,9 +12071,11 @@
   {
    "id": "117945",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#117945,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#117945"
    },
    "entryOpen": true,
@@ -12563,9 +12571,11 @@
   {
    "id": "118985",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#118985,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#118985"
    },
    "entryOpen": true,
@@ -12598,6 +12608,96 @@
     "region": "Hovedstaden",
     "min": 28,
     "roadKm": 28
+   }
+  },
+  {
+   "id": "116212",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
+   "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#116212,",
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#116212"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2026-11-28",
+   "end": "2026-11-29",
+   "week": "48",
+   "deadline": "2026-11-12",
+   "organiser": "Kredsmesterskab på Fyn",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U11 B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U13 B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U15 A,B,C,D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    },
+    {
+     "raw": "U17/U19 A,B,C,D",
+     "ages": [
+      "U17",
+      "U19"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 28-sø 29"
+    }
+   ],
+   "place": {
+    "name": "på Fyn",
+    "lat": 55.3752,
+    "lon": 10.4408,
+    "km": 141,
+    "region": "Syddanmark",
+    "min": 121,
+    "roadKm": 179
    }
   },
   {
@@ -12963,96 +13063,6 @@
     "region": "Hovedstaden",
     "min": 25,
     "roadKm": 27
-   }
-  },
-  {
-   "id": "116212",
-   "links": [
-    "invitation",
-    "tilmelding"
-   ],
-   "urls": {
-    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#116212,",
-    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#116212"
-   },
-   "entryOpen": true,
-   "hasResults": false,
-   "start": "2026-11-28",
-   "end": "2026-11-29",
-   "week": "48",
-   "deadline": "2026-11-12",
-   "organiser": "Nr. Åby: Kredsmesterskab",
-   "classes": [
-    {
-     "raw": "U09 D",
-     "ages": [
-      "U09"
-     ],
-     "levels": [
-      "D"
-     ],
-     "days": "lø 28-sø 29"
-    },
-    {
-     "raw": "U11 B,C,D",
-     "ages": [
-      "U11"
-     ],
-     "levels": [
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 28-sø 29"
-    },
-    {
-     "raw": "U13 B,C,D",
-     "ages": [
-      "U13"
-     ],
-     "levels": [
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 28-sø 29"
-    },
-    {
-     "raw": "U15 A,B,C,D",
-     "ages": [
-      "U15"
-     ],
-     "levels": [
-      "A",
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 28-sø 29"
-    },
-    {
-     "raw": "U17/U19 A,B,C,D",
-     "ages": [
-      "U17",
-      "U19"
-     ],
-     "levels": [
-      "A",
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 28-sø 29"
-    }
-   ],
-   "place": {
-    "name": "Nørre Åby",
-    "lat": 55.4578,
-    "lon": 9.8785,
-    "km": 171,
-    "region": "Syddanmark",
-    "min": 147,
-    "roadKm": 218
    }
   },
   {

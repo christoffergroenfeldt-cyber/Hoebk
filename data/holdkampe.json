@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T11:28:12+00:00",
+  "updated": "2026-10-27T10:53:45+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -13515,11 +13515,11 @@
           "team": "Ganløse 1",
           "teamID": "122644",
           "isUs": false,
-          "played": "2",
-          "won": "1",
-          "score": "9-3",
-          "sets": "20-7",
-          "points": "4"
+          "played": "3",
+          "won": "2",
+          "score": "13-5",
+          "sets": "28-13",
+          "points": "6"
         },
         {
           "pos": "3",
@@ -13578,6 +13578,17 @@
         },
         {
           "pos": "8",
+          "team": "Team Nordkysten 1",
+          "teamID": "122853",
+          "isUs": false,
+          "played": "3",
+          "won": "0",
+          "score": "4-14",
+          "sets": "12-29",
+          "points": "1"
+        },
+        {
+          "pos": "9",
           "team": "Birkerød BK13 1",
           "teamID": "122639",
           "isUs": false,
@@ -13585,17 +13596,6 @@
           "won": "0",
           "score": "1-5",
           "sets": "2-10",
-          "points": "0"
-        },
-        {
-          "pos": "9",
-          "team": "Team Nordkysten 1",
-          "teamID": "122853",
-          "isUs": false,
-          "played": "2",
-          "won": "0",
-          "score": "2-10",
-          "sets": "6-21",
           "points": "0"
         }
       ],

@@ -23,6 +23,36 @@
     "d": "2026-10-26",
     "t": "Ny turnering i kalenderen"
    }
+  ],
+  "119838": [
+   {
+    "d": "2026-10-27",
+    "t": "Resultaterne er klar"
+   }
+  ],
+  "119044": [
+   {
+    "d": "2026-10-27",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   }
+  ],
+  "117945": [
+   {
+    "d": "2026-10-27",
+    "t": "Invitationen er lagt ud"
+   }
+  ],
+  "118985": [
+   {
+    "d": "2026-10-27",
+    "t": "Invitationen er lagt ud"
+   }
+  ],
+  "116212": [
+   {
+    "d": "2026-10-27",
+    "t": "Navnet er ændret til Kredsmesterskab på Fyn"
+   }
   ]
  },
  "alias": {
@@ -30,5 +60,5 @@
   "xe5b31052e6": "119983",
   "119984": "x6461fd35a5"
  },
- "updated": "2026-10-26T11:28:16+00:00"
+ "updated": "2026-10-27T10:53:50+00:00"
 }

@@ -1299,6 +1299,15 @@
    "Kredsmatch"
   ]
  },
+ "Kredsmesterskab på Fyn": {
+  "sted": "på Fyn",
+  "lat": 55.3752,
+  "lon": 10.4408,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 121,
+  "roadKm": 179
+ },
  "Kredsmesterskaber Sjælland i Farum": {
   "sted": "Farum",
   "lat": 55.8101,
