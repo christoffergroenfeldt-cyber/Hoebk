@@ -27,7 +27,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/hold/<i>` | Team: tabs *Kampe / Stilling / Spillere* (`<i>` = position in the sorted team list) |
 | `#/hold/<i>/kamp/<m>` | Played match: score, every game with players and sets. Upcoming match: details + availability buttons + who's coming |
 | `#/kalender/<view>/<YYYY-MM-DD>` | Calendar; `view` = `dag`, `uge`, `maaned`, `aar` |
-| `#/tilmeld` | Min side (login flow when logged out): notifications, followed teams/tournaments, tournaments for your level, training, and at the bottom upcoming matches of the teams you follow (with availability buttons) |
+| `#/tilmeld` | **Start page.** Min side (login flow when logged out): notifications, followed teams/tournaments, tournaments for your level, training, and at the bottom upcoming matches of the teams you follow (with availability buttons) |
 | `#/rangliste` | Club ranking with metric and All/Senior/Youth filters |
 | `#/spillere` | Player search with filter chips *Alle / Har spillet / Har rangering / Uden rangering* (remembered, `hoebk_pf`) |
 | `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id), incl. *Turneringer for dit niveau* |
@@ -46,6 +46,7 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 - Colours by division: Senior blue `#2F6FB3`, 4-player light blue `#7FD3F7`, Motion orange `#E58A2E`, Youth lime `#D4F25A`, training dashed grey.
 - Month cells use short labels (`SHORT` map: DS, S2, 4S, MOT E…) and show training as `3×` (three groups train that day).
 - Year view runs August–July (the badminton season).
+- With *Træning* on, group chips filter training: *Alle grupper*, *Mine grupper* (the groups chosen on Min side) or one group such as *Senior* (remembered, `hoebk_trg`).
 - **Turneringer** toggle (off by default) adds individual tournaments in dark green (`--tour #1E6B3A`) on every day they run; a level filter (e.g. *SEN A*) and a link to the tournament list appear when it's on. *Kun turneringer* in the team filter hides everything else.
 
 ## Drive time and directions

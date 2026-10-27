@@ -965,7 +965,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   }
   function evFor(ds) {
     return (EVENTS[ds] || []).filter(function (e) {
-      if (e.kind === 'training') return CAL.training && (CAL.team === 'alle' || CAL.team === 'træning');
+      if (e.kind === 'training') return CAL.training && (CAL.team === 'alle' || CAL.team === 'træning') && trGroupPass(e.team);
       if (e.kind === 'tour') return CAL.tours && (CAL.team === 'alle' || CAL.team === 'turneringer') && tourInLevel(e.tour, CAL.level) && tourPass(e.tour);
       return CAL.matches && (CAL.team === 'alle' || CAL.team === e.team);
     });
@@ -984,6 +984,17 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     }
     return '<button class="ev" style="' + style + '" data-go="' + e.go + '">' + inner + '</button>';
   }
+  // Træningsgruppe i kalenderen: 'alle', 'mine' (grupperne valgt på Min side) eller én gruppe, fx 'Senior'
+  try { CAL.trGroup = localStorage.getItem('hoebk_trg') || 'alle'; } catch (e) { CAL.trGroup = 'alle'; }
+  function trGroups() {
+    var g = {}; ((D.training && D.training.sessions) || []).forEach(function (x) { g[x.group] = 1; });
+    return GROUPS.filter(function (x) { return g[x]; }).concat(Object.keys(g).filter(function (x) { return GROUPS.indexOf(x) < 0; }));
+  }
+  function trGroupPass(group) {
+    if (CAL.trGroup === 'alle') return true;
+    if (CAL.trGroup === 'mine') return !!(ME && ME.groups && ME.groups.indexOf(group) >= 0);
+    return group === CAL.trGroup;
+  }
   function calToolbar(view, label, prevD, nextD) {
     var h = '<div class="seg" role="tablist" style="grid-template-columns:repeat(4,minmax(0,1fr))">' +
       [['dag', 'Dag'], ['uge', 'Uge'], ['maaned', 'Måned'], ['aar', 'År']].map(function (v) {
@@ -999,6 +1010,11 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       '<label class="toggle"><input type="checkbox" id="calMa"' + (CAL.matches ? ' checked' : '') + '> Holdkampe</label>' +
       '<label class="toggle"><input type="checkbox" id="calTr"' + (CAL.training ? ' checked' : '') + '> Træning</label>' +
       '<label class="toggle"><input type="checkbox" id="calTu"' + (CAL.tours ? ' checked' : '') + '> Turneringer</label></div>';
+    if (CAL.training && (CAL.team === 'alle' || CAL.team === 'træning') && trGroups().length > 1) {
+      h += '<div class="chips regchips" role="group" aria-label="Træningsgruppe">' +
+        [['alle', 'Alle grupper']].concat(ME && ME.groups && ME.groups.length ? [['mine', 'Mine grupper']] : []).concat(trGroups().map(function (g) { return [g, g]; })).map(function (o) {
+          return '<button class="chip" data-trg="' + esc(o[0]) + '" aria-pressed="' + (CAL.trGroup === o[0]) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
+    }
     if (CAL.tours) {
       h += '<div class="filters"><select id="calLv" aria-label="Turneringsniveau"><option value="alle">Alle niveauer</option>' +
         allLevelKeys().map(function (k) { return '<option value="' + esc(k) + '"' + (CAL.level === k ? ' selected' : '') + '>' + esc(k) + '</option>'; }).join('') +
@@ -1804,7 +1820,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   function route(keepScroll) {
     if (!D) return;
     var y = $main.scrollTop;
-    var parts = (location.hash || '#/hold').replace(/^#\/?/, '').split('/');
+    var parts = (location.hash || '#/tilmeld').replace(/^#\/?/, '').split('/');
     var html;
     if (parts[0] === 'holdid') {   // stabile links (fra notifikationer): #/holdid/<leagueGroupTeamID>[/kamp/<matchID>]
       var hti = -1; D.teams.forEach(function (t, i) { if (t.leagueGroupTeamID === parts[1]) hti = i; });
@@ -1923,7 +1939,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg]');
     if (!b) return;
     if (b.dataset.tuage) { TU.age = b.dataset.tuage; if (!b.dataset.go) { route(true); return; } }
     if (b.dataset.pick) { var pid = b.dataset.pick; if (LU.sel[pid]) delete LU.sel[pid]; else LU.sel[pid] = (D.players[pid] ? D.players[pid].name : (availMap(matchEid(D.teams[LU.team].matches[LU.mi]))[pid] || {}).n || pid); route(true); return; }
@@ -1958,6 +1974,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       }
       ME = null; saveMe(); UI.step = 'name'; toast('Du er logget ud'); route(); return;
     }
+    if (b.dataset.trg) { CAL.trGroup = b.dataset.trg; try { localStorage.setItem('hoebk_trg', CAL.trGroup); } catch (e3) {} route(true); return; }
     if (b.dataset.pf) {
       UI.pf = b.dataset.pf; try { localStorage.setItem('hoebk_pf', UI.pf); } catch (e2) {}
       document.querySelectorAll('[data-pf]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.pf === UI.pf); });
@@ -2001,6 +2018,10 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     });
   });
   setTimeout(function () { checkAppVersion(false); }, 1500);
+  // Min side er startsiden — også for hjemmeskærms-ikoner installeret med den gamle start-adresse (#/hold)
+  if (!location.hash || location.hash === '#/hold' || location.hash === '#/') {
+    try { history.replaceState(null, '', location.pathname + location.search + '#/tilmeld'); } catch (e) { location.hash = '#/tilmeld'; }
+  }
   load().then(function () { prevHash = location.hash; route(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).catch(function () {
     $main.innerHTML = '<p class="empty">Kunne ikke hente data. Prøv igen om lidt.</p>';
     document.getElementById('subtitle').textContent = 'Fejl ved hentning';

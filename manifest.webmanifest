@@ -2,7 +2,7 @@
   "name": "HØBK Holdkampe",
   "short_name": "HØBK",
   "description": "Hørsholm Badminton Klub — holdkampe, resultater, klubrangliste og spillere",
-  "start_url": "./#/hold",
+  "start_url": "./#/tilmeld",
   "scope": "./",
   "display": "standalone",
   "background_color": "#F7F7F2",
