@@ -1261,7 +1261,13 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span></span>' +
       '<button class="rb" data-act="logout" style="min-height:36px">Log ud</button></div>';
 
-    if (isLeader()) h += leaderBlock();
+    if (isLeader()) {   // holdleder-administrationen har sin egen side (#/holdleder)
+      var todo = 0, ready = 0;
+      leaderTeams().forEach(function (ti) { var t = D.teams[ti], mi = nextMatchIdx(t); if (mi < 0) return; var lu = lineupFor(t.matches[mi]);
+        if (!lu) todo++; else if (lu.status === 'klar' || lu.status === 'indtastet') ready++; });
+      h += '<button class="card row" style="min-height:60px" data-go="#/holdleder"><span class="col"><b style="font-size:15px">Holdleder' + (ME.role.admin ? ' · administrator' : '') + '</b>' +
+        '<span class="xs">' + (todo ? todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse' : 'Alle næste kampe er udtaget') + (ready ? ' · ' + ready + ' klar' : '') + '</span></span><span class="h" style="font-size:20px">›</span></button>';
+    }
     var myAns = Object.keys(REG.map).filter(function (k) { return k.slice(k.lastIndexOf('|') + 1) === ME.id; }).length;
     h += '<p class="note">' + (myAns ? 'Du har svaret på ' + myAns + (myAns === 1 ? ' aktivitet.' : ' aktiviteter.') : 'Du har ikke svaret på noget endnu.') + '</p>';
     // Kommende kampe for de hold man følger (vises nederst)
@@ -1451,10 +1457,19 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     }
     return h;
   }
+  function viewHoldleder() {
+    setTab('tilmeld');
+    setHeader('Holdleder', ME && ME.role && ME.role.admin ? 'Administrator · alle hold' : 'Dine hold', true);
+    if (!isLeader()) return '<p class="empty">Siden er kun for holdledere.</p>';
+    return '<p class="s" style="margin:0 4px">Næste kamp for hvert hold. Tryk for at udtage spillere og lave opstillingen.</p>' + leaderBlock();
+  }
   function leaderBlock() {
-    var h = '<span class="lbl">Holdleder' + (ME.role.admin ? ' · administrator' : '') + '</span>';
-    if (ME.role.admin) h += '<button class="card row" style="min-height:52px" data-go="#/ledere"><b>Udnævn holdledere</b><span class="xs">›</span></button>';
-    h += leaderTeams().map(function (ti) {
+    var h = '<span class="lbl">Næste kampe</span>';
+    if (ME.role.admin) h = '<span class="lbl">Administrator</span><button class="card row" style="min-height:52px" data-go="#/ledere"><b>Udnævn holdledere og se brugerstatistik</b><span class="xs">›</span></button>' + h;
+    var order = leaderTeams().filter(function (ti) { return nextMatchIdx(D.teams[ti]) >= 0; }).sort(function (a, b) {   // næste kamp først
+      var ma = D.teams[a].matches[nextMatchIdx(D.teams[a])], mb = D.teams[b].matches[nextMatchIdx(D.teams[b])];
+      return (ma.date + (ma.time || '')).localeCompare(mb.date + (mb.time || '')); });
+    h += order.map(function (ti) {
       var t = D.teams[ti], mi = nextMatchIdx(t);
       if (mi < 0) return '';
       var m = t.matches[mi], lu = lineupFor(m);
@@ -1839,6 +1854,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     else if (parts[0] === 'opstilling') { html = viewOpstilling(+parts[1], +parts[2]); }
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
+    else if (parts[0] === 'holdleder') { lastTab = 'tilmeld'; html = viewHoldleder(); }
     else if (parts[0] === 'spiller') { setTab(lastTab); html = viewPlayer(decodeURIComponent(parts[1] || '')); }
     else { lastTab = 'hold'; html = viewHoldList(); }
     $main.innerHTML = html;
