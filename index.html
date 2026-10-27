@@ -753,9 +753,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     else if (!swReg) PUSH.state = 'ukendt';
     else return swReg.pushManager.getSubscription().then(function (sub) {
       PUSH.state = sub && Notification.permission === 'granted' ? 'til' : 'fra';
-      if (PUSH.state !== before && location.hash.indexOf('#/tilmeld') === 0) route(true);
+      if (PUSH.state !== before && /^#\/(tilmeld|notifikationer)/.test(location.hash)) route(true);
     }).catch(function () {});
-    if (PUSH.state !== before && location.hash.indexOf('#/tilmeld') === 0) route(true);
+    if (PUSH.state !== before && /^#\/(tilmeld|notifikationer)/.test(location.hash)) route(true);
   }
   function b64u(s) {
     var p = '='.repeat((4 - s.length % 4) % 4), b = atob((s + p).replace(/-/g, '+').replace(/_/g, '/'));
@@ -804,10 +804,23 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       else { ME.settings = before; saveMe(); route(true); toast(res && res.error === 'Ukendt handling' ? 'Klubbens server skal opdateres først' : 'Kunne ikke gemme'); }
     }).catch(function () { ME.settings = before; saveMe(); route(true); toast('Kunne ikke gemme — tjek forbindelsen'); });
   }
+  // Kompakt kort på Min side → egen side #/notifikationer
+  function pushCard() {
+    if (!REG.url) return '';
+    var st = PUSH.state, mail = !ME.settings || ME.settings.mail !== false;
+    var txt = st === 'til' ? '🔔 Til på denne ' + deviceName() : st === 'hjemmeskaerm' ? 'Føj appen til hjemmeskærmen for at slå til' : st === 'blokeret' ? 'Blokeret i telefonens indstillinger' : st === 'ikke-understøttet' ? 'Ikke muligt i denne browser' : 'Fra på denne ' + deviceName();
+    return '<button class="card row" style="min-height:56px" data-go="#/notifikationer"><span class="col"><b style="font-size:15px">Notifikationer</b>' +
+      '<span class="xs">' + esc(txt) + ' · mail ' + (mail ? 'til' : 'fra') + '</span></span><span class="h" style="font-size:20px">›</span></button>';
+  }
+  function viewNotifikationer() {
+    setTab('tilmeld'); setHeader('Notifikationer', ME ? ME.email || ME.name : '', true);
+    if (!ME || !ME.token) return '<p class="empty">Log ind på Min side først.</p>';
+    return pushBlock() + '<p class="note">Du får besked om hold og turneringer du følger: kommende kampe, resultater, ændringer, program, deltagerliste og tilmeldingsfrister.</p>';
+  }
   function pushBlock() {
     if (!REG.url) return '';
     var st = PUSH.state, mail = !ME.settings || ME.settings.mail !== false;
-    var h = '<span class="lbl">Notifikationer</span><div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px">';
+    var h = '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px">';
     if (st === 'hjemmeskaerm') {
       h += '<b style="font-size:14px">Få notifikationer på din iPhone</b><span class="s">Føj appen til hjemmeskærmen: tryk <b>Del</b> (firkanten med pilen) → <b>Føj til hjemmeskærm</b>. Åbn HØBK fra ikonet og kom tilbage hertil.</span>';
     } else if (st === 'ikke-understøttet') {
@@ -1294,7 +1307,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
           return '<button class="chip" data-follow="' + esc(teamFid(t)) + '">☆ Følg ' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') +
         '<p class="note">Eller tryk <b>☆ Følg holdet</b> på et holds side under Hold.</p>';
     }
-    h += pushBlock();
+    h += pushCard();
     h += followedBlock();
     if (P) h += playerTourBlock(P, 4);
     // Træning
@@ -1855,6 +1868,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
     else if (parts[0] === 'holdleder') { lastTab = 'tilmeld'; html = viewHoldleder(); }
+    else if (parts[0] === 'notifikationer') { lastTab = 'tilmeld'; html = viewNotifikationer(); }
     else if (parts[0] === 'spiller') { setTab(lastTab); html = viewPlayer(decodeURIComponent(parts[1] || '')); }
     else { lastTab = 'hold'; html = viewHoldList(); }
     $main.innerHTML = html;

@@ -38,6 +38,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/eksport/<i>/<m>` | Leaders: lineup ready to enter on badmintonplayer.dk |
 | `#/holdleder` | Team leaders: next match per team (sorted by date) with selection status; opened from Min side. Administrators also get the link to `#/ledere` |
 | `#/ledere` | Administrator: appoint/remove team leaders, user statistics |
+| `#/notifikationer` | Push notifications on this phone and mail on/off; Min side only shows a one-line status card |
 
 Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth). A team not listed there goes last — add new team labels to `ORDER` when a new division appears.
 
