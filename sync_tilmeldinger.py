@@ -20,14 +20,28 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
-TIMEOUT = 30
+TIMEOUT = 60
+ATTEMPTS = 3   # Google svarer af og til langsomt — prøv igen før vi giver op
+
+
+class TemporaryError(Exception):
+    pass
 
 
 def fetch_rows(url, key):
     q = urllib.parse.urlencode({"action": "all", "key": key})
     req = urllib.request.Request(f"{url}?{q}", headers={"User-Agent": "hoebk-sync/1.0"})
-    with urllib.request.urlopen(req, timeout=TIMEOUT) as r:   # følger Googles redirect automatisk
-        obj = json.loads(r.read().decode("utf-8"))
+    import time
+    for attempt in range(1, ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=TIMEOUT) as r:   # følger Googles redirect automatisk
+                obj = json.loads(r.read().decode("utf-8"))
+            break
+        except (OSError, ValueError) as e:     # timeout, forbindelsesfejl, ugyldigt svar
+            print(f"Forsøg {attempt}/{ATTEMPTS} mislykkedes: {e}")
+            if attempt == ATTEMPTS:
+                raise TemporaryError(str(e))
+            time.sleep(10 * attempt)
     if not obj.get("ok"):
         raise SystemExit(f"FEJL fra Apps Script: {obj.get('error')}")
     fetch_rows.new_version = "lineups" in obj   # nyere Apps Script-version (holdopstilling) sender altid "lineups"
@@ -114,7 +128,11 @@ def main():
     if not url or not key:
         print("REG_URL/REG_KEY er ikke sat endnu — springer over.")
         return 0
-    rows, lineups = fetch_rows(url, key)
+    try:
+        rows, lineups = fetch_rows(url, key)
+    except TemporaryError as e:
+        print(f"::warning title=Google svarede ikke::{e} — springer over, næste kørsel henter alt.")
+        return 0
     os.makedirs("data", exist_ok=True)
     latest = build_db(rows, "data/hoebk.db", lineups)
     out = {
