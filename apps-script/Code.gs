@@ -36,7 +36,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-25.5';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-27.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -438,7 +438,11 @@ function doPost(e) {
 
 function doGet(e) {
   var action = (e && e.parameter && e.parameter.action) || 'status';
-  if (action === 'version') return json_({ ok: true, version: SCRIPT_VERSION });
+  if (action === 'version') {
+    var pr = PropertiesService.getScriptProperties();
+    return json_({ ok: true, version: SCRIPT_VERSION, scheduler: { token: !!pr.getProperty('GH_TOKEN'), triggers: ScriptApp.getProjectTriggers().filter(function (t) { return t.getHandlerFunction() === 'tick'; }).length,
+                   lastTick: pr.getProperty('LAST_TICK') || '', last: pr.getProperty('LAST_DISPATCH') || '' } });
+  }
   if (action === 'follows') {
     var k = PropertiesService.getScriptProperties().getProperty('KEY');
     if (!k || e.parameter.key !== k) return json_({ ok: false, error: 'Forkert nøgle' });
@@ -461,6 +465,47 @@ function doGet(e) {
   });
   return json_({ ok: true, updated: new Date().toISOString(),
                  status: Object.keys(latest).map(function (k) { return latest[k]; }).filter(function (x) { return x.s !== 'ryd'; }), lineups: lineups_() });
+}
+
+// ---------- Fast tidsplan for GitHub-kørslerne ----------
+// GitHubs egen tidsplan forsinker/springer kørsler over på gratis repos. Googles tidsudløser er pålidelig,
+// så scriptet starter kørslerne selv. Opsætning (én gang):
+//  1. Lav en GitHub-nøgle (fine-grained token) med adgang til repoet Hoebk og tilladelsen Actions: Read and write.
+//  2. Projektindstillinger (tandhjulet) → Scriptegenskaber → Tilføj: GH_TOKEN = nøglen.
+//  3. Vælg funktionen installTriggers øverst → Kør → godkend.
+var GH_REPO = 'christoffergroenfeldt-cyber/Hoebk';
+
+function installTriggers() {
+  ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'tick') ScriptApp.deleteTrigger(t); });
+  ScriptApp.newTrigger('tick').timeBased().everyMinutes(15).create();
+  Logger.log('Tidsplan installeret: tick() hvert 15. minut. GitHub-nøgle sat: ' + !!PropertiesService.getScriptProperties().getProperty('GH_TOKEN'));
+  tick();
+}
+
+function ghDispatch_(workflow) {
+  var tok = PropertiesService.getScriptProperties().getProperty('GH_TOKEN');
+  if (!tok) return 'ingen GH_TOKEN';
+  var r = UrlFetchApp.fetch('https://api.github.com/repos/' + GH_REPO + '/actions/workflows/' + workflow + '/dispatches', {
+    method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+    headers: { Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+    payload: JSON.stringify({ ref: 'main' })
+  });
+  return workflow + ':' + r.getResponseCode();   // 204 = startet
+}
+
+// Hvert 15. minut: tilmeldinger altid; kampdags-opdatering hver halve time kl. 9–22 (den stopper selv på dage
+// uden kampe); fuld opdatering én gang om morgenen og én gang om aftenen.
+function tick() {
+  var pr = PropertiesService.getScriptProperties(), now = new Date();
+  var h = Number(Utilities.formatDate(now, 'Europe/Copenhagen', 'H')), day = Utilities.formatDate(now, 'Europe/Copenhagen', 'yyyy-MM-dd');
+  var res = [ghDispatch_('tilmeldinger.yml')];
+  var odd = pr.getProperty('TICK_ODD') === '1';
+  pr.setProperty('TICK_ODD', odd ? '0' : '1');
+  if (h >= 9 && h <= 22 && !odd) res.push(ghDispatch_('live.yml'));
+  if (h >= 6 && pr.getProperty('FULL_AM') !== day) { pr.setProperty('FULL_AM', day); res.push(ghDispatch_('holdkampe.yml')); }
+  else if (h >= 21 && pr.getProperty('FULL_PM') !== day) { pr.setProperty('FULL_PM', day); res.push(ghDispatch_('holdkampe.yml')); }
+  pr.setProperty('LAST_TICK', now.toISOString());
+  pr.setProperty('LAST_DISPATCH', res.join(' '));
 }
 
 // --- slut på filen (denne linje må gerne mangle ved kopiering) ---

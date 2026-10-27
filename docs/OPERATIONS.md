@@ -10,6 +10,8 @@
 | **HØBK tilmeldinger → SQLite** | `.github/workflows/tilmeldinger.yml` | `*/15 * * * *` | Runs `sync_tilmeldinger.py`, commits `data/hoebk.db` + `data/tilmeldinger.json` |
 | pages build and deployment | (GitHub's own) | after every commit to `main` | Publishes the app |
 
+**Reliable schedule.** GitHub delays or skips scheduled runs on free repos (the 15/30-minute schedules ran only every few hours). The Apps Script therefore starts the workflows itself with a time trigger: `tick()` runs every 15 minutes and calls GitHub's `workflow_dispatch` API — `tilmeldinger.yml` every time, `live.yml` every 30 minutes 09–22, `holdkampe.yml` once in the morning (from 06) and once in the evening (from 21). It needs the script property `GH_TOKEN` (a fine-grained GitHub token for this repo with *Actions: Read and write*) and is installed by running `installTriggers()` once. `?action=version` shows `scheduler` (token set, triggers, last tick and the HTTP codes of the last dispatches — 204 = started). GitHub's own cron schedules stay as a backup. The token expires — renew it in GitHub and update `GH_TOKEN`.
+
 Both data workflows share the concurrency group `data-commit` so they never push at the same time, and both `git pull --rebase` before pushing. GitHub may delay scheduled runs by several minutes at busy times.
 
 ### Running by hand
