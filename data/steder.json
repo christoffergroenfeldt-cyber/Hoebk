@@ -335,6 +335,15 @@
   "min": 97,
   "roadKm": 116
  },
+ "Begynderturnering i Stubbekøbing": {
+  "sted": "Stubbekøbing",
+  "lat": 54.8884,
+  "lon": 12.0382,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 98,
+  "roadKm": 139
+ },
  "Begynderturnering i TIK Taastrup": {
   "sted": "Taastrup",
   "lat": 55.6522,

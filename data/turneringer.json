@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T05:03:51+00:00",
+ "updated": "2026-10-28T11:23:03+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -16969,6 +16969,73 @@
    ],
    "place": {
     "unknown": true
+   }
+  },
+  {
+   "id": "122085",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#122085"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-01-10",
+   "end": "2027-01-10",
+   "week": "1",
+   "deadline": "2026-12-27",
+   "organiser": "Begynderturnering i Stubbekøbing",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 10"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 10"
+    },
+    {
+     "raw": "U13 D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 10"
+    },
+    {
+     "raw": "U15 D",
+     "ages": [
+      "U15"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "sø 10"
+    }
+   ],
+   "place": {
+    "name": "Stubbekøbing",
+    "lat": 54.8884,
+    "lon": 12.0382,
+    "km": 114,
+    "region": "Sjælland",
+    "min": 98,
+    "roadKm": 139
    }
   },
   {
