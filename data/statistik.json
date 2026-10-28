@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-27T01:16:59+00:00",
- "scriptVersion": "2026-10-25.5",
+ "updated": "2026-10-28T00:01:44+00:00",
+ "scriptVersion": "2026-10-27.1",
  "latest": {
   "players": 2,
   "emails": 2,
@@ -60,6 +60,21 @@
    "mailOff": 0,
    "leaders": 1,
    "date": "2026-10-27"
+  },
+  {
+   "players": 2,
+   "emails": 2,
+   "loggedIn": 3,
+   "active7": 2,
+   "active30": 2,
+   "followers": 1,
+   "teamFollows": 2,
+   "tourFollows": 0,
+   "pushDevices": 2,
+   "pushUsers": 2,
+   "mailOff": 0,
+   "leaders": 1,
+   "date": "2026-10-28"
   }
  ]
 }
