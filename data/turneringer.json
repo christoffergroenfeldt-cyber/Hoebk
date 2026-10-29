@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T11:33:01+00:00",
+ "updated": "2026-10-29T20:03:50+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -13769,9 +13769,11 @@
   {
    "id": "117320",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#117320,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#117320"
    },
    "entryOpen": true,
@@ -14557,9 +14559,15 @@
   {
    "id": "119380",
    "links": [
+    "invitation",
+    "program",
+    "resultater",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#119380,",
+    "program": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#119380,-8",
+    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#119380,-8",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119380"
    },
    "entryOpen": true,
@@ -17124,9 +17132,11 @@
   {
    "id": "121354",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://web.badminton.dk/upload/Invitation---VICTOR-Swedish-Open-2027-hosted-by-PONG.pdf",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#121354"
    },
    "entryOpen": true,
@@ -17361,9 +17371,11 @@
   {
    "id": "116383",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#116383,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#116383"
    },
    "entryOpen": true,
