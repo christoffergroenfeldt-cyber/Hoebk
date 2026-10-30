@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T05:03:44+00:00",
+ "updated": "2026-10-30T11:26:52+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -20141,7 +20141,7 @@
    "entryOpen": true,
    "hasResults": false,
    "start": "2027-02-20",
-   "end": "2027-02-21",
+   "end": "2027-02-20",
    "week": "7",
    "deadline": "2027-02-04",
    "organiser": "Graasten",
@@ -20152,6 +20152,32 @@
       "U09"
      ],
      "levels": [
+      "D"
+     ],
+     "days": "lø 20"
+    },
+    {
+     "raw": "U11 A,B,C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 20"
+    },
+    {
+     "raw": "U13 A,B,C,D",
+     "ages": [
+      "U13"
+     ],
+     "levels": [
+      "A",
+      "B",
+      "C",
       "D"
      ],
      "days": "lø 20"
@@ -20180,32 +20206,6 @@
       "C"
      ],
      "days": "lø 20"
-    },
-    {
-     "raw": "U11 A,B,C,D",
-     "ages": [
-      "U11"
-     ],
-     "levels": [
-      "A",
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "sø 21"
-    },
-    {
-     "raw": "U13 A,B,C,D",
-     "ages": [
-      "U13"
-     ],
-     "levels": [
-      "A",
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "sø 21"
     }
    ],
    "place": {
