@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T11:26:52+00:00",
+ "updated": "2026-10-30T20:04:08+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -18984,6 +18984,148 @@
    }
   },
   {
+   "id": "119514",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119514"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-01-30",
+   "end": "2027-01-31",
+   "week": "4",
+   "deadline": "2027-01-14",
+   "organiser": "VICTOR LMU, Højbjerg - A-rækker",
+   "classes": [
+    {
+     "raw": "U10 A",
+     "ages": [
+      "U10"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U12 A",
+     "ages": [
+      "U12"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U14 A",
+     "ages": [
+      "U14"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U16 A",
+     "ages": [
+      "U16"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U18 A",
+     "ages": [
+      "U18"
+     ],
+     "levels": [
+      "A"
+     ],
+     "days": "lø 30-sø 31"
+    }
+   ],
+   "place": {
+    "unknown": true
+   }
+  },
+  {
+   "id": "119515",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119515"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-01-30",
+   "end": "2027-01-31",
+   "week": "4",
+   "deadline": "2027-01-14",
+   "organiser": "VICTOR LMU, Højbjerg - B-rækker",
+   "classes": [
+    {
+     "raw": "U10 B",
+     "ages": [
+      "U10"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U12 B",
+     "ages": [
+      "U12"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U14 B",
+     "ages": [
+      "U14"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U16 B",
+     "ages": [
+      "U16"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U18 B",
+     "ages": [
+      "U18"
+     ],
+     "levels": [
+      "B"
+     ],
+     "days": "lø 30-sø 31"
+    }
+   ],
+   "place": {
+    "unknown": true
+   }
+  },
+  {
    "id": "119524",
    "links": [
     "tilmelding"
@@ -18997,7 +19139,109 @@
    "end": "2027-01-31",
    "week": "4",
    "deadline": "2027-01-14",
-   "organiser": "Victor LMU, Højbjerg",
+   "organiser": "VICTOR LMU, Højbjerg - E-rækker",
+   "classes": [
+    {
+     "raw": "U14 E",
+     "ages": [
+      "U14"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U16 E",
+     "ages": [
+      "U16"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "lø 30-sø 31"
+    }
+   ],
+   "place": {
+    "unknown": true
+   }
+  },
+  {
+   "id": "119518",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119518"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-01-30",
+   "end": "2027-01-31",
+   "week": "4",
+   "deadline": "2027-01-14",
+   "organiser": "VICTOR LMU, Højbjerg - M-rækker",
+   "classes": [
+    {
+     "raw": "U12 M",
+     "ages": [
+      "U12"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U14 M",
+     "ages": [
+      "U14"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U16 M",
+     "ages": [
+      "U16"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 30-sø 31"
+    },
+    {
+     "raw": "U18 M",
+     "ages": [
+      "U18"
+     ],
+     "levels": [
+      "M"
+     ],
+     "days": "lø 30-sø 31"
+    }
+   ],
+   "place": {
+    "unknown": true
+   }
+  },
+  {
+   "id": "119513",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119513"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-01-30",
+   "end": "2027-01-30",
+   "week": "4",
+   "deadline": "2027-01-14",
+   "organiser": "VICTOR LMU, Højbjerg - U8D",
    "classes": [
     {
      "raw": "U08 D",
@@ -19007,74 +19251,85 @@
      "levels": [
       "D"
      ],
-     "days": "lø 30-sø 31"
-    },
+     "days": "lø 30"
+    }
+   ],
+   "place": {
+    "name": "Højbjerg",
+    "lat": 56.1134,
+    "lon": 10.2064,
+    "km": 145,
+    "region": "Midtjylland",
+    "min": 216,
+    "roadKm": 324
+   }
+  },
+  {
+   "id": "119516",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119516"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-01-30",
+   "end": "2027-01-31",
+   "week": "4",
+   "deadline": "2027-01-14",
+   "organiser": "VICTOR LMU, Højbjerg U10-U18 CD",
+   "classes": [
     {
-     "raw": "U10 A,B,C,D",
+     "raw": "U10 C,D",
      "ages": [
       "U10"
      ],
      "levels": [
-      "A",
-      "B",
       "C",
       "D"
      ],
      "days": "lø 30-sø 31"
     },
     {
-     "raw": "U12 M,A,B,C,D",
+     "raw": "U12 C,D",
      "ages": [
       "U12"
      ],
      "levels": [
-      "M",
-      "A",
-      "B",
       "C",
       "D"
      ],
      "days": "lø 30-sø 31"
     },
     {
-     "raw": "U14 E,M,A,B,C,D",
+     "raw": "U14 C,D",
      "ages": [
       "U14"
      ],
      "levels": [
-      "E",
-      "M",
-      "A",
-      "B",
       "C",
       "D"
      ],
      "days": "lø 30-sø 31"
     },
     {
-     "raw": "U16 E,M,A,B,C,D",
+     "raw": "U16 C,D",
      "ages": [
       "U16"
      ],
      "levels": [
-      "E",
-      "M",
-      "A",
-      "B",
       "C",
       "D"
      ],
      "days": "lø 30-sø 31"
     },
     {
-     "raw": "U18 M,A,B,C,D",
+     "raw": "U18 C,D",
      "ages": [
       "U18"
      ],
      "levels": [
-      "M",
-      "A",
-      "B",
       "C",
       "D"
      ],
@@ -19082,7 +19337,7 @@
     }
    ],
    "place": {
-    "name": "Højbjerg",
+    "name": "Højbjerg CD",
     "lat": 56.1134,
     "lon": 10.2064,
     "km": 145,

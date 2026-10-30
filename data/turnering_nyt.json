@@ -263,6 +263,50 @@
     "d": "2026-10-30",
     "t": "Datoen er ændret til lør 20. feb (var lør 20. feb–søn 21. feb)"
    }
+  ],
+  "119514": [
+   {
+    "d": "2026-10-30",
+    "t": "Ny turnering i kalenderen"
+   }
+  ],
+  "119515": [
+   {
+    "d": "2026-10-30",
+    "t": "Ny turnering i kalenderen"
+   }
+  ],
+  "119524": [
+   {
+    "d": "2026-10-30",
+    "t": "Navnet er ændret til VICTOR LMU, Højbjerg - E-rækker"
+   },
+   {
+    "d": "2026-10-30",
+    "t": "Nye rækker: U14 E, U16 E"
+   },
+   {
+    "d": "2026-10-30",
+    "t": "Rækker fjernet: U08 D, U10 A,B,C,D, U12 M,A,B,C,D, U14 E,M,A,B,C,D, U16 E,M,A,B,C,D, U18 M,A,B,C,D"
+   }
+  ],
+  "119518": [
+   {
+    "d": "2026-10-30",
+    "t": "Ny turnering i kalenderen"
+   }
+  ],
+  "119513": [
+   {
+    "d": "2026-10-30",
+    "t": "Ny turnering i kalenderen"
+   }
+  ],
+  "119516": [
+   {
+    "d": "2026-10-30",
+    "t": "Ny turnering i kalenderen"
+   }
   ]
  },
  "alias": {
@@ -270,5 +314,5 @@
   "xe5b31052e6": "119983",
   "119984": "x6461fd35a5"
  },
- "updated": "2026-10-30T11:46:25+00:00"
+ "updated": "2026-10-30T20:21:57+00:00"
 }

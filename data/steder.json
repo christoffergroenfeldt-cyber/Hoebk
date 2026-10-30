@@ -2142,6 +2142,60 @@
   "min": 94,
   "roadKm": 118
  },
+ "VICTOR LMU, Højbjerg - A-rækker": {
+  "ukendt": true,
+  "prøvet": [
+   "LMU Højbjerg A-rækker",
+   "LMU Højbjerg A",
+   "LMU Højbjerg",
+   "Højbjerg A-rækker"
+  ]
+ },
+ "VICTOR LMU, Højbjerg - B-rækker": {
+  "ukendt": true,
+  "prøvet": [
+   "LMU Højbjerg B-rækker",
+   "LMU Højbjerg B",
+   "LMU Højbjerg",
+   "Højbjerg B-rækker"
+  ]
+ },
+ "VICTOR LMU, Højbjerg - E-rækker": {
+  "ukendt": true,
+  "prøvet": [
+   "LMU Højbjerg E-rækker",
+   "LMU Højbjerg E",
+   "LMU Højbjerg",
+   "Højbjerg E-rækker"
+  ]
+ },
+ "VICTOR LMU, Højbjerg - M-rækker": {
+  "ukendt": true,
+  "prøvet": [
+   "LMU Højbjerg M-rækker",
+   "LMU Højbjerg M",
+   "LMU Højbjerg",
+   "Højbjerg M-rækker"
+  ]
+ },
+ "VICTOR LMU, Højbjerg - U8D": {
+  "sted": "Højbjerg",
+  "lat": 56.1134,
+  "lon": 10.2064,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 216,
+  "roadKm": 324
+ },
+ "VICTOR LMU, Højbjerg U10-U18 CD": {
+  "sted": "Højbjerg CD",
+  "lat": 56.1134,
+  "lon": 10.2064,
+  "region": "Midtjylland",
+  "via": "nominatim",
+  "min": 216,
+  "roadKm": 324
+ },
  "VICTOR UDM, Brøndby": {
   "sted": "Brøndby",
   "lat": 55.6441,
