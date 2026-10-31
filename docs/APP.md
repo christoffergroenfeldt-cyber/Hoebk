@@ -41,6 +41,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/ledere` | Administrator: appoint/remove team leaders, user statistics |
 | `#/aktiviteter` | Club activities: upcoming (and *Afholdte*); administrators get *+ Ny aktivitet* |
 | `#/aktivitet/<id>` | One activity: time, description, who it's for, tasks with *Tag opgaven* / *✓ Din opgave* and who has taken them |
+| `#/aktiviteter/oversigt` | Overview of every upcoming activity's tasks: time, who took it, *n/need* coloured full / missing some / none yet; filters *Alle opgaver*, *Mangler folk*, *Mine* |
 | `#/aktiviteter/ny`, `#/aktivitet/<id>/ret` | Administrator: create/edit an activity — name, description, start/end, *Vis i kalenderen*, recipients, tasks with a number needed (0 = unlimited) |
 | `#/boern` | Parents: choose/change which players are your children |
 | `#/snak` | All chat rooms the player is in (teams + training groups), newest activity first |
@@ -64,7 +65,7 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 
 ## Activity planner
 
-Administrators create activities from *Min side → Aktiviteter → + Ny aktivitet* (or *Holdleder → Administrator → Ny aktivitet*): name, description, start and end (local Danish time), whether it should appear in the calendar, who it's for (*Alle i klubben*, training groups and/or teams — same rules as news) and a list of tasks, each with how many people are needed. Optionally a push notification goes to those it's for.
+Administrators create activities from *Min side → Aktiviteter → + Ny aktivitet* (or *Holdleder → Administrator → Ny aktivitet*): name, description, start and end (local Danish time), whether it should appear in the calendar, who it's for (*Alle i klubben*, training groups and/or teams — same rules as news) and a list of tasks, each with how many people are needed and an optional start/end time (a time of day for one-day activities, date + time for multi-day ones; it must lie within the activity). Tasks with a time are listed in time order, tasks without after them. Optionally a push notification goes to those it's for.
 
 Players and parents who can see the activity tap **Tag opgaven** on a task (and tap **✓ Din opgave** to withdraw). A task stops at its number (*Fuld*); 0 means unlimited. Everyone logged in sees who has taken each task (parents in dark green). Activities for everyone are visible before login too, but only with counts, not names. With *Vis i kalenderen* the activity shows as a purple *Klubaktivitet* on each day it runs, with free task places, and opens the activity in the app. Editing keeps the tasks people have taken (matched by task id); deleting hides it everywhere.
 

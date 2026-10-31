@@ -43,7 +43,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-31.4';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-31.5';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -742,7 +742,7 @@ function actOut_(a, sign, em, names) {
   return { id: a.id, name: a.name, desc: a.desc, start: a.start, end: a.end, cal: a.cal, to: a.to, by: a.by,
            tasks: a.tasks.map(function (t) {
              var list = sign[a.id + '|' + t.id] || [];
-             return { id: t.id, title: t.title, need: t.need, n: list.length, mine: !!em && list.some(function (x) { return x.email === em; }),
+             return { id: t.id, title: t.title, need: t.need, from: t.from || '', to: t.to || '', n: list.length, mine: !!em && list.some(function (x) { return x.email === em; }),
                       who: names ? list.map(function (x) { return { p: x.p, n: x.n }; }) : undefined };
            }) };
 }
@@ -775,8 +775,12 @@ function actSave_(b) {
   if (!to.length) return { ok: false, error: 'Vælg hvem aktiviteten er for' };
   if (to.indexOf('*') >= 0) to = ['*'];
   var tasks = (b.tasks || []).slice(0, 40).map(function (t) {
-    return { id: /^o[0-9a-z]+$/.test(String(t.id || '')) ? String(t.id) : newId_('o'), title: clean_(t.title, 80), need: Math.max(0, Math.min(99, parseInt(t.need, 10) || 0)) };
+    var from = dtOk_(String(t.from || '')) ? String(t.from) : '', to = dtOk_(String(t.to || '')) ? String(t.to) : '';
+    if (from && to && to < from) to = from;
+    return { id: /^o[0-9a-z]+$/.test(String(t.id || '')) ? String(t.id) : newId_('o'), title: clean_(t.title, 80), need: Math.max(0, Math.min(99, parseInt(t.need, 10) || 0)), from: from, to: to };
   }).filter(function (t) { return t.title; });
+  var badTime = tasks.filter(function (t) { return t.from && (t.from < start.slice(0, 10) + 'T00:00' || t.from > end); })[0];
+  if (badTime) return { ok: false, error: 'Tiden for "' + badTime.title + '" ligger uden for aktiviteten' };
   var id = /^a[0-9a-z]+$/.test(String(b.id || '')) ? String(b.id) : '';
   var isNew = !id;
   withLock_(function () {
@@ -829,7 +833,7 @@ function taskSign_(b) {
     if (b.on && !has && t.need && list.length >= t.need) return { ok: false, error: 'Opgaven er fuld' };
     if (!!b.on !== has) sh_('Opgavetilmeldinger').appendRow([new Date(), aid, tid, em, safe_(ses.playerId), safe_(ses.playerName), b.on ? 'ja' : 'nej']);
     var now = signups_()[aid + '|' + tid] || [];
-    return { ok: true, task: { id: t.id, title: t.title, need: t.need, n: now.length, mine: !!b.on, who: now.map(function (x) { return { p: x.p, n: x.n }; }) } };
+    return { ok: true, task: { id: t.id, title: t.title, need: t.need, from: t.from || '', to: t.to || '', n: now.length, mine: !!b.on, who: now.map(function (x) { return { p: x.p, n: x.n }; }) } };
   });
 }
 

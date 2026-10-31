@@ -197,6 +197,16 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .news.new{border-left:5px solid var(--accent)}
 .news.plan{border-left:5px solid var(--akt)}
 .need{color:#8A4B00}
+.ovhead{width:100%;text-align:left;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:inherit;border-left:5px solid var(--akt);margin-top:6px}
+.ovtasks{overflow:hidden;margin-top:-4px}
+.ovrow{display:flex;gap:10px;align-items:center;padding:9px 12px;border-top:1px solid var(--line2);border-left:5px solid var(--line)}
+.ovrow:first-child{border-top:0}
+.ovtime{flex:0 0 auto;width:74px;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.ovcount{flex:0 0 auto;min-width:42px;text-align:center;font-family:Archivo,sans-serif;font-weight:800;font-size:14px;border-radius:999px;padding:3px 8px}
+.ovrow.st-full{border-left-color:var(--accent)} .ovrow.st-full .ovcount{background:var(--accent)}
+.ovrow.st-part{border-left-color:#F3B35B} .ovrow.st-part .ovcount{background:#FFE3C2}
+.ovrow.st-none{border-left-color:#E07A6E} .ovrow.st-none .ovcount{background:var(--loss)}
+.ovrow.st-open{border-left-color:#B9D6F2} .ovrow.st-open .ovcount{background:#E3EEF9}
 .news b{font-size:15px;color:var(--ink)}
 .newtag{color:var(--ink);background:var(--accent);border-radius:6px;padding:0 6px}
 .clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -2511,6 +2521,19 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (a.start.slice(0, 10) === a.end.slice(0, 10)) return dTxt(a.start.slice(0, 10)) + ' · ' + a.start.slice(11, 16) + (a.end > a.start ? '–' + a.end.slice(11, 16) : '');
     return dtTxt(a.start) + ' – ' + dtTxt(a.end);
   }
+  function multiDay(a) { return a.start.slice(0, 10) !== a.end.slice(0, 10); }
+  function taskTime(t, a) {
+    if (!t.from) return '';
+    var same = !multiDay(a) && t.from.slice(0, 10) === a.start.slice(0, 10);
+    var f = same ? t.from.slice(11, 16) : dtTxt(t.from);
+    var to = t.to ? (t.to.slice(0, 10) === t.from.slice(0, 10) ? t.to.slice(11, 16) : dtTxt(t.to)) : '';
+    return (same ? 'kl. ' : '') + f + (to && t.to !== t.from ? '–' + to : '');
+  }
+  function sortTasks(list) {   // tidspunkt først (i rækkefølge), opgaver uden tid bagefter i den rækkefølge de er oprettet
+    return list.map(function (t, i) { return { t: t, i: i }; }).sort(function (x, y) {
+      return (x.t.from ? 0 : 1) - (y.t.from ? 0 : 1) || (x.t.from || '').localeCompare(y.t.from || '') || x.i - y.i; }).map(function (x) { return x.t; });
+  }
+  function taskState(t) { return t.need ? (t.n >= t.need ? 'full' : t.n ? 'part' : 'none') : (t.n ? 'open' : 'none'); }
   function openSlots(a) { return a.tasks.reduce(function (s, t) { return s + (t.need ? Math.max(0, t.need - t.n) : 0); }, 0); }
   function actCard(a) {
     var mine = a.tasks.filter(function (t) { return t.mine; }), free = openSlots(a), past = a.end < nowLocal();
@@ -2536,6 +2559,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!PLAN.list) return '<p class="empty">Henter …</p>';
     var now = nowLocal(), up = PLAN.list.filter(function (a) { return a.end >= now; }), past = PLAN.list.filter(function (a) { return a.end < now; }).reverse();
     var h = PLAN.canEdit ? '<button class="rb ja" aria-pressed="true" style="align-self:flex-start;min-height:44px" data-act="actnew">+ Ny aktivitet</button>' : '';
+    if (up.some(function (a) { return a.tasks.length; })) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--akt)" data-go="#/aktiviteter/oversigt"><span class="col"><b style="font-size:14px">Oversigt over opgaver</b><span class="xs">Alle aktiviteter og opgaver — hvem har taget hvad, og hvad mangler</span></span><span class="xs">›</span></button>';
     h += up.length ? up.map(actCard).join('') : '<p class="empty">Ingen kommende aktiviteter.</p>';
     if (past.length) h += '<details class="who"><summary>Afholdte (' + past.length + ')</summary><div class="col" style="gap:8px;margin-top:8px">' + past.map(actCard).join('') + '</div></details>';
     if (!ME || !ME.token) h += '<p class="note">Log ind på Min side for at se aktiviteter for dine hold og tage opgaver.</p>';
@@ -2554,15 +2578,15 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span class="xs">For: ' + esc(a.to.map(audLabel).join(', ')) + (a.cal ? ' · står i kalenderen' : '') + '</span>' +
       (a.cal ? '<button class="pl xs" style="align-self:flex-start" data-go="#/kalender/dag/' + a.start.slice(0, 10) + '">Se dagen i kalenderen ›</button>' : '') + '</article>';
     if (a.tasks.length) {
-      h += '<span class="lbl">Opgaver — tag en opgave</span>';
-      h += a.tasks.map(function (t) {
+      h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Opgaver — tag en opgave</span><button class="pl xs" data-go="#/aktiviteter/oversigt">Oversigt over alle ›</button></div>';
+      h += sortTasks(a.tasks).map(function (t) {
         var full = t.need && t.n >= t.need, busy = PLAN.busy[a.id + '|' + t.id];
         var btn = !logged ? '<button class="rb" data-go="#/tilmeld" style="min-height:40px">Log ind</button>'
           : past ? '' : t.mine ? '<button class="rb ja" aria-pressed="true" data-sign="' + esc(a.id + '|' + t.id + '|0') + '"' + (busy ? ' disabled' : '') + ' style="min-height:40px">✓ Din opgave</button>'
           : full ? '<span class="pill" style="background:var(--soft)">Fuld</span>'
           : '<button class="rb" data-sign="' + esc(a.id + '|' + t.id + '|1') + '"' + (busy ? ' disabled' : '') + ' style="min-height:40px">Tag opgaven</button>';
         return '<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px' + (t.mine ? ';border-left:5px solid var(--accent)' : '') + '">' +
-          '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span class="col"><b style="font-size:15px">' + esc(t.title) + '</b>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span class="col">' + (t.from ? '<span class="xs" style="font-weight:700;color:var(--ink)">' + esc(taskTime(t, a)) + '</span>' : '') + '<b style="font-size:15px">' + esc(t.title) + '</b>' +
           '<span class="xs">' + (t.need ? t.n + ' af ' + t.need + (full ? ' · fuld' : ' · ' + (t.need - t.n) + ' mangler') : t.n + ' har meldt sig · ubegrænset') + '</span></span>' + btn + '</div>' +
           (t.who && t.who.length ? '<div style="display:flex;flex-wrap:wrap;gap:4px">' + t.who.map(function (w) {
             return '<span class="pill" style="background:' + (isParentId(w.p) ? PARENT.bg + ';color:#fff' : 'var(--soft)') + '">' + esc(w.n) + '</span>'; }).join('') + '</div>' : '') +
@@ -2570,6 +2594,38 @@ textarea.inp{resize:vertical;line-height:1.45}
       }).join('');
     }
     if (PLAN.canEdit) h += '<div class="reg"><button class="rb" data-act="actedit" data-id="' + esc(a.id) + '">Ret aktiviteten</button><button class="rb" data-act="actdel" data-id="' + esc(a.id) + '">Slet</button></div>';
+    return h;
+  }
+  function viewOversigt() {
+    setTab('tilmeld'); setHeader('Opgaver', 'Oversigt over alle aktiviteter', true);
+    loadActs(false);
+    if (!PLAN.list) return '<p class="empty">Henter …</p>';
+    PLAN.ov = PLAN.ov || 'alle';
+    var now = nowLocal(), acts = PLAN.list.filter(function (a) { return a.end >= now && a.tasks.length; });
+    var all = 0, missing = 0;
+    acts.forEach(function (a) { a.tasks.forEach(function (t) { all++; if (taskState(t) === 'none' || taskState(t) === 'part') missing++; }); });
+    var h = '<div class="tiles">' + [['Opgaver', all], ['Mangler folk', missing], ['Aktiviteter', acts.length]].map(function (x) {
+      return '<div class="card tile"><span class="lbl" style="margin:0">' + x[0] + '</span><b>' + x[1] + '</b></div>'; }).join('') + '</div>' +
+      '<div class="chips" role="group" aria-label="Vis">' + [['alle', 'Alle opgaver'], ['mangler', 'Mangler folk'], ['mine', 'Mine']].map(function (o) {
+        return '<button class="chip" data-ov="' + o[0] + '" aria-pressed="' + (PLAN.ov === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="legend"><span><i style="background:var(--accent)"></i>Fuld</span><span><i style="background:#F3B35B"></i>Mangler nogle</span><span><i style="background:#E07A6E"></i>Ingen endnu</span><span><i style="background:#B9D6F2"></i>Ubegrænset</span></div>';
+    var shown = 0;
+    acts.forEach(function (a) {
+      var ts = sortTasks(a.tasks).filter(function (t) { var st = taskState(t);
+        return PLAN.ov === 'alle' || (PLAN.ov === 'mine' ? t.mine : st === 'none' || st === 'part'); });
+      if (!ts.length) return;
+      shown++;
+      h += '<button class="card ovhead" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '"><span class="col"><b style="font-size:15px">' + esc(a.name) + '</b><span class="xs">' + esc(rangeTxt(a)) +
+        (a.to[0] !== '*' ? ' · ' + esc(a.to.map(audLabel).join(', ')) : '') + '</span></span><span class="xs">Åbn ›</span></button>' +
+        '<div class="card ovtasks">' + ts.map(function (t) {
+          var st = taskState(t);
+          return '<div class="ovrow st-' + st + '"><span class="ovtime">' + esc(t.from ? taskTime(t, a).replace(/^kl\. /, '') : '—') + '</span>' +
+            '<span class="col" style="flex:1 1 auto;min-width:0"><b style="font-size:14px">' + esc(t.title) + (t.mine ? ' <span class="newtag" style="font-size:11px">Dig</span>' : '') + '</b>' +
+            '<span class="xs">' + (t.who && t.who.length ? esc(t.who.map(function (w) { return w.n; }).join(', ')) : (ME && ME.token ? 'Ingen har taget den endnu' : t.n + ' har meldt sig')) + '</span></span>' +
+            '<span class="ovcount">' + t.n + (t.need ? '/' + t.need : '') + '</span></div>';
+        }).join('') + '</div>';
+    });
+    if (!shown) h += '<p class="empty">' + (PLAN.ov === 'mine' ? 'Du har ikke taget nogen opgaver endnu.' : PLAN.ov === 'mangler' ? 'Alle opgaver har nok folk. 🎉' : 'Ingen kommende aktiviteter med opgaver.') + '</p>';
     return h;
   }
   function signTask(key) {
@@ -2588,7 +2644,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function actForm(a, nav) {
     var d = iso(addDays(new Date(), 7));
     PLAN.form = a ? { id: a.id, name: a.name, desc: a.desc, start: a.start, end: a.end, cal: a.cal, push: false,
-                      to: a.to.reduce(function (o, x) { o[x] = 1; return o; }, {}), tasks: a.tasks.map(function (t) { return { id: t.id, title: t.title, need: t.need, n: t.n }; }) }
+                      to: a.to.reduce(function (o, x) { o[x] = 1; return o; }, {}), tasks: a.tasks.map(function (t) { return { id: t.id, title: t.title, need: t.need, n: t.n, from: t.from || '', to: t.to || '' }; }) }
                   : { id: '', name: '', desc: '', start: d + 'T10:00', end: d + 'T14:00', cal: true, push: true, to: { '*': 1 }, tasks: [{ title: '', need: 1 }] };
     if (nav !== false) location.hash = a ? '#/aktivitet/' + encodeURIComponent(a.id) + '/ret' : '#/aktiviteter/ny';
   }
@@ -2619,13 +2675,19 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="afCal"' + (F.cal ? ' checked' : '') + ' style="width:20px;height:20px"><span>Vis i kalenderen</span></label></div>' +
       '<span class="lbl">Hvem er aktiviteten for?</span>' + audChips(F, 'data-actto') +
       '<p class="note">' + (F.to['*'] ? 'Alle kan se aktiviteten — også før de logger ind (uden navne på hvem der har taget opgaver).' : sel.length ? 'Kun ' + esc(sel.map(audLabel).join(', ')) + ' ser aktiviteten — spillere, deres forældre, holdledere og dem der følger holdene.' : 'Vælg mindst én.') + '</p>' +
-      '<span class="lbl">Opgaver</span><p class="note" style="margin-top:-4px">Antal = hvor mange der skal til. 0 = ubegrænset.</p>' +
+      '<span class="lbl">Opgaver</span><p class="note" style="margin-top:-4px">Antal = hvor mange der skal til (0 = ubegrænset). Tid er valgfri.</p>' +
       F.tasks.map(function (t, i) {
-        return '<div class="card" style="padding:8px 10px;display:flex;gap:8px;align-items:center">' +
+        var md = F.start.slice(0, 10) !== F.end.slice(0, 10), typ = md ? 'datetime-local' : 'time';
+        var val = function (x) { return x ? (md ? x.slice(0, 16) : x.slice(11, 16)) : ''; };
+        return '<div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:6px">' +
+          '<div style="display:flex;gap:8px;align-items:center">' +
           '<input class="inp" data-tt="' + i + '" maxlength="80" value="' + esc(t.title) + '" placeholder="Fx Bage kage" style="flex:1 1 auto;min-width:0">' +
           '<input class="inp" data-tn="' + i + '" type="number" inputmode="numeric" min="0" max="99" value="' + esc(t.need) + '" aria-label="Antal" style="width:64px;flex:0 0 auto;text-align:center">' +
           '<button class="pl" data-taskdel="' + i + '" aria-label="Fjern opgaven" style="min-width:36px;min-height:40px;font-size:18px">✕</button></div>' +
-          (t.n ? '<span class="xs" style="margin:-6px 4px 0">' + t.n + ' har taget opgaven' + '</span>' : '');
+          '<div style="display:flex;gap:8px;align-items:center"><span class="xs" style="width:28px">Fra</span>' +
+          '<input class="inp" data-tf="' + i + '" type="' + typ + '" value="' + esc(val(t.from)) + '" aria-label="Opgaven starter" style="flex:1 1 0;min-width:0;padding:8px 10px">' +
+          '<span class="xs">til</span><input class="inp" data-tto="' + i + '" type="' + typ + '" value="' + esc(val(t.to)) + '" aria-label="Opgaven slutter" style="flex:1 1 0;min-width:0;padding:8px 10px"></div>' +
+          (t.n ? '<span class="xs">' + t.n + ' har taget opgaven</span>' : '') + '</div>';
       }).join('') +
       '<button class="rb" data-act="taskadd" style="align-self:flex-start;min-height:40px">+ Tilføj opgave</button>' +
       '<label class="card" style="padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="afPush"' + (F.push ? ' checked' : '') + ' style="width:20px;height:20px"><span>' + (F.id ? 'Send notifikation om ændringen' : 'Send notifikation til dem det gælder') + '</span></label>' +
@@ -2639,6 +2701,16 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (st) st.addEventListener('change', function () { if (!F.end || F.end < F.start) { F.end = F.start.slice(0, 11) + String(Math.min(23, +F.start.slice(11, 13) + 2)).padStart(2, '0') + F.start.slice(13); var en = document.getElementById('afEnd'); if (en) en.value = F.end; } });
     document.querySelectorAll('[data-tt]').forEach(function (el) { el.addEventListener('input', function () { F.tasks[+el.dataset.tt].title = el.value; }); });
     document.querySelectorAll('[data-tn]').forEach(function (el) { el.addEventListener('input', function () { F.tasks[+el.dataset.tn].need = el.value; }); });
+    var tv = function (v) { return !v ? '' : v.length <= 5 ? F.start.slice(0, 10) + 'T' + v : v.slice(0, 16); };   // klokkeslæt → aktivitetens dato
+    document.querySelectorAll('[data-tf]').forEach(function (el) { el.addEventListener('change', function () { var t = F.tasks[+el.dataset.tf]; t.from = tv(el.value); if (t.from && (!t.to || t.to < t.from)) { t.to = t.from; var o = document.querySelector('[data-tto="' + el.dataset.tf + '"]'); if (o) o.value = el.value; } }); });
+    document.querySelectorAll('[data-tto]').forEach(function (el) { el.addEventListener('change', function () { F.tasks[+el.dataset.tto].to = tv(el.value); }); });
+    // ændres datoen for en éndagsaktivitet, flytter opgavernes tider med; skifter den mellem én og flere dage, tegnes felterne om
+    ['afStart', 'afEnd'].forEach(function (id) { var el = document.getElementById(id); if (el) el.addEventListener('change', function () {
+      var md = F.start.slice(0, 10) !== F.end.slice(0, 10);
+      if (!md) F.tasks.forEach(function (t) { if (t.from) t.from = F.start.slice(0, 10) + t.from.slice(10); if (t.to) t.to = F.start.slice(0, 10) + t.to.slice(10); });
+      if (md !== !!F._md) { F._md = md; route(true); }
+    }); });
+    F._md = F.start.slice(0, 10) !== F.end.slice(0, 10);
   }
   function saveAct() {
     var F = PLAN.form; if (!F || PLAN.saving) return;
@@ -2648,7 +2720,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!Object.keys(F.to).length) { toast('Vælg hvem aktiviteten er for'); return; }
     PLAN.saving = true; route(true);
     api({ action: 'actSave', token: ME.token, id: F.id, name: F.name, desc: F.desc, start: F.start.slice(0, 16), end: F.end.slice(0, 16), cal: F.cal, push: F.push,
-          to: Object.keys(F.to), tasks: F.tasks.map(function (t) { return { id: t.id, title: t.title, need: +t.need || 0 }; }) }).then(function (r) {
+          to: Object.keys(F.to), tasks: F.tasks.map(function (t) { return { id: t.id, title: t.title, need: +t.need || 0, from: t.from || '', to: t.to || '' }; }) }).then(function (r) {
       if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
       PLAN.form = null; PLAN.saving = false;
       toast((F.id ? 'Gemt' : 'Aktiviteten er oprettet') + (r.pushed ? ' · notifikation til ' + r.pushed + ' telefon' + (r.pushed === 1 ? '' : 'er') : ''));
@@ -2723,6 +2795,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
     else if (parts[0] === 'holdleder') { lastTab = 'tilmeld'; html = viewHoldleder(); }
+    else if (parts[0] === 'aktiviteter' && parts[1] === 'oversigt') { lastTab = 'tilmeld'; html = viewOversigt(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'ny') { lastTab = 'tilmeld'; html = viewActForm(''); }
     else if (parts[0] === 'aktiviteter') { lastTab = 'tilmeld'; html = viewAktiviteter(); }
     else if (parts[0] === 'aktivitet' && parts[2] === 'ret') { lastTab = 'tilmeld'; html = viewActForm(decodeURIComponent(parts[1] || '')); }
@@ -2872,10 +2945,11 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov]');
     if (!b) return;
     if (b.dataset.kid) { toggleKid(b.dataset.kid); return; }
     if (b.dataset.sign) { signTask(b.dataset.sign); return; }
+    if (b.dataset.ov) { PLAN.ov = b.dataset.ov; route(true); return; }
     if (b.dataset.actto) { toggleAud(PLAN.form, b.dataset.actto); route(true); return; }
     if (b.dataset.taskdel !== undefined) { PLAN.form.tasks.splice(+b.dataset.taskdel, 1); route(true); return; }
     if (b.dataset.act === 'taskadd') { PLAN.form.tasks.push({ title: '', need: 1 }); route(true); var tt = document.querySelectorAll('[data-tt]'); if (tt.length) tt[tt.length - 1].focus(); return; }
