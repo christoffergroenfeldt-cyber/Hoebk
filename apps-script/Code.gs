@@ -42,7 +42,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-31.2';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-31.3';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -453,7 +453,7 @@ function setKids_(email, pid, pname, kids, locked) {   // locked = kaldes inde f
 function children_(b) {
   var ses = session_(b.token);
   if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
-  var kids = cleanKids_(b.children);
+  var kids = cleanKids_(b.children).filter(function (k) { return k.id !== ses.playerId; });
   if (/^p:/.test(ses.playerId) && !kids.length) return { ok: false, error: 'En forælder skal have mindst ét barn' };
   setKids_(ses.email, ses.playerId, ses.playerName, kids);
   return { ok: true, kids: kids_(ses.email) };
@@ -591,11 +591,16 @@ function messages_(b) {
   if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
   var room = clean_(b.room, 60), cx = ctx_(), mr = memberRooms_(cx, ses.email, ses.playerId);
   if (!mr[room]) return { ok: false, error: 'Du er ikke med i ' + (/^g:/.test(room) ? 'træningsgruppen' : 'holdet') };
-  var em = ses.email.toLowerCase(), kidsOf = {};   // forældres børn (fornavne) vises ved deres beskeder
-  cx.par.forEach(function (r) { var e = String(r[0]).toLowerCase(); (kidsOf[e] = kidsOf[e] || []).push(String(r[4]).split(' ')[0]); });
+  // Forældres børn (fornavne) vises ved deres beskeder. En spiller der også er forælder får kun mærket i børnenes holds rum.
+  var em = ses.email.toLowerCase(), kidsOf = {}, team = /^h:/.test(room) ? cx.teams[room.slice(2)] : null;
+  cx.par.forEach(function (r) {
+    var e = String(r[0]).toLowerCase(), pid0 = String(r[1]);
+    if (!/^p:/.test(pid0) && !(team && team.p.indexOf(String(r[3])) >= 0)) return;
+    (kidsOf[e] = kidsOf[e] || []).push(String(r[4]).split(' ')[0]);
+  });
   var list = tail_('Beskeder', TAIL).rows.filter(function (r) { return String(r[2]) === room && !bool_(r[7]); }).map(function (r) {
     var pid = String(r[3]), se = String(r[5]).toLowerCase();
-    return { id: String(r[0]), t: ts_(r[1]), p: pid, n: String(r[4]), x: String(r[6]), mine: se === em, k: /^p:/.test(pid) ? (kidsOf[se] || []) : undefined };
+    return { id: String(r[0]), t: ts_(r[1]), p: pid, n: String(r[4]), x: String(r[6]), mine: se === em, k: kidsOf[se] && kidsOf[se].length ? kidsOf[se] : undefined };
   }).sort(function (a, b) { return a.t - b.t; }).slice(-150);
   return { ok: true, room: room, title: mr[room], messages: list, canMod: canModerate_(cx, ses, room), muted: !!muted_(em)[room] };
 }
@@ -614,7 +619,7 @@ function post_(b) {
     if (recent >= MSG_PER_MIN) return null;
     var id = newId_('b'), now = new Date();
     sh_('Beskeder').appendRow([id, now, safe_(room), safe_(ses.playerId), safe_(ses.playerName), em, safe_(text), false]);
-    return { id: id, t: now.getTime(), p: ses.playerId, n: ses.playerName, x: text, mine: true, k: /^p:/.test(ses.playerId) ? kids_(em).map(function (k) { return k.name.split(' ')[0]; }) : undefined };
+    return { id: id, t: now.getTime(), p: ses.playerId, n: ses.playerName, x: text, mine: true };
   });
   if (!msg) return { ok: false, error: 'Du skriver meget hurtigt — vent et øjeblik' };
   // Push til de andre i rummet (ikke afsenderen, ikke dem der har gjort rummet lydløst)

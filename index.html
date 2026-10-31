@@ -1514,6 +1514,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     var h = '<div class="card me"><span class="av" style="' + (parent ? 'background:' + PARENT.bg + ';color:' + PARENT.fg : avStyle(P)) + '">' + esc(ini(ME.name)) + '</span>' +
       '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (parent ? 'Forælder til ' + esc(kidsTxt()) : myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span></span>' +
       '<button class="rb" data-act="logout" style="min-height:36px">Log ud</button></div>';
+    if (!parent && !(ME.kids && ME.kids.length) && REG.ver >= '2026-10-31.2') h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-go="#/boern"><span class="col"><b style="font-size:14px">Er du også forælder?</b>' +
+      '<span class="xs">Tilføj dine børn — så kommer du med i deres holds snak</span></span><span class="xs">›</span></button>';
     if (parent || (ME.kids && ME.kids.length)) h += '<button class="card row" style="min-height:52px" data-go="#/boern"><span class="col"><b style="font-size:14px">Mine børn</b>' +
       '<span class="xs ellip">' + (ME.kids && ME.kids.length ? esc(ME.kids.map(function (k) { var kp = D.players[k.id]; return k.name.split(' ')[0] + (kp && kp.teams.length ? ' (' + kp.teams.join(', ') + ')' : ''); }).join(' · ')) : 'Vælg dit barn') + '</span></span><span class="xs">Ret ›</span></button>';
 
@@ -2123,7 +2125,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     var el = document.getElementById('klist'); if (!el) return;
     var q = (UI.kq || '').toLowerCase().trim();
     if (q.length < 2) { el.innerHTML = ''; return; }
-    var list = D.ids.filter(function (id) { var p = D.players[id]; return !UI.kids[id] && p.name.toLowerCase().indexOf(q) >= 0; })
+    var list = D.ids.filter(function (id) { var p = D.players[id]; return !UI.kids[id] && id !== (ME && ME.id) && p.name.toLowerCase().indexOf(q) >= 0; })
       .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); }).slice(0, 12);
     el.innerHTML = list.map(function (id) {
       var p = D.players[id];
@@ -2136,6 +2138,15 @@ textarea.inp{resize:vertical;line-height:1.45}
     UI.kids = UI.kids || {};
     if (UI.kids[id]) delete UI.kids[id]; else { UI.kids[id] = D.players[id] ? D.players[id].name : id; UI.kq = ''; }
     route(true);
+  }
+  // Børnenes fornavne ved egne beskeder: forældre altid, spillere der er forældre kun i børnenes holds rum (som serveren)
+  function myKidsIn(room) {
+    var kids = (ME && ME.kids) || [];
+    if (!isParentId(ME.id)) {
+      var t = /^h:/.test(room) ? D.teams.filter(function (x) { return 'h:' + x.leagueGroupTeamID === room; })[0] : null;
+      kids = t ? kids.filter(function (k) { return t.players.some(function (p) { return String(p.id) === k.id; }); }) : [];
+    }
+    return kids.length ? kids.map(function (k) { return k.name.split(' ')[0]; }) : undefined;
   }
   function kidsList() { return Object.keys(UI.kids || {}).map(function (id) { return { id: id, name: UI.kids[id] }; }); }
   function parentNext() {
@@ -2150,7 +2161,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     setTab('tilmeld'); setHeader('Mine børn', ME ? ME.name : '', true);
     if (!ME || !ME.token) return '<p class="empty">Log ind på Min side først.</p>';
     if (!UI.kidsEdit) { UI.kids = {}; (ME.kids || []).forEach(function (k) { UI.kids[k.id] = k.name; }); UI.kidsEdit = true; }
-    return kidPicker('Du er forælder til') +
+    return (isParentId(ME.id) ? '' : '<p class="s" style="margin:0 4px">Du er logget ind som spiller. Vælg dine børn her, så kommer du også med i deres holds snak og får nyheder til deres hold — uden at logge ud.</p>') +
+      kidPicker('Du er forælder til') +
       '<button class="rb ja" aria-pressed="true" data-act="kidsave" style="min-height:48px;font-size:15px">Gem</button>' +
       '<p class="note">Du kommer med i snakken for dine børns hold og får nyheder til holdene.</p>';
   }
@@ -2159,7 +2171,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (isParentId(ME.id) && !kids.length) { toast('Vælg mindst ét barn'); return; }
     api({ action: 'children', token: ME.token, children: kids }).then(function (r) {
       if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
-      ME.kids = r.kids || kids; saveMe(); UI.kidsEdit = false; toast('Gemt'); SNAK.at = 0; loadRooms(true); location.hash = '#/tilmeld';
+      ME.kids = r.kids || kids; saveMe(); UI.kidsEdit = false; toast(ME.kids.length ? 'Gemt' : 'Børn fjernet'); SNAK.at = 0; loadRooms(true); location.hash = '#/tilmeld';
     }).catch(function (err) { toast(err.message); });
   }
 
@@ -2279,7 +2291,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       var d = iso(new Date(m.t));
       if (d !== day) { day = d; h += '<div class="msgday">' + (d === iso(new Date()) ? 'I dag' : esc(dTxt(d))) + '</div>'; }
       h += '<div class="msg' + (m.mine ? ' me' : '') + (m.pending ? ' pending' : '') + '">' +
-        '<span class="who2">' + esc(m.n) + (isParentId(m.p) ? ' <span class="par">Forælder' + (m.k && m.k.length ? ' til ' + esc(m.k.join(' og ')) : '') + '</span>' : '') + '</span>' +
+        '<span class="who2">' + esc(m.n) + (isParentId(m.p) || (m.k && m.k.length) ? ' <span class="par">Forælder' + (m.k && m.k.length ? ' til ' + esc(m.k.join(' og ')) : '') + '</span>' : '') + '</span>' +
         '<span class="txt">' + fmtText(m.x) + '</span>' +
         '<span class="meta">' + (m.pending ? 'Sender …' : hhmm(m.t)) +
         ((m.mine || M.canMod) && !m.pending ? ' <button class="del" data-msgdel="' + esc(m.id) + '" aria-label="Slet besked">Slet</button>' : '') + '</span></div>';
@@ -2340,12 +2352,13 @@ textarea.inp{resize:vertical;line-height:1.45}
   function sendMsg() {
     var room = curRoom(), ta = document.getElementById('msgText'); if (!room || !ta) return;
     var text = ta.value.trim(); if (!text || SNAK.sending) return;
-    var M = SNAK.msgs[room], tmp = { id: 'tmp' + Date.now(), t: Date.now(), p: ME.id, n: ME.name, x: text, mine: true, pending: true, k: (ME.kids || []).map(function (k) { return k.name.split(' ')[0]; }) };
+    var M = SNAK.msgs[room], tmp = { id: 'tmp' + Date.now(), t: Date.now(), p: ME.id, n: ME.name, x: text, mine: true, pending: true, k: myKidsIn(room) };
     M.list.push(tmp); SNAK.sending = true; SNAK.draft[room] = ''; ta.value = ''; ta.style.height = '';
     refreshMsgs(room); scrollBottom();
     api({ action: 'post', token: ME.token, room: room, text: text }).then(function (r) {
       if (r && r.error === 'login') { ME = null; saveMe(); throw new Error('Log ind igen'); }
       if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke sende');
+      if (!r.message.k && tmp.k) r.message.k = tmp.k;
       var i = M.list.indexOf(tmp); if (i >= 0) M.list[i] = r.message;
       var rr = (SNAK.rooms || []).filter(function (x) { return x.id === room; })[0];
       if (rr) { rr.last = r.message.t; rr.by = ME.name; rr.x = text.slice(0, 80); rr.n++; }

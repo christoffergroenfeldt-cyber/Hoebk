@@ -125,7 +125,9 @@ To replace the key pair: generate a new P-256 key, put the public key (base64url
 
 On the login screen, **Forælder til en spiller?** lets a parent sign up with their *own* name (id `p:<name>`) and pick one or more children from the player list; the code goes to the parent's own email. The children are stored in the tab **Forældre** (one row per child) and can be changed later under *Min side → Mine børn* (`action: children`).
 
-A parent is automatically in the chat rooms of their children's teams (and gets push and news for them), can follow any team, pick training groups and chat there like everyone else. Parents have a dark Ungdom-green circle (`PARENT` in `index.html`) and their messages show *Forælder til <child>*. The button only appears once the script reports version `2026-10-31.2` or later. The older way — logging in under the child's name with a parent's email — still works.
+A parent is automatically in the chat rooms of their children's teams (and gets push and news for them), can follow any team, pick training groups and chat there like everyone else. Parents have a dark Ungdom-green circle (`PARENT` in `index.html`) and their messages show *Forælder til <child>*. The button only appears once the script reports version `2026-10-31.2` or later.
+
+**Players who are also parents** don't need a second login: *Min side → Er du også forælder?* opens the same child picker. They keep their own player colour; the *Forælder til …* label is shown on their messages only in their children's team rooms (script `2026-10-31.3`). The older way — logging in under the child's name with a parent's email — still works.
 
 ## Snak and news — notifications
 
@@ -137,7 +139,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.2` (parents) or later.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.3` or later.
 
 ## Lineup rules in the app
 
