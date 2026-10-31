@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
-:root{--akt:#7A4FC9;--tour:#1E6B3A;--ink:#0E2236;--muted:#4A5866;--muted2:#6A7682;--ground:#F7F7F2;--card:#FFFFFF;--line:#E2E5DC;--line2:#EDEFE8;--accent:#D4F25A;--loss:#F3D6D2;--draw:#E7ECF1;--soft:#F1F2EC;--hi:#F4FBD9;--navy2:#1B3550;--seg:#E7EAE1}
+:root{--akt:#7A4FC9;--plan:#C2255C;--tour:#1E6B3A;--ink:#0E2236;--muted:#4A5866;--muted2:#6A7682;--ground:#F7F7F2;--card:#FFFFFF;--line:#E2E5DC;--line2:#EDEFE8;--accent:#D4F25A;--loss:#F3D6D2;--draw:#E7ECF1;--soft:#F1F2EC;--hi:#F4FBD9;--navy2:#1B3550;--seg:#E7EAE1}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--ground);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.4;-webkit-text-size-adjust:100%}
 button{font-family:inherit;color:inherit;cursor:pointer}
@@ -195,9 +195,10 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .badge{min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
 .news{width:100%;text-align:left;padding:12px 14px;display:flex;flex-direction:column;gap:3px;font-size:inherit}
 .news.new{border-left:5px solid var(--accent)}
-.news.plan{border-left:5px solid var(--akt)}
+.news.plan{border-left:5px solid var(--plan)}
+.news.web{border-left:5px solid var(--akt)}
 .need{color:#8A4B00}
-.ovhead{width:100%;text-align:left;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:inherit;border-left:5px solid var(--akt);margin-top:6px}
+.ovhead{width:100%;text-align:left;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:inherit;border-left:5px solid var(--plan);margin-top:6px}
 .ovtasks{overflow:hidden;margin-top:-4px}
 .ovrow{display:flex;gap:10px;align-items:center;padding:9px 12px;border-top:1px solid var(--line2);border-left:5px solid var(--line)}
 .ovrow:first-child{border-top:0}
@@ -1080,7 +1081,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   // ---------- Kalender ----------
   var MON_FULL = ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'];
   var DAY_FULL = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
-  var CAL = { team: 'alle', training: true, tours: false, level: 'alle', matches: true, akt: true };
+  var CAL = { team: 'alle', training: true, tours: false, level: 'alle', matches: true, akt: true, plan: true };
   var EVENTS = {};   // 'YYYY-MM-DD' -> [event]
   function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
   function parseD(x) { var p = x.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
@@ -1186,8 +1187,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (!a.cal) return;
       for (var d4 = parseD(a.start.slice(0, 10)), l4 = parseD(a.end.slice(0, 10)), first = true; d4 <= l4; d4 = addDays(d4, 1), first = false) {
         var ds4 = iso(d4), last4 = ds4 === a.end.slice(0, 10);
-        add({ kind: 'akt', date: ds4, time: first ? a.start.slice(11, 16) : '', end: last4 ? a.end.slice(11, 16) : '', team: 'Aktivitet', title: a.name,
-              place: a.tasks.length ? (openSlots(a) ? openSlots(a) + ' ledige pladser på opgaverne' : 'Alle opgaver er taget') : '', bg: 'var(--akt)', fg: '#FFFFFF', go: '#/aktivitet/' + encodeURIComponent(a.id) });
+        add({ kind: 'plan', date: ds4, time: first ? a.start.slice(11, 16) : '', end: last4 ? a.end.slice(11, 16) : '', team: 'Aktivitet', title: a.name,
+              place: a.tasks.length ? (openSlots(a) ? openSlots(a) + ' ledige pladser på opgaverne' : 'Alle opgaver er taget') : '', bg: 'var(--plan)', fg: '#FFFFFF', go: '#/aktivitet/' + encodeURIComponent(a.id) });
       }
     });
     Object.keys(EVENTS).forEach(function (k) { EVENTS[k].sort(function (a, b) { return (a.time || '99').localeCompare(b.time || '99') || (a.kind === 'match' ? -1 : 1); }); });
@@ -1199,6 +1200,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (e.kind === 'training') return CAL.training && (CAL.team === 'alle' || CAL.team === 'træning') && trGroupPass(e.team, e.hold, e.also);
       if (e.kind === 'tour') return CAL.tours && (CAL.team === 'alle' || CAL.team === 'turneringer') && tourInLevel(e.tour, CAL.level) && tourPass(e.tour);
       if (e.kind === 'akt') return CAL.akt && (CAL.team === 'alle' || CAL.team === 'aktiviteter');
+      if (e.kind === 'plan') return CAL.plan && (CAL.team === 'alle' || CAL.team === 'appakt');
       return CAL.matches && (CAL.team === 'alle' || CAL.team === e.team);
     });
   }
@@ -1211,14 +1213,14 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span class="col"><b style="font-size:14px" class="ellip">' + (e.kind === 'match' ? esc(e.team) + ' <span style="font-weight:500">' + esc(e.title) + '</span>' : esc(e.title)) + '</b>' +
       '<span class="xs ellip">' + esc(e.kind === 'match' ? e.teamName + ' · ' + e.place : e.place) + '</span></span>' + right;
     var style = 'border-left-color:' + (e.kind === 'match' ? e.bg : '#9AA6B1');
-    if (e.kind === 'akt' && e.go) {
-      return '<button class="ev" style="border-left-color:var(--akt);width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="' + esc(e.go) + '">' +
+    if (e.kind === 'plan') {
+      return '<button class="ev" style="border-left-color:var(--plan);width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="' + esc(e.go) + '">' +
         '<span class="tm">' + esc(e.time || '–') + '</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(e.title) + '</b><span class="xs ellip">Aktivitet i appen' + (e.place ? ' · ' + esc(e.place) : '') + '</span></span>' +
         (e.end ? '<span class="xs">til ' + esc(e.end) + '</span>' : '<span></span>') + '</button>';
     }
     if (e.kind === 'akt') {
       return '<a class="ev" style="border-left-color:var(--akt);text-decoration:none;color:inherit" href="https://hoebk.dk/kalender" target="_blank" rel="noopener">' +
-        '<span class="tm">' + esc(e.time || '–') + '</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(e.title) + '</b><span class="xs ellip">Klubaktivitet' + (e.place ? ' · ' + esc(e.place) : '') + '</span></span>' +
+        '<span class="tm">' + esc(e.time || '–') + '</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(e.title) + '</b><span class="xs ellip">Fra hoebk.dk' + (e.place ? ' · ' + esc(e.place) : '') + '</span></span>' +
         (e.end ? '<span class="xs">til ' + esc(e.end) + '</span>' : '<span></span>') + '</a>';
     }
     if (e.kind === 'ferie') {
@@ -1257,7 +1259,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     return !CAL.trHold || !hold || hold === CAL.trHold;
   }
   function calToolbar(view, label, prevD, nextD) {
-    var h = '<button class="card row" style="min-height:48px;border-left:5px solid var(--akt)" data-go="#/aktiviteter"><span class="col"><b style="font-size:14px">Alle aktiviteter som liste</b>' +
+    var h = '<button class="card row" style="min-height:48px;border-left:5px solid var(--plan)" data-go="#/aktiviteter"><span class="col"><b style="font-size:14px">Alle aktiviteter som liste</b>' +
       '<span class="xs">Klubbens arrangementer i datoorden — med opgaver du kan tage</span></span><span class="xs">›</span></button>' + '<div class="seg" role="tablist" style="grid-template-columns:repeat(4,minmax(0,1fr))">' +
       [['dag', 'Dag'], ['uge', 'Uge'], ['maaned', 'Måned'], ['aar', 'År']].map(function (v) {
         return '<button role="tab" aria-selected="' + (view === v[0]) + '" data-go="#/kalender/' + v[0] + '/' + CAL.date + '">' + v[1] + '</button>'; }).join('') + '</div>';
@@ -1269,11 +1271,13 @@ textarea.inp{resize:vertical;line-height:1.45}
       D.teams.map(function (t) { return '<option value="' + esc(t.label) + '"' + (CAL.team === t.label ? ' selected' : '') + '>' + esc(t.label) + ' · ' + esc(t.name) + '</option>'; }).join('') +
       '<option value="træning"' + (CAL.team === 'træning' ? ' selected' : '') + '>Kun træning</option>' +
       '<option value="turneringer"' + (CAL.team === 'turneringer' ? ' selected' : '') + '>Kun turneringer</option>' +
-      '<option value="aktiviteter"' + (CAL.team === 'aktiviteter' ? ' selected' : '') + '>Kun klubaktiviteter</option></select>' +
+      '<option value="appakt"' + (CAL.team === 'appakt' ? ' selected' : '') + '>Kun appens aktiviteter</option>' +
+      '<option value="aktiviteter"' + (CAL.team === 'aktiviteter' ? ' selected' : '') + '>Kun aktiviteter fra hoebk.dk</option></select>' +
       '<label class="toggle"><input type="checkbox" id="calMa"' + (CAL.matches ? ' checked' : '') + '> Holdkampe</label>' +
       '<label class="toggle"><input type="checkbox" id="calTr"' + (CAL.training ? ' checked' : '') + '> Træning</label>' +
       '<label class="toggle"><input type="checkbox" id="calTu"' + (CAL.tours ? ' checked' : '') + '> Turneringer</label>' +
-      '<label class="toggle"><input type="checkbox" id="calAk"' + (CAL.akt ? ' checked' : '') + '> Aktiviteter</label></div>';
+      '<label class="toggle"><input type="checkbox" id="calPl"' + (CAL.plan ? ' checked' : '') + '> Appens aktiviteter</label>' +
+      '<label class="toggle"><input type="checkbox" id="calAk"' + (CAL.akt ? ' checked' : '') + '> Fra hoebk.dk</label></div>';
     if (CAL.training && (CAL.team === 'alle' || CAL.team === 'træning') && trGroups().length > 1) {
       h += '<div class="chips regchips" role="group" aria-label="Træningsgruppe">' +
         [['alle', 'Alle grupper']].concat(ME && ME.groups && ME.groups.length ? [['mine', 'Mine grupper']] : []).concat(trGroups().map(function (g) { return [g, g]; })).map(function (o) {
@@ -1292,7 +1296,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span><i class="sw" style="background:#E58A2E"></i>Motion</span><span><i class="sw" style="background:#D4F25A"></i>Ungdom</span>' +
       '<span><i class="sw" style="border:1px dashed #9AA6B1"></i>Træning (3× = 3 hold)</span>' +
       (CAL.tours ? '<span><i class="sw" style="background:var(--tour)"></i>Turnering</span>' : '') +
-      (CAL.akt ? '<span><i class="sw" style="background:var(--akt)"></i>Klubaktivitet</span>' : '') + '</div>' +
+      (CAL.plan ? '<span><i class="sw" style="background:var(--plan)"></i>Appens aktiviteter</span>' : '') +
+      (CAL.akt ? '<span><i class="sw" style="background:var(--akt)"></i>Aktiviteter fra hoebk.dk</span>' : '') + '</div>' +
       (CAL.akt && ACT.failed && !ACT.events.length ? '<p class="note">Klubbens aktivitetskalender kunne ikke hentes fra Conventus lige nu.</p>' : '');
     return h;
   }
@@ -1363,11 +1368,13 @@ textarea.inp{resize:vertical;line-height:1.45}
         if (ms.length > 3) bars += '<span class="more">+' + (ms.length - 3) + '</span>';
         var tus = ge.filter(function (e) { return e.kind === 'tour'; });
         if (tus.length) bars += '<span class="bar" style="background:var(--tour);color:#fff" title="' + tus.length + ' turneringer">' + tus.length + ' turn.</span>';
+        var pls = ge.filter(function (e) { return e.kind === 'plan'; });
+        if (pls.length) bars += '<span class="bar" style="background:var(--plan);color:#fff" title="' + esc(pls.map(function (x) { return x.title; }).join(', ')) + '">' + esc(pls[0].title) + '</span>' + (pls.length > 1 ? '<span class="more">+' + (pls.length - 1) + '</span>' : '');
         var aks = ge.filter(function (e) { return e.kind === 'akt'; });
         if (aks.length) bars += '<span class="bar" style="background:var(--akt);color:#fff" title="' + esc(aks.map(function (x) { return x.title; }).join(', ')) + '">' + esc(aks[0].title) + '</span>' + (aks.length > 1 ? '<span class="more">+' + (aks.length - 1) + '</span>' : '');
         var fe = ge.filter(function (e) { return e.kind === 'ferie'; });
-        if (fe.length && !ms.length && !tus.length && !aks.length) bars += '<span class="bar tr" title="' + esc(fe[0].title) + '">Ferie</span>';
-        if (!ms.length && !tus.length && !aks.length && ts.length) bars += '<span class="bar tr" title="' + ts.length + ' træninger">' + ts.length + '×</span>';
+        if (fe.length && !ms.length && !tus.length && !aks.length && !pls.length) bars += '<span class="bar tr" title="' + esc(fe[0].title) + '">Ferie</span>';
+        if (!ms.length && !tus.length && !aks.length && !pls.length && ts.length) bars += '<span class="bar tr" title="' + ts.length + ' træninger">' + ts.length + '×</span>';
         h += '<button class="mday' + (inMonth ? '' : ' out') + (gds === today ? ' now' : '') + '" data-go="#/kalender/dag/' + gds + '" aria-label="' + gd.getDate() + '. ' + MON_FULL[gd.getMonth()] + (ms.length ? ', ' + ms.length + ' kampe' : '') + '"><span class="n">' + gd.getDate() + '</span>' + bars + '</button>';
       }
       h += '</div><p class="note">' + mcount + ' kampe i ' + MON_FULL[f.getMonth()] + '. Tryk på en dag for tider og spillesteder.</p>';
@@ -1615,7 +1622,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
     }).join('') : '<p class="empty">Vælg dine træningshold ovenfor.</p>';
     var nextAkt = ACT.events.filter(function (a) { return a.date >= today; }).slice(0, 3);
-    if (nextAkt.length) h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Klubbens aktiviteter</span><button class="pl xs" data-go="#/kalender/maaned/' + today + '">Kalender ›</button></div>' +
+    if (nextAkt.length) h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Aktiviteter fra hoebk.dk</span><button class="pl xs" data-go="#/kalender/maaned/' + today + '">Kalender ›</button></div>' +
       nextAkt.map(function (a) { return '<a class="ev" style="border-left-color:var(--akt);text-decoration:none;color:inherit" href="https://hoebk.dk/kalender" target="_blank" rel="noopener"><span class="tm">' + esc(dTxt(a.date)) + '</span>' +
         '<span class="col"><b style="font-size:14px" class="ellip">' + esc(a.title) + '</b><span class="xs ellip">' + esc((a.time ? a.time + (a.end ? '–' + a.end : '') : '') + (a.place ? ' · ' + a.place : '')) + '</span></span><span></span></a>'; }).join('');
     h += mh;
@@ -2582,14 +2589,15 @@ textarea.inp{resize:vertical;line-height:1.45}
     Object.keys(EVENTS).forEach(function (ds) {
       if (ds < today || ds > iso(addDays(new Date(), 366))) return;
       EVENTS[ds].forEach(function (e) {
-        if (e.kind !== 'akt' || e.go) return;
+        if (e.kind !== 'akt') return;
         var k = ds + '|' + e.title; if (seen[k]) return; seen[k] = 1;
         items.push({ d: ds, t: e.time || '', e: e });
       });
     });
     items.sort(function (x, y) { return (x.d + (x.t || '99')).localeCompare(y.d + (y.t || '99')); });
-    var h = PLAN.canEdit ? '<button class="rb ja" aria-pressed="true" style="align-self:flex-start;min-height:44px" data-act="actnew">+ Ny aktivitet</button>' : '';
-    if ((PLAN.list || []).some(function (a) { return a.end >= now && a.tasks.length; })) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--akt)" data-go="#/aktiviteter/oversigt"><span class="col"><b style="font-size:14px">Oversigt over opgaver</b><span class="xs">Alle aktiviteter og opgaver — hvem har taget hvad, og hvad mangler</span></span><span class="xs">›</span></button>';
+    var h = '<div class="legend"><span><i style="background:var(--plan)"></i>Appens aktiviteter — med opgaver du kan tage</span><span><i style="background:var(--akt)"></i>Fra hoebk.dk</span></div>';
+    if (PLAN.canEdit) h += '<button class="rb ja" aria-pressed="true" style="align-self:flex-start;min-height:44px" data-act="actnew">+ Ny aktivitet</button>';
+    if ((PLAN.list || []).some(function (a) { return a.end >= now && a.tasks.length; })) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--plan)" data-go="#/aktiviteter/oversigt"><span class="col"><b style="font-size:14px">Oversigt over opgaver</b><span class="xs">Alle aktiviteter og opgaver — hvem har taget hvad, og hvad mangler</span></span><span class="xs">›</span></button>';
     if (!PLAN.list && REG.url && !PLAN.off && !items.length) return h + '<p class="empty">Henter …</p>';
     var month = '';
     items.forEach(function (it) {
@@ -2597,9 +2605,9 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (m !== month) { month = m; var md = parseD(it.d); h += '<span class="lbl">' + esc(MON_FULL[md.getMonth()] + ' ' + md.getFullYear()) + '</span>'; }
       if (it.a) { h += actCard(it.a); return; }
       var e = it.e;
-      h += '<button class="card news" data-go="#/kalender/dag/' + it.d + '"><span class="xs">' + esc(dTxt(it.d)) +
+      h += '<button class="card news web" data-go="#/kalender/dag/' + it.d + '"><span class="xs">' + esc(dTxt(it.d)) +
         (e.time ? ' · ' + esc(e.time) + (e.end ? '–' + esc(e.end) : '') : '') + '</span><b>' + esc(e.title) + '</b>' +
-        (e.place ? '<span class="xs ellip">' + esc(e.place) + '</span>' : '<span class="xs">Klubaktivitet</span>') + '</button>';
+        '<span class="xs ellip">Fra hoebk.dk' + (e.place ? ' · ' + esc(e.place) : '') + '</span></button>';
     });
     if (!items.length) h += '<p class="empty">Ingen kommende aktiviteter.</p>';
     var past = (PLAN.list || []).filter(function (a) { return a.end < now; }).reverse();
@@ -2800,7 +2808,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     h += news.length ? news.slice(0, 3).map(newsCard).join('') : '<p class="empty">' + ((ME && ME.token ? SNAK.rooms : SNAK.pub) || !REG.url ? 'Ingen nyheder lige nu.' : 'Henter …') + '</p>';
     if (SNAK.canNews) h += '<button class="rb" style="align-self:flex-start;min-height:42px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>';
     var next = []; for (var i = 0; i < 14; i++) next.push(iso(addDays(new Date(), i)));
-    var up = dayGroups(next, function (e) { return (e.kind === 'match' && !e.result) || e.kind === 'akt'; }, 12);
+    var up = dayGroups(next, function (e) { return (e.kind === 'match' && !e.result) || e.kind === 'akt' || e.kind === 'plan'; }, 12);
     h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Det sker de næste 14 dage</span><button class="pl xs" data-go="#/kalender/uge/' + today + '">Kalender ›</button></div>' +
       (up.n ? up.h : '<p class="empty">Ingen kampe eller aktiviteter de næste 14 dage.</p>');
     var back = []; for (var j = 0; j < 30; j++) back.push(iso(addDays(new Date(), -j)));
@@ -2922,6 +2930,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       bindTourFilters();
       document.getElementById('calTu').addEventListener('change', function (e) { CAL.tours = e.target.checked; route(); });
       document.getElementById('calAk').addEventListener('change', function (e) { CAL.akt = e.target.checked; route(); });
+      document.getElementById('calPl').addEventListener('change', function (e) { CAL.plan = e.target.checked; route(); });
       var lv = document.getElementById('calLv'); if (lv) lv.addEventListener('change', function (e) { CAL.level = e.target.value; route(); });
     }
     if (parts[0] === 'udtag' && document.getElementById('luTeam')) {
