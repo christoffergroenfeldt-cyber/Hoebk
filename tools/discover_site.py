@@ -7,7 +7,20 @@ def get(u):
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode("utf-8", "replace"), r.headers.get("Content-Type")
 def note(t, m): print(f"::warning title={t}::{m}".replace("\n", " ")[:3500])
-h, ct = get(U)
+try:
+    h, ct = get(U)
+except Exception as e:
+    body = getattr(e, "read", lambda: b"")()[:1500].decode("utf-8", "replace")
+    note("Fejl", f"{e} :: {body}")
+    for ua in ["Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"]:
+        try:
+            req = urllib.request.Request(U, headers={"User-Agent": ua, "Referer": "https://hoebk.dk/kalender", "Accept": "*/*"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                h, ct = r.read().decode("utf-8", "replace"), r.headers.get("Content-Type")
+            note("OK med browser-UA", ct)
+            break
+        except Exception as e2:
+            note("Fejl 2", str(e2)); sys.exit(0)
 note("Type/længde", f"{ct} {len(h)}")
 note("Start", h[:3000])
 note("Links", " | ".join(sorted(set(re.findall(r"https?://[^\"' <>\\\\]+", h)))[:30]))
