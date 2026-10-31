@@ -48,6 +48,9 @@ jobs:
             --tournaments \
             --dump-dir debug_html
 
+      - name: Sider fra hoebk.dk (én gang om dagen)
+        run: python3 fetch_sider.py --once-a-day || echo "Sider kunne ikke hentes — prøver i morgen"
+
       - name: Nyt om hold og turneringer → notifikation/mail til dem der følger
         env:
           REG_URL: ${{ secrets.REG_URL }}
@@ -104,6 +107,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/holdkampe.json data/spillere.json data/turneringer.json data/steder.json data/turnering_nyt.json data/notifikationer.json
+          [ -f data/sider.json ] && git add data/sider.json
           if git diff --cached --quiet; then
             echo "Ingen ændringer."
           else

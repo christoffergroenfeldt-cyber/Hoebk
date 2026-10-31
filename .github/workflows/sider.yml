@@ -1,0 +1,28 @@
+name: HØBK sider fra hoebk.dk
+# Kører også som trin i den fulde opdatering (én gang om dagen). Denne workflow kan startes i hånden.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "43 4 * * *"
+permissions:
+  contents: write
+concurrency:
+  group: sider
+  cancel-in-progress: false
+jobs:
+  sider:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hent sider fra hoebk.dk
+        run: python3 fetch_sider.py ${{ github.event_name == 'schedule' && '--once-a-day' || '' }}
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/sider.json 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Ingen ændringer."; else
+            git commit -m "Sider fra hoebk.dk $(date -u +%Y-%m-%d)"
+            for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push && break; sleep $((i*5)); done
+          fi
