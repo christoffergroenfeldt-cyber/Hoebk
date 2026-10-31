@@ -199,6 +199,8 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .newtag{color:var(--ink);background:var(--accent);border-radius:6px;padding:0 6px}
 .clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .snakbar{display:flex;align-items:center;gap:10px}
+.chip.mute.on{background:#1E8A4C;border-color:#1E8A4C;color:#fff}
+.chip.mute.off{background:#C8352B;border-color:#C8352B;color:#fff}
 .msgs{flex:1 0 auto;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding-bottom:4px}
 .msgday{align-self:center;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:10px 0 4px}
 .msg{max-width:84%;align-self:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:7px 12px;display:flex;flex-direction:column;gap:2px;overflow-wrap:anywhere}
@@ -2210,7 +2212,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!M || (!M.list && !M.error)) { if (!M || !M.loading) fetchMsgs(room, false); return '<p class="empty">Henter beskeder …</p>'; }
     if (M.error) return '<div class="warn">' + esc(M.error) + '</div><p class="note">' + (/^g:/.test(room) ? 'Vælg gruppen under Træning på Min side for at være med.' : 'Følg holdet under Hold for at være med i holdets snak.') + '</p>';
     return '<div class="snakbar"><span class="xs" style="flex:1">' + (/^g:/.test(room) ? 'Alle der har valgt ' + esc(room.slice(2)) + ' under Træning på Min side' : 'Holdets spillere, holdledere og dem der følger holdet') + '</span>' +
-      '<button class="chip" data-act="mute" aria-pressed="' + !!M.muted + '">' + (M.muted ? '🔕 Lydløs' : '🔔 Besked ved nyt') + '</button></div>' +
+      '<button class="chip mute' + (M.muted ? ' off' : ' on') + '" data-act="mute" aria-pressed="' + !!M.muted + '" aria-label="' + (M.muted ? 'Lydløs — tryk for at modtage nyt' : 'Modtager nyt — tryk for lydløs') + '">' + (M.muted ? '🔕 Lydløs' : '🔔 Modtager nyt') + '</button></div>' +
       '<div id="msgs" class="msgs">' + msgsHtml(room) + '</div>' +
       '<div class="compose"><textarea id="msgText" rows="1" maxlength="1000" placeholder="Skriv en besked …" aria-label="Besked til ' + esc(title) + '">' + esc(SNAK.draft[room] || '') + '</textarea>' +
       '<button class="rb ja" aria-pressed="true" data-act="send"' + (SNAK.sending ? ' disabled' : '') + '>Send</button></div>';
