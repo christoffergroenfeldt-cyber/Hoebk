@@ -2596,8 +2596,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       var m = it.d.slice(0, 7);
       if (m !== month) { month = m; var md = parseD(it.d); h += '<span class="lbl">' + esc(MON_FULL[md.getMonth()] + ' ' + md.getFullYear()) + '</span>'; }
       if (it.a) { h += actCard(it.a); return; }
-      var e = it.e, dd = parseD(it.d);
-      h += '<button class="card news" data-go="#/kalender/dag/' + it.d + '"><span class="xs">' + esc(DAY_FULL[dd.getDay()] + ' ' + dd.getDate() + '. ' + MONS[dd.getMonth()]) +
+      var e = it.e;
+      h += '<button class="card news" data-go="#/kalender/dag/' + it.d + '"><span class="xs">' + esc(dTxt(it.d)) +
         (e.time ? ' · ' + esc(e.time) + (e.end ? '–' + esc(e.end) : '') : '') + '</span><b>' + esc(e.title) + '</b>' +
         (e.place ? '<span class="xs ellip">' + esc(e.place) + '</span>' : '<span class="xs">Klubaktivitet</span>') + '</button>';
     });

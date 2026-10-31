@@ -39,7 +39,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/eksport/<i>/<m>` | Leaders: lineup ready to enter on badmintonplayer.dk |
 | `#/holdleder` | Team leaders: next match per team (sorted by date) with selection status; opened from Min side. Administrators also get the link to `#/ledere` |
 | `#/ledere` | Administrator: appoint/remove team leaders, user statistics |
-| `#/aktiviteter` | Club activities: upcoming (and *Afholdte*); administrators get *+ Ny aktivitet* |
+| `#/aktiviteter` | All upcoming activities in date order, grouped by month: the app's own activities (with tasks) plus the club activities shown in the calendar (hoebk.dk/Conventus and `traening.json` events); *Afholdte* below. Opened from the top of every calendar view and from Min side |
 | `#/aktivitet/<id>` | One activity: time, description, who it's for, tasks with *Tag opgaven* / *✓ Din opgave* and who has taken them |
 | `#/aktiviteter/oversigt` | Overview of every upcoming activity's tasks: time, who took it, *n/need* coloured full / missing some / none yet; filters *Alle opgaver*, *Mangler folk*, *Mine* |
 | `#/aktiviteter/ny`, `#/aktivitet/<id>/ret` | Administrator: create/edit an activity — name, description, start/end, *Vis i kalenderen*, recipients, tasks with a number needed (0 = unlimited) |
