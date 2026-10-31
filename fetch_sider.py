@@ -55,7 +55,7 @@ class MenuParser(HTMLParser):
         self.root = {"children": []}; self.stack = [self.root]; self.cur = None; self.grab = False; self.depth_nav = 0
 
     def handle_starttag(self, tag, a):
-        a = dict(a)
+        a = {k: (v or '') for k, v in a}
         if tag == "nav":
             self.depth_nav += 1
         if not self.depth_nav:
@@ -96,7 +96,7 @@ class Clean(HTMLParser):
         self.base = base; self.out = []; self.skip = 0; self.links = set()
 
     def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
+        a = {k: (v or '') for k, v in attrs}   # attributter uden værdi giver None
         if self.skip:
             if tag in DROP_WITH_CONTENT:
                 self.skip += 1
