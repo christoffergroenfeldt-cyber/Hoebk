@@ -1257,7 +1257,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     return !CAL.trHold || !hold || hold === CAL.trHold;
   }
   function calToolbar(view, label, prevD, nextD) {
-    var h = '<div class="seg" role="tablist" style="grid-template-columns:repeat(4,minmax(0,1fr))">' +
+    var h = '<button class="card row" style="min-height:48px;border-left:5px solid var(--akt)" data-go="#/aktiviteter"><span class="col"><b style="font-size:14px">Alle aktiviteter som liste</b>' +
+      '<span class="xs">Klubbens arrangementer i datoorden — med opgaver du kan tage</span></span><span class="xs">›</span></button>' + '<div class="seg" role="tablist" style="grid-template-columns:repeat(4,minmax(0,1fr))">' +
       [['dag', 'Dag'], ['uge', 'Uge'], ['maaned', 'Måned'], ['aar', 'År']].map(function (v) {
         return '<button role="tab" aria-selected="' + (view === v[0]) + '" data-go="#/kalender/' + v[0] + '/' + CAL.date + '">' + v[1] + '</button>'; }).join('') + '</div>';
     h += '<div class="calbar"><button class="nav" aria-label="Forrige" data-go="#/kalender/' + view + '/' + prevD + '"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>' +
@@ -2572,13 +2573,36 @@ textarea.inp{resize:vertical;line-height:1.45}
       (PLAN.canEdit ? '<button class="rb" style="align-self:flex-start;min-height:42px" data-act="actnew">+ Ny aktivitet</button>' : '');
   }
   function viewAktiviteter() {
-    setTab('tilmeld'); setHeader('Aktiviteter', 'Klubbens arrangementer', true);
+    setTab('kalender'); setHeader('Aktiviteter', 'Alle kommende i datoorden', true);
     loadActs(false);
-    if (!PLAN.list) return '<p class="empty">Henter …</p>';
-    var now = nowLocal(), up = PLAN.list.filter(function (a) { return a.end >= now; }), past = PLAN.list.filter(function (a) { return a.end < now; }).reverse();
+    var now = nowLocal(), today = iso(new Date());
+    var items = (PLAN.list || []).filter(function (a) { return a.end >= now; }).map(function (a) { return { d: a.start.slice(0, 10), t: a.start.slice(11, 16), a: a }; });
+    // klubaktiviteter fra kalenderen (hoebk.dk/Conventus og træningsplanen) — appens egne står der allerede via a
+    var seen = {};
+    Object.keys(EVENTS).forEach(function (ds) {
+      if (ds < today || ds > iso(addDays(new Date(), 366))) return;
+      EVENTS[ds].forEach(function (e) {
+        if (e.kind !== 'akt' || e.go) return;
+        var k = ds + '|' + e.title; if (seen[k]) return; seen[k] = 1;
+        items.push({ d: ds, t: e.time || '', e: e });
+      });
+    });
+    items.sort(function (x, y) { return (x.d + (x.t || '99')).localeCompare(y.d + (y.t || '99')); });
     var h = PLAN.canEdit ? '<button class="rb ja" aria-pressed="true" style="align-self:flex-start;min-height:44px" data-act="actnew">+ Ny aktivitet</button>' : '';
-    if (up.some(function (a) { return a.tasks.length; })) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--akt)" data-go="#/aktiviteter/oversigt"><span class="col"><b style="font-size:14px">Oversigt over opgaver</b><span class="xs">Alle aktiviteter og opgaver — hvem har taget hvad, og hvad mangler</span></span><span class="xs">›</span></button>';
-    h += up.length ? up.map(actCard).join('') : '<p class="empty">Ingen kommende aktiviteter.</p>';
+    if ((PLAN.list || []).some(function (a) { return a.end >= now && a.tasks.length; })) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--akt)" data-go="#/aktiviteter/oversigt"><span class="col"><b style="font-size:14px">Oversigt over opgaver</b><span class="xs">Alle aktiviteter og opgaver — hvem har taget hvad, og hvad mangler</span></span><span class="xs">›</span></button>';
+    if (!PLAN.list && REG.url && !PLAN.off && !items.length) return h + '<p class="empty">Henter …</p>';
+    var month = '';
+    items.forEach(function (it) {
+      var m = it.d.slice(0, 7);
+      if (m !== month) { month = m; var md = parseD(it.d); h += '<span class="lbl">' + esc(MON_FULL[md.getMonth()] + ' ' + md.getFullYear()) + '</span>'; }
+      if (it.a) { h += actCard(it.a); return; }
+      var e = it.e, dd = parseD(it.d);
+      h += '<button class="card news" data-go="#/kalender/dag/' + it.d + '"><span class="xs">' + esc(DAY_FULL[dd.getDay()] + ' ' + dd.getDate() + '. ' + MONS[dd.getMonth()]) +
+        (e.time ? ' · ' + esc(e.time) + (e.end ? '–' + esc(e.end) : '') : '') + '</span><b>' + esc(e.title) + '</b>' +
+        (e.place ? '<span class="xs ellip">' + esc(e.place) + '</span>' : '<span class="xs">Klubaktivitet</span>') + '</button>';
+    });
+    if (!items.length) h += '<p class="empty">Ingen kommende aktiviteter.</p>';
+    var past = (PLAN.list || []).filter(function (a) { return a.end < now; }).reverse();
     if (past.length) h += '<details class="who"><summary>Afholdte (' + past.length + ')</summary><div class="col" style="gap:8px;margin-top:8px">' + past.map(actCard).join('') + '</div></details>';
     if (!ME || !ME.token) h += '<p class="note">Log ind på Min side for at se aktiviteter for dine hold og tage opgaver.</p>';
     return h;
@@ -2815,7 +2839,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     else if (parts[0] === 'holdleder') { lastTab = 'tilmeld'; html = viewHoldleder(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'oversigt') { lastTab = 'tilmeld'; html = viewOversigt(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'ny') { lastTab = 'tilmeld'; html = viewActForm(''); }
-    else if (parts[0] === 'aktiviteter') { lastTab = 'tilmeld'; html = viewAktiviteter(); }
+    else if (parts[0] === 'aktiviteter') { lastTab = 'kalender'; html = viewAktiviteter(); }
     else if (parts[0] === 'aktivitet' && parts[2] === 'ret') { lastTab = 'tilmeld'; html = viewActForm(decodeURIComponent(parts[1] || '')); }
     else if (parts[0] === 'aktivitet') { lastTab = 'tilmeld'; html = viewAktivitet(decodeURIComponent(parts[1] || '')); }
     else if (parts[0] === 'boern') { lastTab = 'tilmeld'; html = viewBoern(); }
