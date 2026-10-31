@@ -222,6 +222,10 @@
   ],
   "119204": [
    {
+    "d": "2026-10-31",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   },
+   {
     "d": "2026-10-30",
     "t": "Deltagerlisten er offentliggjort"
    }
@@ -369,6 +373,26 @@
     "d": "2026-10-31",
     "t": "Invitationen er lagt ud"
    }
+  ],
+  "115679": [
+   {
+    "d": "2026-10-31",
+    "t": "Invitationen er lagt ud"
+   },
+   {
+    "d": "2026-10-31",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   }
+  ],
+  "115683": [
+   {
+    "d": "2026-10-31",
+    "t": "Invitationen er lagt ud"
+   },
+   {
+    "d": "2026-10-31",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   }
   ]
  },
  "alias": {
@@ -376,5 +400,5 @@
   "xe5b31052e6": "119983",
   "119984": "x6461fd35a5"
  },
- "updated": "2026-10-31T11:36:54+00:00"
+ "updated": "2026-10-31T20:42:42+00:00"
 }
