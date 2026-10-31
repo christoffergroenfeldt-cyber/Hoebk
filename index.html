@@ -197,6 +197,11 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .news.new{border-left:5px solid var(--accent)}
 .news.plan{border-left:5px solid var(--plan)}
 .news.web{border-left:5px solid var(--akt)}
+.mseg button{display:flex;align-items:center;justify-content:center;gap:6px}
+.badge.sm{min-width:18px;height:18px;font-size:11px;padding:0 5px}
+.alert{border-left:5px solid #F3B35B;background:#FFF7EC}
+.tile.warn2{background:#FFF7EC;border-color:#F3D3A6}
+.evwrap.ans{box-shadow:inset 0 0 0 2px #F3C58F}
 .need{color:#8A4B00}
 .ovhead{width:100%;text-align:left;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:inherit;border-left:5px solid var(--plan);margin-top:6px}
 .ovtasks{overflow:hidden;margin-top:-4px}
@@ -1503,7 +1508,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     });
     return g.filter(function (x, i) { return g.indexOf(x) === i; });
   }
-  function viewTilmeld() {
+  function viewTilmeld(sub) {
     setTab('tilmeld');
     if (!ME || !ME.token) {
       UI.step = UI.step || 'name';
@@ -1551,81 +1556,122 @@ textarea.inp{resize:vertical;line-height:1.45}
     var myTeams = P ? P.teams : [];
     if (parent) myTeams = kidTeams();
     if (!ME.groups) { ME.groups = defaultGroups(myTeams); saveMe(); }
-    setHeader('Min side', ME.email || ME.name, false);
-    var today = iso(new Date());
+    setHeader('Min side', ME.name, false);
+    loadRooms(false); loadActs(false);
+    sub = sub === 'snak' || sub === 'profil' ? sub : 'program';
+    var unreadRooms = (SNAK.rooms || []).reduce(function (n, r) { return n + (r.muted || r.extra ? 0 : unread(r)); }, 0);
+    var h = '<div class="seg mseg" role="tablist" style="grid-template-columns:repeat(3,minmax(0,1fr))">' +
+      [['program', 'Mit program'], ['snak', 'Snak' + (unreadRooms ? ' <span class="badge sm">' + unreadRooms + '</span>' : '')], ['profil', 'Profil']].map(function (x) {
+        return '<button role="tab" aria-selected="' + (sub === x[0]) + '" data-go="#/tilmeld' + (x[0] === 'program' ? '' : '/' + x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>';
+    if (sub === 'snak') return h + minSnak();
+    if (sub === 'profil') return h + minProfil(P, parent, myTeams);
+    return h + minProgram(P, parent, myTeams);
+  }
+  // ---- Min side · Mit program: det der kræver noget af dig + dit program de næste 14 dage ----
+  function minProgram(P, parent, myTeams) {
+    var h = '', today = iso(new Date()), now = nowLocal(), fids = follows();
+    // Holdleder: kampe der mangler udtagelse
+    if (isLeader()) {
+      var todo = 0;
+      leaderTeams().forEach(function (ti) { var t = D.teams[ti], mi = nextMatchIdx(t); if (mi >= 0 && !lineupFor(t.matches[mi])) todo++; });
+      if (todo) h += '<button class="card row alert" data-go="#/holdleder"><span class="col"><b style="font-size:14px">' + todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse</b><span class="xs">Holdleder · tryk for at udtage</span></span><span class="h" style="font-size:20px">›</span></button>';
+    }
+    // Saml programmet: kampe for hold man følger, ens træning, appens aktiviteter
+    var items = [];
+    D.teams.forEach(function (t, ti) {
+      if (fids.indexOf(teamFid(t)) < 0) return;
+      t.matches.forEach(function (m, mi) { if (!m.played && m.date >= today && m.date <= iso(addDays(new Date(), 13))) items.push({ k: 'match', d: m.date, t: m.time || '', team: t, ti: ti, m: m, mi: mi, eid: matchEid(m) }); });
+    });
+    for (var i = 0; i < 14; i++) {
+      var ds = iso(addDays(new Date(), i));
+      (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && myHoldPass(e.team, e.hold, e.also)) items.push({ k: 'training', d: ds, t: e.time, e: e, eid: e.eid }); });
+    }
+    (PLAN.list || []).forEach(function (a) { if (a.end >= now && a.start.slice(0, 10) <= iso(addDays(new Date(), 13))) items.push({ k: 'plan', d: a.start.slice(0, 10) < today ? today : a.start.slice(0, 10), t: a.start.slice(11, 16), a: a }); });
+    items.sort(function (x, y) { return (x.d + x.t).localeCompare(y.d + y.t); });
+    var missing = items.filter(function (x) { return x.eid && !mine(x.eid); }).length;
+    // Valgt en træningsgruppe med flere hold uden at vælge sit hold → alle holdenes træning kommer med
+    var wide = (ME.groups || []).filter(function (g) { var hs = trHolds(g); return hs.length > 1 && !(ME.holds || []).some(function (x) { return hs.indexOf(x) >= 0; }); });
+    if (wide.length) h += '<button class="card row alert" data-go="#/tilmeld/profil"><span class="col"><b style="font-size:14px">Vælg dit hold i ' + esc(wide.join(' og ')) + '</b>' +
+      '<span class="xs">Lige nu står træningen for alle ' + esc(wide.join('/')) + '-hold i dit program. Vælg dit eget hold under Profil.</span></span><span class="h" style="font-size:20px">›</span></button>';
+    var tasks = []; (PLAN.list || []).forEach(function (a) { if (a.end >= now) a.tasks.forEach(function (t) { if (t.mine) tasks.push({ a: a, t: t }); }); });
+    if (missing || tasks.length) {
+      h += '<div class="tiles" style="grid-template-columns:repeat(2,minmax(0,1fr))">' +
+        '<div class="card tile' + (missing ? ' warn2' : '') + '"><span class="lbl" style="margin:0">Mangler dit svar</span><b>' + missing + '</b></div>' +
+        '<button class="card tile" data-go="#/aktiviteter/oversigt" style="text-align:left;font-size:inherit"><span class="lbl" style="margin:0">Dine opgaver</span><b>' + tasks.length + '</b></button></div>';
+    }
+    if (tasks.length) h += tasks.slice(0, 3).map(function (x) {
+      return '<button class="card row" style="min-height:48px;border-left:5px solid var(--plan)" data-go="#/aktivitet/' + encodeURIComponent(x.a.id) + '"><span class="col"><b style="font-size:14px">' + esc(x.t.title) + '</b>' +
+        '<span class="xs ellip">' + esc(x.a.name + ' · ' + (x.t.from ? taskTime(x.t, x.a).replace(/^kl\. /, dTxt(x.a.start.slice(0, 10)) + ' kl. ') : rangeTxt(x.a))) + '</span></span><span class="xs">›</span></button>'; }).join('');
+    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Dit program de næste 14 dage</span><button class="pl xs" data-go="#/kalender/uge/' + today + '">Kalender ›</button></div>';
+    if (!items.length) {
+      return h + '<p class="empty">Intet i dit program endnu.</p><p class="note">Følg dine hold og vælg dine træningsgrupper under <button class="pl" style="font-size:inherit;text-decoration:underline" data-go="#/tilmeld/profil">Profil</button>, så kommer kampe og træning her.</p>';
+    }
+    var day = '';
+    items.forEach(function (x) {
+      if (x.d !== day) { day = x.d; h += '<span class="xs" style="margin:6px 4px 0;font-weight:700;color:var(--ink)">' + (x.d === today ? 'I dag' : x.d === iso(addDays(new Date(), 1)) ? 'I morgen' : esc(DAY_FULL[parseD(x.d).getDay()] + ' ' + dTxt(x.d).replace(/^\S+ /, ''))) + '</span>'; }
+      var need = x.eid && !mine(x.eid) ? ' ans' : '';
+      if (x.k === 'match') {
+        var u = x, label = u.team.label + ' ' + (u.m.isHome ? 'mod ' : '@ ') + u.m.opponent + ' ' + u.m.date;
+        h += '<div class="evwrap' + need + '" style="border-left-color:' + teamColor(u.team.label).bg + '"><button class="evtop" data-go="#/hold/' + u.ti + '/kamp/' + u.mi + '">' +
+          '<span class="col"><b style="font-size:13px">' + esc(u.m.time || '–') + '</b></span>' +
+          '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.team.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveShort(u.m) ? driveShort(u.m) + ' · ' : '') + u.m.venue) + '</span></span>' +
+          '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' + regBlock('match', u.eid, label, false) + '</div>';
+      } else if (x.k === 'training') {
+        var e = x.e;
+        h += '<div class="evwrap tr' + need + '"><div class="evtop"><span class="col"><b style="font-size:13px">' + esc(e.time) + '</b></span>' +
+          '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + '</span></span><span></span></div>' +
+          regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
+      } else {
+        var a = x.a, my = a.tasks.filter(function (t) { return t.mine; }), free = openSlots(a);
+        h += '<button class="ev" style="border-left-color:var(--plan);width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '">' +
+          '<span class="tm">' + esc(a.start.slice(11, 16)) + '</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(a.name) + '</b><span class="xs ellip">' +
+          (my.length ? 'Din opgave: ' + esc(my.map(function (t) { return t.title; }).join(', ')) : free ? free + ' ledige pladser på opgaverne' : 'Aktivitet i appen') + '</span></span><span></span></button>';
+      }
+    });
+    return h;
+  }
+  // ---- Min side · Snak ----
+  function minSnak() {
+    if (SNAK.off) return '<p class="empty">Snak er ikke slået til endnu.</p>';
+    return snakBlock(99) + '<p class="note">Du er med i snakken for de hold du spiller på, følger eller er holdleder for' + (ME.kids && ME.kids.length ? ', dine børns hold' : '') + ' og for de træningsgrupper du har valgt under Profil.</p>';
+  }
+  // ---- Min side · Profil: dig, børn, administration, træningsgrupper, følger, notifikationer ----
+  function minProfil(P, parent, myTeams) {
     var h = '<div class="card me"><span class="av" style="' + (parent ? 'background:' + PARENT.bg + ';color:' + PARENT.fg : avStyle(P)) + '">' + esc(ini(ME.name)) + '</span>' +
-      '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (parent ? 'Forælder til ' + esc(kidsTxt()) : myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span></span>' +
+      '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (parent ? 'Forælder til ' + esc(kidsTxt()) : myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span>' +
+      '<span class="xs ellip">' + esc(ME.email || '') + '</span></span>' +
       '<button class="rb" data-act="logout" style="min-height:36px">Log ud</button></div>';
-    if (!parent && !(ME.kids && ME.kids.length) && REG.ver >= '2026-10-31.2') h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-go="#/boern"><span class="col"><b style="font-size:14px">Er du også forælder?</b>' +
-      '<span class="xs">Tilføj dine børn — så kommer du med i deres holds snak</span></span><span class="xs">›</span></button>';
     if (parent || (ME.kids && ME.kids.length)) h += '<button class="card row" style="min-height:52px" data-go="#/boern"><span class="col"><b style="font-size:14px">Mine børn</b>' +
       '<span class="xs ellip">' + (ME.kids && ME.kids.length ? esc(ME.kids.map(function (k) { var kp = D.players[k.id]; return k.name.split(' ')[0] + (kp && kp.teams.length ? ' (' + kp.teams.join(', ') + ')' : ''); }).join(' · ')) : 'Vælg dit barn') + '</span></span><span class="xs">Ret ›</span></button>';
-
-    if (isLeader()) {   // holdleder-administrationen har sin egen side (#/holdleder)
+    else if (REG.ver >= '2026-10-31.2') h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-go="#/boern"><span class="col"><b style="font-size:14px">Er du også forælder?</b>' +
+      '<span class="xs">Tilføj dine børn — så kommer du med i deres holds snak</span></span><span class="xs">›</span></button>';
+    if (isLeader()) {
       var todo = 0, ready = 0;
       leaderTeams().forEach(function (ti) { var t = D.teams[ti], mi = nextMatchIdx(t); if (mi < 0) return; var lu = lineupFor(t.matches[mi]);
         if (!lu) todo++; else if (lu.status === 'klar' || lu.status === 'indtastet') ready++; });
-      h += '<button class="card row" style="min-height:60px" data-go="#/holdleder"><span class="col"><b style="font-size:15px">Holdleder' + (ME.role.admin ? ' · administrator' : '') + '</b>' +
-        '<span class="xs">' + (todo ? todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse' : 'Alle næste kampe er udtaget') + (ready ? ' · ' + ready + ' klar' : '') + '</span></span><span class="h" style="font-size:20px">›</span></button>';
+      h += '<button class="card row" style="min-height:58px;border-left:5px solid var(--ink)" data-go="#/holdleder"><span class="col"><b style="font-size:15px">Administration</b>' +
+        '<span class="xs">' + (ME.role.admin ? 'Administrator · nyheder, aktiviteter, holdledere · ' : 'Holdleder · ') + (todo ? todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse' : 'alle næste kampe er udtaget') + '</span></span><span class="h" style="font-size:20px">›</span></button>';
     }
-    loadRooms(false);
-    h += newsBlock();
-    h += actBlock();
-    h += snakBlock(4);
-    var myAns = Object.keys(REG.map).filter(function (k) { return k.slice(k.lastIndexOf('|') + 1) === ME.id; }).length;
-    h += '<p class="note">' + (myAns ? 'Du har svaret på ' + myAns + (myAns === 1 ? ' aktivitet.' : ' aktiviteter.') : 'Du har ikke svaret på noget endnu.') + '</p>';
-    // Kommende kampe for de hold man følger (vises nederst)
-    var fids = follows();
-    var ups = [];
-    D.teams.forEach(function (t, ti) {
-      if (fids.indexOf(teamFid(t)) < 0) return;
-      t.matches.forEach(function (m, mi) { if (!m.played && m.date >= today) ups.push({ t: t, ti: ti, m: m, mi: mi }); });
-    });
-    ups.sort(function (a, b) { return (a.m.date + a.m.time).localeCompare(b.m.date + b.m.time); });
-    var mh = '<span class="lbl">Kommende kampe for hold du følger</span>';
-    if (ups.length) mh += ups.slice(0, 12).map(function (u) {
-      var label = u.t.label + ' ' + (u.m.isHome ? 'mod ' : '@ ') + u.m.opponent + ' ' + u.m.date;
-      return '<div class="evwrap" style="border-left-color:' + teamColor(u.t.label).bg + '"><button class="evtop" data-go="#/hold/' + u.ti + '/kamp/' + u.mi + '">' +
-        '<span class="col"><b style="font-size:13px">' + dTxt(u.m.date) + '</b><span class="xs">' + esc(u.m.time || '') + '</span></span>' +
-        '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.t.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveShort(u.m) ? driveShort(u.m) + ' · ' : '') + u.m.venue) + '</span></span>' +
-        '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' + regBlock('match', matchEid(u.m), label, false) + '</div>';
-    }).join('') + (ups.length > 12 ? '<p class="note">+ ' + (ups.length - 12) + ' flere — se holdenes sider.</p>' : '');
-    else if (D.teams.some(function (t) { return fids.indexOf(teamFid(t)) >= 0; })) mh += '<p class="empty">Ingen kommende kampe for de hold du følger.</p>';
-    else {
-      var mine = D.teams.filter(function (t) { return myTeams.indexOf(t.label) >= 0; });
-      mh += '<p class="empty" style="margin-bottom:6px">Du følger ingen hold endnu. Følg et hold for at se dets kampe her og få besked før kampene.</p>' +
-        (mine.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px">' + mine.map(function (t) {
-          return '<button class="chip" data-follow="' + esc(teamFid(t)) + '">☆ Følg ' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') +
-        '<p class="note">Eller tryk <b>☆ Følg holdet</b> på et holds side under Hold.</p>';
-    }
-    h += pushCard();
-    h += shopCard();
-    h += followedBlock();
-    if (P) h += playerTourBlock(P, 4);
-    // Træning
-    h += '<span class="lbl">Træning de næste 14 dage</span><div class="chips" role="group" aria-label="Mine træningshold">' + GROUPS.map(function (g) {
+    // Træningsgrupper og hold
+    h += '<span class="lbl">Mine træningsgrupper</span><div class="chips" role="group" aria-label="Mine træningsgrupper" style="flex-wrap:wrap">' + GROUPS.map(function (g) {
       return '<button class="chip" aria-pressed="' + (ME.groups.indexOf(g) >= 0) + '" data-group="' + g + '">' + g + '</button>'; }).join('') + '</div>';
     GROUPS.forEach(function (g) {
       var hs = ME.groups.indexOf(g) >= 0 ? trHolds(g) : [];
-      if (hs.length > 1) h += '<span class="xs" style="display:block;margin:6px 0 4px">' + esc(g) + ': vælg dit hold (ingen valgt = alle)</span><div class="chips" role="group" aria-label="Mine hold – ' + esc(g) + '">' +
+      if (hs.length > 1) h += '<span class="xs" style="display:block;margin:2px 4px 0">' + esc(g) + ': vælg dit hold (ingen valgt = alle)</span><div class="chips" role="group" aria-label="Mine hold – ' + esc(g) + '" style="flex-wrap:wrap">' +
         hs.map(function (x) { return '<button class="chip" aria-pressed="' + ((ME.holds || []).indexOf(x) >= 0) + '" data-mhold="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</div>';
     });
-    var tr = [];
-    for (var i = 0; i < 14; i++) {
-      var ds = iso(addDays(new Date(), i));
-      (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && myHoldPass(e.team, e.hold, e.also)) tr.push(e); });
+    h += '<p class="note">Bestemmer hvilken træning der står i dit program og hvilke træningsgruppers snak du er med i.</p>';
+    // Hold og turneringer du følger
+    var fb = followedBlock();
+    if (fb) h += fb;
+    else {
+      var mineT = D.teams.filter(function (t) { return myTeams.indexOf(t.label) >= 0; });
+      h += '<span class="lbl">Hold du følger</span><p class="empty" style="margin-bottom:6px">Du følger ingen hold endnu. Følg et hold for at få dets kampe i dit program og besked før kampene.</p>' +
+        (mineT.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px">' + mineT.map(function (t) { return '<button class="chip" data-follow="' + esc(teamFid(t)) + '">☆ Følg ' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') +
+        '<p class="note">Eller tryk <b>☆ Følg holdet</b> på et holds side under Hold.</p>';
     }
-    h += tr.length ? tr.map(function (e) {
-      var d = parseD(e.date);
-      return '<div class="evwrap tr"><div class="evtop"><span class="col"><b style="font-size:13px">' + dTxt(e.date) + '</b><span class="xs">' + esc(e.time) + '</span></span>' +
-        '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + ' · ' + DAY_FULL[d.getDay()] + '</span></span><span></span></div>' +
-        regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
-    }).join('') : '<p class="empty">Vælg dine træningshold ovenfor.</p>';
-    var nextAkt = ACT.events.filter(function (a) { return a.date >= today; }).slice(0, 3);
-    if (nextAkt.length) h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Aktiviteter fra hoebk.dk</span><button class="pl xs" data-go="#/kalender/maaned/' + today + '">Kalender ›</button></div>' +
-      nextAkt.map(function (a) { return '<a class="ev" style="border-left-color:var(--akt);text-decoration:none;color:inherit" href="https://hoebk.dk/kalender" target="_blank" rel="noopener"><span class="tm">' + esc(dTxt(a.date)) + '</span>' +
-        '<span class="col"><b style="font-size:14px" class="ellip">' + esc(a.title) + '</b><span class="xs ellip">' + esc((a.time ? a.time + (a.end ? '–' + a.end : '') : '') + (a.place ? ' · ' + a.place : '')) + '</span></span><span></span></a>'; }).join('');
-    h += mh;
+    if (P) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--tour)" data-go="#/spiller/' + encodeURIComponent(P.id) + '"><span class="col"><b style="font-size:14px">Turneringer for dit niveau</b><span class="xs">Din spillerside med resultater og turneringer der passer dig</span></span><span class="xs">›</span></button>';
+    h += '<span class="lbl">Indstillinger</span>' + pushCard() + shopCard();
     return h;
   }
   function renderMeList() {
@@ -2837,7 +2883,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     else if (parts[0] === 'nyt') { lastTab = 'nyt'; html = viewNyt(); }
     else if (parts[0] === 'spillere') { lastTab = 'spillere'; html = viewSpillere(); }
     else if (parts[0] === 'kalender') { lastTab = 'kalender'; html = viewCal(parts[1] || 'maaned', parts[2]); }
-    else if (parts[0] === 'tilmeld') { lastTab = 'tilmeld'; html = viewTilmeld(); }
+    else if (parts[0] === 'tilmeld') { lastTab = 'tilmeld'; html = viewTilmeld(parts[1]); }
     else if (parts[0] === 'turneringer') { html = viewTurneringer(); }
     else if (parts[0] === 'turnering') { html = viewTurnering(decodeURIComponent(parts[1] || '')); }
     else if (parts[0] === 'udtag') { html = viewUdtag(parts[1] !== undefined ? +parts[1] : undefined, parts[2] !== undefined ? +parts[2] : undefined); }
