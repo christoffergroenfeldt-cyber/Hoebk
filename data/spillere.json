@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T05:22:29+00:00",
+ "updated": "2026-10-31T11:36:47+00:00",
  "season": "2026",
  "clubRanking": [
   {
@@ -18770,7 +18770,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "1053",
+    "level": "",
     "rankings": [
      {
       "list": "Single",
@@ -22042,7 +22042,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "1073",
+    "level": "",
     "rankings": [
      {
       "list": "Single",
@@ -25720,7 +25720,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "1073",
+    "level": "",
     "rankings": [
      {
       "list": "Single",
@@ -29772,7 +29772,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "1014",
+    "level": "",
     "rankings": [],
     "license": "Ingen"
    }

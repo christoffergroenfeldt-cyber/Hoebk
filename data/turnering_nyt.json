@@ -246,6 +246,10 @@
   ],
   "119288": [
    {
+    "d": "2026-10-31",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   },
+   {
     "d": "2026-10-30",
     "t": "Deltagerlisten er offentliggjort"
    }
@@ -359,6 +363,12 @@
     "d": "2026-10-31",
     "t": "Resultaterne er klar"
    }
+  ],
+  "116479": [
+   {
+    "d": "2026-10-31",
+    "t": "Invitationen er lagt ud"
+   }
   ]
  },
  "alias": {
@@ -366,5 +376,5 @@
   "xe5b31052e6": "119983",
   "119984": "x6461fd35a5"
  },
- "updated": "2026-10-31T05:22:33+00:00"
+ "updated": "2026-10-31T11:36:54+00:00"
 }
