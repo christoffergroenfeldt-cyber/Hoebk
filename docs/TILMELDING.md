@@ -121,6 +121,12 @@ How it's sent: the script can't sign web-push messages, so `notify` answers GitH
 
 To replace the key pair: generate a new P-256 key, put the public key (base64url, uncompressed point) in `config.json` and the private key (base64url, 32 bytes) in `VAPID_PRIVATE`. Everyone must then switch notifications on again.
 
+## Parents
+
+On the login screen, **Forælder til en spiller?** lets a parent sign up with their *own* name (id `p:<name>`) and pick one or more children from the player list; the code goes to the parent's own email. The children are stored in the tab **Forældre** (one row per child) and can be changed later under *Min side → Mine børn* (`action: children`).
+
+A parent is automatically in the chat rooms of their children's teams (and gets push and news for them), can follow any team, pick training groups and chat there like everyone else. Parents have a dark Ungdom-green circle (`PARENT` in `index.html`) and their messages show *Forælder til <child>*. The button only appears once the script reports version `2026-10-31.2` or later. The older way — logging in under the child's name with a parent's email — still works.
+
 ## Snak and news — notifications
 
 New chat messages and news marked *Send også som notifikation* are pushed, never mailed (the ~100 mails/day quota is kept for login codes and match/tournament mails).
@@ -131,7 +137,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.1`.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.2` (parents) or later.
 
 ## Lineup rules in the app
 

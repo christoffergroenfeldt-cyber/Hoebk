@@ -209,6 +209,7 @@ main.chat{padding-bottom:0}
 .msg.pending{opacity:.6}
 .msg .who2{font-size:12px;font-weight:700;color:var(--muted)}
 .msg.me .who2{align-self:flex-end}
+.msg .par{font-weight:700;font-size:11px;color:#fff;background:#5F7D0F;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .msg .txt{font-size:15px;line-height:1.4}
 .msg .meta{align-self:flex-end;font-size:11px;color:var(--muted2);display:flex;gap:8px;align-items:center}
 .msg .del{border:0;background:none;padding:2px 0;font-size:11px;color:var(--muted);text-decoration:underline;min-height:24px}
@@ -283,13 +284,15 @@ textarea.inp{resize:vertical;line-height:1.45}
   var MONS = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   var DAYS = ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'];
   // Farve på spillerens cirkel = rækken spilleren har flest kampe i (samme farver som kalenderen).
-  // Forældre og andre uden holdkampe bliver grå.
-  var PARENT = { bg: '#C9CED3', fg: '#0E2236' };
+  // Forældre: mørk ungdomsgrøn. Spillere uden holdkampe og uden niveau: grå.
+  var PARENT = { bg: '#5F7D0F', fg: '#FFFFFF' };
+  var NOLEVEL = { bg: '#C9CED3', fg: '#0E2236' };
+  function isParentId(id) { return /^p:/.test(String(id || '')); }
   function playerColor(p) {
-    if (!p) return PARENT;
+    if (!p) return NOLEVEL;
     if (!p.teams || !p.teams.length) {   // ingen holdkampe: ud fra rangliste-niveau (U… = ungdom, SEN… = senior)
       var lv = (typeof playerLevels === 'function' ? playerLevels(p) : [])[0] || ((p.profile || {}).level || '');
-      return /^U\d/.test(lv) ? teamColor('U15') : /^(SEN|MOT|VET|\+)/.test(lv) ? teamColor('Serie') : PARENT;
+      return /^U\d/.test(lv) ? teamColor('U15') : /^(SEN|MOT|VET|\+)/.test(lv) ? teamColor('Serie') : NOLEVEL;
     }
     var n = {}; (p.games || []).forEach(function (g) { n[g.team] = (n[g.team] || 0) + 1; });
     var main = p.teams.slice().sort(function (a, b) { return (n[b] || 0) - (n[a] || 0); })[0];
@@ -310,7 +313,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   }
   function avStyle(p) { var c = playerColor(p); return 'background:' + c.bg + ';color:' + c.fg; }
   function colorLegend() {
-    return '<div class="legend">' + [['Senior', '#2F6FB3'], ['4 spillere', '#7FD3F7'], ['Motion', '#E58A2E'], ['Ungdom', '#D4F25A'], ['Forælder / uden niveau', PARENT.bg]].map(function (x) {
+    return '<div class="legend">' + [['Senior', '#2F6FB3'], ['4 spillere', '#7FD3F7'], ['Motion', '#E58A2E'], ['Ungdom', '#D4F25A'], ['Forælder', PARENT.bg], ['Uden niveau', NOLEVEL.bg]].map(function (x) {
       return '<span><i style="background:' + x[1] + '"></i>' + x[0] + '</span>'; }).join('') + '</div>';
   }
   var METRICS = { won: ['Vundne kampe', 'won', 'vundet'], pct: ['Sejr %', 'winPct', '%'],
@@ -1371,6 +1374,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       .then(function (cfg) {
         REG.url = (cfg && cfg.registrationUrl) || '';
         REG.vapid = (cfg && cfg.vapidPublicKey) || '';
+        if (REG.url && !REG.ver) fetch(REG.url + '?action=version').then(function (r) { return r.json(); })   // forældre-login kræver script-version 2026-10-31.2
+          .then(function (v) { REG.ver = (v && v.version) || ''; if (!ME || !ME.token) route(true); }).catch(function () {});
         var src = REG.url ? REG.url + '?action=status' : 'data/tilmeldinger.json' + bust;
         return fetch(src).then(function (r) { return r.json(); })
           .catch(function () { return REG.url ? fetch('data/tilmeldinger.json' + bust).then(function (r) { return r.json(); }) : null; });
@@ -1467,7 +1472,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (UI.step === 'email') {
         setHeader('Log ind', UI.pending.name, true);
         return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">' +
-          '<b>Hvilken e-mail skal koden sendes til?</b><span class="s">Brug din egen eller en forælders e-mail. Den gemmes kun hos klubben.</span>' +
+          '<b>Hvilken e-mail skal koden sendes til?</b><span class="s">' + (UI.pending.kids && UI.pending.kids.length ? 'Din egen e-mail' : 'Brug din egen eller en forælders e-mail') + '. Den gemmes kun hos klubben.</span>' +
           '<div class="card search"><input id="email" type="email" inputmode="email" autocomplete="email" placeholder="navn@eksempel.dk" aria-label="E-mail" value="' + esc(UI.email || '') + '"></div>' +
           '<button class="rb ja" id="sendcode" aria-pressed="true" style="min-height:46px">Send kode</button></div>';
       }
@@ -1479,6 +1484,15 @@ textarea.inp{resize:vertical;line-height:1.45}
           '<button class="rb ja" id="verify" aria-pressed="true" style="min-height:46px">Log ind</button>' +
           '<button class="pl s" id="resend" style="align-self:flex-start">Send en ny kode</button></div>';
       }
+      if (UI.step === 'parent') {
+        setHeader('Forælder', 'Opret dig som forælder', true);
+        return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">' +
+          '<b>Dit navn</b><span class="s">Dit eget navn — det står ved dine beskeder i snakken.</span>' +
+          '<div class="card search"><input id="pname" type="text" autocomplete="name" maxlength="60" placeholder="Fx Anne Hansen" aria-label="Dit fulde navn" value="' + esc(UI.pname || '') + '"></div></div>' +
+          kidPicker('Hvem er du forælder til?') +
+          '<button class="rb ja" aria-pressed="true" data-act="parentnext" style="min-height:48px;font-size:15px">Fortsæt</button>' +
+          '<p class="note">Som forælder kommer du med i dine børns holds snak, får nyheder til deres hold og kan følge hold og træningsgrupper.</p>';
+      }
       setHeader('Log ind', 'Vælg dit navn', false);
       loadPub();
       return newsBlock() + '<p class="s" style="margin:0 4px">Vælg dit navn, så sender vi en kode til din e-mail.</p><label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
@@ -1486,17 +1500,22 @@ textarea.inp{resize:vertical;line-height:1.45}
         '<div id="mlist" class="col" style="gap:6px"></div>' +
         '<span class="lbl">Ikke på listen?</span><div class="card search"><input id="newname" type="text" placeholder="Skriv dit fulde navn" aria-label="Dit fulde navn" autocomplete="name" maxlength="60">' +
         '<button class="rb" id="newok" style="min-height:36px">Brug</button></div>' +
-        '<p class="note">Listen viser alle spillere registreret i Hørsholm på badmintonplayer.dk. Står du ikke på listen, kan du skrive dit navn.</p>';
+        '<p class="note">Listen viser alle spillere registreret i Hørsholm på badmintonplayer.dk. Står du ikke på listen, kan du skrive dit navn.</p>' +
+        (REG.ver >= '2026-10-31.2' ? '<button class="card row" style="min-height:60px;border-left:5px solid ' + PARENT.bg + '" data-act="parentstart"><span class="col"><b style="font-size:15px">Forælder til en spiller?</b>' +
+        '<span class="xs">Opret dig med dit eget navn og vælg dit barn</span></span><span class="h" style="font-size:20px">›</span></button>' : '');
     }
     if (UI.pick) { UI.pick = false; }
-    var P = D.players[ME.id];
+    var P = D.players[ME.id], parent = isParentId(ME.id);
     var myTeams = P ? P.teams : [];
+    if (parent) myTeams = kidTeams();
     if (!ME.groups) { ME.groups = defaultGroups(myTeams); saveMe(); }
     setHeader('Min side', ME.email || ME.name, false);
     var today = iso(new Date());
-    var h = '<div class="card me"><span class="av" style="' + avStyle(P) + '">' + esc(ini(ME.name)) + '</span>' +
-      '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span></span>' +
+    var h = '<div class="card me"><span class="av" style="' + (parent ? 'background:' + PARENT.bg + ';color:' + PARENT.fg : avStyle(P)) + '">' + esc(ini(ME.name)) + '</span>' +
+      '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (parent ? 'Forælder til ' + esc(kidsTxt()) : myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span></span>' +
       '<button class="rb" data-act="logout" style="min-height:36px">Log ud</button></div>';
+    if (parent || (ME.kids && ME.kids.length)) h += '<button class="card row" style="min-height:52px" data-go="#/boern"><span class="col"><b style="font-size:14px">Mine børn</b>' +
+      '<span class="xs ellip">' + (ME.kids && ME.kids.length ? esc(ME.kids.map(function (k) { var kp = D.players[k.id]; return k.name.split(' ')[0] + (kp && kp.teams.length ? ' (' + kp.teams.join(', ') + ')' : ''); }).join(' · ')) : 'Vælg dit barn') + '</span></span><span class="xs">Ret ›</span></button>';
 
     if (isLeader()) {   // holdleder-administrationen har sin egen side (#/holdleder)
       var todo = 0, ready = 0;
@@ -1584,7 +1603,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) { toast('Skriv en gyldig e-mail'); return; }
     UI.email = em;
     var btn = document.getElementById('sendcode') || document.getElementById('resend'); if (btn) btn.disabled = true;
-    api({ action: 'request', email: em, playerId: UI.pending.id, playerName: UI.pending.name })
+    api({ action: 'request', email: em, playerId: UI.pending.id, playerName: UI.pending.name, children: UI.pending.kids || [] })
       .then(function (res) {
         if (!res || !res.ok) throw new Error((res && res.error) || 'Kunne ikke sende kode');
         UI.step = 'code'; route(); toast('Kode sendt');
@@ -1600,7 +1619,9 @@ textarea.inp{resize:vertical;line-height:1.45}
       .then(function (res) {
         if (!res || !res.ok) throw new Error((res && res.error) || 'Forkert kode');
         var p = res.player;
-        ME = { id: p.id, name: p.name, email: p.email, token: res.token, role: res.role || null, follows: res.follows || [], groups: defaultGroups(D.players[p.id] ? D.players[p.id].teams : []) };
+        ME = { id: p.id, name: p.name, email: p.email, token: res.token, role: res.role || null, follows: res.follows || [], kids: res.kids || [] };
+        ME.groups = defaultGroups(isParentId(p.id) ? kidTeams() : D.players[p.id] ? D.players[p.id].teams : []);
+        UI.kids = {}; UI.pname = '';
         saveMe(); UI.step = 'name'; UI.pending = null;
         toast('Hej ' + p.name.split(' ')[0] + '!'); route(); loadRooms(true);
       })
@@ -1621,7 +1642,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function refreshRole() {
     if (!REG.url || !ME || !ME.token) return Promise.resolve();
     return api({ action: 'me', token: ME.token }).then(function (res) {
-      if (res && res.ok) { ME.role = res.role || null; if (Array.isArray(res.follows)) ME.follows = res.follows; if (res.settings) ME.settings = res.settings; saveMe(); route(true); }
+      if (res && res.ok) { ME.role = res.role || null; if (Array.isArray(res.follows)) ME.follows = res.follows; if (res.settings) ME.settings = res.settings; if (Array.isArray(res.kids)) ME.kids = res.kids; saveMe(); route(true); }
       else if (res && res.error === 'login') { ME = null; saveMe(); route(true); }
     }).catch(function () {});
   }
@@ -2080,6 +2101,68 @@ textarea.inp{resize:vertical;line-height:1.45}
     return h;
   }
 
+  // ---------- Forældre ----------
+  // En forælder logger ind med sit eget navn (id "p:<navn>") og vælger sine børn blandt spillerne.
+  function kidTeams() {
+    var t = [];
+    (ME && ME.kids || []).forEach(function (k) { var kp = D.players[k.id]; (kp ? kp.teams : []).forEach(function (x) { if (t.indexOf(x) < 0) t.push(x); }); });
+    return t;
+  }
+  function kidsTxt() { var k = (ME && ME.kids) || []; return k.length ? k.map(function (x) { return x.name.split(' ')[0]; }).join(' og ').replace(/ og (?=.* og )/g, ', ') : '—'; }
+  function kidPicker(title) {
+    UI.kids = UI.kids || {};
+    var sel = Object.keys(UI.kids);
+    return '<span class="lbl">' + esc(title) + '</span>' +
+      (sel.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px">' + sel.map(function (id) {
+        return '<button class="chip" aria-pressed="true" data-kid="' + esc(id) + '" aria-label="Fjern ' + esc(UI.kids[id]) + '">' + esc(UI.kids[id]) + ' ✕</button>'; }).join('') + '</div>' : '<p class="note">Søg efter dit barn og tryk på navnet. Du kan vælge flere.</p>') +
+      '<label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
+      '<input id="kq" type="search" value="' + esc(UI.kq || '') + '" placeholder="Søg barnets navn" aria-label="Søg barnets navn" autocomplete="off"></label>' +
+      '<div id="klist" class="col" style="gap:6px"></div>';
+  }
+  function renderKidList() {
+    var el = document.getElementById('klist'); if (!el) return;
+    var q = (UI.kq || '').toLowerCase().trim();
+    if (q.length < 2) { el.innerHTML = ''; return; }
+    var list = D.ids.filter(function (id) { var p = D.players[id]; return !UI.kids[id] && p.name.toLowerCase().indexOf(q) >= 0; })
+      .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); }).slice(0, 12);
+    el.innerHTML = list.map(function (id) {
+      var p = D.players[id];
+      return '<button class="card row" style="min-height:52px;padding:8px 12px" data-kid="' + esc(id) + '">' +
+        '<span class="av" style="width:34px;height:34px;font-size:12px;' + avStyle(p) + '">' + esc(ini(p.name)) + '</span>' +
+        '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(teamsTxt(p)) + '</span></span><span class="xs">+ Vælg</span></button>';
+    }).join('') || '<p class="empty">Ingen spiller med det navn.</p>';
+  }
+  function toggleKid(id) {
+    UI.kids = UI.kids || {};
+    if (UI.kids[id]) delete UI.kids[id]; else { UI.kids[id] = D.players[id] ? D.players[id].name : id; UI.kq = ''; }
+    route(true);
+  }
+  function kidsList() { return Object.keys(UI.kids || {}).map(function (id) { return { id: id, name: UI.kids[id] }; }); }
+  function parentNext() {
+    var n = ((document.getElementById('pname') || {}).value || UI.pname || '').trim().replace(/\s+/g, ' ');
+    UI.pname = n;
+    if (n.split(' ').length < 2) { toast('Skriv dit fulde navn'); return; }
+    if (!kidsList().length) { toast('Vælg dit barn'); return; }
+    UI.pending = { id: 'p:' + n.toLowerCase().replace(/[^a-z0-9æøå]+/g, '-'), name: n, kids: kidsList() };
+    UI.step = 'email'; route();
+  }
+  function viewBoern() {
+    setTab('tilmeld'); setHeader('Mine børn', ME ? ME.name : '', true);
+    if (!ME || !ME.token) return '<p class="empty">Log ind på Min side først.</p>';
+    if (!UI.kidsEdit) { UI.kids = {}; (ME.kids || []).forEach(function (k) { UI.kids[k.id] = k.name; }); UI.kidsEdit = true; }
+    return kidPicker('Du er forælder til') +
+      '<button class="rb ja" aria-pressed="true" data-act="kidsave" style="min-height:48px;font-size:15px">Gem</button>' +
+      '<p class="note">Du kommer med i snakken for dine børns hold og får nyheder til holdene.</p>';
+  }
+  function saveKids() {
+    var kids = kidsList();
+    if (isParentId(ME.id) && !kids.length) { toast('Vælg mindst ét barn'); return; }
+    api({ action: 'children', token: ME.token, children: kids }).then(function (r) {
+      if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
+      ME.kids = r.kids || kids; saveMe(); UI.kidsEdit = false; toast('Gemt'); SNAK.at = 0; loadRooms(true); location.hash = '#/tilmeld';
+    }).catch(function (err) { toast(err.message); });
+  }
+
   // ---------- Snak (beskeder i hold og træningsgrupper) + nyheder ----------
   // Rum: "h:<leagueGroupTeamID>" (holdet) og "g:<gruppe>" (træningsgruppe). Serveren afgør hvem der er med.
   // Beskeder ligger kun i klubbens Google Sheet — aldrig i GitHub.
@@ -2196,7 +2279,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       var d = iso(new Date(m.t));
       if (d !== day) { day = d; h += '<div class="msgday">' + (d === iso(new Date()) ? 'I dag' : esc(dTxt(d))) + '</div>'; }
       h += '<div class="msg' + (m.mine ? ' me' : '') + (m.pending ? ' pending' : '') + '">' +
-        '<span class="who2">' + esc(m.n) + '</span>' +
+        '<span class="who2">' + esc(m.n) + (isParentId(m.p) ? ' <span class="par">Forælder' + (m.k && m.k.length ? ' til ' + esc(m.k.join(' og ')) : '') + '</span>' : '') + '</span>' +
         '<span class="txt">' + fmtText(m.x) + '</span>' +
         '<span class="meta">' + (m.pending ? 'Sender …' : hhmm(m.t)) +
         ((m.mine || M.canMod) && !m.pending ? ' <button class="del" data-msgdel="' + esc(m.id) + '" aria-label="Slet besked">Slet</button>' : '') + '</span></div>';
@@ -2257,7 +2340,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function sendMsg() {
     var room = curRoom(), ta = document.getElementById('msgText'); if (!room || !ta) return;
     var text = ta.value.trim(); if (!text || SNAK.sending) return;
-    var M = SNAK.msgs[room], tmp = { id: 'tmp' + Date.now(), t: Date.now(), p: ME.id, n: ME.name, x: text, mine: true, pending: true };
+    var M = SNAK.msgs[room], tmp = { id: 'tmp' + Date.now(), t: Date.now(), p: ME.id, n: ME.name, x: text, mine: true, pending: true, k: (ME.kids || []).map(function (k) { return k.name.split(' ')[0]; }) };
     M.list.push(tmp); SNAK.sending = true; SNAK.draft[room] = ''; ta.value = ''; ta.style.height = '';
     refreshMsgs(room); scrollBottom();
     api({ action: 'post', token: ME.token, room: room, text: text }).then(function (r) {
@@ -2373,6 +2456,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     var y = $main.scrollTop;
     var parts = (location.hash || '#/tilmeld').replace(/^#\/?/, '').split('/');
     var html;
+    if (parts[0] !== 'boern') UI.kidsEdit = false;
     if (parts[0] === 'holdid') {   // stabile links (fra notifikationer): #/holdid/<leagueGroupTeamID>[/kamp/<matchID>]
       var hti = -1; D.teams.forEach(function (t, i) { if (t.leagueGroupTeamID === parts[1]) hti = i; });
       var hmi = hti >= 0 && parts[3] ? D.teams[hti].matches.map(function (m) { return m.matchID; }).indexOf(parts[3]) : -1;
@@ -2391,6 +2475,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
     else if (parts[0] === 'holdleder') { lastTab = 'tilmeld'; html = viewHoldleder(); }
+    else if (parts[0] === 'boern') { lastTab = 'tilmeld'; html = viewBoern(); }
     else if (parts[0] === 'snak' && parts[1]) { lastTab = 'tilmeld'; html = viewRoom(decodeURIComponent(parts.slice(1).join('/'))); }
     else if (parts[0] === 'snak') { lastTab = 'tilmeld'; html = viewSnak(); }
     else if (parts[0] === 'nyheder' && parts[1] === 'ny') { lastTab = 'tilmeld'; html = viewNewsNew(); }
@@ -2450,6 +2535,12 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (mt.value) grow();
       if (!keepScroll) scrollBottom();
       markSeen(sroom);
+    }
+    if (document.getElementById('kq')) {
+      renderKidList();
+      var kq = document.getElementById('kq');
+      kq.addEventListener('input', function () { UI.kq = kq.value; renderKidList(); });
+      var pn = document.getElementById('pname'); if (pn) pn.addEventListener('input', function () { UI.pname = pn.value; });
     }
     if (parts[0] === 'nyheder' && parts[1] === 'ny' && document.getElementById('nwTitle')) {
       document.getElementById('nwTitle').addEventListener('input', function (e) { SNAK.nf.title = e.target.value; });
@@ -2523,13 +2614,17 @@ textarea.inp{resize:vertical;line-height:1.45}
   });
   document.getElementById('back').addEventListener('click', function () {
     if (location.hash.indexOf('#/tilmeld') === 0 && (!ME || !ME.token) && UI.step && UI.step !== 'name') {
-      UI.step = UI.step === 'code' ? 'email' : 'name'; route(); return;
+      UI.step = UI.step === 'code' ? 'email' : UI.step === 'email' && UI.pending && UI.pending.kids && UI.pending.kids.length ? 'parent' : 'name'; route(); return;
     }
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-msgdel],[data-newsto],[data-newsdel]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-msgdel],[data-newsto],[data-newsdel],[data-kid]');
     if (!b) return;
+    if (b.dataset.kid) { toggleKid(b.dataset.kid); return; }
+    if (b.dataset.act === 'parentstart') { UI.step = 'parent'; route(); return; }
+    if (b.dataset.act === 'parentnext') { parentNext(); return; }
+    if (b.dataset.act === 'kidsave') { saveKids(); return; }
     if (b.dataset.act === 'send') { sendMsg(); return; }
     if (b.dataset.act === 'mute') { toggleMute(); return; }
     if (b.dataset.act === 'newssave') { saveNews(); return; }
@@ -2572,7 +2667,7 @@ textarea.inp{resize:vertical;line-height:1.45}
           if (!sub) return; var j = sub.toJSON(); return sub.unsubscribe().then(function () { return api({ action: 'push', token: tok, on: false, sub: j }); });
         }).catch(function () {}) : Promise.resolve()).then(function () { PUSH.state = 'fra'; return api({ action: 'logout', token: tok }); }).catch(function () {});
       }
-      ME = null; saveMe(); UI.step = 'name'; SNAK.rooms = null; SNAK.news = []; SNAK.msgs = {}; SNAK.canNews = false; updDot(); toast('Du er logget ud'); route(); return;
+      ME = null; saveMe(); UI.step = 'name'; SNAK.rooms = null; SNAK.news = []; SNAK.msgs = {}; SNAK.canNews = false; UI.kids = {}; UI.kidsEdit = false; updDot(); toast('Du er logget ud'); route(); return;
     }
     if (b.dataset.trg) { CAL.trGroup = b.dataset.trg; CAL.trHold = ''; try { localStorage.setItem('hoebk_trg', CAL.trGroup); localStorage.setItem('hoebk_trh', ''); } catch (e3) {} route(true); return; }
     if (b.dataset.trh !== undefined) { CAL.trHold = b.dataset.trh; try { localStorage.setItem('hoebk_trh', CAL.trHold); } catch (e4) {} route(true); return; }

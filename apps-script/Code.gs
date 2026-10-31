@@ -32,6 +32,7 @@
  *  pushGone {key, endpoints[]}                   → GitHub melder døde push-adresser, de slettes
  *  GET ?action=follows&key=NØGLE → hvilke turneringer der følges (kun id'er, ingen e-mails)
  *  logout   {token}
+ *  request  for forældre: playerId "p:<navn>" + children[{id, name}] · children {token, children[]} → ret sine børn
  *  rooms    {token, groups[]}                    → mine snak-rum (hold + træningsgrupper) med seneste aktivitet + nyheder til mig
  *  messages {token, room}                        → beskeder i et rum (kun medlemmer) · post {token, room, text} · delMsg {token, id}
  *  mute     {token, room, on}                    → ingen push for et rum
@@ -41,13 +42,13 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-31.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-31.2';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
   Tilmeldinger: ['tidspunkt', 'type', 'eventId', 'playerId', 'playerName', 'status', 'label'],
   Spillere: ['playerId', 'playerName', 'email', 'bekræftet', 'sidst set'],
-  Koder: ['tidspunkt', 'email', 'kodeHash', 'playerId', 'playerName', 'forsøg', 'brugt'],
+  Koder: ['tidspunkt', 'email', 'kodeHash', 'playerId', 'playerName', 'forsøg', 'brugt', 'børn'],
   Sessioner: ['tokenHash', 'playerId', 'playerName', 'email', 'oprettet', 'sidst brugt', 'aktiv'],
   Ledere: ['email', 'navn', 'hold'],
   Opstillinger: ['tidspunkt', 'eventId', 'hold', 'status', 'gemtAf', 'data'],
@@ -59,6 +60,7 @@ var SHEETS = {
   Nyheder: ['id', 'tidspunkt', 'titel', 'tekst', 'til', 'af', 'slettet'],
   Grupper: ['email', 'playerId', 'grupper'],
   'Lydløs': ['email', 'rum'],
+  'Forældre': ['email', 'forælderId', 'forælderNavn', 'barnId', 'barnNavn', 'tidspunkt'],
   'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag']
 };
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
@@ -86,6 +88,9 @@ function setup() {
   var ss = ss_();
   Object.keys(SHEETS).forEach(function (name) {
     var sh = ss.getSheetByName(name) || ss.insertSheet(name);
+    if (sh.getLastRow() > 0 && sh.getLastColumn() < SHEETS[name].length) {   // ny kolonne i en eksisterende fane
+      sh.getRange(1, 1, 1, SHEETS[name].length).setValues([SHEETS[name]]).setFontWeight('bold');
+    }
     if (sh.getLastRow() === 0) {
       sh.appendRow(SHEETS[name]);
       sh.setFrozenRows(1);
@@ -135,13 +140,15 @@ function request_(b) {
   var email = clean_(b.email, 120).toLowerCase(), pid = clean_(b.playerId, 80), pname = clean_(b.playerName, 80);
   if (!validEmail_(email)) return { ok: false, error: 'Ugyldig e-mail' };
   if (!pid || !pname) return { ok: false, error: 'Vælg dit navn' };
+  var kids = /^p:/.test(pid) ? cleanKids_(b.children) : [];
+  if (/^p:/.test(pid) && !kids.length) return { ok: false, error: 'Vælg dit barn' };
   return withLock_(function () {
     var hourAgo = new Date(Date.now() - 3600000);
     var recent = data_('Koder').filter(function (r) { return r[1] === email && new Date(r[0]) > hourAgo; }).length;
     if (recent >= MAX_CODES_PER_HOUR) return { ok: false, error: 'For mange koder — prøv igen om en time' };
     if (MailApp.getRemainingDailyQuota() < 1) return { ok: false, error: 'Klubbens e-mail-kvote er brugt i dag — prøv i morgen' };
     var code = String(Math.floor(100000 + Math.random() * 900000));
-    sh_('Koder').appendRow([new Date(), email, hash_('c:' + email + ':' + code), safe_(pid), safe_(pname), 0, false]);
+    sh_('Koder').appendRow([new Date(), email, hash_('c:' + email + ':' + code), safe_(pid), safe_(pname), 0, false, kids.length ? JSON.stringify(kids) : '']);
     MailApp.sendEmail({
       to: email,
       subject: 'Din HØBK-kode: ' + code,
@@ -175,7 +182,9 @@ function verify_(b) {
         if (String(known[j][0]) === pid && String(known[j][2]) === email) { sp.getRange(j + 2, 5).setValue(new Date()); found = true; }
       }
       if (!found) sp.appendRow([safe_(pid), safe_(pname), email, new Date(), new Date()]);
-      return { ok: true, token: token, player: { id: pid, name: pname, email: email }, role: role_(email, pid), follows: follows_(email) };
+      var kids = []; try { kids = r[7] ? JSON.parse(r[7]) : []; } catch (e) { kids = []; }
+      if (kids.length) setKids_(email, pid, pname, kids, true);
+      return { ok: true, token: token, player: { id: pid, name: pname, email: email }, role: role_(email, pid), follows: follows_(email), kids: kids_(email) };
     }
     return { ok: false, error: 'Koden er udløbet eller forkert — bed om en ny' };
   });
@@ -405,7 +414,8 @@ function stats_() {
            followers: Object.keys(followers).length, teamFollows: teamF, tourFollows: tourF,
            pushDevices: push.length, pushUsers: Object.keys(pushUsers).length,
            mailOff: data_('Indstillinger').filter(function (r) { return r[1] === false || String(r[1]).toUpperCase() === 'FALSE'; }).length,
-           leaders: data_('Ledere').length };
+           leaders: data_('Ledere').length,
+           parents: (function () { var p = {}; data_('Forældre').forEach(function (r) { p[String(r[0]).toLowerCase()] = 1; }); return Object.keys(p).length; })() };
 }
 
 function register_(b) {
@@ -417,6 +427,36 @@ function register_(b) {
     sh_('Tilmeldinger').appendRow([new Date(), type, safe_(eventId), safe_(ses.playerId), safe_(ses.playerName), status, safe_(clean_(b.label, 120))]);
   });
   return { ok: true };
+}
+
+// ---------- Forældre ----------
+// En forælder logger ind med sit eget navn (id "p:<navn>") og vælger sine børn. Børnene står i fanen Forældre
+// (én række pr. barn). Forældre er med i børnenes holds snak og får deres nyheder — ligesom spillerne.
+function cleanKids_(list) {
+  var seen = {};
+  return (list || []).slice(0, 8).map(function (k) { return { id: clean_(k && k.id, 40), name: clean_(k && k.name, 80) }; })
+    .filter(function (k) { if (!k.id || !k.name || /^p:/.test(k.id) || seen[k.id]) return false; seen[k.id] = 1; return true; });
+}
+function kids_(email) {
+  var em = String(email || '').toLowerCase();
+  return data_('Forældre').filter(function (r) { return String(r[0]).toLowerCase() === em; }).map(function (r) { return { id: String(r[3]), name: String(r[4]) }; });
+}
+function setKids_(email, pid, pname, kids, locked) {   // locked = kaldes inde fra en funktion der allerede har låsen
+  var em = String(email || '').toLowerCase();
+  var write = function () {
+    var sh = sh_('Forældre'), rows = data_('Forældre');
+    for (var i = rows.length - 1; i >= 0; i--) if (String(rows[i][0]).toLowerCase() === em) sh.deleteRow(i + 2);
+    kids.forEach(function (k) { sh.appendRow([em, safe_(pid), safe_(pname), safe_(k.id), safe_(k.name), new Date()]); });
+  };
+  if (locked) write(); else withLock_(write);
+}
+function children_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var kids = cleanKids_(b.children);
+  if (/^p:/.test(ses.playerId) && !kids.length) return { ok: false, error: 'En forælder skal have mindst ét barn' };
+  setKids_(ses.email, ses.playerId, ses.playerName, kids);
+  return { ok: true, kids: kids_(ses.email) };
 }
 
 // ---------- Snak (beskeder i hold og træningsgrupper) + nyheder ----------
@@ -459,7 +499,7 @@ function bool_(v) { return v === true || String(v).toUpperCase() === 'TRUE'; }
 
 // Alle tabeller der skal bruges til at regne medlemskab — læses én gang pr. kald
 function ctx_() {
-  return { teams: teams_(), fol: data_('Følger'), led: data_('Ledere'), grp: data_('Grupper'), admins: {} };
+  return { teams: teams_(), fol: data_('Følger'), led: data_('Ledere'), grp: data_('Grupper'), par: data_('Forældre'), admins: {} };
 }
 function roleIn_(cx, email, pid) {
   var em = String(email || '').toLowerCase().trim(), k = em + '|' + pid;
@@ -478,9 +518,11 @@ function memberRooms_(cx, email, pid, strict) {
   var em = String(email || '').toLowerCase().trim(), role = roleIn_(cx, em, pid), out = {};
   if (strict) role = { admin: false, all: false, teams: role.teams };
   var follows = {}; cx.fol.forEach(function (r) { if (String(r[0]).toLowerCase() === em) follows[String(r[3])] = 1; });
+  var kids = []; (cx.par || []).forEach(function (r) { if (String(r[0]).toLowerCase() === em) kids.push(String(r[3])); });
   Object.keys(cx.teams).forEach(function (id) {
     var t = cx.teams[id];
-    if (role.admin || role.all || role.teams.indexOf(t.l) >= 0 || follows['f' + id] || t.p.indexOf(String(pid)) >= 0) out['h:' + id] = t.l;
+    if (role.admin || role.all || role.teams.indexOf(t.l) >= 0 || follows['f' + id] || t.p.indexOf(String(pid)) >= 0 ||
+        kids.some(function (k) { return t.p.indexOf(k) >= 0; })) out['h:' + id] = t.l;
   });
   var groups = role.admin ? TR_GROUPS : [];
   cx.grp.forEach(function (r) { if (String(r[0]).toLowerCase() === em) groups = groups.concat(String(r[2]).split(',')); });
@@ -549,9 +591,11 @@ function messages_(b) {
   if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
   var room = clean_(b.room, 60), cx = ctx_(), mr = memberRooms_(cx, ses.email, ses.playerId);
   if (!mr[room]) return { ok: false, error: 'Du er ikke med i ' + (/^g:/.test(room) ? 'træningsgruppen' : 'holdet') };
-  var em = ses.email.toLowerCase();
+  var em = ses.email.toLowerCase(), kidsOf = {};   // forældres børn (fornavne) vises ved deres beskeder
+  cx.par.forEach(function (r) { var e = String(r[0]).toLowerCase(); (kidsOf[e] = kidsOf[e] || []).push(String(r[4]).split(' ')[0]); });
   var list = tail_('Beskeder', TAIL).rows.filter(function (r) { return String(r[2]) === room && !bool_(r[7]); }).map(function (r) {
-    return { id: String(r[0]), t: ts_(r[1]), p: String(r[3]), n: String(r[4]), x: String(r[6]), mine: String(r[5]).toLowerCase() === em };
+    var pid = String(r[3]), se = String(r[5]).toLowerCase();
+    return { id: String(r[0]), t: ts_(r[1]), p: pid, n: String(r[4]), x: String(r[6]), mine: se === em, k: /^p:/.test(pid) ? (kidsOf[se] || []) : undefined };
   }).sort(function (a, b) { return a.t - b.t; }).slice(-150);
   return { ok: true, room: room, title: mr[room], messages: list, canMod: canModerate_(cx, ses, room), muted: !!muted_(em)[room] };
 }
@@ -570,7 +614,7 @@ function post_(b) {
     if (recent >= MSG_PER_MIN) return null;
     var id = newId_('b'), now = new Date();
     sh_('Beskeder').appendRow([id, now, safe_(room), safe_(ses.playerId), safe_(ses.playerName), em, safe_(text), false]);
-    return { id: id, t: now.getTime(), p: ses.playerId, n: ses.playerName, x: text, mine: true };
+    return { id: id, t: now.getTime(), p: ses.playerId, n: ses.playerName, x: text, mine: true, k: /^p:/.test(ses.playerId) ? kids_(em).map(function (k) { return k.name.split(' ')[0]; }) : undefined };
   });
   if (!msg) return { ok: false, error: 'Du skriver meget hurtigt — vent et øjeblik' };
   // Push til de andre i rummet (ikke afsenderen, ikke dem der har gjort rummet lydløst)
@@ -712,6 +756,7 @@ function doPost(e) {
       case 'push': return json_(push_(b));
       case 'prefs': return json_(prefs_(b));
       case 'pushGone': return json_(pushGone_(b));
+      case 'children': return json_(children_(b));
       case 'rooms': return json_(rooms_(b));
       case 'messages': return json_(messages_(b));
       case 'post': return json_(post_(b));
@@ -720,7 +765,7 @@ function doPost(e) {
       case 'newsSave': return json_(newsSave_(b));
       case 'newsDel': return json_(newsDel_(b));
       case 'newsList': return json_(newsList_(b));
-      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId), follows: follows_(s.email), settings: settings_(s.email) } : { ok: false, error: 'login' });
+      case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId), follows: follows_(s.email), settings: settings_(s.email), kids: kids_(s.email) } : { ok: false, error: 'login' });
       case 'logout':
         var se = session_(b.token); if (se) sh_('Sessioner').getRange(se.row, 7).setValue(false);
         return json_({ ok: true });

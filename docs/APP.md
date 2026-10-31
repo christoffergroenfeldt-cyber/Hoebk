@@ -38,6 +38,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/eksport/<i>/<m>` | Leaders: lineup ready to enter on badmintonplayer.dk |
 | `#/holdleder` | Team leaders: next match per team (sorted by date) with selection status; opened from Min side. Administrators also get the link to `#/ledere` |
 | `#/ledere` | Administrator: appoint/remove team leaders, user statistics |
+| `#/boern` | Parents: choose/change which players are your children |
 | `#/snak` | All chat rooms the player is in (teams + training groups), newest activity first |
 | `#/snak/<room>` | One chat room (`h:<leagueGroupTeamID>` or `g:<group>`, URL-encoded): messages, composer, *Lydløs* |
 | `#/nyheder` | News from the club (logged out: only news for everyone). Administrators get *+ Skriv en nyhed* |
@@ -112,7 +113,7 @@ Stored in `localStorage` under `hoebk_me`: `{id, name, email, token, groups}`. `
 
 ## Player colours
 
-A player's circle has the colour of the division they've played most team matches in — the same colours as the calendar (`teamColor()`): Senior blue, 4 players light blue, Motion orange, Youth lime. People without team matches (parents, coming later) are grey (`PARENT`). The legend is shown above the player list.
+A player's circle has the colour of the division they've played most team matches in — the same colours as the calendar (`teamColor()`): Senior blue, 4 players light blue, Motion orange, Youth lime. Parents (logged in as `p:…`) are dark Ungdom-green (`PARENT`); players without team matches or a level are grey (`NOLEVEL`). The legend is shown above the player list.
 
 ## Layout
 
