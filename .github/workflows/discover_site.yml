@@ -1,0 +1,11 @@
+name: Undersøg hoebk.dk (kalender)
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  d:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/discover_site.py
