@@ -121,6 +121,18 @@ How it's sent: the script can't sign web-push messages, so `notify` answers GitH
 
 To replace the key pair: generate a new P-256 key, put the public key (base64url, uncompressed point) in `config.json` and the private key (base64url, 32 bytes) in `VAPID_PRIVATE`. Everyone must then switch notifications on again.
 
+## Snak and news — notifications
+
+New chat messages and news marked *Send også som notifikation* are pushed, never mailed (the ~100 mails/day quota is kept for login codes and match/tournament mails).
+
+1. The script works out the recipients (room members with push switched on, minus the author and anyone who muted the room; for news, everyone the news is for) and writes one row per phone to **PushKø**.
+2. It starts the workflow **push.yml** at once via `GH_TOKEN` (at most once a minute). `tick()` starts it again every 15 minutes while something is still waiting, and `push.yml` also has its own schedule as a fallback.
+3. `push_ko.py` fetches and empties the queue (`?action=pushqueue`), sends with the VAPID key like the other notifications, waits a minute and checks once more.
+
+Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
+
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.1`.
+
 ## Lineup rules in the app
 
 `lineupWarnings()` in `index.html` checks a lineup against the 2026/27 rules ([youth](https://badminton.dk/wp-content/uploads/2026/07/Faelles-reglement-for-ungdomsholdturneringen-endeligt-300626-1.pdf), [senior DH](https://badminton.dk/wp-content/uploads/2026/07/Holdturneringsreglement-for-badminton-i-Danmark-DH-reglementet-2026-07-01-endeligt-med-bilag-3-1.pdf)) and shows *Regelbrud* (red), warnings (orange) and notes:
@@ -159,6 +171,11 @@ Saving the code is not enough — the live web app keeps running the old version
 | **Koder** | Login codes — stored only as a hash, with attempts and used flag | No |
 | **Sessioner** | Logged-in phones — token stored only as a hash; set *aktiv* to FALSE to log someone out | No |
 | **Ledere** | Team leaders: email, name, teams | No (emails stay in Google) |
+| **Beskeder** | Chat messages: id, time, room, player, email, text, deleted | **No** — never synced to GitHub |
+| **Nyheder** | News: id, time, title, text, recipients (`*`, `h:<teamID>`, `g:<group>`), author, deleted | No (shown in the app through the script) |
+| **Grupper** | Which training groups each email has chosen (decides who is in a training-group room) | No |
+| **Lydløs** | Rooms someone has muted | No |
+| **PushKø** | Push notifications waiting for GitHub to send them (emptied every run) | Only to the `push.yml` workflow |
 | **Opstillinger** | Every saved squad/lineup: time, match, team, status, saved by, data (JSON) | Yes — latest per match, synced without emails |
 
 Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite database (see [DATA.md](DATA.md)).
@@ -173,6 +190,11 @@ Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite 
 | `POST {action:"me" / "logout", token}` | Check / end a session; `me` and `verify` also return the role `{leader, all, admin, teams}` |
 | `POST {action:"lineup", token, eventId, team, status, squad[], games[], note}` | Save a squad/lineup — only leaders for that team |
 | `POST {action:"leaders" / "setLeader", token, …}` | List / set team leaders — administrator only |
+| `POST {action:"rooms", token, groups[]}` | My chat rooms with latest activity, and news for me; saves my training groups (tab *Grupper*) |
+| `POST {action:"messages" / "post" / "delMsg" / "mute", token, room, …}` | Read / write / delete messages in a room; push on/off per room — members only |
+| `POST {action:"newsSave" / "newsDel" / "newsList", token, …}` | Write / delete / list news — administrator only |
+| `GET ?action=news` | News for everyone — public, used before login |
+| `GET ?action=pushqueue&key=…` | Push notifications waiting to be sent — only with `REG_KEY`; the call empties the queue |
 | `GET ?action=status` | Latest answer per player and event — public, no emails |
 | `GET ?action=all&key=…` | Every answer — only with `REG_KEY`, used by the GitHub sync |
 

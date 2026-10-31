@@ -32,11 +32,16 @@
  *  pushGone {key, endpoints[]}                   → GitHub melder døde push-adresser, de slettes
  *  GET ?action=follows&key=NØGLE → hvilke turneringer der følges (kun id'er, ingen e-mails)
  *  logout   {token}
+ *  rooms    {token, groups[]}                    → mine snak-rum (hold + træningsgrupper) med seneste aktivitet + nyheder til mig
+ *  messages {token, room}                        → beskeder i et rum (kun medlemmer) · post {token, room, text} · delMsg {token, id}
+ *  mute     {token, room, on}                    → ingen push for et rum
+ *  newsSave {token, title, text, to[], push} / newsDel {token, id} / newsList {token} → administrator skriver nyheder
+ *  GET ?action=news            → offentlige nyheder (til alle) · GET ?action=pushqueue&key=NØGLE → push-køen (tømmes)
  *  GET ?action=status          → seneste svar pr. (begivenhed, spiller) — offentlig, uden e-mails
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-27.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-31.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -49,7 +54,12 @@ var SHEETS = {
   'Følger': ['email', 'playerId', 'playerName', 'turneringId', 'titel', 'tidspunkt'],
   Notifikationer: ['tidspunkt', 'email', 'emne', 'turneringer'],
   Push: ['email', 'playerId', 'endpoint', 'p256dh', 'auth', 'tidspunkt', 'enhed'],
-  Indstillinger: ['email', 'mail']
+  Indstillinger: ['email', 'mail'],
+  Beskeder: ['id', 'tidspunkt', 'rum', 'playerId', 'playerName', 'email', 'tekst', 'slettet'],
+  Nyheder: ['id', 'tidspunkt', 'titel', 'tekst', 'til', 'af', 'slettet'],
+  Grupper: ['email', 'playerId', 'grupper'],
+  'Lydløs': ['email', 'rum'],
+  'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag']
 };
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
 // Den FØRSTE e-mail der bekræfter navnet (fanen Spillere) ejer rollen — en anden e-mail med samme navn bliver ikke admin.
@@ -409,6 +419,283 @@ function register_(b) {
   return { ok: true };
 }
 
+// ---------- Snak (beskeder i hold og træningsgrupper) + nyheder ----------
+// Rum: "h:<leagueGroupTeamID>" for et hold, "g:<gruppe>" for en træningsgruppe.
+// Medlem af et hold: har spillet for holdet, følger holdet, er holdleder for det — eller administrator.
+// Medlem af en træningsgruppe: har valgt gruppen på Min side (fanen Grupper) — eller administrator.
+// Beskeder bliver i Google Sheet — de synkroniseres ALDRIG til GitHub (repoet er offentligt).
+var APP_URL = 'https://christoffergroenfeldt-cyber.github.io/Hoebk/';
+var TR_GROUPS = ['Ungdom', 'Senior', 'Senior2', 'Voksenfjer', 'Veteran'];
+var MSG_MAX = 1000, NEWS_MAX = 3000, MSG_PER_MIN = 10, TAIL = 3000;
+
+// Holdene og deres spillere — hentes fra appens egne data og gemmes i 6 timer
+function teams_() {
+  var c = CacheService.getScriptCache(), v = c.get('teams1');
+  if (v) { try { return JSON.parse(v); } catch (e) {} }
+  var map = {};
+  try {
+    var r = UrlFetchApp.fetch(APP_URL + 'data/holdkampe.json?t=' + Date.now(), { muteHttpExceptions: true });
+    if (r.getResponseCode() === 200) JSON.parse(r.getContentText()).teams.forEach(function (t) {
+      map[String(t.leagueGroupTeamID)] = { l: String(t.label), p: (t.players || []).map(function (p) { return String(p.id); }) };
+    });
+  } catch (e) { map = {}; }
+  if (Object.keys(map).length) c.put('teams1', JSON.stringify(map), 21600);
+  return map;
+}
+// Sidste n rækker af en fane (beskeder vokser — vi læser kun de nyeste)
+function tail_(name, n) {
+  var s = sh_(name), last = s.getLastRow();
+  if (last < 2) return { rows: [], first: 2 };
+  var first = Math.max(2, last - n + 1);
+  return { rows: s.getRange(first, 1, last - first + 1, SHEETS[name].length).getValues(), first: first };
+}
+function text_(s, max) {   // som clean_, men linjeskift bevares
+  return String(s == null ? '' : s).replace(/\r\n?/g, '\n').replace(/[\u0000-\u0009\u000b-\u001f]/g, ' ')
+    .replace(/\n{3,}/g, '\n\n').trim().slice(0, max);
+}
+function ts_(d) { return d instanceof Date ? d.getTime() : (new Date(d).getTime() || 0); }
+function newId_(p) { return p + Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36); }
+function bool_(v) { return v === true || String(v).toUpperCase() === 'TRUE'; }
+
+// Alle tabeller der skal bruges til at regne medlemskab — læses én gang pr. kald
+function ctx_() {
+  return { teams: teams_(), fol: data_('Følger'), led: data_('Ledere'), grp: data_('Grupper'), admins: {} };
+}
+function roleIn_(cx, email, pid) {
+  var em = String(email || '').toLowerCase().trim(), k = em + '|' + pid;
+  if (!(k in cx.admins)) cx.admins[k] = isAdmin_(em, pid);
+  if (cx.admins[k]) return { admin: true, all: true, teams: [] };
+  var teams = [], all = false;
+  cx.led.forEach(function (r) {
+    if (String(r[0]).toLowerCase().trim() !== em) return;
+    String(r[2]).split(',').forEach(function (t) { t = t.trim(); if (t === '*') all = true; else if (t) teams.push(t); });
+  });
+  return { admin: false, all: all, teams: teams };
+}
+// {rumId: titel} for en bruger. strict = kun rum man selv er en del af (ikke dem administrator/leder for alle hold kan se) —
+// bruges til push og ulæst-markering, så administratorer ikke får besked om alt.
+function memberRooms_(cx, email, pid, strict) {
+  var em = String(email || '').toLowerCase().trim(), role = roleIn_(cx, em, pid), out = {};
+  if (strict) role = { admin: false, all: false, teams: role.teams };
+  var follows = {}; cx.fol.forEach(function (r) { if (String(r[0]).toLowerCase() === em) follows[String(r[3])] = 1; });
+  Object.keys(cx.teams).forEach(function (id) {
+    var t = cx.teams[id];
+    if (role.admin || role.all || role.teams.indexOf(t.l) >= 0 || follows['f' + id] || t.p.indexOf(String(pid)) >= 0) out['h:' + id] = t.l;
+  });
+  var groups = role.admin ? TR_GROUPS : [];
+  cx.grp.forEach(function (r) { if (String(r[0]).toLowerCase() === em) groups = groups.concat(String(r[2]).split(',')); });
+  groups.forEach(function (g) { g = g.trim(); if (TR_GROUPS.indexOf(g) >= 0) out['g:' + g] = 'Træning · ' + g; });
+  return out;
+}
+function canModerate_(cx, ses, room) {
+  var role = roleIn_(cx, ses.email, ses.playerId);
+  if (role.admin || (role.all && /^h:/.test(room))) return true;
+  var t = /^h:/.test(room) ? cx.teams[room.slice(2)] : null;
+  return !!t && role.teams.indexOf(t.l) >= 0;
+}
+function muted_(email) {
+  var em = String(email || '').toLowerCase(), m = {};
+  data_('Lydløs').forEach(function (r) { if (String(r[0]).toLowerCase() === em) m[String(r[1])] = 1; });
+  return m;
+}
+function saveGroups_(ses, groups) {
+  var g = (groups || []).map(String).filter(function (x) { return TR_GROUPS.indexOf(x) >= 0; }).join(', ');
+  var em = ses.email.toLowerCase(), same = data_('Grupper').filter(function (r) { return String(r[0]).toLowerCase() === em; });
+  if (same.length === 1 && String(same[0][2]) === g) return;   // uændret — skriv ikke
+  withLock_(function () {
+    var sh = sh_('Grupper'), rows = data_('Grupper');
+    for (var i = rows.length - 1; i >= 0; i--) if (String(rows[i][0]).toLowerCase() === em) sh.deleteRow(i + 2);
+    sh.appendRow([em, safe_(ses.playerId), g]);
+  });
+}
+function newsRows_() {
+  return data_('Nyheder').filter(function (r) { return r[0] && !bool_(r[6]); }).map(function (r) {
+    return { id: String(r[0]), t: ts_(r[1]), title: String(r[2]), text: String(r[3]),
+             to: String(r[4]).split(',').map(function (x) { return x.trim(); }).filter(String), by: String(r[5]) };
+  }).sort(function (a, b) { return b.t - a.t; });
+}
+function newsFor_(rooms, all) {
+  var since = Date.now() - 120 * 86400000;
+  return newsRows_().filter(function (n) {
+    if (n.t < since) return false;
+    return all || n.to.indexOf('*') >= 0 || n.to.some(function (x) { return !!rooms[x]; });
+  }).slice(0, 30);
+}
+
+function rooms_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  if (Array.isArray(b.groups)) saveGroups_(ses, b.groups);
+  var cx = ctx_(), mr = memberRooms_(cx, ses.email, ses.playerId), mute = muted_(ses.email);
+  var em = ses.email.toLowerCase(), sum = {};
+  tail_('Beskeder', TAIL).rows.forEach(function (r) {
+    var room = String(r[2]); if (!mr[room] || bool_(r[7])) return;
+    var s = sum[room] = sum[room] || { last: 0, n: 0, by: '', x: '', recent: [] };
+    var t = ts_(r[1]); s.n++;
+    if (t >= s.last) { s.last = t; s.by = String(r[4]); s.x = String(r[6]).slice(0, 80); }
+    if (String(r[5]).toLowerCase() !== em) s.recent.push(t);
+  });
+  var own = memberRooms_(cx, ses.email, ses.playerId, true);
+  var rooms = Object.keys(mr).map(function (id) {
+    var s = sum[id] || { last: 0, n: 0, by: '', x: '', recent: [] };
+    return { id: id, title: mr[id], last: s.last, n: s.n, by: s.by, x: s.x, recent: s.recent.slice(-30), muted: !!mute[id], extra: !own[id] };
+  });
+  var admin = roleIn_(cx, ses.email, ses.playerId).admin;
+  return { ok: true, rooms: rooms, news: newsFor_(mr, admin), canNews: admin };
+}
+
+function messages_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var room = clean_(b.room, 60), cx = ctx_(), mr = memberRooms_(cx, ses.email, ses.playerId);
+  if (!mr[room]) return { ok: false, error: 'Du er ikke med i ' + (/^g:/.test(room) ? 'træningsgruppen' : 'holdet') };
+  var em = ses.email.toLowerCase();
+  var list = tail_('Beskeder', TAIL).rows.filter(function (r) { return String(r[2]) === room && !bool_(r[7]); }).map(function (r) {
+    return { id: String(r[0]), t: ts_(r[1]), p: String(r[3]), n: String(r[4]), x: String(r[6]), mine: String(r[5]).toLowerCase() === em };
+  }).sort(function (a, b) { return a.t - b.t; }).slice(-150);
+  return { ok: true, room: room, title: mr[room], messages: list, canMod: canModerate_(cx, ses, room), muted: !!muted_(em)[room] };
+}
+
+function post_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var room = clean_(b.room, 60), text = text_(b.text, MSG_MAX);
+  if (!text) return { ok: false, error: 'Skriv en besked' };
+  var cx = ctx_(), mr = memberRooms_(cx, ses.email, ses.playerId);
+  if (!mr[room]) return { ok: false, error: 'Du er ikke med i ' + (/^g:/.test(room) ? 'træningsgruppen' : 'holdet') };
+  var em = ses.email.toLowerCase();
+  var msg = withLock_(function () {
+    var minute = Date.now() - 60000;
+    var recent = tail_('Beskeder', 200).rows.filter(function (r) { return String(r[5]).toLowerCase() === em && ts_(r[1]) > minute; }).length;
+    if (recent >= MSG_PER_MIN) return null;
+    var id = newId_('b'), now = new Date();
+    sh_('Beskeder').appendRow([id, now, safe_(room), safe_(ses.playerId), safe_(ses.playerName), em, safe_(text), false]);
+    return { id: id, t: now.getTime(), p: ses.playerId, n: ses.playerName, x: text, mine: true };
+  });
+  if (!msg) return { ok: false, error: 'Du skriver meget hurtigt — vent et øjeblik' };
+  // Push til de andre i rummet (ikke afsenderen, ikke dem der har gjort rummet lydløst)
+  try {
+    var muted = {}; data_('Lydløs').forEach(function (r) { if (String(r[1]) === room) muted[String(r[0]).toLowerCase()] = 1; });
+    var jobs = pushTargets_(cx, function (e, pid) { return e !== em && !muted[e] && !!memberRooms_(cx, e, pid, true)[room]; }).map(function (r) {
+      return [new Date(), r.endpoint, r.p256dh, r.auth, clean_(ses.playerName.split(' ')[0] + ' · ' + mr[room], 80),
+              clean_(text, 140), APP_URL + '#/snak/' + encodeURIComponent(room), 'r:' + room];
+    });
+    queuePush_(jobs);
+  } catch (e) {}
+  return { ok: true, message: msg };
+}
+
+function delMsg_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var id = clean_(b.id, 40), cx = ctx_();
+  return withLock_(function () {
+    var t = tail_('Beskeder', TAIL), em = ses.email.toLowerCase();
+    for (var i = t.rows.length - 1; i >= 0; i--) {
+      var r = t.rows[i];
+      if (String(r[0]) !== id) continue;
+      if (String(r[5]).toLowerCase() !== em && !canModerate_(cx, ses, String(r[2]))) return { ok: false, error: 'Du kan kun slette dine egne beskeder' };
+      sh_('Beskeder').getRange(t.first + i, 8).setValue(true);
+      return { ok: true };
+    }
+    return { ok: false, error: 'Beskeden findes ikke' };
+  });
+}
+
+function mute_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var room = clean_(b.room, 60);
+  return withLock_(function () {
+    var sh = sh_('Lydløs'), rows = data_('Lydløs'), em = ses.email.toLowerCase();
+    for (var i = rows.length - 1; i >= 0; i--) if (String(rows[i][0]).toLowerCase() === em && String(rows[i][1]) === room) sh.deleteRow(i + 2);
+    if (b.on) sh.appendRow([em, safe_(room)]);
+    return { ok: true, muted: !!b.on };
+  });
+}
+
+// ---------- Nyheder (administrator) ----------
+function newsSave_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  var title = clean_(b.title, 100), text = text_(b.text, NEWS_MAX);
+  if (!title) return { ok: false, error: 'Skriv en overskrift' };
+  if (!text) return { ok: false, error: 'Skriv en tekst' };
+  var cx = ctx_();
+  var to = (b.to || []).map(function (x) { return clean_(x, 60); }).filter(function (x) {
+    return x === '*' || (/^h:\d+$/.test(x) && cx.teams[x.slice(2)]) || (/^g:/.test(x) && TR_GROUPS.indexOf(x.slice(2)) >= 0);
+  });
+  if (!to.length) return { ok: false, error: 'Vælg hvem nyheden er til' };
+  if (to.indexOf('*') >= 0) to = ['*'];
+  var id = newId_('n');
+  withLock_(function () { sh_('Nyheder').appendRow([id, new Date(), safe_(title), safe_(text), to.join(','), safe_(ses.playerName), false]); });
+  var pushed = 0;
+  if (b.push) {
+    var jobs = pushTargets_(cx, function (e, pid) {
+      if (to[0] === '*') return true;
+      var mr = memberRooms_(cx, e, pid, true);
+      return to.some(function (x) { return !!mr[x]; });
+    }).map(function (r) {
+      return [new Date(), r.endpoint, r.p256dh, r.auth, clean_('HØBK · ' + title, 80), clean_(text, 140), APP_URL + '#/nyhed/' + id, 'n:' + id];
+    });
+    pushed = jobs.length; queuePush_(jobs);
+  }
+  return { ok: true, id: id, pushed: pushed };
+}
+function newsDel_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  var id = clean_(b.id, 40);
+  return withLock_(function () {
+    var rows = data_('Nyheder');
+    for (var i = 0; i < rows.length; i++) if (String(rows[i][0]) === id) { sh_('Nyheder').getRange(i + 2, 7).setValue(true); return { ok: true }; }
+    return { ok: false, error: 'Nyheden findes ikke' };
+  });
+}
+function newsList_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  return { ok: true, news: newsRows_().slice(0, 60) };
+}
+
+// ---------- Push-kø ----------
+// Scriptet kan ikke selv underskrive web-push. Beskeder lægges i fanen PushKø; GitHub-workflowet push.yml henter
+// køen (?action=pushqueue), tømmer den og sender. Workflowet startes med det samme (højst hvert minut) og af tick().
+function pushTargets_(cx, want) {
+  var out = [], seen = {};
+  data_('Push').forEach(function (r) {
+    var em = String(r[0]).toLowerCase(), ep = String(r[2]);
+    if (!ep || seen[ep]) return; seen[ep] = 1;
+    if (want(em, String(r[1]))) out.push({ endpoint: ep, p256dh: String(r[3]), auth: String(r[4]) });
+  });
+  return out;
+}
+function queuePush_(rows) {
+  if (!rows || !rows.length) return;
+  withLock_(function () {
+    var sh = sh_('PushKø');
+    sh.getRange(sh.getLastRow() + 1, 1, rows.length, SHEETS['PushKø'].length).setValues(rows);
+  });
+  var pr = PropertiesService.getScriptProperties();
+  pr.setProperty('PUSH_PENDING', '1');
+  if (Date.now() - Number(pr.getProperty('PUSH_DISPATCHED') || 0) > 60000) {
+    pr.setProperty('PUSH_DISPATCHED', String(Date.now()));
+    try { ghDispatch_('push.yml'); } catch (e) {}
+  }
+}
+function pushQueue_(key) {
+  var k = PropertiesService.getScriptProperties().getProperty('KEY');
+  if (!k || key !== k) return { ok: false, error: 'Forkert nøgle' };
+  return withLock_(function () {
+    var sh = sh_('PushKø'), rows = data_('PushKø'), dayAgo = Date.now() - 86400000;
+    if (rows.length) sh.deleteRows(2, rows.length);
+    PropertiesService.getScriptProperties().setProperty('PUSH_PENDING', '0');
+    return { ok: true, push: rows.filter(function (r) { return ts_(r[0]) > dayAgo; }).slice(0, 1000).map(function (r) {
+      return { endpoint: String(r[1]), keys: { p256dh: String(r[2]), auth: String(r[3]) }, title: String(r[4]), body: String(r[5]), url: String(r[6]), tag: String(r[7]) };
+    }) };
+  });
+}
+
 function doPost(e) {
   var b;
   try { b = JSON.parse(e.postData.contents); } catch (err) { return json_({ ok: false, error: 'Ugyldig forespørgsel' }); }
@@ -425,6 +712,14 @@ function doPost(e) {
       case 'push': return json_(push_(b));
       case 'prefs': return json_(prefs_(b));
       case 'pushGone': return json_(pushGone_(b));
+      case 'rooms': return json_(rooms_(b));
+      case 'messages': return json_(messages_(b));
+      case 'post': return json_(post_(b));
+      case 'delMsg': return json_(delMsg_(b));
+      case 'mute': return json_(mute_(b));
+      case 'newsSave': return json_(newsSave_(b));
+      case 'newsDel': return json_(newsDel_(b));
+      case 'newsList': return json_(newsList_(b));
       case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId), follows: follows_(s.email), settings: settings_(s.email) } : { ok: false, error: 'login' });
       case 'logout':
         var se = session_(b.token); if (se) sh_('Sessioner').getRange(se.row, 7).setValue(false);
@@ -443,6 +738,10 @@ function doGet(e) {
     return json_({ ok: true, version: SCRIPT_VERSION, scheduler: { token: !!pr.getProperty('GH_TOKEN'), triggers: ScriptApp.getProjectTriggers().filter(function (t) { return t.getHandlerFunction() === 'tick'; }).length,
                    lastTick: pr.getProperty('LAST_TICK') || '', last: pr.getProperty('LAST_DISPATCH') || '' } });
   }
+  if (action === 'news') {   // offentlige nyheder (til alle) — til appen før man logger ind
+    return json_({ ok: true, news: newsFor_({}, false).filter(function (n) { return n.to.indexOf('*') >= 0; }).slice(0, 10) });
+  }
+  if (action === 'pushqueue') return json_(pushQueue_(e.parameter.key));
   if (action === 'follows') {
     var k = PropertiesService.getScriptProperties().getProperty('KEY');
     if (!k || e.parameter.key !== k) return json_({ ok: false, error: 'Forkert nøgle' });
@@ -504,6 +803,7 @@ function tick() {
   if (h >= 9 && h <= 22 && !odd) res.push(ghDispatch_('live.yml'));
   if (h >= 6 && pr.getProperty('FULL_AM') !== day) { pr.setProperty('FULL_AM', day); res.push(ghDispatch_('holdkampe.yml')); }
   else if (h >= 21 && pr.getProperty('FULL_PM') !== day) { pr.setProperty('FULL_PM', day); res.push(ghDispatch_('holdkampe.yml')); }
+  if (pr.getProperty('PUSH_PENDING') === '1') res.push(ghDispatch_('push.yml'));   // push der ikke blev sendt med det samme
   pr.setProperty('LAST_TICK', now.toISOString());
   pr.setProperty('LAST_DISPATCH', res.join(' '));
 }

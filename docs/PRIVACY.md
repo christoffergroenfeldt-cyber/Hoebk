@@ -11,6 +11,8 @@ The repo is **public**, so everything committed to it can be read by anyone. Thi
 | Opponents' names in lineups | `data/holdkampe.json`, `data/spillere.json` | Yes | badmintonplayer.dk |
 | Who answered what for matches/training (name + answer) | Google Sheet, `data/tilmeldinger.json`, `data/hoebk.db` | Yes (in the repo and in the app) | Players themselves |
 | **Email addresses** | Google Sheet tabs *Spillere*, *Koder*, *Sessioner* | **No** — never leaves Google | Players themselves |
+| **Chat messages** (*Snak*) | Google Sheet tab *Beskeder* | **No** — shown only to logged-in members of that team/training group | Players themselves |
+| News from the board | Google Sheet tab *Nyheder* | Shown in the app; news for everyone is public | Administrators |
 | Login codes and session tokens | Google Sheet, as salted SHA-256 hashes only | No | Generated |
 | Session token (plain) | The player's own phone (`localStorage`) | No | Generated |
 
@@ -33,6 +35,7 @@ Youth players' full names, results and rankings are published by Badminton Danma
 ## Retention and removal
 
 - **Results and rankings** are rebuilt from badmintonplayer.dk on every run; they change when the source changes.
+- **Chat messages** stay in the Google Sheet. A deleted message is only marked deleted (column *slettet*) so it disappears from the app; delete the row in *Beskeder* to remove it completely.
 - **Registrations** stay in the Google Sheet until deleted there. Delete rows in *Tilmeldinger*; the next sync rebuilds `hoebk.db` and `tilmeldinger.json` without them. Git history still contains older versions — to remove something from history entirely, the repo history must be rewritten (ask the maintainer).
 - **Emails:** delete the player's rows in *Spillere*, *Koder* and *Sessioner*.
 - **A request to be removed from the app:** results come from Badminton Danmark, so a full removal must be raised with them; the club can hide a player by filtering their id in `fetch_holdkampe.py`.

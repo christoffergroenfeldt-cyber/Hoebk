@@ -189,6 +189,31 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .slot:first-child{border-top:0}
 .slot select{width:100%;min-height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;font-family:inherit;font-size:14px;padding:0 8px;color:var(--ink)}
 .warn{font-size:12px;color:#8A4B00;background:#FFF2E2;border-radius:10px;padding:8px 10px}
+/* Snak + nyheder */
+nav.tabs a{position:relative}
+nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:9px;border-radius:50%;background:#D93A2B;border:2px solid #fff}
+.badge{min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+.news{width:100%;text-align:left;padding:12px 14px;display:flex;flex-direction:column;gap:3px;font-size:inherit}
+.news.new{border-left:5px solid var(--accent)}
+.news b{font-size:15px;color:var(--ink)}
+.newtag{color:var(--ink);background:var(--accent);border-radius:6px;padding:0 6px}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.snakbar{display:flex;align-items:center;gap:10px}
+.msgs{flex:1 0 auto;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding-bottom:4px}
+.msgday{align-self:center;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:10px 0 4px}
+.msg{max-width:84%;align-self:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:7px 12px;display:flex;flex-direction:column;gap:2px;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:var(--hi);border-color:#DCEBA5;border-radius:16px 16px 4px 16px}
+main.chat{padding-bottom:0}
+.msg.pending{opacity:.6}
+.msg .who2{font-size:12px;font-weight:700;color:var(--muted)}
+.msg .txt{font-size:15px;line-height:1.4}
+.msg .meta{align-self:flex-end;font-size:11px;color:var(--muted2);display:flex;gap:8px;align-items:center}
+.msg .del{border:0;background:none;padding:2px 0;font-size:11px;color:var(--muted);text-decoration:underline;min-height:24px}
+.compose{position:sticky;bottom:0;margin:0 -14px;padding:8px 14px 10px;background:var(--ground);border-top:1px solid var(--line);display:flex;gap:8px;align-items:flex-end}
+.compose textarea{flex:1 1 auto;min-height:44px;max-height:160px;resize:none;border:1px solid var(--line);border-radius:22px;padding:11px 14px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.compose .rb{min-height:44px;flex:0 0 auto}
+.inp{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;font-size:16px;background:#fff;color:var(--ink);width:100%}
+textarea.inp{resize:vertical;line-height:1.45}
 .err{font-size:12px;color:#7A1A12;background:#FBE1DD;border-radius:10px;padding:8px 10px}
 .okmsg{font-size:12px;color:#1E5A2E;background:#E3F3E6;border-radius:10px;padding:8px 10px}
 .infomsg{font-size:12px;color:#3C4A57;background:#EEF1F4;border-radius:10px;padding:8px 10px}
@@ -375,6 +400,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (REG.url) h += '<div style="display:flex;align-items:center;gap:10px;margin:2px 0 4px"><button class="rb follow" data-follow="' + esc(teamFid(t)) + '" aria-pressed="' + isFollowed(teamFid(t)) + '">' +
       (isFollowed(teamFid(t)) ? '★ Følger holdet' : '☆ Følg holdet') + '</button><span class="xs" style="flex:1">' +
       (isFollowed(teamFid(t)) ? 'Besked 3 dage før og på kampdagen, ved resultater og hvis en kamp flyttes.' : 'Få besked før kampe, ved resultater og ændringer.') + '</span></div>';
+    var troom = ME && ME.token ? roomFor(t) : null;
+    if (troom) h += '<button class="card row" style="min-height:52px" data-go="#/snak/' + encodeURIComponent(troom.id) + '"><span class="col"><b style="font-size:14px">💬 Holdets snak</b>' +
+      '<span class="xs ellip">' + (troom.last ? esc(troom.by.split(' ')[0] + ': ' + troom.x) : 'Skriv til holdet') + '</span></span>' + (unread(troom) ? '<span class="badge">' + unread(troom) + '</span>' : '<span class="xs">›</span>') + '</button>';
     h += '<div class="seg" role="tablist" style="grid-template-columns:repeat(3,minmax(0,1fr))">' +
       [['kampe', 'Kampe'], ['stilling', 'Stilling'], ['spillere', 'Spillere']].map(function (s) {
         return '<button role="tab" aria-selected="' + (UI.seg === s[0]) + '" data-seg="' + s[0] + '">' + s[1] + '</button>';
@@ -1449,7 +1477,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
           '<button class="pl s" id="resend" style="align-self:flex-start">Send en ny kode</button></div>';
       }
       setHeader('Log ind', 'Vælg dit navn', false);
-      return '<p class="s" style="margin:0 4px">Vælg dit navn, så sender vi en kode til din e-mail.</p><label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
+      loadPub();
+      return newsBlock() + '<p class="s" style="margin:0 4px">Vælg dit navn, så sender vi en kode til din e-mail.</p><label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
         '<input id="mq" type="search" value="' + esc(UI.mq || '') + '" placeholder="Søg dit navn" aria-label="Søg dit navn" autocomplete="off"></label>' +
         '<div id="mlist" class="col" style="gap:6px"></div>' +
         '<span class="lbl">Ikke på listen?</span><div class="card search"><input id="newname" type="text" placeholder="Skriv dit fulde navn" aria-label="Dit fulde navn" autocomplete="name" maxlength="60">' +
@@ -1473,6 +1502,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       h += '<button class="card row" style="min-height:60px" data-go="#/holdleder"><span class="col"><b style="font-size:15px">Holdleder' + (ME.role.admin ? ' · administrator' : '') + '</b>' +
         '<span class="xs">' + (todo ? todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse' : 'Alle næste kampe er udtaget') + (ready ? ' · ' + ready + ' klar' : '') + '</span></span><span class="h" style="font-size:20px">›</span></button>';
     }
+    loadRooms(false);
+    h += newsBlock();
+    h += snakBlock(4);
     var myAns = Object.keys(REG.map).filter(function (k) { return k.slice(k.lastIndexOf('|') + 1) === ME.id; }).length;
     h += '<p class="note">' + (myAns ? 'Du har svaret på ' + myAns + (myAns === 1 ? ' aktivitet.' : ' aktiviteter.') : 'Du har ikke svaret på noget endnu.') + '</p>';
     // Kommende kampe for de hold man følger (vises nederst)
@@ -1567,7 +1599,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         var p = res.player;
         ME = { id: p.id, name: p.name, email: p.email, token: res.token, role: res.role || null, follows: res.follows || [], groups: defaultGroups(D.players[p.id] ? D.players[p.id].teams : []) };
         saveMe(); UI.step = 'name'; UI.pending = null;
-        toast('Hej ' + p.name.split(' ')[0] + '!'); route();
+        toast('Hej ' + p.name.split(' ')[0] + '!'); route(); loadRooms(true);
       })
       .catch(function (err) { toast(err.message || 'Forkert kode'); if (btn) btn.disabled = false; });
   }
@@ -1679,7 +1711,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   }
   function leaderBlock() {
     var h = '<span class="lbl">Næste kampe</span>';
-    if (ME.role.admin) h = '<span class="lbl">Administrator</span><button class="card row" style="min-height:52px" data-go="#/ledere"><b>Udnævn holdledere og se brugerstatistik</b><span class="xs">›</span></button>' + h;
+    if (ME.role.admin) h = '<span class="lbl">Administrator</span><button class="card row" style="min-height:52px" data-go="#/ledere"><b>Udnævn holdledere og se brugerstatistik</b><span class="xs">›</span></button>' +
+      '<button class="card row" style="min-height:52px" data-go="#/nyheder/ny"><span class="col"><b>Skriv en nyhed</b><span class="xs">Til alle, udvalgte hold eller træningsgrupper — vises i appen og som notifikation</span></span><span class="xs">›</span></button>' + h;
     var order = leaderTeams().filter(function (ti) { return nextMatchIdx(D.teams[ti]) >= 0; }).sort(function (a, b) {   // næste kamp først
       var ma = D.teams[a].matches[nextMatchIdx(D.teams[a])], mb = D.teams[b].matches[nextMatchIdx(D.teams[b])];
       return (ma.date + (ma.time || '')).localeCompare(mb.date + (mb.time || '')); });
@@ -2044,6 +2077,293 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     return h;
   }
 
+  // ---------- Snak (beskeder i hold og træningsgrupper) + nyheder ----------
+  // Rum: "h:<leagueGroupTeamID>" (holdet) og "g:<gruppe>" (træningsgruppe). Serveren afgør hvem der er med.
+  // Beskeder ligger kun i klubbens Google Sheet — aldrig i GitHub.
+  var SNAK = { rooms: null, news: [], pub: null, pubAt: 0, canNews: false, at: 0, loading: false, msgs: {}, draft: {}, sending: false, adm: null, nf: null, off: false };
+  var SEEN = {}, NSEEN = {};
+  try { SEEN = JSON.parse(localStorage.getItem('hoebk_seen') || '{}') || {}; NSEEN = JSON.parse(localStorage.getItem('hoebk_nseen') || '{}') || {}; } catch (e) { SEEN = {}; NSEEN = {}; }
+  function saveSeen() { try { localStorage.setItem('hoebk_seen', JSON.stringify(SEEN)); localStorage.setItem('hoebk_nseen', JSON.stringify(NSEEN)); } catch (e) {} }
+  function onChatRoom() { return /^#\/snak\/./.test(location.hash); }
+  function loadRooms(force) {
+    if (!REG.url || !ME || !ME.token || SNAK.loading || SNAK.off) return Promise.resolve();
+    if (!force && SNAK.rooms && Date.now() - SNAK.at < 30000) return Promise.resolve();
+    SNAK.loading = true;
+    return api({ action: 'rooms', token: ME.token, groups: ME.groups || [] }).then(function (r) {
+      SNAK.loading = false;
+      if (r && r.ok) {
+        SNAK.rooms = r.rooms || []; SNAK.news = r.news || []; SNAK.canNews = !!r.canNews; SNAK.at = Date.now();
+        SNAK.rooms.forEach(function (x) { if (SEEN[x.id] === undefined) SEEN[x.id] = x.last; });   // nye rum: kun nyt fra nu af tæller som ulæst
+        saveSeen(); updDot();
+        if (!onChatRoom()) route(true);
+      } else if (r && r.error === 'login') { ME = null; saveMe(); route(true); }
+      else if (r && r.error === 'Ukendt handling') { SNAK.off = true; SNAK.rooms = []; route(true); }   // scriptet er ikke opdateret endnu
+    }).catch(function () { SNAK.loading = false; });
+  }
+  function loadPub() {
+    if (!REG.url || (SNAK.pub && Date.now() - SNAK.pubAt < 300000)) return;
+    SNAK.pubAt = Date.now();
+    fetch(REG.url + '?action=news').then(function (r) { return r.json(); }).then(function (r) {
+      SNAK.pub = (r && r.ok && r.news) || []; if (!ME || !ME.token || /^#\/nyhed/.test(location.hash)) route(true);
+    }).catch(function () { SNAK.pub = SNAK.pub || []; });
+  }
+  function allNews() { return ME && ME.token ? SNAK.news : (SNAK.pub || []); }
+  function unread(r) { var s = SEEN[r.id] || 0; return (r.recent || []).filter(function (t) { return t > s; }).length; }
+  function unreadNews() { return allNews().filter(function (n) { return !NSEEN[n.id]; }).length; }
+  function updDot() {
+    var n = (SNAK.rooms || []).reduce(function (a, r) { return a + (r.muted || r.extra ? 0 : unread(r)); }, 0) + (ME && ME.token ? unreadNews() : 0);
+    var a = document.querySelector('nav.tabs a[data-tab="tilmeld"]'); if (!a) return;
+    var d = a.querySelector('.dot');
+    if (n && !d) { d = document.createElement('span'); d.className = 'dot'; d.setAttribute('aria-label', n + ' nye'); a.appendChild(d); }
+    else if (!n && d) d.remove();
+  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function hhmm(t) { var d = new Date(t); return pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+  function ago(t) {
+    var m = Math.round((Date.now() - t) / 60000);
+    if (m < 1) return 'lige nu'; if (m < 60) return m + ' min siden';
+    if (iso(new Date(t)) === iso(new Date())) return 'i dag ' + hhmm(t);
+    if (iso(new Date(t)) === iso(addDays(new Date(), -1))) return 'i går ' + hhmm(t);
+    return dTxt(iso(new Date(t)));
+  }
+  function fmtText(s) {
+    return esc(s).replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)\]]/g, function (u) { return '<a href="' + u + '" target="_blank" rel="noopener">' + u + '</a>'; }).replace(/\n/g, '<br>');
+  }
+  function roomTitle(id) {
+    var r = (SNAK.rooms || []).filter(function (x) { return x.id === id; })[0];
+    if (r) return r.title;
+    if (/^g:/.test(id)) return 'Træning · ' + id.slice(2);
+    var t = D.teams.filter(function (x) { return 'h:' + x.leagueGroupTeamID === id; })[0];
+    return t ? t.label : 'Snak';
+  }
+  function roomFor(t) { return (SNAK.rooms || []).filter(function (x) { return x.id === 'h:' + t.leagueGroupTeamID; })[0]; }
+  function audLabel(x) {
+    if (x === '*') return 'Alle';
+    if (/^g:/.test(x)) return 'Træning · ' + x.slice(2);
+    var t = D.teams.filter(function (tt) { return 'h:' + tt.leagueGroupTeamID === x; })[0];
+    return t ? t.label : x;
+  }
+  function roomRow(r) {
+    var n = unread(r);
+    return '<button class="card row" style="min-height:58px" data-go="#/snak/' + encodeURIComponent(r.id) + '">' +
+      '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(r.title) + (r.muted ? ' <span aria-label="lydløs">🔕</span>' : '') + '</b>' +
+      '<span class="xs ellip">' + (r.last ? esc(r.by.split(' ')[0] + ': ' + r.x) : 'Ingen beskeder endnu — skriv den første') + '</span></span>' +
+      '<span class="col" style="align-items:flex-end;gap:4px;flex:0 0 auto">' + (r.last ? '<span class="xs">' + esc(ago(r.last)) + '</span>' : '') +
+      (n ? '<span class="badge">' + n + '</span>' : '') + '</span></button>';
+  }
+  function sortedRooms() {
+    return (SNAK.rooms || []).slice().sort(function (a, b) { return (b.last - a.last) || (a.id.charAt(0) === b.id.charAt(0) ? a.title.localeCompare(b.title, 'da') : a.id < b.id ? 1 : -1); });
+  }
+  function snakBlock(max) {
+    if (!REG.url || SNAK.off) return '';
+    var h = '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Snak</span>' +
+      (SNAK.rooms && SNAK.rooms.length > max ? '<button class="pl xs" data-go="#/snak">Alle ' + SNAK.rooms.length + ' ›</button>' : '') + '</div>';
+    if (!SNAK.rooms) return h + '<p class="empty">Henter …</p>';
+    if (!SNAK.rooms.length) return h + '<p class="note">Snak åbner for de hold du spiller på eller følger, og for de træningsgrupper du vælger under <b>Træning</b> længere nede.</p>';
+    var own = sortedRooms().filter(function (r) { return !r.extra; });
+    if (max < 99) return h + (own.length ? own.slice(0, max).map(roomRow).join('') : '<p class="note">Du er ikke selv med i nogen snak endnu — tryk <b>Alle</b> for at se alle holds snak.</p>');
+    var extra = sortedRooms().filter(function (r) { return r.extra; });
+    return h + own.map(roomRow).join('') + (extra.length ? '<span class="lbl">Alle andre hold og grupper · administrator</span>' + extra.map(roomRow).join('') : '');
+  }
+  function newsCard(n) {
+    var isNew = !NSEEN[n.id];
+    return '<button class="card news' + (isNew ? ' new' : '') + '" data-go="#/nyhed/' + encodeURIComponent(n.id) + '">' +
+      '<span class="xs">' + esc(ago(n.t)) + (n.to && n.to[0] !== '*' ? ' · ' + esc(n.to.map(audLabel).join(', ')) : '') + (isNew ? ' · <b class="newtag">Ny</b>' : '') + '</span>' +
+      '<b>' + esc(n.title) + '</b><span class="s clamp">' + esc(n.text) + '</span></button>';
+  }
+  function newsBlock() {
+    var list = allNews();
+    if (!REG.url || (!list.length && !SNAK.canNews)) return '';
+    var fresh = list.filter(function (n) { return !NSEEN[n.id]; }), show = (fresh.length ? fresh : list).slice(0, 3);
+    return '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Nyheder fra klubben</span>' +
+      (list.length ? '<button class="pl xs" data-go="#/nyheder">Alle ›</button>' : '') + '</div>' +
+      show.map(newsCard).join('') +
+      (SNAK.canNews ? '<button class="rb" style="align-self:flex-start;min-height:42px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>' : '');
+  }
+  function viewSnak() {
+    setTab('tilmeld'); setHeader('Snak', 'Hold og træningsgrupper', true);
+    if (!ME || !ME.token) return '<p class="empty">Log ind på Min side for at være med i snakken.</p>';
+    loadRooms(false);
+    return snakBlock(99) + '<p class="note">Du er med i snakken for de hold du har spillet på, følger eller er holdleder for, og for de træningsgrupper du har valgt på Min side.</p>';
+  }
+  function msgsHtml(room) {
+    var M = SNAK.msgs[room], h = '', day = '';
+    if (!M.list.length) return '<p class="empty" style="text-align:center;margin:24px 0">Ingen beskeder endnu. Skriv den første!</p>';
+    M.list.forEach(function (m, i) {
+      var d = iso(new Date(m.t));
+      if (d !== day) { day = d; h += '<div class="msgday">' + (d === iso(new Date()) ? 'I dag' : esc(dTxt(d))) + '</div>'; }
+      var prev = M.list[i - 1], same = prev && prev.p === m.p && iso(new Date(prev.t)) === d && m.t - prev.t < 600000;
+      h += '<div class="msg' + (m.mine ? ' me' : '') + (m.pending ? ' pending' : '') + '">' +
+        (!m.mine && !same ? '<span class="who2">' + esc(m.n) + '</span>' : '') +
+        '<span class="txt">' + fmtText(m.x) + '</span>' +
+        '<span class="meta">' + (m.pending ? 'Sender …' : hhmm(m.t)) +
+        ((m.mine || M.canMod) && !m.pending ? ' <button class="del" data-msgdel="' + esc(m.id) + '" aria-label="Slet besked">Slet</button>' : '') + '</span></div>';
+    });
+    return h;
+  }
+  function viewRoom(room) {
+    setTab('tilmeld');
+    var title = roomTitle(room);
+    setHeader(title, /^g:/.test(room) ? 'Snak · træningsgruppe' : 'Snak · holdet', true);
+    if (!ME || !ME.token) return '<p class="empty">Log ind på Min side for at være med i snakken.</p>';
+    var M = SNAK.msgs[room];
+    if (!M || (!M.list && !M.error)) { if (!M || !M.loading) fetchMsgs(room, false); return '<p class="empty">Henter beskeder …</p>'; }
+    if (M.error) return '<div class="warn">' + esc(M.error) + '</div><p class="note">' + (/^g:/.test(room) ? 'Vælg gruppen under Træning på Min side for at være med.' : 'Følg holdet under Hold for at være med i holdets snak.') + '</p>';
+    return '<div class="snakbar"><span class="xs" style="flex:1">' + (/^g:/.test(room) ? 'Alle der har valgt ' + esc(room.slice(2)) + ' under Træning på Min side' : 'Holdets spillere, holdledere og dem der følger holdet') + '</span>' +
+      '<button class="chip" data-act="mute" aria-pressed="' + !!M.muted + '">' + (M.muted ? '🔕 Lydløs' : '🔔 Besked ved nyt') + '</button></div>' +
+      '<div id="msgs" class="msgs">' + msgsHtml(room) + '</div>' +
+      '<div class="compose"><textarea id="msgText" rows="1" maxlength="1000" placeholder="Skriv en besked …" aria-label="Besked til ' + esc(title) + '">' + esc(SNAK.draft[room] || '') + '</textarea>' +
+      '<button class="rb ja" aria-pressed="true" data-act="send"' + (SNAK.sending ? ' disabled' : '') + '>Send</button></div>';
+  }
+  function curRoom() { var m = /^#\/snak\/(.+)$/.exec(location.hash); return m ? decodeURIComponent(m[1]) : ''; }
+  function markSeen(room) {
+    var M = SNAK.msgs[room]; if (!M || !M.list) return;
+    var last = M.list.reduce(function (a, m) { return Math.max(a, m.t || 0); }, SEEN[room] || 0);
+    if (last !== SEEN[room]) { SEEN[room] = last; saveSeen(); }
+    var r = (SNAK.rooms || []).filter(function (x) { return x.id === room; })[0]; if (r) r.recent = (r.recent || []).filter(function (t) { return t > last; });
+    updDot();
+  }
+  function scrollBottom() { $main.scrollTop = $main.scrollHeight; }
+  function refreshMsgs(room) {   // opdatér kun listen — tekstfeltet og fokus bevares
+    var el = document.getElementById('msgs'); if (!el || curRoom() !== room) return;
+    var atBottom = $main.scrollHeight - $main.scrollTop - $main.clientHeight < 120;
+    el.innerHTML = msgsHtml(room); markSeen(room);
+    if (atBottom) scrollBottom();
+  }
+  function fetchMsgs(room, quiet) {
+    var M = SNAK.msgs[room];
+    if (M && M.loading) return;
+    if (M) M.loading = true; else SNAK.msgs[room] = M = { loading: true, list: null };
+    api({ action: 'messages', token: ME.token, room: room }).then(function (r) {
+      var old = SNAK.msgs[room] || {};
+      if (r && r.ok) {
+        var pend = (old.list || []).filter(function (m) { return m.pending; });
+        var sig = function (l) { return (l || []).map(function (m) { return m.id; }).join(','); };
+        var changed = sig(old.list) !== sig(r.messages);
+        SNAK.msgs[room] = { list: r.messages.concat(pend), canMod: !!r.canMod, muted: !!r.muted };
+        if (curRoom() !== room) return;
+        if (quiet && old.list && document.getElementById('msgs')) { if (changed) refreshMsgs(room); }
+        else { route(true); scrollBottom(); markSeen(room); }
+      } else if (r && r.error === 'login') { ME = null; saveMe(); route(); }
+      else { SNAK.msgs[room] = old.list ? (old.loading = false, old) : { error: (r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres, før snakken virker' : ((r && r.error) || 'Kunne ikke hente beskeder') }; if (!quiet && curRoom() === room) route(true); }
+    }).catch(function () {
+      var o = SNAK.msgs[room];
+      if (o && o.list) o.loading = false; else SNAK.msgs[room] = { error: 'Ingen forbindelse — prøv igen' };
+      if (!quiet && curRoom() === room) route(true);
+    });
+  }
+  function sendMsg() {
+    var room = curRoom(), ta = document.getElementById('msgText'); if (!room || !ta) return;
+    var text = ta.value.trim(); if (!text || SNAK.sending) return;
+    var M = SNAK.msgs[room], tmp = { id: 'tmp' + Date.now(), t: Date.now(), p: ME.id, n: ME.name, x: text, mine: true, pending: true };
+    M.list.push(tmp); SNAK.sending = true; SNAK.draft[room] = ''; ta.value = ''; ta.style.height = '';
+    refreshMsgs(room); scrollBottom();
+    api({ action: 'post', token: ME.token, room: room, text: text }).then(function (r) {
+      if (r && r.error === 'login') { ME = null; saveMe(); throw new Error('Log ind igen'); }
+      if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke sende');
+      var i = M.list.indexOf(tmp); if (i >= 0) M.list[i] = r.message;
+      var rr = (SNAK.rooms || []).filter(function (x) { return x.id === room; })[0];
+      if (rr) { rr.last = r.message.t; rr.by = ME.name; rr.x = text.slice(0, 80); rr.n++; }
+    }).catch(function (err) {
+      var i = M.list.indexOf(tmp); if (i >= 0) M.list.splice(i, 1);
+      SNAK.draft[room] = text; var t2 = document.getElementById('msgText'); if (t2 && !t2.value) t2.value = text;
+      toast(err.message || 'Kunne ikke sende — prøv igen');
+    }).then(function () {
+      SNAK.sending = false; refreshMsgs(room); markSeen(room);
+      var b = document.querySelector('[data-act="send"]'); if (b) b.disabled = false;
+    });
+    var b = document.querySelector('[data-act="send"]'); if (b) b.disabled = true;
+  }
+  function delMsg(id) {
+    var room = curRoom(), M = SNAK.msgs[room]; if (!M || !confirm('Slet beskeden?')) return;
+    api({ action: 'delMsg', token: ME.token, id: id }).then(function (r) {
+      if (!r || !r.ok) throw new Error((r && r.error) || 'Kunne ikke slette');
+      M.list = M.list.filter(function (m) { return m.id !== id; }); refreshMsgs(room); toast('Beskeden er slettet');
+    }).catch(function (err) { toast(err.message); });
+  }
+  function toggleMute() {
+    var room = curRoom(), M = SNAK.msgs[room]; if (!M) return;
+    var on = !M.muted; M.muted = on; route(true);
+    var rr = (SNAK.rooms || []).filter(function (x) { return x.id === room; })[0]; if (rr) rr.muted = on;
+    api({ action: 'mute', token: ME.token, room: room, on: on }).then(function (r) {
+      if (!r || !r.ok) throw new Error();
+      toast(on ? 'Ingen notifikationer fra ' + roomTitle(room) : 'Du får besked ved nye beskeder');
+    }).catch(function () { M.muted = !on; if (rr) rr.muted = !on; route(true); toast('Kunne ikke gemme'); });
+    updDot();
+  }
+  // Hent nye beskeder hvert 15. sekund mens et rum er åbent
+  setInterval(function () { var room = curRoom(); if (room && ME && ME.token && document.visibilityState === 'visible' && !SNAK.sending) fetchMsgs(room, true); }, 15000);
+
+  // ---------- Nyheder ----------
+  function findNews(id) { return allNews().concat(SNAK.adm || []).filter(function (n) { return n.id === id; })[0]; }
+  function viewNyheder() {
+    setTab('tilmeld'); setHeader('Nyheder', 'Fra klubben', true);
+    if (!ME || !ME.token) loadPub(); else loadRooms(false);
+    var list = allNews(), h = '';
+    if (SNAK.canNews) h += '<button class="rb ja" aria-pressed="true" style="align-self:flex-start;min-height:44px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>';
+    h += list.length ? list.map(newsCard).join('') : '<p class="empty">' + ((ME && ME.token ? SNAK.rooms : SNAK.pub) ? 'Ingen nyheder endnu.' : 'Henter …') + '</p>';
+    if (!ME || !ME.token) h += '<p class="note">Log ind på Min side for også at se nyheder til dine hold og træningsgrupper.</p>';
+    return h;
+  }
+  function viewNyhed(id) {
+    setTab('tilmeld');
+    var n = findNews(id);
+    if (!n) {
+      setHeader('Nyhed', '', true);
+      if (ME && ME.token) loadRooms(!SNAK.rooms || Date.now() - SNAK.at > 5000); else loadPub();
+      return '<p class="empty">' + ((ME && ME.token ? SNAK.rooms : SNAK.pub) ? 'Nyheden findes ikke længere.' : 'Henter …') + '</p>';
+    }
+    setHeader('Nyhed', ago(n.t), true);
+    if (!NSEEN[id]) { NSEEN[id] = 1; saveSeen(); updDot(); }
+    return '<article class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px">' +
+      '<span class="xs">' + esc(dTxt(iso(new Date(n.t)))) + ' kl. ' + hhmm(n.t) + (n.by ? ' · ' + esc(n.by) : '') + '</span>' +
+      '<h2 class="h" style="margin:0;font-size:20px;line-height:1.2">' + esc(n.title) + '</h2>' +
+      '<div style="font-size:15px;line-height:1.5">' + fmtText(n.text) + '</div>' +
+      '<span class="xs">Til: ' + esc((n.to || ['*']).map(audLabel).join(', ')) + '</span></article>' +
+      (SNAK.canNews ? '<button class="rb" style="align-self:flex-start;min-height:42px" data-newsdel="' + esc(n.id) + '">Slet nyheden</button>' : '');
+  }
+  function viewNewsNew() {
+    setTab('tilmeld'); setHeader('Skriv en nyhed', 'Til alle eller udvalgte hold', true);
+    if (!ME || !ME.role || !ME.role.admin) return '<p class="empty">Kun administratorer kan skrive nyheder.</p>';
+    var F = SNAK.nf = SNAK.nf || { to: { '*': 1 }, push: true, title: '', text: '' };
+    var chip = function (k, l) { return '<button class="chip" data-newsto="' + esc(k) + '" aria-pressed="' + !!F.to[k] + '">' + esc(l) + '</button>'; };
+    var teams = D.teams.slice().sort(function (a, b) { return a.label.localeCompare(b.label, 'da', { numeric: true }); });
+    var sel = Object.keys(F.to);
+    return '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px">' +
+      '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Overskrift</span><input id="nwTitle" class="inp" maxlength="100" value="' + esc(F.title) + '" placeholder="Fx Generalforsamling 24. november"></label>' +
+      '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Tekst</span><textarea id="nwText" class="inp" rows="7" maxlength="3000" placeholder="Skriv nyheden her. Links virker.">' + esc(F.text) + '</textarea></label></div>' +
+      '<span class="lbl">Hvem er nyheden til?</span><div style="display:flex;flex-wrap:wrap;gap:6px">' + chip('*', 'Alle i klubben') + '</div>' +
+      '<span class="xs" style="margin:0 4px">Træningsgrupper</span><div style="display:flex;flex-wrap:wrap;gap:6px">' + GROUPS.map(function (g) { return chip('g:' + g, g); }).join('') + '</div>' +
+      '<span class="xs" style="margin:0 4px">Hold</span><div style="display:flex;flex-wrap:wrap;gap:6px">' + teams.map(function (t) { return chip('h:' + t.leagueGroupTeamID, t.label); }).join('') + '</div>' +
+      '<p class="note">' + (F.to['*'] ? 'Alle kan se nyheden — også før de logger ind.' : sel.length ? 'Kun ' + esc(sel.map(audLabel).join(', ')) + ' ser nyheden: spillere på holdene, holdledere, dem der følger holdene og dem der har valgt træningsgrupperne.' : 'Vælg mindst én modtager.') + '</p>' +
+      '<label class="card" style="padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="nwPush"' + (F.push ? ' checked' : '') + ' style="width:20px;height:20px"><span>Send også som notifikation til dem, der har slået notifikationer til</span></label>' +
+      '<button class="rb ja" aria-pressed="true" data-act="newssave" style="min-height:48px;font-size:15px"' + (SNAK.saving ? ' disabled' : '') + '>' + (SNAK.saving ? 'Sender …' : 'Udgiv nyheden') + '</button>';
+  }
+  function saveNews() {
+    var F = SNAK.nf; if (!F || SNAK.saving) return;
+    F.title = (document.getElementById('nwTitle') || {}).value || F.title; F.text = (document.getElementById('nwText') || {}).value || F.text;
+    var to = Object.keys(F.to);
+    if (!F.title.trim()) { toast('Skriv en overskrift'); return; }
+    if (!F.text.trim()) { toast('Skriv en tekst'); return; }
+    if (!to.length) { toast('Vælg hvem nyheden er til'); return; }
+    if (!confirm('Udgiv "' + F.title.trim() + '" til ' + to.map(audLabel).join(', ') + (F.push ? ' og send notifikation' : '') + '?')) return;
+    SNAK.saving = true; route(true);
+    api({ action: 'newsSave', token: ME.token, title: F.title, text: F.text, to: to, push: F.push }).then(function (r) {
+      if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
+      SNAK.nf = null; NSEEN[r.id] = 1; saveSeen();
+      toast('Nyheden er udgivet' + (r.pushed ? ' · notifikation til ' + r.pushed + ' telefon' + (r.pushed === 1 ? '' : 'er') : ''));
+      SNAK.saving = false; location.hash = '#/nyheder'; loadRooms(true); SNAK.pub = null;
+    }).catch(function (err) { SNAK.saving = false; route(true); toast(err.message); });
+  }
+  function delNews(id) {
+    if (!confirm('Slet nyheden for alle?')) return;
+    api({ action: 'newsDel', token: ME.token, id: id }).then(function (r) {
+      if (!r || !r.ok) throw new Error((r && r.error) || 'Kunne ikke slette');
+      SNAK.news = SNAK.news.filter(function (n) { return n.id !== id; }); SNAK.pub = null;
+      toast('Nyheden er slettet'); location.hash = '#/nyheder';
+    }).catch(function (err) { toast(err.message); });
+  }
+
   // ---------- Router ----------
   var lastTab = 'hold';
   function route(keepScroll) {
@@ -2069,11 +2389,17 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
     else if (parts[0] === 'holdleder') { lastTab = 'tilmeld'; html = viewHoldleder(); }
+    else if (parts[0] === 'snak' && parts[1]) { lastTab = 'tilmeld'; html = viewRoom(decodeURIComponent(parts.slice(1).join('/'))); }
+    else if (parts[0] === 'snak') { lastTab = 'tilmeld'; html = viewSnak(); }
+    else if (parts[0] === 'nyheder' && parts[1] === 'ny') { lastTab = 'tilmeld'; html = viewNewsNew(); }
+    else if (parts[0] === 'nyheder') { lastTab = 'tilmeld'; html = viewNyheder(); }
+    else if (parts[0] === 'nyhed') { lastTab = 'tilmeld'; html = viewNyhed(decodeURIComponent(parts[1] || '')); }
     else if (parts[0] === 'notifikationer') { lastTab = 'tilmeld'; html = viewNotifikationer(); }
     else if (parts[0] === 'sider') { lastTab = 'sider'; html = viewSider(); }
     else if (parts[0] === 'side') { lastTab = 'sider'; html = viewSide(parts.slice(1).join('/')); }
     else if (parts[0] === 'spiller') { setTab(lastTab); html = viewPlayer(decodeURIComponent(parts[1] || '')); }
     else { lastTab = 'hold'; html = viewHoldList(); }
+    $main.classList.toggle('chat', /id="msgText"/.test(html));
     $main.innerHTML = html;
     if (parts[0] === 'side') {   // e-mails fra hoebk.dk er kodet mod spam-robotter — saml dem først her
       document.querySelectorAll('a.hmail').forEach(function (a) {
@@ -2115,6 +2441,19 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       });
     }
     if (keepScroll) $main.scrollTop = y;
+    if (parts[0] === 'snak' && parts[1] && document.getElementById('msgText')) {
+      var sroom = curRoom(), mt = document.getElementById('msgText');
+      var grow = function () { mt.style.height = 'auto'; mt.style.height = Math.min(160, mt.scrollHeight + 2) + 'px'; };
+      mt.addEventListener('input', function () { SNAK.draft[sroom] = mt.value; grow(); });
+      if (mt.value) grow();
+      if (!keepScroll) scrollBottom();
+      markSeen(sroom);
+    }
+    if (parts[0] === 'nyheder' && parts[1] === 'ny' && document.getElementById('nwTitle')) {
+      document.getElementById('nwTitle').addEventListener('input', function (e) { SNAK.nf.title = e.target.value; });
+      document.getElementById('nwText').addEventListener('input', function (e) { SNAK.nf.text = e.target.value; });
+      document.getElementById('nwPush').addEventListener('change', function (e) { SNAK.nf.push = e.target.checked; });
+    }
     if (parts[0] === 'kalender') {
       document.getElementById('calTeam').addEventListener('change', function (e) { CAL.team = e.target.value; route(); });
       document.getElementById('calTr').addEventListener('change', function (e) { CAL.training = e.target.checked; route(); });
@@ -2187,8 +2526,19 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-msgdel],[data-newsto],[data-newsdel]');
     if (!b) return;
+    if (b.dataset.act === 'send') { sendMsg(); return; }
+    if (b.dataset.act === 'mute') { toggleMute(); return; }
+    if (b.dataset.act === 'newssave') { saveNews(); return; }
+    if (b.dataset.msgdel) { delMsg(b.dataset.msgdel); return; }
+    if (b.dataset.newsdel) { delNews(b.dataset.newsdel); return; }
+    if (b.dataset.newsto) {
+      var F = SNAK.nf, k = b.dataset.newsto;
+      if (k === '*') F.to = F.to['*'] ? {} : { '*': 1 };
+      else { delete F.to['*']; if (F.to[k]) delete F.to[k]; else F.to[k] = 1; }
+      route(true); return;
+    }
     if (b.dataset.tuage) { TU.age = b.dataset.tuage; if (!b.dataset.go) { route(true); return; } }
     if (b.dataset.pick) { var pid = b.dataset.pick; if (LU.sel[pid]) delete LU.sel[pid]; else LU.sel[pid] = (D.players[pid] ? D.players[pid].name : (availMap(matchEid(D.teams[LU.team].matches[LU.mi]))[pid] || {}).n || pid); route(true); return; }
     if (b.dataset.lufilter) { LU[b.dataset.lufilter] = !LU[b.dataset.lufilter]; route(true); return; }
@@ -2220,7 +2570,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
           if (!sub) return; var j = sub.toJSON(); return sub.unsubscribe().then(function () { return api({ action: 'push', token: tok, on: false, sub: j }); });
         }).catch(function () {}) : Promise.resolve()).then(function () { PUSH.state = 'fra'; return api({ action: 'logout', token: tok }); }).catch(function () {});
       }
-      ME = null; saveMe(); UI.step = 'name'; toast('Du er logget ud'); route(); return;
+      ME = null; saveMe(); UI.step = 'name'; SNAK.rooms = null; SNAK.news = []; SNAK.msgs = {}; SNAK.canNews = false; updDot(); toast('Du er logget ud'); route(); return;
     }
     if (b.dataset.trg) { CAL.trGroup = b.dataset.trg; CAL.trHold = ''; try { localStorage.setItem('hoebk_trg', CAL.trGroup); localStorage.setItem('hoebk_trh', ''); } catch (e3) {} route(true); return; }
     if (b.dataset.trh !== undefined) { CAL.trHold = b.dataset.trh; try { localStorage.setItem('hoebk_trh', CAL.trHold); } catch (e4) {} route(true); return; }
@@ -2239,7 +2589,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (b.dataset.group) {
       var gi = ME.groups.indexOf(b.dataset.group);
       if (gi >= 0) ME.groups.splice(gi, 1); else ME.groups.push(b.dataset.group);
-      saveMe(); route(true); return;
+      saveMe(); route(true); SNAK.at = 0; loadRooms(true); return;
     }
     if (b.dataset.go) { location.hash = b.dataset.go; return; }
     if (b.dataset.seg) UI.seg = b.dataset.seg;
@@ -2258,7 +2608,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       loadActivities(true);
       return load();
     }).then(function () { return loadReg(); })
-      .then(function () { route(true); toast('Opdateret'); })
+      .then(function () { route(true); SNAK.pub = null; loadPub(); var rm = curRoom(); if (rm && ME && ME.token) fetchMsgs(rm, true); return loadRooms(true); })
+      .then(function () { toast('Opdateret'); })
       .catch(function () { toast('Kunne ikke opdatere — tjek forbindelsen'); })
       .then(function () { btn.classList.remove('spin'); FORCE = 0; });
   });
@@ -2267,6 +2618,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   document.addEventListener('visibilitychange', function () {
     if (document.visibilityState !== 'visible') return;
     checkAppVersion(false).then(function (reloading) {
+      if (!reloading) { loadRooms(true); var rm = curRoom(); if (rm && ME && ME.token) fetchMsgs(rm, true); }
       if (reloading || Date.now() - lastLoad < 10 * 60000) return;
       lastLoad = Date.now(); FORCE = Date.now();
       load().then(function () { return loadReg(); }).then(function () { route(true); }).catch(function () {}).then(function () { FORCE = 0; });
@@ -2277,7 +2629,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   if (!location.hash || location.hash === '#/hold' || location.hash === '#/') {
     try { history.replaceState(null, '', location.pathname + location.search + '#/tilmeld'); } catch (e) { location.hash = '#/tilmeld'; }
   }
-  load().then(function () { prevHash = location.hash; route(); loadActivities(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).catch(function () {
+  load().then(function () { prevHash = location.hash; route(); loadActivities(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).then(function () { return loadRooms(true); }).catch(function () {
     $main.innerHTML = '<p class="empty">Kunne ikke hente data. Prøv igen om lidt.</p>';
     document.getElementById('subtitle').textContent = 'Fejl ved hentning';
   });

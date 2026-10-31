@@ -1,0 +1,29 @@
+name: HØBK push (nyheder og snak)
+
+# Startes af Apps Script, når en nyhed udgives eller nogen skriver i snakken (højst én gang i minuttet),
+# og af scriptets tick() hvert 15. minut, hvis der stadig ligger noget i køen. Tidsplanen her er kun en ekstra sikring.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "7,37 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: push
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Send push fra køen
+        env:
+          REG_URL: ${{ secrets.REG_URL }}
+          REG_KEY: ${{ secrets.REG_KEY }}
+          VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+        run: python3 push_ko.py
