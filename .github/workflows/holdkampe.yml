@@ -106,7 +106,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          python3 web_digest.py || echo "Hjemmeside-udtræk fejlede"
           git add data/holdkampe.json data/spillere.json data/turneringer.json data/steder.json data/turnering_nyt.json data/notifikationer.json
+          [ -f data/hjemmeside.json ] && git add data/hjemmeside.json
           [ -f data/sider.json ] && git add data/sider.json
           if git diff --cached --quiet; then
             echo "Ingen ændringer."

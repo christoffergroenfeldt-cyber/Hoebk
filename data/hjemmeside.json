@@ -1,0 +1,194 @@
+{
+ "updated": "2026-10-31T05:22:29+00:00",
+ "season": "2026",
+ "app": "https://christoffergroenfeldt-cyber.github.io/Hoebk/",
+ "teams": 15,
+ "upcoming": [
+  {
+   "team": "MOT 4+4 Elite/Mester",
+   "club": "Hørsholm 2",
+   "date": "2026-11-01",
+   "time": "10:00",
+   "opponent": "Holte 3",
+   "home": true,
+   "venue": "Hørsholm Badminton Hal 1-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510455,1151,"
+  },
+  {
+   "team": "MOT 4 spillere Mester",
+   "club": "Hørsholm 1",
+   "date": "2026-11-08",
+   "time": "10:00",
+   "opponent": "Slangerup 3",
+   "home": true,
+   "venue": "Hørsholm Badminton Hal 5-6",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18960,16,19,,510410,1151,"
+  },
+  {
+   "team": "MOT 4+4 Elite/Mester",
+   "club": "Hørsholm 2",
+   "date": "2026-11-08",
+   "time": "11:00",
+   "opponent": "Lillerød 2",
+   "home": true,
+   "venue": "Hørsholm Badminton Hal 1-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510457,1151,"
+  },
+  {
+   "team": "U11 C",
+   "club": "Hørsholm 1",
+   "date": "2026-11-14",
+   "time": "09:00",
+   "opponent": "Hillerød 2",
+   "home": false,
+   "venue": "Hillerød Badmintonklub 1-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513407,1151,"
+  },
+  {
+   "team": "U11 C",
+   "club": "Hørsholm 1",
+   "date": "2026-11-14",
+   "time": "10:30",
+   "opponent": "Humlebæk 1",
+   "home": true,
+   "venue": "Hillerød Badmintonklub 1-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513409,1151,"
+  },
+  {
+   "team": "4 Spillere",
+   "club": "Hørsholm 3",
+   "date": "2026-11-14",
+   "time": "11:00",
+   "opponent": "Brøndby Strand 2",
+   "home": true,
+   "venue": "Hørsholm Badminton Hal",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18954,1,10,,512941,1151,"
+  },
+  {
+   "team": "U13 B",
+   "club": "Hørsholm 2",
+   "date": "2026-11-14",
+   "time": "13:00",
+   "opponent": "Farum 1",
+   "home": false,
+   "venue": "BBK-Hallen 5-8",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513980,1151,"
+  },
+  {
+   "team": "U11 Dx",
+   "club": "Hørsholm 2",
+   "date": "2026-11-14",
+   "time": "14:00",
+   "opponent": "Lillerød 3",
+   "home": false,
+   "venue": "Lillerød-Hallerne, Hal 3 1-2",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514718,1151,"
+  }
+ ],
+ "results": [
+  {
+   "team": "U11 Dx",
+   "club": "Hørsholm 2",
+   "date": "2026-10-25",
+   "time": "15:30",
+   "opponent": "Vallensbæk 1",
+   "home": false,
+   "venue": "Hørsholm Badminton Hal 1-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514713,1151,",
+   "result": "1-7",
+   "outcome": "V",
+   "walkover": ""
+  },
+  {
+   "team": "U15 B",
+   "club": "Hørsholm 2",
+   "date": "2026-10-25",
+   "time": "15:30",
+   "opponent": "Nivå-Kokkedal 1",
+   "home": true,
+   "venue": "Skinderskovhallen 3-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514329,1151,",
+   "result": "6-2",
+   "outcome": "V",
+   "walkover": ""
+  },
+  {
+   "team": "U11 Dx",
+   "club": "Hørsholm 2",
+   "date": "2026-10-25",
+   "time": "14:00",
+   "opponent": "Herlev/Hjorten 2",
+   "home": true,
+   "venue": "Hørsholm Badminton Hal 1-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19113,3,10,,514711,1151,",
+   "result": "3-5",
+   "outcome": "T",
+   "walkover": ""
+  },
+  {
+   "team": "U15 B",
+   "club": "Hørsholm 2",
+   "date": "2026-10-25",
+   "time": "13:00",
+   "opponent": "Herlev/Hjorten 1",
+   "home": false,
+   "venue": "Skinderskovhallen 1-2",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19102,5,10,,514326,1151,",
+   "result": "7-1",
+   "outcome": "T",
+   "walkover": ""
+  },
+  {
+   "team": "4 Spillere A-række",
+   "club": "Hørsholm",
+   "date": "2026-10-25",
+   "time": "12:00",
+   "opponent": "Nordbyens Badmintonklub",
+   "home": true,
+   "venue": "Hørsholm Badminton Hal 1-2",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19068,9,10,,513112,1151,",
+   "result": "3-3",
+   "outcome": "U",
+   "walkover": ""
+  },
+  {
+   "team": "U15 A",
+   "club": "Hørsholm 1",
+   "date": "2026-10-25",
+   "time": "12:00",
+   "opponent": "VBC/FKIF 1",
+   "home": true,
+   "venue": "Frederiksberghal 3 3-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19106,5,8,,516362,1151,",
+   "result": "5-3",
+   "outcome": "V",
+   "walkover": ""
+  },
+  {
+   "team": "U13 B",
+   "club": "Hørsholm 2",
+   "date": "2026-10-25",
+   "time": "11:00",
+   "opponent": "Holte 1",
+   "home": false,
+   "venue": "Skinderskovhallen 5-8",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513975,1151,",
+   "result": "8-0",
+   "outcome": "T",
+   "walkover": ""
+  },
+  {
+   "team": "U11 C",
+   "club": "Hørsholm 1",
+   "date": "2026-10-25",
+   "time": "10:30",
+   "opponent": "Slangerup/Skibby 1",
+   "home": false,
+   "venue": "Hørsholm Badminton Hal 1-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513402,1151,",
+   "result": "3-5",
+   "outcome": "V",
+   "walkover": ""
+  }
+ ]
+}

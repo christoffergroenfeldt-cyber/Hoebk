@@ -88,6 +88,15 @@ See the troubleshooting table in [TILMELDING.md](TILMELDING.md).
 
 All free while the repo is **public**: GitHub Pages and Actions minutes are free for public repositories. A private repo would need GitHub Pro for Pages, and the 15-minute sync alone (~2,900 billed minutes a month) would exceed the free private allowance. Google Apps Script and Sheets are free within Google's quotas.
 
+## hoebk.dk — new look (Joomla template)
+
+`joomla/tpl_cassiopeia_hoebk.zip` is a Cassiopeia child template with the "HØBK Redesign" look for hoebk.dk
+(Joomla 4.4.0). Installation, preview (`?templateStyle=<id>`), switching on/off and where each front-page
+section gets its content: [`joomla/README.md`](../joomla/README.md). Rebuild the zip with
+`python tools/build_template.py` after changing anything under `joomla/cassiopeia_hoebk/` (bump `<version>`).
+
+The front page reads `data/hjemmeside.json` (written by `web_digest.py` in `holdkampe.yml` and `live.yml`).
+
 ## Optional: old Joomla site
 
 `holdkampe-widget.html` can be pasted into a Joomla *Custom* module. It reads `data/holdkampe.json` from `raw.githubusercontent.com` and shows each team's next matches and latest results.

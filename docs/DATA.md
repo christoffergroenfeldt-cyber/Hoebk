@@ -164,6 +164,13 @@ Each tournament in `turneringer.json` also has `links`: which of `invitation`, `
 
 `weekday`: 1 = Monday … 7 = Sunday. `group` must be one of `Ungdom, Senior, Senior2, Voksenfjer, Veteran` to appear as a choice on Min side (the list is `GROUPS` in `index.html`). Training registrations use the id `t:<date>:<group>` — renaming a group after people have answered orphans those answers.
 
+## `data/hjemmeside.json` — summary for hoebk.dk
+
+Written by `web_digest.py` from `data/holdkampe.json` (in `holdkampe.yml` and `live.yml`) and read by the Joomla
+template's front page. `{updated, season, app, teams, upcoming:[…8], results:[…8]}`; each item has
+`team` (division label, e.g. "U15 B"), `club` ("Hørsholm 2"), `date`, `time`, `opponent`, `home`, `venue`, `url`,
+and for results `result`, `outcome` (V/T/U) and `walkover`. No players.
+
 ## `config.json`
 
 ```json

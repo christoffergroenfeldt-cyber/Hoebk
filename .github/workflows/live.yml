@@ -51,7 +51,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/holdkampe.json data/spillere.json data/notifikationer.json data/turnering_nyt.json
+          python3 web_digest.py || echo "Hjemmeside-udtræk fejlede"
+          git add data/holdkampe.json data/spillere.json data/notifikationer.json data/turnering_nyt.json data/hjemmeside.json
           if git diff --cached --quiet; then echo "Ingen ændringer."; else
             git commit -m "Kampdag $(date -u +%Y-%m-%dT%H:%MZ)"
             for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push && break; echo "Push afvist — prøver igen"; sleep $((i*5)); done
