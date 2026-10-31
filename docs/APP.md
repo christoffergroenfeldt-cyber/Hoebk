@@ -38,9 +38,24 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/eksport/<i>/<m>` | Leaders: lineup ready to enter on badmintonplayer.dk |
 | `#/holdleder` | Team leaders: next match per team (sorted by date) with selection status; opened from Min side. Administrators also get the link to `#/ledere` |
 | `#/ledere` | Administrator: appoint/remove team leaders, user statistics |
+| `#/snak` | All chat rooms the player is in (teams + training groups), newest activity first |
+| `#/snak/<room>` | One chat room (`h:<leagueGroupTeamID>` or `g:<group>`, URL-encoded): messages, composer, *Lydløs* |
+| `#/nyheder` | News from the club (logged out: only news for everyone). Administrators get *+ Skriv en nyhed* |
+| `#/nyhed/<id>` | One news item; administrators can delete it |
+| `#/nyheder/ny` | Administrator: write news to everyone, chosen teams and/or training groups, optionally as push |
 | `#/notifikationer` | Push notifications on this phone and mail on/off; Min side only shows a one-line status card |
 
 Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth). A team not listed there goes last — add new team labels to `ORDER` when a new division appears.
+
+## Snak (chat) and news
+
+**Rooms.** Every team has a room (`h:<leagueGroupTeamID>`) and every training group has one (`g:Senior` …). The server decides who is in a room: a team room is for players who have played for the team (from `data/holdkampe.json`), people who follow the team, its leaders and administrators; a training-group room is for everyone who picked that group under *Træning* on Min side (the app sends the chosen groups with every `rooms` call). Following a team is how parents and new players get in.
+
+**Where it shows.** Min side has *Nyheder fra klubben* (unread first, *Ny* tag) and *Snak* (4 most recent rooms with unread badges); the team page has a *💬 Holdets snak* button; the *Min side* tab gets a red dot when there's something unread. Unread is tracked per phone in `localStorage` (`hoebk_seen` = last seen message time per room, `hoebk_nseen` = news ids read). A room you see for the first time starts as read.
+
+**Chat.** Messages load when a room opens and every 15 s while it is open and the app is in front. Links become clickable, line breaks are kept, max 1000 characters, max 10 messages a minute per person. You can delete your own messages; administrators and the team's leaders can delete any message in a team room. *🔔 Besked ved nyt / 🔕 Lydløs* switches push for that room on this account.
+
+**News.** Administrators write news on `#/nyheder/ny` (also linked from *Holdleder → Administrator*): title, text and recipients — *Alle i klubben*, or any mix of training groups and teams. News for everyone is visible before login too. *Send også som notifikation* pushes it to members' phones that have notifications on. News older than 120 days drops off the lists.
 
 ## Calendar
 
