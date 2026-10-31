@@ -24,7 +24,7 @@ from zoneinfo import ZoneInfo
 
 BASE = "https://hoebk.dk"
 OUT = "data/sider.json"
-SKIP = re.compile(r"/login|/component/users|option=com_users|/kalender$|\.(pdf|jpe?g|png|gif|docx?|xlsx?|zip)$", re.I)
+SKIP = re.compile(r"/login|/component/|option=com_|/kalender$|\.(pdf|jpe?g|png|gif|docx?|xlsx?|zip)$", re.I)
 MAX_PAGES = 150
 
 

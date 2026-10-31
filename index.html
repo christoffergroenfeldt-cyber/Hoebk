@@ -80,8 +80,8 @@ td{padding:9px 6px;border-top:1px solid var(--line2)}
 .search{display:flex;align-items:center;gap:8px;padding:0 12px;min-height:46px}
 .search input{border:0;outline:0;background:transparent;flex:1 1 auto;font-size:16px;font-family:inherit;color:var(--ink);min-width:0}
 nav.tabs{flex:0 0 auto;position:relative;z-index:5;background:#fff;border-top:1px solid var(--line);padding:6px 8px max(8px, calc(env(safe-area-inset-bottom) - 12px))}
-nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
-nav.tabs a{min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted2);font-size:12px;font-weight:700;text-decoration:none;border-radius:12px}
+nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0}
+nav.tabs a{letter-spacing:-.2px;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted2);font-size:12px;font-weight:700;text-decoration:none;border-radius:12px}
 nav.tabs a[aria-current=page]{color:var(--ink)}
 .empty{margin:6px 4px;color:var(--muted);font-size:14px}
 .note{margin:2px 4px;font-size:12px;color:var(--muted)}
@@ -139,6 +139,13 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .rb.follow[aria-pressed=true]{background:var(--accent);border-color:var(--accent)}
 .star{color:#C99A06}
 .news{color:var(--tour,#1E6B3A);font-weight:600}
+.pagec{padding:14px 16px;font-size:15px;line-height:1.55;overflow-wrap:anywhere}
+.pagec h1{font-size:21px;line-height:1.2;margin:4px 0 10px}.pagec h2{font-size:18px;margin:16px 0 6px}.pagec h3,.pagec h4{font-size:16px;margin:14px 0 4px}
+.pagec p{margin:0 0 10px}.pagec img{max-width:100%;height:auto;border-radius:8px}.pagec a{color:#2F6FB3;font-weight:600}
+.pagec table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%;font-size:13px}.pagec td,.pagec th{border:1px solid var(--line);padding:4px 6px;vertical-align:top}
+.pagec ul,.pagec ol{padding-left:20px;margin:0 0 10px}
+.sgroup{padding:4px 0}.sgroup a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 14px;border-top:1px solid var(--line2);color:inherit;text-decoration:none;font-size:15px}
+.sgroup a:first-of-type{border-top:0}.newdot{font-size:11px;font-weight:800;color:#1E5A2E;background:#E3F3E6;border-radius:999px;padding:2px 7px;white-space:nowrap}
 .route{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:14px;text-decoration:none;align-self:flex-start}
 .route svg{flex:none}
 .tlinks{display:flex;flex-wrap:wrap;gap:8px}
@@ -208,6 +215,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 <a href="#/tilmeld" data-tab="tilmeld"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Min side</a>
 <a href="#/rangliste" data-tab="rang"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>Rangliste</a>
 <a href="#/spillere" data-tab="spillere"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></svg>Spillere</a>
+<a href="#/sider" data-tab="sider"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h10l6 6v10a0 0 0 0 1 0 0H4z"/><path d="M14 4v6h6M8 14h8M8 18h6"/></svg>Sider</a>
 </div></nav>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -841,6 +849,95 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     return h;
   }
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') checkPush(); });
+
+  // ---------- Sider fra hoebk.dk (data/sider.json, hentes én gang om dagen af fetch_sider.py) ----------
+  // Organiseret efter hvad medlemmer leder efter — ikke hjemmesidens menu. Nye sider på hoebk.dk havner under "Øvrige".
+  var SIDER = { data: null, loading: false, q: '' };
+  var SIDE_GROUPS = [
+    { t: 'Nyheder', ids: ['forside'] },
+    { t: 'Bliv medlem & praktisk', ids: ['tilmelding', 'tilmelding~primaer-traening', 'tilmelding~ekstra-traening', 'tilmelding~camps-og-events', 'tilmelding~baneleje', 'tilmelding~noglebrik', 'tilmelding~klubtoj', 'tilmelding~aendring-i-kontaktdata'] },
+    { t: 'Træning & trænere', ids: ['ungdom~traening', 'senior~traening', 'ungdom~traenere', 'senior~traenere'] },
+    { t: 'Ungdom & forældre', ids: ['ungdom', 'ungdom~aktiviteter', 'ungdom~holdkampe', 'ungdom~abne-turneringer', 'ungdom~abne-turneringer~tilmelding-til-abne-turneringer', 'ungdom~guide-til-foraeldre', 'om-klubben~vaerdier'] },
+    { t: 'Senior, Voksenfjer & Veteran', ids: ['senior', 'senior~hold', 'voksenfjer', 'veteran'] },
+    { t: 'Om klubben', ids: ['kontakt', 'om-klubben~bestyrelsen', 'om-klubben~generalforsamling', 'om-klubben', 'om-klubben~vedtaegter', 'om-klubben~cafe-tutten', 'om-klubben~privatlivspolitiker'] },
+    { t: 'Klubbens historie', match: /^om-klubben~historien/ },
+    { t: 'Sponsorer', match: /^sponsorer/ }
+  ];
+  // Genveje til appens egne (live) skærme fra de sider, hvor appen har oplysningerne
+  function sideShortcuts(id) {
+    var today = iso(new Date());
+    var m = { 'ungdom~traening': [['#/kalender/uge/' + today, 'Træning i kalenderen (vælg Ungdom)']], 'senior~traening': [['#/kalender/uge/' + today, 'Træning i kalenderen (vælg Senior)']],
+      'voksenfjer': [['#/kalender/uge/' + today, 'Træning i kalenderen']], 'veteran': [['#/kalender/uge/' + today, 'Træning i kalenderen']],
+      'ungdom~holdkampe': [['#/hold', 'Holdene, kampe og resultater']], 'senior~hold': [['#/hold', 'Holdene, kampe og resultater']],
+      'ungdom~abne-turneringer': [['#/turneringer', 'Turneringer for dit niveau']], 'ungdom~abne-turneringer~tilmelding-til-abne-turneringer': [['#/turneringer', 'Turneringer med tilmeldingslink']],
+      'ungdom~aktiviteter': [['#/kalender/maaned/' + today, 'Klubaktiviteter i kalenderen']], 'tilmelding~camps-og-events': [['#/kalender/maaned/' + today, 'Klubaktiviteter i kalenderen']] };
+    return (m[id] || []).map(function (x) { return '<button class="card row" style="min-height:48px;border-left:5px solid var(--accent)" data-go="' + x[0] + '"><b style="font-size:14px">' + esc(x[1]) + '</b><span class="xs">I appen ›</span></button>'; }).join('');
+  }
+  function loadSider() {
+    if (SIDER.data || SIDER.loading) return;
+    SIDER.loading = true;
+    fetch('data/sider.json' + bustParam(600000)).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+      .then(function (d) { SIDER.loading = false; SIDER.data = d || { pages: [], menu: [] }; if (/^#\/(sider|side\/)/.test(location.hash)) route(true); });
+  }
+  function sideTitles() {   // korte menutitler (fx "Træning") i stedet for sidernes lange overskrifter
+    var t = {};
+    (function walk(items, parent) { (items || []).forEach(function (it) {
+      if (it.id) t[it.id] = (parent && /^(Træning|Trænere|Hold)$/.test(it.title) ? parent + ': ' : '') + it.title;
+      walk(it.children, it.title === 'Forside' ? '' : it.title.replace(/ \/.*$/, '')); }); })(SIDER.data.menu, '');
+    t['forside'] = 'Nyheder fra klubben';
+    return t;
+  }
+  function sideGroups() {
+    var pages = SIDER.data.pages, byId = {}, used = {}, groups = [];
+    pages.forEach(function (p) { byId[p.id] = p; });
+    SIDE_GROUPS.forEach(function (g) {
+      var ids = g.ids ? g.ids.filter(function (id) { return byId[id]; }) : pages.filter(function (p) { return g.match.test(p.id); }).map(function (p) { return p.id; });
+      ids = ids.filter(function (id) { return !used[id]; }); ids.forEach(function (id) { used[id] = 1; });
+      if (ids.length) groups.push({ t: g.t, ids: ids });
+    });
+    var rest = pages.filter(function (p) { return !used[p.id]; }).map(function (p) { return p.id; });
+    if (rest.length) groups.push({ t: 'Øvrige', ids: rest });
+    return { groups: groups, byId: byId };
+  }
+  function isNewSide(p) { return p.changed && p.changed >= iso(new Date(Date.now() - 14 * 86400000)) && p.changed !== p.added; }
+  function viewSider() {
+    setTab('sider'); setHeader('Sider', 'Indhold fra hoebk.dk', false);
+    if (!SIDER.data) { loadSider(); return '<p class="empty">Henter sider …</p>'; }
+    if (!SIDER.data.pages.length) return '<p class="empty">Siderne fra hoebk.dk er ikke hentet endnu.</p>';
+    var G = sideGroups(), T = sideTitles(), q = SIDER.q.toLowerCase().trim();
+    var h = '<label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
+      '<input id="sq" type="search" value="' + esc(SIDER.q) + '" placeholder="Søg i klubbens sider" aria-label="Søg i klubbens sider" autocomplete="off"></label><div id="slist" class="col" style="gap:10px"></div>';
+    return h;
+  }
+  function renderSideList() {
+    var el = document.getElementById('slist'); if (!el || !SIDER.data) return;
+    var G = sideGroups(), T = sideTitles(), q = SIDER.q.toLowerCase().trim();
+    function link(id) { var p = G.byId[id]; return '<a href="#/side/' + esc(id) + '"><span>' + esc(T[id] || p.title) + '</span>' + (isNewSide(p) ? '<span class="newdot">Opdateret ' + esc(dTxt(p.changed)) + '</span>' : '<span class="xs">›</span>') + '</a>'; }
+    var h = '';
+    if (q) {
+      var hits = SIDER.data.pages.filter(function (p) { return (T[p.id] || '').toLowerCase().indexOf(q) >= 0 || p.title.toLowerCase().indexOf(q) >= 0 || p.text.toLowerCase().indexOf(q) >= 0; });
+      h = '<span class="lbl">' + hits.length + ' sider med "' + esc(SIDER.q) + '"</span>' + (hits.length ? '<div class="card sgroup">' + hits.map(function (p) {
+        var i = p.text.toLowerCase().indexOf(q), snip = i >= 0 ? p.text.slice(Math.max(0, i - 40), i + 80) : '';
+        return '<a href="#/side/' + esc(p.id) + '"><span class="col"><span>' + esc(T[p.id] || p.title) + '</span>' + (snip ? '<span class="xs">…' + esc(snip) + '…</span>' : '') + '</span><span class="xs">›</span></a>'; }).join('') + '</div>' : '<p class="empty">Ingen sider matcher.</p>');
+    } else {
+      var recent = SIDER.data.pages.filter(isNewSide).sort(function (a, b) { return b.changed.localeCompare(a.changed); });
+      if (recent.length) h += '<span class="lbl">Senest opdateret på hoebk.dk</span><div class="card sgroup">' + recent.slice(0, 5).map(function (p) { return link(p.id); }).join('') + '</div>';
+      h += G.groups.map(function (g) { return '<span class="lbl">' + esc(g.t) + '</span><div class="card sgroup">' + g.ids.map(link).join('') + '</div>'; }).join('');
+      h += '<p class="note">Hentes fra hoebk.dk én gang om dagen' + (SIDER.data.checked ? ' · sidst tjekket ' + esc(dTxt(SIDER.data.checked.slice(0, 10))) : '') + '. Klubbens aktivitetskalender ligger i Kalender.</p>';
+    }
+    el.innerHTML = h;
+  }
+  function viewSide(id) {
+    setTab('sider');
+    if (!SIDER.data) { setHeader('Sider', '', true); loadSider(); return '<p class="empty">Henter siden …</p>'; }
+    var G = sideGroups(), T = sideTitles(), p = G.byId[id];
+    var url = 'https://hoebk.dk/' + (id === 'forside' ? '' : id.replace(/~/g, '/'));
+    if (!p) { setHeader('Sider', '', true); return '<p class="empty">Siden findes ikke i appen.</p><a class="route" href="' + esc(url) + '" target="_blank" rel="noopener">Åbn på hoebk.dk ↗</a>'; }
+    var grp = (G.groups.filter(function (g) { return g.ids.indexOf(id) >= 0; })[0] || {}).t || '';
+    setHeader(T[id] || p.title, grp + (p.changed ? ' · opdateret ' + dTxt(p.changed) : ''), true);
+    return sideShortcuts(id) + '<div class="card pagec">' + p.html + '</div>' +
+      '<a class="rb tlink" style="align-self:flex-start" href="' + esc(p.url || url) + '" target="_blank" rel="noopener">Se siden på hoebk.dk ↗</a>';
+  }
 
   // ---------- Følg turneringer ----------
   function follows() { return (ME && ME.follows) || []; }
@@ -1930,9 +2027,16 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     else if (parts[0] === 'ledere') { html = viewLedere(); }
     else if (parts[0] === 'holdleder') { lastTab = 'tilmeld'; html = viewHoldleder(); }
     else if (parts[0] === 'notifikationer') { lastTab = 'tilmeld'; html = viewNotifikationer(); }
+    else if (parts[0] === 'sider') { lastTab = 'sider'; html = viewSider(); }
+    else if (parts[0] === 'side') { lastTab = 'sider'; html = viewSide(parts.slice(1).join('/')); }
     else if (parts[0] === 'spiller') { setTab(lastTab); html = viewPlayer(decodeURIComponent(parts[1] || '')); }
     else { lastTab = 'hold'; html = viewHoldList(); }
     $main.innerHTML = html;
+    if (parts[0] === 'sider' && document.getElementById('sq')) {
+      renderSideList();
+      var sq = document.getElementById('sq');
+      sq.addEventListener('input', function () { SIDER.q = sq.value; renderSideList(); });
+    }
     if (parts[0] === 'spillere') {
       renderPlayerList();
       var q = document.getElementById('q');
