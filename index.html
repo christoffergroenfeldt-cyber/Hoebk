@@ -27,6 +27,11 @@ a{color:var(--ink)}
 .top .back{width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
 .top .back:focus-visible{outline:2px solid var(--accent)}
 .top .back[hidden]{display:none}
+.top .adminbtn{margin-left:auto;width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
+.top .adminbtn[hidden]{display:none}
+.top .adminbtn.on{background:rgba(255,255,255,.16);color:var(--accent)}
+.top .adminbtn:focus-visible{outline:2px solid var(--accent)}
+.top .adminbtn:not([hidden])+.refresh{margin-left:0}
 .top .refresh{margin-left:auto;width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
 .top .refresh:focus-visible{outline:2px solid var(--accent)}
 .top .refresh.spin svg{animation:spin .8s linear infinite}
@@ -253,6 +258,7 @@ textarea.inp{resize:vertical;line-height:1.45}
 </button>
 <img class="brand" src="logo.png" alt="Hørsholm Badminton Klub" width="40" height="43">
 <div class="t"><h1 id="title">HØBK</h1><span class="sub" id="subtitle">Henter data …</span></div>
+<button class="adminbtn" id="adminBtn" aria-label="Administration" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></button>
 <button class="refresh" id="refresh" aria-label="Opdater data"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></button>
 </header>
 <main id="main"><div class="loading">Henter holdkampe …</div></main>
@@ -391,6 +397,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     b.hidden = !back;
     document.getElementById('top').classList.toggle('has-back', !!back);
     document.title = title + ' · HØBK';
+    var ab = document.getElementById('adminBtn');   // administration — kun for holdledere og administratorer
+    if (ab) { ab.hidden = !(typeof isLeader === 'function' && isLeader()); ab.classList.toggle('on', /^#\/(admin|holdleder|ledere)/.test(location.hash)); }
   }
   function setTab(tab) {
     document.querySelectorAll('nav.tabs a').forEach(function (a) {
@@ -1574,7 +1582,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (isLeader()) {
       var todo = 0;
       leaderTeams().forEach(function (ti) { var t = D.teams[ti], mi = nextMatchIdx(t); if (mi >= 0 && !lineupFor(t.matches[mi])) todo++; });
-      if (todo) h += '<button class="card row alert" data-go="#/holdleder"><span class="col"><b style="font-size:14px">' + todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse</b><span class="xs">Holdleder · tryk for at udtage</span></span><span class="h" style="font-size:20px">›</span></button>';
+      if (todo) h += '<button class="card row alert" data-go="#/admin"><span class="col"><b style="font-size:14px">' + todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse</b><span class="xs">Holdleder · tryk for at udtage</span></span><span class="h" style="font-size:20px">›</span></button>';
     }
     // Saml programmet: kampe for hold man følger, ens træning, appens aktiviteter
     var items = [];
@@ -1645,13 +1653,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span class="xs ellip">' + (ME.kids && ME.kids.length ? esc(ME.kids.map(function (k) { var kp = D.players[k.id]; return k.name.split(' ')[0] + (kp && kp.teams.length ? ' (' + kp.teams.join(', ') + ')' : ''); }).join(' · ')) : 'Vælg dit barn') + '</span></span><span class="xs">Ret ›</span></button>';
     else if (REG.ver >= '2026-10-31.2') h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-go="#/boern"><span class="col"><b style="font-size:14px">Er du også forælder?</b>' +
       '<span class="xs">Tilføj dine børn — så kommer du med i deres holds snak</span></span><span class="xs">›</span></button>';
-    if (isLeader()) {
-      var todo = 0, ready = 0;
-      leaderTeams().forEach(function (ti) { var t = D.teams[ti], mi = nextMatchIdx(t); if (mi < 0) return; var lu = lineupFor(t.matches[mi]);
-        if (!lu) todo++; else if (lu.status === 'klar' || lu.status === 'indtastet') ready++; });
-      h += '<button class="card row" style="min-height:58px;border-left:5px solid var(--ink)" data-go="#/holdleder"><span class="col"><b style="font-size:15px">Administration</b>' +
-        '<span class="xs">' + (ME.role.admin ? 'Administrator · nyheder, aktiviteter, holdledere · ' : 'Holdleder · ') + (todo ? todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse' : 'alle næste kampe er udtaget') + '</span></span><span class="h" style="font-size:20px">›</span></button>';
-    }
+    if (isLeader()) h += '<p class="note">Administration (nyheder, aktiviteter, holdledere, udtagelse) ligger under skjoldet øverst til højre.</p>';
     // Træningsgrupper og hold
     h += '<span class="lbl">Mine træningsgrupper</span><div class="chips" role="group" aria-label="Mine træningsgrupper" style="flex-wrap:wrap">' + GROUPS.map(function (g) {
       return '<button class="chip" aria-pressed="' + (ME.groups.indexOf(g) >= 0) + '" data-group="' + g + '">' + g + '</button>'; }).join('') + '</div>';
@@ -1819,17 +1821,35 @@ textarea.inp{resize:vertical;line-height:1.45}
     }
     return h;
   }
+  // Administration (knappen med skjoldet i topbjælken): alt for holdledere og administratorer samlet ét sted
   function viewHoldleder() {
-    setTab('tilmeld');
-    setHeader('Holdleder', ME && ME.role && ME.role.admin ? 'Administrator · alle hold' : 'Dine hold', true);
-    if (!isLeader()) return '<p class="empty">Siden er kun for holdledere.</p>';
-    return '<p class="s" style="margin:0 4px">Næste kamp for hvert hold. Tryk for at udtage spillere og lave opstillingen.</p>' + leaderBlock();
+    setTab('');
+    var admin = !!(ME && ME.role && ME.role.admin);
+    setHeader('Administration', admin ? 'Administrator' + (ME.role.owner ? ' · fast' : '') + ' · alle hold' : 'Holdleder · dine hold', true);
+    if (!isLeader()) return '<p class="empty">Siden er kun for holdledere og administratorer.</p>';
+    var card = function (go, title, sub, color, act) {
+      return '<button class="card row" style="min-height:56px;border-left:5px solid ' + color + '" ' + (act ? 'data-act="' + act + '"' : 'data-go="' + go + '"') + '><span class="col"><b style="font-size:15px">' + title + '</b><span class="xs">' + sub + '</span></span><span class="h" style="font-size:20px">›</span></button>';
+    };
+    var h = '';
+    if (admin) {
+      loadActs(false);
+      var now = nowLocal(), up = (PLAN.list || []).filter(function (a) { return a.end >= now; }), miss = 0;
+      up.forEach(function (a) { a.tasks.forEach(function (t) { var st = taskState(t); if (st === 'none' || st === 'part') miss++; }); });
+      h += '<span class="lbl">Kommunikation</span>' +
+        card('#/nyheder/ny', 'Skriv en nyhed', 'Til alle, udvalgte hold eller træningsgrupper — med notifikation', 'var(--accent)') +
+        card('#/nyheder', 'Alle nyheder', 'Se og slet udgivne nyheder', 'var(--line)');
+      h += '<span class="lbl">Aktiviteter</span>' +
+        card('', 'Ny aktivitet', 'Arrangement med opgaver som spillere og forældre kan tage', 'var(--plan)', 'actnew') +
+        card('#/aktiviteter/oversigt', 'Oversigt over opgaver', PLAN.list ? up.length + ' kommende aktivitet' + (up.length === 1 ? '' : 'er') + (miss ? ' · ' + miss + ' opgave' + (miss === 1 ? '' : 'r') + ' mangler folk' : ' · alle opgaver har folk') : 'Hvem har taget hvad, og hvad mangler', 'var(--plan)') +
+        card('#/aktiviteter', 'Alle aktiviteter', 'Ret og slet aktiviteter', 'var(--line)');
+      h += '<span class="lbl">Personer</span>' +
+        card('#/ledere', 'Administratorer og holdledere', (ME.role.owner ? 'Udnævn administratorer og holdledere' : 'Udnævn holdledere') + ' · brugerstatistik', 'var(--ink)');
+    }
+    h += '<span class="lbl">Holdkampe — udtagelse og opstilling</span><p class="s" style="margin:-2px 4px 0">Næste kamp for ' + (admin ? 'hvert hold' : 'dine hold') + '. Tryk for at udtage spillere og lave opstillingen.</p>' + leaderBlock().replace('<span class="lbl">Næste kampe</span>', '');
+    return h;
   }
   function leaderBlock() {
     var h = '<span class="lbl">Næste kampe</span>';
-    if (ME.role.admin) h = '<span class="lbl">Administrator</span><button class="card row" style="min-height:52px" data-go="#/ledere"><b>Administratorer, holdledere og brugerstatistik</b><span class="xs">›</span></button>' +
-      '<button class="card row" style="min-height:52px" data-act="actnew"><span class="col"><b>Ny aktivitet</b><span class="xs">Arrangement med opgaver som spillere og forældre kan tage — kan vises i kalenderen</span></span><span class="xs">›</span></button>' +
-      '<button class="card row" style="min-height:52px" data-go="#/nyheder/ny"><span class="col"><b>Skriv en nyhed</b><span class="xs">Til alle, udvalgte hold eller træningsgrupper — vises i appen og som notifikation</span></span><span class="xs">›</span></button>' + h;
     var order = leaderTeams().filter(function (ti) { return nextMatchIdx(D.teams[ti]) >= 0; }).sort(function (a, b) {   // næste kamp først
       var ma = D.teams[a].matches[nextMatchIdx(D.teams[a])], mb = D.teams[b].matches[nextMatchIdx(D.teams[b])];
       return (ma.date + (ma.time || '')).localeCompare(mb.date + (mb.time || '')); });
@@ -2155,7 +2175,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   // Administrator: udnævn holdledere
   var ADM = { data: null, loading: false, pick: null, teams: {}, email: '', q: '' };
   function viewLedere() {
-    setTab('tilmeld');
+    setTab('');
     setHeader('Administration', 'Administratorer og holdledere', true);
     if (!ME || !ME.role || !ME.role.admin) return '<p class="empty">Kun administratoren kan udnævne holdledere.</p>';
     if (!ADM.data) {
@@ -2890,7 +2910,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     else if (parts[0] === 'opstilling') { html = viewOpstilling(+parts[1], +parts[2]); }
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
-    else if (parts[0] === 'holdleder') { lastTab = 'tilmeld'; html = viewHoldleder(); }
+    else if (parts[0] === 'holdleder' || parts[0] === 'admin') { html = viewHoldleder(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'oversigt') { lastTab = 'tilmeld'; html = viewOversigt(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'ny') { lastTab = 'tilmeld'; html = viewActForm(''); }
     else if (parts[0] === 'aktiviteter') { lastTab = 'kalender'; html = viewAktiviteter(); }
@@ -3142,6 +3162,7 @@ textarea.inp{resize:vertical;line-height:1.45}
 
   $main.addEventListener('change', function (e) { if (e.target && e.target.id === 'mailpref') setMailPref(e.target.checked); });
 
+  document.getElementById('adminBtn').addEventListener('click', function () { location.hash = '#/admin'; });
   document.getElementById('refresh').addEventListener('click', function () {
     var btn = this; if (btn.classList.contains('spin')) return;
     btn.classList.add('spin'); FORCE = Date.now();
