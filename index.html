@@ -206,6 +206,7 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 main.chat{padding-bottom:0}
 .msg.pending{opacity:.6}
 .msg .who2{font-size:12px;font-weight:700;color:var(--muted)}
+.msg.me .who2{align-self:flex-end}
 .msg .txt{font-size:15px;line-height:1.4}
 .msg .meta{align-self:flex-end;font-size:11px;color:var(--muted2);display:flex;gap:8px;align-items:center}
 .msg .del{border:0;background:none;padding:2px 0;font-size:11px;color:var(--muted);text-decoration:underline;min-height:24px}
@@ -2192,9 +2193,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     M.list.forEach(function (m, i) {
       var d = iso(new Date(m.t));
       if (d !== day) { day = d; h += '<div class="msgday">' + (d === iso(new Date()) ? 'I dag' : esc(dTxt(d))) + '</div>'; }
-      var prev = M.list[i - 1], same = prev && prev.p === m.p && iso(new Date(prev.t)) === d && m.t - prev.t < 600000;
       h += '<div class="msg' + (m.mine ? ' me' : '') + (m.pending ? ' pending' : '') + '">' +
-        (!m.mine && !same ? '<span class="who2">' + esc(m.n) + '</span>' : '') +
+        '<span class="who2">' + esc(m.n) + '</span>' +
         '<span class="txt">' + fmtText(m.x) + '</span>' +
         '<span class="meta">' + (m.pending ? 'Sender …' : hhmm(m.t)) +
         ((m.mine || M.canMod) && !m.pending ? ' <button class="del" data-msgdel="' + esc(m.id) + '" aria-label="Slet besked">Slet</button>' : '') + '</span></div>';
