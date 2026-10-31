@@ -2037,7 +2037,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         try {
           var dec = function (x) { return x ? decodeURIComponent(escape(atob(x))) : ''; };
           var addr = dec(a.dataset.m1) + '@' + dec(a.dataset.m2), txt = dec(a.dataset.t);
-          if (/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(addr)) { a.href = 'mailto:' + addr; a.textContent = txt || addr; }
+          if (/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(addr)) { a.href = 'mailto:' + addr; a.textContent = txt.replace(/<[^>]*>/g, '').trim() || addr; }
         } catch (e) {}
       });
     }
