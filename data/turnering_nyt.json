@@ -166,6 +166,10 @@
   ],
   "119612": [
    {
+    "d": "2026-10-31",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   },
+   {
     "d": "2026-10-30",
     "t": "Deltagerlisten er offentliggjort"
    }
@@ -307,6 +311,54 @@
     "d": "2026-10-30",
     "t": "Ny turnering i kalenderen"
    }
+  ],
+  "116782": [
+   {
+    "d": "2026-10-31",
+    "t": "Resultaterne er klar"
+   }
+  ],
+  "119571": [
+   {
+    "d": "2026-10-31",
+    "t": "Resultaterne er klar"
+   }
+  ],
+  "119850": [
+   {
+    "d": "2026-10-31",
+    "t": "Resultaterne er klar"
+   }
+  ],
+  "117049": [
+   {
+    "d": "2026-10-31",
+    "t": "Resultaterne er klar"
+   }
+  ],
+  "119924": [
+   {
+    "d": "2026-10-31",
+    "t": "Resultaterne er klar"
+   }
+  ],
+  "119921": [
+   {
+    "d": "2026-10-31",
+    "t": "Resultaterne er klar"
+   }
+  ],
+  "117333": [
+   {
+    "d": "2026-10-31",
+    "t": "Resultaterne er klar"
+   }
+  ],
+  "115397": [
+   {
+    "d": "2026-10-31",
+    "t": "Resultaterne er klar"
+   }
   ]
  },
  "alias": {
@@ -314,5 +366,5 @@
   "xe5b31052e6": "119983",
   "119984": "x6461fd35a5"
  },
- "updated": "2026-10-30T20:21:57+00:00"
+ "updated": "2026-10-31T05:22:33+00:00"
 }
