@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-31T14:31:41+00:00",
- "scriptVersion": "2026-10-31.2",
+ "updated": "2026-10-31T14:46:44+00:00",
+ "scriptVersion": "2026-10-31.3",
  "latest": {
   "players": 2,
   "emails": 2,
@@ -14,7 +14,7 @@
   "pushUsers": 2,
   "mailOff": 0,
   "leaders": 1,
-  "parents": 0
+  "parents": 1
  },
  "history": [
   {
@@ -120,7 +120,7 @@
    "pushUsers": 2,
    "mailOff": 0,
    "leaders": 1,
-   "parents": 0,
+   "parents": 1,
    "date": "2026-10-31"
   }
  ]
