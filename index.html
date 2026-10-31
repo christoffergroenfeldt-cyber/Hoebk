@@ -934,7 +934,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     var url = 'https://hoebk.dk/' + (id === 'forside' ? '' : id.replace(/~/g, '/'));
     if (!p) { setHeader('Sider', '', true); return '<p class="empty">Siden findes ikke i appen.</p><a class="route" href="' + esc(url) + '" target="_blank" rel="noopener">Åbn på hoebk.dk ↗</a>'; }
     var grp = (G.groups.filter(function (g) { return g.ids.indexOf(id) >= 0; })[0] || {}).t || '';
-    setHeader(T[id] || p.title, grp + (p.changed ? ' · opdateret ' + dTxt(p.changed) : ''), true);
+    setHeader(T[id] || p.title, grp + (p.changed && p.changed !== p.added ? ' · opdateret ' + dTxt(p.changed) : ''), true);
     return sideShortcuts(id) + '<div class="card pagec">' + p.html + '</div>' +
       '<a class="rb tlink" style="align-self:flex-start" href="' + esc(p.url || url) + '" target="_blank" rel="noopener">Se siden på hoebk.dk ↗</a>';
   }
@@ -2032,6 +2032,15 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     else if (parts[0] === 'spiller') { setTab(lastTab); html = viewPlayer(decodeURIComponent(parts[1] || '')); }
     else { lastTab = 'hold'; html = viewHoldList(); }
     $main.innerHTML = html;
+    if (parts[0] === 'side') {   // e-mails fra hoebk.dk er kodet mod spam-robotter — saml dem først her
+      document.querySelectorAll('a.hmail').forEach(function (a) {
+        try {
+          var dec = function (x) { return x ? decodeURIComponent(escape(atob(x))) : ''; };
+          var addr = dec(a.dataset.m1) + '@' + dec(a.dataset.m2), txt = dec(a.dataset.t);
+          if (/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(addr)) { a.href = 'mailto:' + addr; a.textContent = txt || addr; }
+        } catch (e) {}
+      });
+    }
     if (parts[0] === 'sider' && document.getElementById('sq')) {
       renderSideList();
       var sq = document.getElementById('sq');

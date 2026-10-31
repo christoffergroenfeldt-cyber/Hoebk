@@ -101,6 +101,14 @@ class Clean(HTMLParser):
             if tag in DROP_WITH_CONTENT:
                 self.skip += 1
             return
+        if tag == "joomla-hidden-mail":
+            # Joomlas spambeskyttelse: first/last/text er base64. Vi beholder dem kodet (repoet er offentligt) —
+            # appen samler adressen, når siden vises.
+            self.out.append('<a class="hmail" data-m1="%s" data-m2="%s" data-t="%s">e-mail</a>' % (
+                htmllib.escape(a.get("first", ""), True), htmllib.escape(a.get("last", ""), True), htmllib.escape(a.get("text", ""), True)))
+            self.skip = 1
+            self.skip_tag = tag
+            return
         if tag in DROP_WITH_CONTENT or "cookie" in (a.get("id", "") + a.get("class", "")).lower():
             self.skip = 1
             return
@@ -136,8 +144,10 @@ class Clean(HTMLParser):
 
     def handle_endtag(self, tag):
         if self.skip:
-            if tag in DROP_WITH_CONTENT:
+            if tag in DROP_WITH_CONTENT or tag == getattr(self, "skip_tag", None):
                 self.skip -= 1
+                if not self.skip:
+                    self.skip_tag = None
             return
         if tag in ALLOWED and tag not in VOID:
             self.out.append("</%s>" % tag)

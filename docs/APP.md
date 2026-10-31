@@ -74,6 +74,12 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 - Cards show the latest news from `data/turnering_nyt.json` (last 14 days) or what's published (*Program klar · Deltagerliste*); the tournament page lists all news.
 - Mails are sent by the data workflow — see [TILMELDING.md](TILMELDING.md).
 
+## Sider (content from hoebk.dk)
+
+`fetch_sider.py` reads the club website's menu (and pages linked from menu pages, one level down), keeps only the content of `<main>` through a whitelist sanitizer (text, headings, lists, tables, images, links; scripts, menus, forms, cookie banner and sponsor-banner redirects removed; iframes become a link) and writes `data/sider.json` with a hash and `changed`/`added` dates per page. It runs once a day (step in the full run with `--once-a-day`, plus `sider.yml`). Links to other hoebk.dk pages become `#/side/<id>` (id = path with `/` → `~`). Joomla's spam-protected e-mails are kept base64-encoded (`a.hmail`, the repo is public) and decoded only when a page is shown.
+
+The *Sider* tab groups pages by what members look for (`SIDE_GROUPS`: Nyheder, Bliv medlem & praktisk, Træning & trænere, Ungdom & forældre, Senior/Voksenfjer/Veteran, Om klubben, Historie, Sponsorer); new pages on hoebk.dk land in *Øvrige* until they're added to a group. Search covers titles and text; *Senest opdateret* lists pages changed within 14 days. `sideShortcuts()` adds links to the app's own live screens (calendar, teams, tournaments) on the matching pages.
+
 ## Club ranking
 
 Computed from team-match lineups (all teams, current season):
