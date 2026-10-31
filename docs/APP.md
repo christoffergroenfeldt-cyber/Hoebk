@@ -38,6 +38,9 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/eksport/<i>/<m>` | Leaders: lineup ready to enter on badmintonplayer.dk |
 | `#/holdleder` | Team leaders: next match per team (sorted by date) with selection status; opened from Min side. Administrators also get the link to `#/ledere` |
 | `#/ledere` | Administrator: appoint/remove team leaders, user statistics |
+| `#/aktiviteter` | Club activities: upcoming (and *Afholdte*); administrators get *+ Ny aktivitet* |
+| `#/aktivitet/<id>` | One activity: time, description, who it's for, tasks with *Tag opgaven* / *✓ Din opgave* and who has taken them |
+| `#/aktiviteter/ny`, `#/aktivitet/<id>/ret` | Administrator: create/edit an activity — name, description, start/end, *Vis i kalenderen*, recipients, tasks with a number needed (0 = unlimited) |
 | `#/boern` | Parents: choose/change which players are your children |
 | `#/snak` | All chat rooms the player is in (teams + training groups), newest activity first |
 | `#/snak/<room>` | One chat room (`h:<leagueGroupTeamID>` or `g:<group>`, URL-encoded): messages, composer, *Lydløs* |
@@ -57,6 +60,14 @@ Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth)
 **Chat.** Messages load when a room opens and every 15 s while it is open and the app is in front. Links become clickable, line breaks are kept, max 1000 characters, max 10 messages a minute per person. You can delete your own messages; administrators and the team's leaders can delete any message in a team room. *🔔 Modtager nyt* (green) / *🔕 Lydløs* (red) switches push for that room on this account.
 
 **News.** Administrators write news on `#/nyheder/ny` (also linked from *Holdleder → Administrator*): title, text and recipients — *Alle i klubben*, or any mix of training groups and teams. News for everyone is visible before login too. *Send også som notifikation* pushes it to members' phones that have notifications on. News older than 120 days drops off the lists.
+
+## Activity planner
+
+Administrators create activities from *Min side → Aktiviteter → + Ny aktivitet* (or *Holdleder → Administrator → Ny aktivitet*): name, description, start and end (local Danish time), whether it should appear in the calendar, who it's for (*Alle i klubben*, training groups and/or teams — same rules as news) and a list of tasks, each with how many people are needed. Optionally a push notification goes to those it's for.
+
+Players and parents who can see the activity tap **Tag opgaven** on a task (and tap **✓ Din opgave** to withdraw). A task stops at its number (*Fuld*); 0 means unlimited. Everyone logged in sees who has taken each task (parents in dark green). Activities for everyone are visible before login too, but only with counts, not names. With *Vis i kalenderen* the activity shows as a purple *Klubaktivitet* on each day it runs, with free task places, and opens the activity in the app. Editing keeps the tasks people have taken (matched by task id); deleting hides it everywhere.
+
+Stored in the sheet tabs **Aktiviteter** (tasks as JSON in the last column) and **Opgavetilmeldinger** (one row per take/withdraw — latest per person and task wins).
 
 ## Calendar
 

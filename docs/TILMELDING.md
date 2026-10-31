@@ -139,7 +139,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.3` or later.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.4` or later.
 
 ## Lineup rules in the app
 
@@ -184,6 +184,8 @@ Saving the code is not enough — the live web app keeps running the old version
 | **Grupper** | Which training groups each email has chosen (decides who is in a training-group room) | No |
 | **Lydløs** | Rooms someone has muted | No |
 | **PushKø** | Push notifications waiting for GitHub to send them (emptied every run) | Only to the `push.yml` workflow |
+| **Aktiviteter** | Activities: id, created, name, description, start, end, in calendar, recipients, author, deleted, tasks (JSON) | No (shown in the app through the script) |
+| **Opgavetilmeldinger** | Who took/withdrew from which task: time, activity, task, email, player, name, status | No — names shown only to logged-in members |
 | **Opstillinger** | Every saved squad/lineup: time, match, team, status, saved by, data (JSON) | Yes — latest per match, synced without emails |
 
 Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite database (see [DATA.md](DATA.md)).
@@ -201,6 +203,9 @@ Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite 
 | `POST {action:"rooms", token, groups[]}` | My chat rooms with latest activity, and news for me; saves my training groups (tab *Grupper*) |
 | `POST {action:"messages" / "post" / "delMsg" / "mute", token, room, …}` | Read / write / delete messages in a room; push on/off per room — members only |
 | `POST {action:"newsSave" / "newsDel" / "newsList", token, …}` | Write / delete / list news — administrator only |
+| `POST {action:"acts" / "taskSign", token, …}` | Activities I can see with tasks and who took them / take or withdraw from a task (stops when full) |
+| `POST {action:"actSave" / "actDel", token, …}` | Create or edit / delete an activity — administrator only |
+| `GET ?action=acts` | Upcoming activities for everyone — counts only, no names |
 | `GET ?action=news` | News for everyone — public, used before login |
 | `GET ?action=pushqueue&key=…` | Push notifications waiting to be sent — only with `REG_KEY`; the call empties the queue |
 | `GET ?action=status` | Latest answer per player and event — public, no emails |

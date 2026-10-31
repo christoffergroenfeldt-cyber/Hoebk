@@ -33,6 +33,7 @@
  *  GET ?action=follows&key=NØGLE → hvilke turneringer der følges (kun id'er, ingen e-mails)
  *  logout   {token}
  *  request  for forældre: playerId "p:<navn>" + children[{id, name}] · children {token, children[]} → ret sine børn
+ *  acts {token} / GET ?action=acts → aktiviteter · actSave / actDel (administrator) · taskSign {token, act, task, on}
  *  rooms    {token, groups[]}                    → mine snak-rum (hold + træningsgrupper) med seneste aktivitet + nyheder til mig
  *  messages {token, room}                        → beskeder i et rum (kun medlemmer) · post {token, room, text} · delMsg {token, id}
  *  mute     {token, room, on}                    → ingen push for et rum
@@ -42,7 +43,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-31.3';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-31.4';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -61,6 +62,8 @@ var SHEETS = {
   Grupper: ['email', 'playerId', 'grupper'],
   'Lydløs': ['email', 'rum'],
   'Forældre': ['email', 'forælderId', 'forælderNavn', 'barnId', 'barnNavn', 'tidspunkt'],
+  Aktiviteter: ['id', 'oprettet', 'navn', 'beskrivelse', 'start', 'slut', 'kalender', 'til', 'af', 'slettet', 'opgaver'],
+  Opgavetilmeldinger: ['tidspunkt', 'aktivitetId', 'opgaveId', 'email', 'playerId', 'navn', 'status'],
   'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag']
 };
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
@@ -707,6 +710,129 @@ function newsList_(b) {
   return { ok: true, news: newsRows_().slice(0, 60) };
 }
 
+// ---------- Aktiviteter (administrator planlægger; spillere og forældre tager opgaver) ----------
+// start/slut gemmes som lokal tid "YYYY-MM-DDTHH:MM" (dansk tid) — sammenlignes som tekst.
+// til = '*' eller rum (h:<holdId>, g:<gruppe>) — samme modtagere som nyheder.
+function dtOk_(x) { return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(x); }
+function localNow_() { return Utilities.formatDate(new Date(), 'Europe/Copenhagen', "yyyy-MM-dd'T'HH:mm"); }
+function actRows_() {
+  return data_('Aktiviteter').map(function (r, i) {
+    var tasks = []; try { tasks = JSON.parse(r[10] || '[]'); } catch (e) { tasks = []; }
+    return { row: i + 2, id: String(r[0]), name: String(r[2]), desc: String(r[3]), start: String(r[4]), end: String(r[5]),
+             cal: bool_(r[6]), to: String(r[7]).split(',').map(function (x) { return x.trim(); }).filter(String), by: String(r[8]), del: bool_(r[9]), tasks: tasks };
+  }).filter(function (a) { return a.id && !a.del; });
+}
+function signups_() {   // seneste svar pr. (aktivitet, opgave, e-mail)
+  var last = {};
+  data_('Opgavetilmeldinger').forEach(function (r) {
+    var k = r[1] + '|' + r[2] + '|' + String(r[3]).toLowerCase();
+    if (!last[k] || ts_(last[k][0]) <= ts_(r[0])) last[k] = r;
+  });
+  var out = {};
+  Object.keys(last).forEach(function (k) {
+    var r = last[k]; if (String(r[6]) !== 'ja') return;
+    var key = r[1] + '|' + r[2];
+    (out[key] = out[key] || []).push({ email: String(r[3]).toLowerCase(), p: String(r[4]), n: String(r[5]), t: ts_(r[0]) });
+  });
+  Object.keys(out).forEach(function (k) { out[k].sort(function (a, b) { return a.t - b.t; }); });
+  return out;
+}
+function visible_(a, rooms, admin) { return admin || a.to.indexOf('*') >= 0 || a.to.some(function (x) { return !!rooms[x]; }); }
+function actOut_(a, sign, em, names) {
+  return { id: a.id, name: a.name, desc: a.desc, start: a.start, end: a.end, cal: a.cal, to: a.to, by: a.by,
+           tasks: a.tasks.map(function (t) {
+             var list = sign[a.id + '|' + t.id] || [];
+             return { id: t.id, title: t.title, need: t.need, n: list.length, mine: !!em && list.some(function (x) { return x.email === em; }),
+                      who: names ? list.map(function (x) { return { p: x.p, n: x.n }; }) : undefined };
+           }) };
+}
+function acts_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var cx = ctx_(), admin = roleIn_(cx, ses.email, ses.playerId).admin, mr = memberRooms_(cx, ses.email, ses.playerId);
+  var since = Utilities.formatDate(new Date(Date.now() - 60 * 86400000), 'Europe/Copenhagen', "yyyy-MM-dd'T'HH:mm");
+  var sign = signups_(), em = ses.email.toLowerCase();
+  var list = actRows_().filter(function (a) { return a.end >= since && visible_(a, mr, admin); })
+    .sort(function (x, y) { return x.start < y.start ? -1 : 1; }).map(function (a) { return actOut_(a, sign, em, true); });
+  return { ok: true, acts: list, canEdit: admin };
+}
+function actsPublic_() {   // til alle: uden navne på dem der har taget opgaver
+  var now = localNow_(), sign = signups_();
+  return { ok: true, acts: actRows_().filter(function (a) { return a.end >= now && a.to.indexOf('*') >= 0; })
+    .sort(function (x, y) { return x.start < y.start ? -1 : 1; }).map(function (a) { return actOut_(a, sign, '', false); }) };
+}
+function actSave_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  var name = clean_(b.name, 100), desc = text_(b.desc, 3000), start = clean_(b.start, 16), end = clean_(b.end, 16) || start;
+  if (!name) return { ok: false, error: 'Skriv et navn' };
+  if (!dtOk_(start) || !dtOk_(end)) return { ok: false, error: 'Vælg start og slut' };
+  if (end < start) return { ok: false, error: 'Slut er før start' };
+  var cx = ctx_();
+  var to = (b.to || []).map(function (x) { return clean_(x, 60); }).filter(function (x) {
+    return x === '*' || (/^h:\d+$/.test(x) && cx.teams[x.slice(2)]) || (/^g:/.test(x) && TR_GROUPS.indexOf(x.slice(2)) >= 0);
+  });
+  if (!to.length) return { ok: false, error: 'Vælg hvem aktiviteten er for' };
+  if (to.indexOf('*') >= 0) to = ['*'];
+  var tasks = (b.tasks || []).slice(0, 40).map(function (t) {
+    return { id: /^o[0-9a-z]+$/.test(String(t.id || '')) ? String(t.id) : newId_('o'), title: clean_(t.title, 80), need: Math.max(0, Math.min(99, parseInt(t.need, 10) || 0)) };
+  }).filter(function (t) { return t.title; });
+  var id = /^a[0-9a-z]+$/.test(String(b.id || '')) ? String(b.id) : '';
+  var isNew = !id;
+  withLock_(function () {
+    var sh = sh_('Aktiviteter');
+    if (id) {
+      var cur = actRows_().filter(function (a) { return a.id === id; })[0];
+      if (!cur) { id = ''; isNew = true; }
+      else sh.getRange(cur.row, 3, 1, 9).setValues([[safe_(name), safe_(desc), start, end, !!b.cal, to.join(','), safe_(ses.playerName), false, JSON.stringify(tasks)]]);
+    }
+    if (!id) { id = newId_('a'); sh.appendRow([id, new Date(), safe_(name), safe_(desc), start, end, !!b.cal, to.join(','), safe_(ses.playerName), false, JSON.stringify(tasks)]); }
+  });
+  var pushed = 0;
+  if (b.push) {
+    var jobs = pushTargets_(cx, function (e, pid) {
+      if (to[0] === '*') return true;
+      var mr = memberRooms_(cx, e, pid, true);
+      return to.some(function (x) { return !!mr[x]; });
+    }).map(function (r) {
+      return [new Date(), r.endpoint, r.p256dh, r.auth, clean_((isNew ? 'Ny aktivitet · ' : 'Aktivitet ændret · ') + name, 80),
+              clean_(start.replace('T', ' kl. ') + (tasks.length ? ' — tag en opgave i appen' : ''), 140), APP_URL + '#/aktivitet/' + id, 'a:' + id];
+    });
+    pushed = jobs.length; queuePush_(jobs);
+  }
+  return { ok: true, id: id, pushed: pushed };
+}
+function actDel_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  var id = clean_(b.id, 40);
+  return withLock_(function () {
+    var cur = actRows_().filter(function (a) { return a.id === id; })[0];
+    if (!cur) return { ok: false, error: 'Aktiviteten findes ikke' };
+    sh_('Aktiviteter').getRange(cur.row, 10).setValue(true);
+    return { ok: true };
+  });
+}
+function taskSign_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var aid = clean_(b.act, 40), tid = clean_(b.task, 40);
+  var cx = ctx_(), admin = roleIn_(cx, ses.email, ses.playerId).admin;
+  var a = actRows_().filter(function (x) { return x.id === aid; })[0];
+  if (!a || !visible_(a, memberRooms_(cx, ses.email, ses.playerId), admin)) return { ok: false, error: 'Aktiviteten findes ikke' };
+  var t = a.tasks.filter(function (x) { return x.id === tid; })[0];
+  if (!t) return { ok: false, error: 'Opgaven findes ikke' };
+  if (a.end < localNow_()) return { ok: false, error: 'Aktiviteten er slut' };
+  var em = ses.email.toLowerCase();
+  return withLock_(function () {
+    var list = signups_()[aid + '|' + tid] || [], has = list.some(function (x) { return x.email === em; });
+    if (b.on && !has && t.need && list.length >= t.need) return { ok: false, error: 'Opgaven er fuld' };
+    if (!!b.on !== has) sh_('Opgavetilmeldinger').appendRow([new Date(), aid, tid, em, safe_(ses.playerId), safe_(ses.playerName), b.on ? 'ja' : 'nej']);
+    var now = signups_()[aid + '|' + tid] || [];
+    return { ok: true, task: { id: t.id, title: t.title, need: t.need, n: now.length, mine: !!b.on, who: now.map(function (x) { return { p: x.p, n: x.n }; }) } };
+  });
+}
+
 // ---------- Push-kø ----------
 // Scriptet kan ikke selv underskrive web-push. Beskeder lægges i fanen PushKø; GitHub-workflowet push.yml henter
 // køen (?action=pushqueue), tømmer den og sender. Workflowet startes med det samme (højst hvert minut) og af tick().
@@ -762,6 +888,10 @@ function doPost(e) {
       case 'prefs': return json_(prefs_(b));
       case 'pushGone': return json_(pushGone_(b));
       case 'children': return json_(children_(b));
+      case 'acts': return json_(acts_(b));
+      case 'actSave': return json_(actSave_(b));
+      case 'actDel': return json_(actDel_(b));
+      case 'taskSign': return json_(taskSign_(b));
       case 'rooms': return json_(rooms_(b));
       case 'messages': return json_(messages_(b));
       case 'post': return json_(post_(b));
@@ -792,6 +922,7 @@ function doGet(e) {
     return json_({ ok: true, news: newsFor_({}, false).filter(function (n) { return n.to.indexOf('*') >= 0; }).slice(0, 10) });
   }
   if (action === 'pushqueue') return json_(pushQueue_(e.parameter.key));
+  if (action === 'acts') return json_(actsPublic_());
   if (action === 'follows') {
     var k = PropertiesService.getScriptProperties().getProperty('KEY');
     if (!k || e.parameter.key !== k) return json_({ ok: false, error: 'Forkert nøgle' });
