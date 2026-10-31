@@ -244,7 +244,7 @@ textarea.inp{resize:vertical;line-height:1.45}
 <a href="#/hold" data-tab="hold"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>Hold</a>
 <a href="#/kalender" data-tab="kalender"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Kalender</a>
 <a href="#/tilmeld" data-tab="tilmeld"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Min side</a>
-<a href="#/rangliste" data-tab="rang"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>Rangliste</a>
+<a href="#/nyt" data-tab="nyt"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14a2 2 0 0 0 2 2H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v10a2 2 0 0 1-2 2"/><path d="M8 9h5M8 13h5M8 17h3"/></svg>Nyt</a>
 <a href="#/spillere" data-tab="spillere"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></svg>Spillere</a>
 <a href="#/sider" data-tab="sider"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h10l6 6v10a0 0 0 0 1 0 0H4z"/><path d="M14 4v6h6M8 14h8M8 18h6"/></svg>Sider</a>
 </div></nav>
@@ -490,7 +490,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   }
 
   function viewRang() {
-    setTab('rang'); setHeader('Klubrangliste', 'Alle hold · ' + updTxt(), false);
+    setTab('spillere'); setHeader('Klubrangliste', 'Alle hold · ' + updTxt(), true);
     var md = METRICS[UI.metric];
     var pool = D.ids.filter(function (id) { var p = D.players[id];
       if (!p.played) return false;   // kun spillere med holdkampe
@@ -516,7 +516,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!UI.pf) { try { UI.pf = localStorage.getItem('hoebk_pf') || 'alle'; } catch (e) { UI.pf = 'alle'; } }
     if (!PF[UI.pf]) UI.pf = 'alle';
     setTab('spillere'); setHeader('Spillere', D.ids.length + ' spillere i klubben · ' + updTxt(), false);
-    return (isLeader() ? '<button class="rb ja" aria-pressed="true" style="min-height:44px" data-go="#/udtag">Udtag spillere til næste holdkamp ›</button>' : '') +
+    return '<button class="card row" style="min-height:56px;border-left:5px solid var(--accent)" data-go="#/rangliste"><span class="col"><b style="font-size:15px">Klubrangliste</b>' +
+      '<span class="xs">Vundne kampe, sejr-%, point og snit for alle hold</span></span><span class="h" style="font-size:20px">›</span></button>' + (isLeader() ? '<button class="rb ja" aria-pressed="true" style="min-height:44px" data-go="#/udtag">Udtag spillere til næste holdkamp ›</button>' : '') +
       '<label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
       '<input id="q" type="search" value="' + esc(UI.q) + '" placeholder="Søg spiller eller hold" aria-label="Søg spiller eller hold" autocomplete="off"></label>' +
       '<div class="chips regchips" role="group" aria-label="Filtrér spillere">' + Object.keys(PF).map(function (k) {
@@ -2662,6 +2663,38 @@ textarea.inp{resize:vertical;line-height:1.45}
     }).catch(function (err) { toast(err.message); });
   }
 
+  // ---------- Nyt: nyheder, det der sker de næste 14 dage og seneste resultater ----------
+  function dayGroups(days, pick, max) {
+    var h = '', n = 0;
+    days.forEach(function (ds) {
+      if (n >= max) return;
+      var list = (EVENTS[ds] || []).filter(pick).slice(0, max - n);
+      if (!list.length) return;
+      n += list.length;
+      h += '<span class="xs" style="margin:6px 4px 0;font-weight:700;color:var(--ink)">' + (ds === iso(new Date()) ? 'I dag' : ds === iso(addDays(new Date(), 1)) ? 'I morgen' : ds === iso(addDays(new Date(), -1)) ? 'I går' : esc(DAY_FULL[parseD(ds).getDay()] + ' ' + dTxt(ds).replace(/^\S+ /, ''))) + '</span>' +
+        list.map(evCard).join('');
+    });
+    return { h: h, n: n };
+  }
+  function viewNyt() {
+    setTab('nyt'); setHeader('Nyt', 'Nyheder, kommende og resultater · ' + updTxt(), false);
+    if (ME && ME.token) loadRooms(false); else loadPub();
+    loadActs(false);
+    var h = '', news = allNews(), today = iso(new Date());
+    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Nyheder fra klubben</span>' + (news.length ? '<button class="pl xs" data-go="#/nyheder">Alle ›</button>' : '') + '</div>';
+    h += news.length ? news.slice(0, 3).map(newsCard).join('') : '<p class="empty">' + ((ME && ME.token ? SNAK.rooms : SNAK.pub) || !REG.url ? 'Ingen nyheder lige nu.' : 'Henter …') + '</p>';
+    if (SNAK.canNews) h += '<button class="rb" style="align-self:flex-start;min-height:42px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>';
+    var next = []; for (var i = 0; i < 14; i++) next.push(iso(addDays(new Date(), i)));
+    var up = dayGroups(next, function (e) { return (e.kind === 'match' && !e.result) || e.kind === 'akt'; }, 12);
+    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Det sker de næste 14 dage</span><button class="pl xs" data-go="#/kalender/uge/' + today + '">Kalender ›</button></div>' +
+      (up.n ? up.h : '<p class="empty">Ingen kampe eller aktiviteter de næste 14 dage.</p>');
+    var back = []; for (var j = 0; j < 30; j++) back.push(iso(addDays(new Date(), -j)));
+    var res = dayGroups(back, function (e) { return e.kind === 'match' && !!e.result; }, 10);
+    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Seneste resultater</span><button class="pl xs" data-go="#/hold">Alle hold ›</button></div>' +
+      (res.n ? res.h : '<p class="empty">Ingen resultater de sidste 30 dage.</p>');
+    return h;
+  }
+
   // ---------- Router ----------
   var lastTab = 'hold';
   function route(keepScroll) {
@@ -2677,7 +2710,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     }
     if (parts[0] === 'hold' && parts[1] !== undefined && parts[2] === 'kamp') html = viewMatch(+parts[1], +parts[3]);
     else if (parts[0] === 'hold' && parts[1] !== undefined) html = viewTeam(+parts[1]);
-    else if (parts[0] === 'rangliste') { lastTab = 'rang'; html = viewRang(); }
+    else if (parts[0] === 'rangliste') { lastTab = 'spillere'; html = viewRang(); }
+    else if (parts[0] === 'nyt') { lastTab = 'nyt'; html = viewNyt(); }
     else if (parts[0] === 'spillere') { lastTab = 'spillere'; html = viewSpillere(); }
     else if (parts[0] === 'kalender') { lastTab = 'kalender'; html = viewCal(parts[1] || 'maaned', parts[2]); }
     else if (parts[0] === 'tilmeld') { lastTab = 'tilmeld'; html = viewTilmeld(); }

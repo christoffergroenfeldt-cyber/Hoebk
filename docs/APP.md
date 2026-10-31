@@ -28,7 +28,8 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/hold/<i>/kamp/<m>` | Played match: score, every game with players and sets. Upcoming match: details + availability buttons + who's coming |
 | `#/kalender/<view>/<YYYY-MM-DD>` | Calendar; `view` = `dag`, `uge`, `maaned`, `aar` |
 | `#/tilmeld` | **Start page.** Min side (login flow when logged out): notifications, followed teams/tournaments, tournaments for your level, training, and at the bottom upcoming matches of the teams you follow (with availability buttons) |
-| `#/rangliste` | Club ranking with metric and All/Senior/Youth filters |
+| `#/nyt` | **Nyt** tab: latest news, matches and activities in the next 14 days, and results from the last 30 days |
+| `#/rangliste` | Club ranking with metric and All/Senior/Youth filters — opened from the top of *Spillere* (no tab of its own) |
 | `#/spillere` | Player search with filter chips *Alle / Har spillet / Har rangering / Uden rangering* (remembered, `hoebk_pf`) |
 | `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id), incl. *Turneringer for dit niveau* |
 | `#/turneringer` | All upcoming individual tournaments, chips per age group, sections per level (Elite, Mester, A–D) |
