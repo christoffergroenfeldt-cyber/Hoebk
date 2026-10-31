@@ -151,18 +151,20 @@ Each tournament in `turneringer.json` also has `links`: which of `invitation`, `
 
 `data/notifikationer.json` remembers which deadline reminders were sent (`"<id>:frist7:<deadline>": "<date>"`, pruned after 120 days).
 
-## `data/traening.json` — training schedule (edited by hand)
+## `data/traening.json` — training schedule, holidays and club events (edited by hand)
 
-```jsonc
-{
-  "venue": "Hørsholm Badminton Hal, Stadion Allé 7D",
-  "season": { "from": "2026-08-10", "to": "2027-04-30" },
-  "skip": [ { "from": "2026-10-12", "to": "2026-10-18", "reason": "Efterårsferie" } ],
-  "sessions": [ { "group": "Ungdom", "weekday": 1, "start": "15:30", "end": "19:15" }, … ]
-}
-```
+Transcribed from the images on hoebk.dk/kalender ("Ferieoversigt for Ungdom 2026/27" and "Ugens faste aktiviteter").
+Update it when the club publishes a new season.
 
-`weekday`: 1 = Monday … 7 = Sunday. `group` must be one of `Ungdom, Senior, Senior2, Voksenfjer, Veteran` to appear as a choice on Min side (the list is `GROUPS` in `index.html`). Training registrations use the id `t:<date>:<group>` — renaming a group after people have answered orphans those answers.
+- `season` `{from, to}` — first and last training day (2026-08-10 → 2027-05-28).
+- `sessions[]` — `{group, weekday (1=Mon…7=Sun), start, end, hold?, ages?, also?}`. `group` is the app group
+  (Ungdom/Senior/Senior2/Voksenfjer/Veteran); `hold` the actual team (Bredde 1–3, Øvede 1–3, Elite 1–4);
+  `ages` is shown in the title; `also` lists other groups that train in the same session (Elite 3/4 + Senior 2).
+  Training eid: `t:<date>:<group>` without hold (keeps earlier answers), `t:<date>:<group>:<hold>` with hold.
+- `skip[]` — `{from, to, reason}`: no training; the calendar shows the reason (e.g. "Juleferie — ingen træning").
+- `events[]` — `{from, to?, title, time?, end?, note?}`: club events (camps, tournaments in the hall, julebingo, KM…).
+  Shown as club activities; skipped if Conventus already has an activity with the same first word that day.
+- Hørsholm Senioridræt (weekday mornings, courts 1–7) is not HØBK training and is left out.
 
 ## `data/hjemmeside.json` — summary for hoebk.dk
 

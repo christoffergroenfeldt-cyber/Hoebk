@@ -1100,13 +1100,24 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       var from = parseD(tr.season.from), to = parseD(tr.season.to), skips = tr.skip || [];
       for (var d = new Date(from); d <= to; d = addDays(d, 1)) {
         var ds = iso(d), wd = d.getDay() || 7;
-        if (skips.some(function (k) { return ds >= k.from && ds <= k.to; })) continue;
+        var sk = skips.filter(function (k) { return ds >= k.from && ds <= (k.to || k.from); })[0];
+        if (sk) { add({ kind: 'ferie', date: ds, time: '', team: 'Ferie', title: sk.reason || 'Ingen træning', place: '', go: '' }); continue; }
         tr.sessions.forEach(function (ss) {
-          if (ss.weekday === wd) add({ kind: 'training', date: ds, time: ss.start, end: ss.end, team: ss.group, title: 'Træning · ' + ss.group,
-                                       place: tr.venue || '', bg: '#E7ECF1', fg: '#0E2236', go: '', eid: 't:' + ds + ':' + ss.group });
+          // eid uden hold for grupper med ét hold (Senior, Voksenfjer, Veteran) — så tidligere svar bevares
+          if (ss.weekday === wd) add({ kind: 'training', date: ds, time: ss.start, end: ss.end, team: ss.group, hold: ss.hold || '', also: ss.also || [],
+                                       title: 'Træning · ' + (ss.hold ? ss.hold + (ss.ages ? ' (' + ss.ages + ')' : '') : ss.group),
+                                       place: (ss.hold ? ss.group + ' · ' : '') + (tr.venue || ''), bg: '#E7ECF1', fg: '#0E2236', go: '', eid: 't:' + ds + ':' + ss.group + (ss.hold ? ':' + ss.hold : '') });
         });
       }
     }
+    (tr && tr.events || []).forEach(function (a) {
+      for (var d3 = parseD(a.from), l3 = parseD(a.to || a.from); d3 <= l3; d3 = addDays(d3, 1)) {
+        var ds3 = iso(d3);
+        // samme begivenhed kan også komme fra Conventus — vis den kun én gang
+        var dup = ACT.events.some(function (c) { return c.date === ds3 && normT(c.title).indexOf(normT(a.title).split(' ')[0]) >= 0; });
+        if (!dup) add({ kind: 'akt', date: ds3, time: a.time || '', end: a.end || '', team: 'Aktivitet', title: a.title, place: a.note || '', bg: 'var(--akt)', fg: '#FFFFFF', go: '' });
+      }
+    });
     (D.tours || []).forEach(function (t) {
       for (var d2 = parseD(t.start), last = parseD(t.end || t.start); d2 <= last; d2 = addDays(d2, 1)) {
         add({ kind: 'tour', date: iso(d2), time: '', team: 'Turnering', title: t.organiser, tour: t,
@@ -1118,9 +1129,11 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     });
     Object.keys(EVENTS).forEach(function (k) { EVENTS[k].sort(function (a, b) { return (a.time || '99').localeCompare(b.time || '99') || (a.kind === 'match' ? -1 : 1); }); });
   }
+  function normT(t) { return String(t || '').toLowerCase().replace(/[^a-zæøå0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
   function evFor(ds) {
     return (EVENTS[ds] || []).filter(function (e) {
-      if (e.kind === 'training') return CAL.training && (CAL.team === 'alle' || CAL.team === 'træning') && trGroupPass(e.team);
+      if (e.kind === 'ferie') return CAL.training && (CAL.team === 'alle' || CAL.team === 'træning');
+      if (e.kind === 'training') return CAL.training && (CAL.team === 'alle' || CAL.team === 'træning') && trGroupPass(e.team, e.hold, e.also);
       if (e.kind === 'tour') return CAL.tours && (CAL.team === 'alle' || CAL.team === 'turneringer') && tourInLevel(e.tour, CAL.level) && tourPass(e.tour);
       if (e.kind === 'akt') return CAL.akt && (CAL.team === 'alle' || CAL.team === 'aktiviteter');
       return CAL.matches && (CAL.team === 'alle' || CAL.team === e.team);
@@ -1140,6 +1153,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         '<span class="tm">' + esc(e.time || '–') + '</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(e.title) + '</b><span class="xs ellip">Klubaktivitet' + (e.place ? ' · ' + esc(e.place) : '') + '</span></span>' +
         (e.end ? '<span class="xs">til ' + esc(e.end) + '</span>' : '<span></span>') + '</a>';
     }
+    if (e.kind === 'ferie') {
+      return '<div class="ev" style="border-left-color:#9AA6B1;background:var(--soft)"><span class="tm">–</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(e.title) + '</b><span class="xs">Ferieoversigt fra hoebk.dk</span></span><span></span></div>';
+    }
     if (e.kind === 'training') {
       return '<div class="evwrap tr"><div class="evtop">' + inner + '</div>' + regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
     }
@@ -1148,13 +1164,29 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   // Træningsgruppe i kalenderen: 'alle', 'mine' (grupperne valgt på Min side) eller én gruppe, fx 'Senior'
   try { CAL.trGroup = localStorage.getItem('hoebk_trg') || 'alle'; } catch (e) { CAL.trGroup = 'alle'; }
   function trGroups() {
-    var g = {}; ((D.training && D.training.sessions) || []).forEach(function (x) { g[x.group] = 1; });
+    var g = {}; ((D.training && D.training.sessions) || []).forEach(function (x) { g[x.group] = 1; (x.also || []).forEach(function (y) { g[y] = 1; }); });
     return GROUPS.filter(function (x) { return g[x]; }).concat(Object.keys(g).filter(function (x) { return GROUPS.indexOf(x) < 0; }));
   }
-  function trGroupPass(group) {
+  try { CAL.trHold = localStorage.getItem('hoebk_trh') || ''; } catch (e) { CAL.trHold = ''; }
+  function trHolds(group) {
+    var h = []; ((D.training && D.training.sessions) || []).forEach(function (x) { if (x.group === group && x.hold && h.indexOf(x.hold) < 0) h.push(x.hold); });
+    var ORD = ['bredde', 'øvede', 'elite'];
+    function k(x) { var i = ORD.indexOf(x.split(' ')[0].toLowerCase()); return (i < 0 ? 9 : i) * 100 + (parseInt(x.replace(/\D+/g, ''), 10) || 0); }
+    return h.sort(function (a, b) { return k(a) - k(b) || a.localeCompare(b, 'da'); });
+  }
+  // Mine hold: valgt på Min side. Har man valgt hold i en gruppe, vises kun de hold; ellers hele gruppen.
+  function myHoldPass(group, hold, also) {
+    if (ME && ME.groups && (also || []).some(function (g) { return ME.groups.indexOf(g) >= 0; })) return true;
+    if (!ME || !ME.groups || ME.groups.indexOf(group) < 0) return false;
+    var mine = (ME.holds || []).filter(function (x) { return trHolds(group).indexOf(x) >= 0; });
+    return !hold || !mine.length || mine.indexOf(hold) >= 0;
+  }
+  function trGroupPass(group, hold, also) {
     if (CAL.trGroup === 'alle') return true;
-    if (CAL.trGroup === 'mine') return !!(ME && ME.groups && ME.groups.indexOf(group) >= 0);
-    return group === CAL.trGroup;
+    if (CAL.trGroup === 'mine') return myHoldPass(group, hold, also);
+    if ((also || []).indexOf(CAL.trGroup) >= 0) return true;
+    if (group !== CAL.trGroup) return false;
+    return !CAL.trHold || !hold || hold === CAL.trHold;
   }
   function calToolbar(view, label, prevD, nextD) {
     var h = '<div class="seg" role="tablist" style="grid-template-columns:repeat(4,minmax(0,1fr))">' +
@@ -1177,6 +1209,10 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       h += '<div class="chips regchips" role="group" aria-label="Træningsgruppe">' +
         [['alle', 'Alle grupper']].concat(ME && ME.groups && ME.groups.length ? [['mine', 'Mine grupper']] : []).concat(trGroups().map(function (g) { return [g, g]; })).map(function (o) {
           return '<button class="chip" data-trg="' + esc(o[0]) + '" aria-pressed="' + (CAL.trGroup === o[0]) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
+      var hs = trHolds(CAL.trGroup);
+      if (hs.length > 1) h += '<div class="chips regchips" role="group" aria-label="Hold">' +
+        [['', 'Alle hold']].concat(hs.map(function (x) { return [x, x]; })).map(function (o) {
+          return '<button class="chip" data-trh="' + esc(o[0]) + '" aria-pressed="' + (CAL.trHold === o[0]) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
     }
     if (CAL.tours) {
       h += '<div class="filters"><select id="calLv" aria-label="Turneringsniveau"><option value="alle">Alle niveauer</option>' +
@@ -1260,6 +1296,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         if (tus.length) bars += '<span class="bar" style="background:var(--tour);color:#fff" title="' + tus.length + ' turneringer">' + tus.length + ' turn.</span>';
         var aks = ge.filter(function (e) { return e.kind === 'akt'; });
         if (aks.length) bars += '<span class="bar" style="background:var(--akt);color:#fff" title="' + esc(aks.map(function (x) { return x.title; }).join(', ')) + '">' + esc(aks[0].title) + '</span>' + (aks.length > 1 ? '<span class="more">+' + (aks.length - 1) + '</span>' : '');
+        var fe = ge.filter(function (e) { return e.kind === 'ferie'; });
+        if (fe.length && !ms.length && !tus.length && !aks.length) bars += '<span class="bar tr" title="' + esc(fe[0].title) + '">Ferie</span>';
         if (!ms.length && !tus.length && !aks.length && ts.length) bars += '<span class="bar tr" title="' + ts.length + ' træninger">' + ts.length + '×</span>';
         h += '<button class="mday' + (inMonth ? '' : ' out') + (gds === today ? ' now' : '') + '" data-go="#/kalender/dag/' + gds + '" aria-label="' + gd.getDate() + '. ' + MON_FULL[gd.getMonth()] + (ms.length ? ', ' + ms.length + ' kampe' : '') + '"><span class="n">' + gd.getDate() + '</span>' + bars + '</button>';
       }
@@ -1467,10 +1505,15 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     // Træning
     h += '<span class="lbl">Træning de næste 14 dage</span><div class="chips" role="group" aria-label="Mine træningshold">' + GROUPS.map(function (g) {
       return '<button class="chip" aria-pressed="' + (ME.groups.indexOf(g) >= 0) + '" data-group="' + g + '">' + g + '</button>'; }).join('') + '</div>';
+    GROUPS.forEach(function (g) {
+      var hs = ME.groups.indexOf(g) >= 0 ? trHolds(g) : [];
+      if (hs.length > 1) h += '<span class="xs" style="display:block;margin:6px 0 4px">' + esc(g) + ': vælg dit hold (ingen valgt = alle)</span><div class="chips" role="group" aria-label="Mine hold – ' + esc(g) + '">' +
+        hs.map(function (x) { return '<button class="chip" aria-pressed="' + ((ME.holds || []).indexOf(x) >= 0) + '" data-mhold="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</div>';
+    });
     var tr = [];
     for (var i = 0; i < 14; i++) {
       var ds = iso(addDays(new Date(), i));
-      (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && ME.groups.indexOf(e.team) >= 0) tr.push(e); });
+      (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && myHoldPass(e.team, e.hold, e.also)) tr.push(e); });
     }
     h += tr.length ? tr.map(function (e) {
       var d = parseD(e.date);
@@ -2144,7 +2187,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold]');
     if (!b) return;
     if (b.dataset.tuage) { TU.age = b.dataset.tuage; if (!b.dataset.go) { route(true); return; } }
     if (b.dataset.pick) { var pid = b.dataset.pick; if (LU.sel[pid]) delete LU.sel[pid]; else LU.sel[pid] = (D.players[pid] ? D.players[pid].name : (availMap(matchEid(D.teams[LU.team].matches[LU.mi]))[pid] || {}).n || pid); route(true); return; }
@@ -2179,7 +2222,13 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       }
       ME = null; saveMe(); UI.step = 'name'; toast('Du er logget ud'); route(); return;
     }
-    if (b.dataset.trg) { CAL.trGroup = b.dataset.trg; try { localStorage.setItem('hoebk_trg', CAL.trGroup); } catch (e3) {} route(true); return; }
+    if (b.dataset.trg) { CAL.trGroup = b.dataset.trg; CAL.trHold = ''; try { localStorage.setItem('hoebk_trg', CAL.trGroup); localStorage.setItem('hoebk_trh', ''); } catch (e3) {} route(true); return; }
+    if (b.dataset.trh !== undefined) { CAL.trHold = b.dataset.trh; try { localStorage.setItem('hoebk_trh', CAL.trHold); } catch (e4) {} route(true); return; }
+    if (b.dataset.mhold) {
+      ME.holds = ME.holds || []; var hi = ME.holds.indexOf(b.dataset.mhold);
+      if (hi >= 0) ME.holds.splice(hi, 1); else ME.holds.push(b.dataset.mhold);
+      saveMe(); route(true); return;
+    }
     if (b.dataset.pf) {
       UI.pf = b.dataset.pf; try { localStorage.setItem('hoebk_pf', UI.pf); } catch (e2) {}
       document.querySelectorAll('[data-pf]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.pf === UI.pf); });
