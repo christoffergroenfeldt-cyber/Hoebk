@@ -262,4 +262,10 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except Exception:
+        import traceback
+        tb = traceback.format_exc()
+        print("::error title=fetch_sider::" + tb.replace("\n", " ⏎ ")[-1500:])
+        raise
