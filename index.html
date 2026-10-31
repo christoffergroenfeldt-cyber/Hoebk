@@ -541,6 +541,12 @@ textarea.inp{resize:vertical;line-height:1.45}
     }).join('');
   }
 
+  // Klubbens shop hos sponsoren Transocean Sport (klubportalen — en del af købet går tilbage til HØBK)
+  var SHOP_URL = 'https://hoebk.tsklub.dk';
+  function shopCard() {
+    return '<a class="card row" style="min-height:60px;text-decoration:none;color:inherit;border-left:5px solid var(--ink)" href="' + SHOP_URL + '" target="_blank" rel="noopener">' +
+      '<span class="col"><b style="font-size:15px">Klubshop · Transocean Sport</b><span class="xs">Udstyr og klubtøj til klubpriser — en del går tilbage til HØBK</span></span><span class="h" style="font-size:18px">↗</span></a>';
+  }
   function viewPlayer(id) {
     var p = D.players[id]; if (!p) return viewSpillere();
     setHeader(p.name, teamsTxt(p), true);
@@ -576,6 +582,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         '<div class="col" style="align-items:flex-end;gap:4px"><span style="font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums">' + (setsTxt(g.sets) || 'W.O.') + '</span>' +
         '<span class="mark" style="background:' + (g.won ? 'var(--accent)' : 'var(--loss)') + '">' + (g.won ? 'V' : 'T') + '</span></div></div>';
     }).join('');
+    h += shopCard();
     return h;
   }
 
@@ -1572,6 +1579,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         '<p class="note">Eller tryk <b>☆ Følg holdet</b> på et holds side under Hold.</p>';
     }
     h += pushCard();
+    h += shopCard();
     h += followedBlock();
     if (P) h += playerTourBlock(P, 4);
     // Træning
