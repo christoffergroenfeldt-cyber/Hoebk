@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
-:root{--tour:#1E6B3A;--ink:#0E2236;--muted:#4A5866;--muted2:#6A7682;--ground:#F7F7F2;--card:#FFFFFF;--line:#E2E5DC;--line2:#EDEFE8;--accent:#D4F25A;--loss:#F3D6D2;--draw:#E7ECF1;--soft:#F1F2EC;--hi:#F4FBD9;--navy2:#1B3550;--seg:#E7EAE1}
+:root{--akt:#7A4FC9;--tour:#1E6B3A;--ink:#0E2236;--muted:#4A5866;--muted2:#6A7682;--ground:#F7F7F2;--card:#FFFFFF;--line:#E2E5DC;--line2:#EDEFE8;--accent:#D4F25A;--loss:#F3D6D2;--draw:#E7ECF1;--soft:#F1F2EC;--hi:#F4FBD9;--navy2:#1B3550;--seg:#E7EAE1}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--ground);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.4;-webkit-text-size-adjust:100%}
 button{font-family:inherit;color:inherit;cursor:pointer}
@@ -928,7 +928,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   // ---------- Kalender ----------
   var MON_FULL = ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'];
   var DAY_FULL = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
-  var CAL = { team: 'alle', training: true, tours: false, level: 'alle', matches: true };
+  var CAL = { team: 'alle', training: true, tours: false, level: 'alle', matches: true, akt: true };
   var EVENTS = {};   // 'YYYY-MM-DD' -> [event]
   function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
   function parseD(x) { var p = x.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
@@ -944,6 +944,48 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     if (/^MOT/.test(label)) return { bg: '#E58A2E', fg: '#0E2236' };
     if (/4 Spillere/.test(label)) return { bg: '#7FD3F7', fg: '#0E2236' };
     return { bg: '#2F6FB3', fg: '#FFFFFF' };
+  }
+  // ---------- Klubbens aktivitetskalender (Conventus, som på hoebk.dk/kalender) ----------
+  // Conventus svarer kun danske forbindelser, så kalenderen hentes direkte på telefonen (som hoebk.dk gør) og gemmes
+  // ikke på GitHub. Kun klubaktiviteter vises: private udlejninger (navne) og hal-bookinger til holdkampe (står allerede
+  // som holdkampe) sorteres fra.
+  var CONVENTUS = 'https://www.conventus.dk/dataudv/www/kalender.php?type_ikon=1&niveau_ikon=0&mos=1&kort_dato=0&dato=1&dato_tidspunkt=1&tidspunkt=1&kort_tid=0&titel=1&sted=1&klikbar=1&tid=5&niveau=1&gruppe=&gruppe_type=2&rss=0&smal=0&foreningsid=6493';
+  var ACT = { events: [], updated: 0, loading: false, failed: false };
+  try { var ac = JSON.parse(localStorage.getItem('hoebk_akt') || 'null'); if (ac && ac.events) { ACT.events = ac.events; ACT.updated = ac.t || 0; } } catch (e) {}
+  var ACT_KEEP = /miniton|træning|camp|natminton|jul|bingo|klubmesterskab|sen ?\d0|senior|voksenfjer|veteran|ungdom|pige|drenge|stævne|generalforsamling|møde|fest|afslutning|opstart|lukket|ferie|åbent hus|klub/i;
+  var ACT_DROP = /hold ?tur|holdturning|holdkamp|ungdoms?(hold)?kamp|\bmot ?4\b|\w+ \d+ ?- ?\w+ \d+|privat|udlej|konfirmation|fødselsdag|bryllup|reception/i;
+  function parseConventus(html) {
+    var d = new DOMParser().parseFromString(html, 'text/html'), out = [];
+    Array.prototype.forEach.call(d.querySelectorAll('tr'), function (tr) {
+      if (tr.children.length !== 5) return;
+      var c = Array.prototype.map.call(tr.children, function (td) { return td.textContent.replace(/\s+/g, ' ').trim(); });
+      var dm = /^(\d{2})-(\d{2})-(\d{2})$/.exec(c[1]); if (!dm) return;
+      var title = c[3], tm = /(\d{1,2}[:.]\d{2})\s*-\s*(\d{1,2}[:.]\d{2})/.exec(c[2]) || [];
+      if (!title || ACT_DROP.test(title) || !ACT_KEEP.test(title)) return;
+      out.push({ date: '20' + dm[3] + '-' + dm[2] + '-' + dm[1], time: (tm[1] || '').replace('.', ':'), end: (tm[2] || '').replace('.', ':'),
+                 title: title.charAt(0).toUpperCase() + title.slice(1), place: c[4].charAt(0).toUpperCase() + c[4].slice(1) });
+    });
+    return out;
+  }
+  function loadActivities(force) {
+    if (ACT.loading || (!force && Date.now() - ACT.updated < 3600000)) return;
+    ACT.loading = true;
+    var buf = '', orig = document.write, done = false;
+    function finish(ok) {
+      if (done) return; done = true; document.write = orig; ACT.loading = false;
+      var ev = ok ? parseConventus(buf) : null;
+      if (ev && ev.length) {
+        ACT.events = ev; ACT.updated = Date.now(); ACT.failed = false;
+        try { localStorage.setItem('hoebk_akt', JSON.stringify({ t: ACT.updated, events: ev })); } catch (e) {}
+        if (D) { buildEvents(); if (/^#\/(kalender|tilmeld)/.test(location.hash) || !location.hash) route(true); }
+      } else ACT.failed = true;
+    }
+    document.write = function (x) { buf += x; };
+    var sc = document.createElement('script');
+    sc.src = CONVENTUS + '&_=' + Math.floor(Date.now() / 600000);
+    sc.onload = function () { finish(true); }; sc.onerror = function () { finish(false); };
+    document.head.appendChild(sc);
+    setTimeout(function () { finish(!!buf); }, 15000);
   }
   function buildEvents() {
     EVENTS = {};
@@ -974,12 +1016,16 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
               place: t.classes.map(function (c) { return c.raw; }).join(' · '), bg: 'var(--tour)', fg: '#FFFFFF', go: '#/turnering/' + t.id });
       }
     });
+    ACT.events.forEach(function (a) {
+      add({ kind: 'akt', date: a.date, time: a.time, end: a.end, team: 'Aktivitet', title: a.title, place: a.place, bg: 'var(--akt)', fg: '#FFFFFF', go: '' });
+    });
     Object.keys(EVENTS).forEach(function (k) { EVENTS[k].sort(function (a, b) { return (a.time || '99').localeCompare(b.time || '99') || (a.kind === 'match' ? -1 : 1); }); });
   }
   function evFor(ds) {
     return (EVENTS[ds] || []).filter(function (e) {
       if (e.kind === 'training') return CAL.training && (CAL.team === 'alle' || CAL.team === 'træning') && trGroupPass(e.team);
       if (e.kind === 'tour') return CAL.tours && (CAL.team === 'alle' || CAL.team === 'turneringer') && tourInLevel(e.tour, CAL.level) && tourPass(e.tour);
+      if (e.kind === 'akt') return CAL.akt && (CAL.team === 'alle' || CAL.team === 'aktiviteter');
       return CAL.matches && (CAL.team === 'alle' || CAL.team === e.team);
     });
   }
@@ -992,6 +1038,11 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       '<span class="col"><b style="font-size:14px" class="ellip">' + (e.kind === 'match' ? esc(e.team) + ' <span style="font-weight:500">' + esc(e.title) + '</span>' : esc(e.title)) + '</b>' +
       '<span class="xs ellip">' + esc(e.kind === 'match' ? e.teamName + ' · ' + e.place : e.place) + '</span></span>' + right;
     var style = 'border-left-color:' + (e.kind === 'match' ? e.bg : '#9AA6B1');
+    if (e.kind === 'akt') {
+      return '<a class="ev" style="border-left-color:var(--akt);text-decoration:none;color:inherit" href="https://hoebk.dk/kalender" target="_blank" rel="noopener">' +
+        '<span class="tm">' + esc(e.time || '–') + '</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(e.title) + '</b><span class="xs ellip">Klubaktivitet' + (e.place ? ' · ' + esc(e.place) : '') + '</span></span>' +
+        (e.end ? '<span class="xs">til ' + esc(e.end) + '</span>' : '<span></span>') + '</a>';
+    }
     if (e.kind === 'training') {
       return '<div class="evwrap tr"><div class="evtop">' + inner + '</div>' + regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
     }
@@ -1019,10 +1070,12 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     h += '<div class="filters"><select id="calTeam" aria-label="Vis hold"><option value="alle">Alle hold</option>' +
       D.teams.map(function (t) { return '<option value="' + esc(t.label) + '"' + (CAL.team === t.label ? ' selected' : '') + '>' + esc(t.label) + ' · ' + esc(t.name) + '</option>'; }).join('') +
       '<option value="træning"' + (CAL.team === 'træning' ? ' selected' : '') + '>Kun træning</option>' +
-      '<option value="turneringer"' + (CAL.team === 'turneringer' ? ' selected' : '') + '>Kun turneringer</option></select>' +
+      '<option value="turneringer"' + (CAL.team === 'turneringer' ? ' selected' : '') + '>Kun turneringer</option>' +
+      '<option value="aktiviteter"' + (CAL.team === 'aktiviteter' ? ' selected' : '') + '>Kun klubaktiviteter</option></select>' +
       '<label class="toggle"><input type="checkbox" id="calMa"' + (CAL.matches ? ' checked' : '') + '> Holdkampe</label>' +
       '<label class="toggle"><input type="checkbox" id="calTr"' + (CAL.training ? ' checked' : '') + '> Træning</label>' +
-      '<label class="toggle"><input type="checkbox" id="calTu"' + (CAL.tours ? ' checked' : '') + '> Turneringer</label></div>';
+      '<label class="toggle"><input type="checkbox" id="calTu"' + (CAL.tours ? ' checked' : '') + '> Turneringer</label>' +
+      '<label class="toggle"><input type="checkbox" id="calAk"' + (CAL.akt ? ' checked' : '') + '> Aktiviteter</label></div>';
     if (CAL.training && (CAL.team === 'alle' || CAL.team === 'træning') && trGroups().length > 1) {
       h += '<div class="chips regchips" role="group" aria-label="Træningsgruppe">' +
         [['alle', 'Alle grupper']].concat(ME && ME.groups && ME.groups.length ? [['mine', 'Mine grupper']] : []).concat(trGroups().map(function (g) { return [g, g]; })).map(function (o) {
@@ -1036,7 +1089,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     h += '<div class="legend"><span><i class="sw" style="background:#2F6FB3"></i>Senior</span><span><i class="sw" style="background:#7FD3F7"></i>4 spillere</span>' +
       '<span><i class="sw" style="background:#E58A2E"></i>Motion</span><span><i class="sw" style="background:#D4F25A"></i>Ungdom</span>' +
       '<span><i class="sw" style="border:1px dashed #9AA6B1"></i>Træning (3× = 3 hold)</span>' +
-      (CAL.tours ? '<span><i class="sw" style="background:var(--tour)"></i>Turnering</span>' : '') + '</div>';
+      (CAL.tours ? '<span><i class="sw" style="background:var(--tour)"></i>Turnering</span>' : '') +
+      (CAL.akt ? '<span><i class="sw" style="background:var(--akt)"></i>Klubaktivitet</span>' : '') + '</div>' +
+      (CAL.akt && ACT.failed && !ACT.events.length ? '<p class="note">Klubbens aktivitetskalender kunne ikke hentes fra Conventus lige nu.</p>' : '');
     return h;
   }
   function viewCal(view, ds) {
@@ -1106,7 +1161,9 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         if (ms.length > 3) bars += '<span class="more">+' + (ms.length - 3) + '</span>';
         var tus = ge.filter(function (e) { return e.kind === 'tour'; });
         if (tus.length) bars += '<span class="bar" style="background:var(--tour);color:#fff" title="' + tus.length + ' turneringer">' + tus.length + ' turn.</span>';
-        if (!ms.length && !tus.length && ts.length) bars += '<span class="bar tr" title="' + ts.length + ' træninger">' + ts.length + '×</span>';
+        var aks = ge.filter(function (e) { return e.kind === 'akt'; });
+        if (aks.length) bars += '<span class="bar" style="background:var(--akt);color:#fff" title="' + esc(aks.map(function (x) { return x.title; }).join(', ')) + '">' + esc(aks[0].title) + '</span>' + (aks.length > 1 ? '<span class="more">+' + (aks.length - 1) + '</span>' : '');
+        if (!ms.length && !tus.length && !aks.length && ts.length) bars += '<span class="bar tr" title="' + ts.length + ' træninger">' + ts.length + '×</span>';
         h += '<button class="mday' + (inMonth ? '' : ' out') + (gds === today ? ' now' : '') + '" data-go="#/kalender/dag/' + gds + '" aria-label="' + gd.getDate() + '. ' + MON_FULL[gd.getMonth()] + (ms.length ? ', ' + ms.length + ' kampe' : '') + '"><span class="n">' + gd.getDate() + '</span>' + bars + '</button>';
       }
       h += '</div><p class="note">' + mcount + ' kampe i ' + MON_FULL[f.getMonth()] + '. Tryk på en dag for tider og spillesteder.</p>';
@@ -1324,6 +1381,10 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
         '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + ' · ' + DAY_FULL[d.getDay()] + '</span></span><span></span></div>' +
         regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
     }).join('') : '<p class="empty">Vælg dine træningshold ovenfor.</p>';
+    var nextAkt = ACT.events.filter(function (a) { return a.date >= today; }).slice(0, 3);
+    if (nextAkt.length) h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Klubbens aktiviteter</span><button class="pl xs" data-go="#/kalender/maaned/' + today + '">Kalender ›</button></div>' +
+      nextAkt.map(function (a) { return '<a class="ev" style="border-left-color:var(--akt);text-decoration:none;color:inherit" href="https://hoebk.dk/kalender" target="_blank" rel="noopener"><span class="tm">' + esc(dTxt(a.date)) + '</span>' +
+        '<span class="col"><b style="font-size:14px" class="ellip">' + esc(a.title) + '</b><span class="xs ellip">' + esc((a.time ? a.time + (a.end ? '–' + a.end : '') : '') + (a.place ? ' · ' + a.place : '')) + '</span></span><span></span></a>'; }).join('');
     h += mh;
     return h;
   }
@@ -1904,6 +1965,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
       document.getElementById('calMa').addEventListener('change', function (e) { CAL.matches = e.target.checked; route(); });
       bindTourFilters();
       document.getElementById('calTu').addEventListener('change', function (e) { CAL.tours = e.target.checked; route(); });
+      document.getElementById('calAk').addEventListener('change', function (e) { CAL.akt = e.target.checked; route(); });
       var lv = document.getElementById('calLv'); if (lv) lv.addEventListener('change', function (e) { CAL.level = e.target.value; route(); });
     }
     if (parts[0] === 'udtag' && document.getElementById('luTeam')) {
@@ -2031,6 +2093,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
     btn.classList.add('spin'); FORCE = Date.now();
     checkAppVersion(true).then(function (reloading) {
       if (reloading) { toast('Ny version af appen — genindlæser…'); return new Promise(function () {}); }
+      loadActivities(true);
       return load();
     }).then(function () { return loadReg(); })
       .then(function () { route(true); toast('Opdateret'); })
@@ -2052,7 +2115,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
   if (!location.hash || location.hash === '#/hold' || location.hash === '#/') {
     try { history.replaceState(null, '', location.pathname + location.search + '#/tilmeld'); } catch (e) { location.hash = '#/tilmeld'; }
   }
-  load().then(function () { prevHash = location.hash; route(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).catch(function () {
+  load().then(function () { prevHash = location.hash; route(); loadActivities(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).catch(function () {
     $main.innerHTML = '<p class="empty">Kunne ikke hente data. Prøv igen om lidt.</p>';
     document.getElementById('subtitle').textContent = 'Fejl ved hentning';
   });
