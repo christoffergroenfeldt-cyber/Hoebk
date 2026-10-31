@@ -24,6 +24,7 @@
  *  register {token, type, eventId, status, label}→ gemmer svar for den indloggede spiller (status 'ryd' fjerner svaret)
  *  lineup   {token, eventId, team, status, squad[], games[], note} → holdopstilling (kun holdledere, se fanen Ledere)
  *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
+ *  setAdmin {token, email, name, on}           → faste administratorer udnævner/fjerner administratorer (fanen Administratorer)
  *  follow   {token, tid, title, on}              → følg/stop med at følge en turnering (fanen Følger)
  *  notify   {key, items[{ids[], title, lines[], url}]} → GitHub sender nyt om turneringer; mail til dem der følger
  *           svarer med push-jobs, som GitHub sender videre som push-notifikationer (kræver VAPID-nøglen)
@@ -43,7 +44,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-31.5';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-10-31.6';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -64,6 +65,7 @@ var SHEETS = {
   'Forældre': ['email', 'forælderId', 'forælderNavn', 'barnId', 'barnNavn', 'tidspunkt'],
   Aktiviteter: ['id', 'oprettet', 'navn', 'beskrivelse', 'start', 'slut', 'kalender', 'til', 'af', 'slettet', 'opgaver'],
   Opgavetilmeldinger: ['tidspunkt', 'aktivitetId', 'opgaveId', 'email', 'playerId', 'navn', 'status'],
+  Administratorer: ['email', 'navn', 'udnævntAf', 'tidspunkt'],
   'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag']
 };
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
@@ -199,7 +201,8 @@ function sha256hex_(s) {
   return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, s, Utilities.Charset.UTF_8)
     .map(function (b) { return ('0' + (b & 0xff).toString(16)).slice(-2); }).join('');
 }
-function isAdmin_(email, playerId) {
+// Faste administratorer (står i koden ovenfor) — de eneste der kan udnævne flere administratorer
+function isOwner_(email, playerId) {
   var em = String(email || '').toLowerCase().trim(), pid = String(playerId || '');
   if (em && ADMIN_EMAIL_SHA256.indexOf(sha256hex_(em)) >= 0) return true;
   if (!em || ADMIN_PLAYER_IDS.indexOf(pid) < 0) return false;
@@ -207,11 +210,17 @@ function isAdmin_(email, playerId) {
     .sort(function (a, b) { return new Date(a[3]) - new Date(b[3]); })[0];
   return !!first && String(first[2]).toLowerCase().trim() === em;
 }
+// Administrator = fast administrator eller udnævnt i fanen Administratorer (gælder den e-mail man logger ind med)
+function isAdmin_(email, playerId) {
+  if (isOwner_(email, playerId)) return true;
+  var em = String(email || '').toLowerCase().trim();
+  return !!em && data_('Administratorer').some(function (r) { return String(r[0]).toLowerCase().trim() === em; });
+}
 
 function role_(email, playerId) {
   var em = String(email || '').toLowerCase().trim();
   if (!em) return { leader: false, teams: [] };
-  if (isAdmin_(em, playerId)) return { leader: true, all: true, admin: true, teams: [] };
+  if (isAdmin_(em, playerId)) return { leader: true, all: true, admin: true, owner: isOwner_(em, playerId), teams: [] };
   var teams = [], all = false;
   data_('Ledere').forEach(function (r) {
     if (String(r[0]).toLowerCase().trim() !== em) return;
@@ -253,7 +262,8 @@ function leaders_(b) {
   }).filter(function (l) { return l.email; });
   var emails = {};   // spiller-id → bekræftede e-mails (kun til administrator)
   data_('Spillere').forEach(function (r) { var id = String(r[0]); (emails[id] = emails[id] || []); if (emails[id].indexOf(String(r[2])) < 0) emails[id].push(String(r[2])); });
-  return { ok: true, leaders: leaders, emails: emails, stats: stats_() };
+  var admins = data_('Administratorer').filter(function (r) { return String(r[0]); }).map(function (r) { return { email: String(r[0]), name: String(r[1]), by: String(r[2]) }; });
+  return { ok: true, leaders: leaders, emails: emails, stats: stats_(), admins: admins, owner: isOwner_(ses.email, ses.playerId) };
 }
 
 function setLeader_(b) {
@@ -269,6 +279,20 @@ function setLeader_(b) {
       if (String(rows[i][0]).toLowerCase().trim() === email) sh.deleteRow(i + 2);
     }
     if (teams.length) sh.appendRow([email, safe_(name), safe_(teams.join(', '))]);
+    return { ok: true };
+  });
+}
+
+function setAdmin_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isOwner_(ses.email, ses.playerId)) return { ok: false, error: 'Kun de faste administratorer kan udnævne administratorer' };
+  var email = clean_(b.email, 120).toLowerCase();
+  if (!validEmail_(email)) return { ok: false, error: 'Ugyldig e-mail' };
+  if (email === ses.email.toLowerCase()) return { ok: false, error: 'Du er allerede fast administrator' };
+  return withLock_(function () {
+    var sh = sh_('Administratorer'), rows = data_('Administratorer');
+    for (var i = rows.length - 1; i >= 0; i--) if (String(rows[i][0]).toLowerCase().trim() === email) sh.deleteRow(i + 2);
+    if (b.on) sh.appendRow([email, safe_(clean_(b.name, 80)), safe_(ses.playerName), new Date()]);
     return { ok: true };
   });
 }
@@ -417,7 +441,7 @@ function stats_() {
            followers: Object.keys(followers).length, teamFollows: teamF, tourFollows: tourF,
            pushDevices: push.length, pushUsers: Object.keys(pushUsers).length,
            mailOff: data_('Indstillinger').filter(function (r) { return r[1] === false || String(r[1]).toUpperCase() === 'FALSE'; }).length,
-           leaders: data_('Ledere').length,
+           leaders: data_('Ledere').length, admins: data_('Administratorer').length,
            parents: (function () { var p = {}; data_('Forældre').forEach(function (r) { p[String(r[0]).toLowerCase()] = 1; }); return Object.keys(p).length; })() };
 }
 
@@ -886,6 +910,7 @@ function doPost(e) {
       case 'lineup': return json_(saveLineup_(b));
       case 'leaders': return json_(leaders_(b));
       case 'setLeader': return json_(setLeader_(b));
+      case 'setAdmin': return json_(setAdmin_(b));
       case 'follow': return json_(follow_(b));
       case 'notify': return json_(notify_(b));
       case 'push': return json_(push_(b));

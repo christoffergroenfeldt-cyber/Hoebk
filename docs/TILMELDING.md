@@ -82,6 +82,7 @@ Google shows menus in your account's language — Danish names are given first, 
 | Role | Who | Can |
 |---|---|---|
 | **Administrator** | Anders Vedsted Nørrelund (player id `12813`, set in `ADMIN_PLAYER_IDS` at the top of `Code.gs`) | Appoint and remove team leaders in the app (*Min side → Udnævn holdledere*); also acts as leader for all teams |
+| **Appointed administrator** | Anyone a fixed administrator adds under *Administration → Administratorer* (tab *Administratorer*, by login email) | Everything an administrator can — news, activities, team leaders, all teams — except appointing other administrators |
 | **Team leader** | Anyone the administrator appoints (row in the *Ledere* tab) | Pick players and make lineups for their teams |
 | Player | Everyone logged in | Answer availability, see the selected team |
 
@@ -139,7 +140,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.5` or later.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.6` or later.
 
 ## Lineup rules in the app
 
@@ -159,6 +160,8 @@ Gender comes from the player search (`gender` in `spillere.json`). Players witho
 ## Administrators
 
 Two ways, both in `Code.gs`: `ADMIN_PLAYER_IDS` (badmintonplayer id — the first email that confirmed that player owns the role; Anders Vedsted Nørrelund) and `ADMIN_EMAIL_SHA256` (SHA-256 of the lowercase login email, so the address isn't readable in the public repo — Christoffer, who isn't a team player). Add one: `printf '%s' 'name@example.dk' | sha256sum`. Administrators are leaders for all teams, appoint leaders and see user statistics.
+
+**Fixed vs. appointed.** The two above are *fixed* administrators (in the code). Only they can add or remove administrators in the app (*Holdleder → Administrator → Administratorer, holdledere og brugerstatistik*, action `setAdmin`); people they add go in the sheet tab **Administratorer** (email, name, appointed by, time) and are matched on the email they log in with. Note that Anders' fixed role follows his player id 12813 — if he logs in as a parent (`p:…`) instead, he keeps no fixed role unless his email is also added to `ADMIN_EMAIL_SHA256`.
 
 ## User statistics
 

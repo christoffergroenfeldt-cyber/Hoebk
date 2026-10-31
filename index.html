@@ -1773,7 +1773,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   }
   function leaderBlock() {
     var h = '<span class="lbl">Næste kampe</span>';
-    if (ME.role.admin) h = '<span class="lbl">Administrator</span><button class="card row" style="min-height:52px" data-go="#/ledere"><b>Udnævn holdledere og se brugerstatistik</b><span class="xs">›</span></button>' +
+    if (ME.role.admin) h = '<span class="lbl">Administrator</span><button class="card row" style="min-height:52px" data-go="#/ledere"><b>Administratorer, holdledere og brugerstatistik</b><span class="xs">›</span></button>' +
       '<button class="card row" style="min-height:52px" data-act="actnew"><span class="col"><b>Ny aktivitet</b><span class="xs">Arrangement med opgaver som spillere og forældre kan tage — kan vises i kalenderen</span></span><span class="xs">›</span></button>' +
       '<button class="card row" style="min-height:52px" data-go="#/nyheder/ny"><span class="col"><b>Skriv en nyhed</b><span class="xs">Til alle, udvalgte hold eller træningsgrupper — vises i appen og som notifikation</span></span><span class="xs">›</span></button>' + h;
     var order = leaderTeams().filter(function (ti) { return nextMatchIdx(D.teams[ti]) >= 0; }).sort(function (a, b) {   // næste kamp først
@@ -2102,9 +2102,10 @@ textarea.inp{resize:vertical;line-height:1.45}
   var ADM = { data: null, loading: false, pick: null, teams: {}, email: '', q: '' };
   function viewLedere() {
     setTab('tilmeld');
-    setHeader('Holdledere', 'Udnævnes af administrator', true);
+    setHeader('Administration', 'Administratorer og holdledere', true);
     if (!ME || !ME.role || !ME.role.admin) return '<p class="empty">Kun administratoren kan udnævne holdledere.</p>';
     if (!ADM.data) {
+      if (!REG.url) return '<p class="empty">Henter …</p>';   // åbnet direkte: vent til config.json er hentet (loadReg tegner siden igen)
       if (!ADM.loading) { ADM.loading = true; api({ action: 'leaders', token: ME.token }).then(function (r) { ADM.loading = false; ADM.data = r && r.ok ? r : { leaders: [], emails: {}, error: (r && r.error) || 'Fejl' }; route(true); }).catch(function () { ADM.loading = false; ADM.data = { leaders: [], emails: {}, error: 'Ingen forbindelse' }; route(true); }); }
       return '<p class="empty">Henter holdledere …</p>';
     }
@@ -2114,6 +2115,23 @@ textarea.inp{resize:vertical;line-height:1.45}
       [['Med profil', st.players], ['Aktive 7 dage', st.active7], ['Notifikationer', st.pushUsers]].map(function (x) {
         return '<div class="card tile"><span class="lbl" style="margin:0">' + x[0] + '</span><b>' + esc(x[1]) + '</b></div>'; }).join('') + '</div>' +
       '<p class="note">Aktive 30 dage: ' + esc(st.active30) + ' · følger hold/turneringer: ' + esc(st.followers) + ' (' + esc(st.teamFollows) + ' hold, ' + esc(st.tourFollows) + ' turneringer) · telefoner med notifikationer: ' + esc(st.pushDevices) + ' · holdledere: ' + esc(st.leaders) + '</p>';
+    // Administratorer: faste (i scriptet) kan udnævne flere; udnævnte kan alt andet (nyheder, aktiviteter, holdledere)
+    var owner = !!ADM.data.owner, admins = ADM.data.admins || [];
+    h += '<span class="lbl">Administratorer</span><p class="note" style="margin-top:-4px">Administratorer kan skrive nyheder, oprette aktiviteter, udnævne holdledere og er holdleder for alle hold. ' +
+      (owner ? 'Som fast administrator kan du udnævne og fjerne administratorer.' : 'Kun de faste administratorer kan udnævne flere.') + '</p>';
+    h += admins.length ? admins.map(function (a) {
+      return '<div class="card" style="padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="col"><b>' + esc(a.name || a.email) + '</b>' +
+        '<span class="xs">' + esc(a.email) + (a.by ? ' · udnævnt af ' + esc(a.by) : '') + '</span></span>' +
+        (owner ? '<button class="pl xs" data-admdel="' + esc(a.email) + '" data-name="' + esc(a.name || a.email) + '">Fjern</button>' : '') + '</div>';
+    }).join('') : '<p class="empty">Ingen udnævnte administratorer endnu' + (owner ? '' : '') + '.</p>';
+    if (owner) {
+      ADM.na = ADM.na || { name: '', email: '' };
+      h += '<div class="card" style="padding:12px;display:flex;flex-direction:column;gap:8px"><b style="font-size:14px">Tilføj administrator</b>' +
+        '<div class="card search"><input id="admaName" type="text" autocomplete="off" placeholder="Navn" aria-label="Navn" value="' + esc(ADM.na.name) + '"></div>' +
+        '<div class="card search"><input id="admaEmail" type="email" inputmode="email" autocomplete="off" placeholder="E-mail de logger ind med" aria-label="E-mail" value="' + esc(ADM.na.email) + '"></div>' +
+        '<span class="xs">Personen skal logge ind i appen med præcis denne e-mail.</span>' +
+        '<button class="rb ja" aria-pressed="true" data-act="admadd" style="align-self:flex-start;min-height:42px">Gør til administrator</button></div>';
+    }
     h += '<span class="lbl">Nuværende holdledere</span>';
     h += ADM.data.leaders.length ? ADM.data.leaders.map(function (l, i) {
       return '<div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;gap:8px"><span class="col"><b>' + esc(l.name || l.email) + '</b><span class="xs">' + esc(l.email) + '</span></span>' +
@@ -2912,6 +2930,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       var me2 = document.getElementById('markEntered'); if (me2) me2.addEventListener('click', function () { saveLineup(eti, emi, { status: 'indtastet' }, function () { route(true); }); });
     }
     if (parts[0] === 'ledere' && ME && ME.role && ME.role.admin) {
+      var anm = document.getElementById('admaName'); if (anm) anm.addEventListener('input', function (e) { ADM.na.name = e.target.value; });
+      var aem = document.getElementById('admaEmail'); if (aem) aem.addEventListener('input', function (e) { ADM.na.email = e.target.value.trim(); });
       var aq = document.getElementById('admQ'); if (aq) aq.addEventListener('input', function (e) { ADM.q = e.target.value; route(true); var x = document.getElementById('admQ'); x.focus(); x.setSelectionRange(x.value.length, x.value.length); });
       var ae = document.getElementById('admEmail'); if (ae) ae.addEventListener('input', function (e) { ADM.email = e.target.value.trim(); });
       var an = document.getElementById('admName'); if (an) an.addEventListener('input', function (e) { ADM.pick.name = e.target.value.trim(); });
@@ -2945,9 +2965,20 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel]');
     if (!b) return;
     if (b.dataset.kid) { toggleKid(b.dataset.kid); return; }
+    if (b.dataset.act === 'admadd' || b.dataset.admdel) {
+      var on = b.dataset.act === 'admadd', em2 = on ? (ADM.na.email || '').toLowerCase() : b.dataset.admdel, nm2 = on ? ADM.na.name.trim() : b.dataset.name;
+      if (on && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em2)) { toast('Skriv en gyldig e-mail'); return; }
+      if (on && !nm2) { toast('Skriv et navn'); return; }
+      if (!confirm(on ? 'Gør ' + nm2 + ' (' + em2 + ') til administrator?' : 'Fjern ' + nm2 + ' som administrator?')) return;
+      api({ action: 'setAdmin', token: ME.token, email: em2, name: nm2, on: on }).then(function (r) {
+        if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
+        toast(on ? nm2 + ' er nu administrator' : nm2 + ' er ikke længere administrator'); ADM.na = null; ADM.data = null; route(true);
+      }).catch(function (err) { toast(err.message); });
+      return;
+    }
     if (b.dataset.sign) { signTask(b.dataset.sign); return; }
     if (b.dataset.ov) { PLAN.ov = b.dataset.ov; route(true); return; }
     if (b.dataset.actto) { toggleAud(PLAN.form, b.dataset.actto); route(true); return; }
