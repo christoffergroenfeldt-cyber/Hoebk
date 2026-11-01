@@ -1930,7 +1930,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     });
     h += '<button class="rb" data-go="#/boern" style="min-height:44px;border-style:dashed;border-color:' + PARENT.bg + ';color:' + PARENT.bg + '">+ Tilføj barn</button>';
     var rooms = roomsFor(function (r) { return kidTeamIds[r.id]; });
-    if (rooms.length) h += '<span class="lbl">Børnenes chat</span>' + rooms.map(roomRow).join('');
+    if (rooms.length) h += '<span class="lbl">Chat</span>' + rooms.map(function (r) { return roomRow(r, '💬 ' + r.title + ' · holdchat'); }).join('');
     h += '<p class="note">Kampe dine børn bliver udtaget til, står også i dit Program.</p>';
     if (parent) h += groupsBlock() + followBlock(kidTeams()) + settingsBlock();   // ren forælder: ingen Spiller-fane
     return h;
@@ -1956,7 +1956,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     }).join('') : '<p class="empty">Ingen kommende kampe for dine hold.</p>';
     var leadT = {}; leaderTeams().forEach(function (ti) { leadT['h:' + D.teams[ti].leagueGroupTeamID] = 1; });
     var rooms = roomsFor(function (r) { return leadT[r.id]; });
-    if (rooms.length && !ME.role.admin) h += '<span class="lbl">Holdenes chat</span>' + rooms.map(roomRow).join('');
+    if (rooms.length && !ME.role.admin) h += '<span class="lbl">Chat</span>' + rooms.map(function (r) { return roomRow(r, '💬 ' + r.title + ' · holdchat'); }).join('');
     return h;
   }
   function renderMeList() {
@@ -2679,10 +2679,10 @@ textarea.inp{resize:vertical;line-height:1.45}
     var t = D.teams.filter(function (tt) { return 'h:' + tt.leagueGroupTeamID === x; })[0];
     return t ? t.label : x;
   }
-  function roomRow(r) {
+  function roomRow(r, label) {   // label: vist navn (fx "U15 B · holdchat") — ellers rummets titel
     var n = unread(r);
     return '<button class="card row" style="min-height:58px" data-go="#/snak/' + encodeURIComponent(r.id) + '">' +
-      '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(r.title) + (r.muted ? ' <span aria-label="lydløs">🔕</span>' : '') + '</b>' +
+      '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(typeof label === 'string' ? label : r.title) + (r.muted ? ' <span aria-label="lydløs">🔕</span>' : '') + '</b>' +
       '<span class="xs ellip">' + (r.last ? esc(r.by.split(' ')[0] + ': ' + r.x) : 'Ingen beskeder endnu — skriv den første') + '</span></span>' +
       '<span class="col" style="align-items:flex-end;gap:4px;flex:0 0 auto">' + (r.last ? '<span class="xs">' + esc(ago(r.last)) + '</span>' : '') +
       (n ? '<span class="badge">' + n + '</span>' : '') + '</span></button>';
