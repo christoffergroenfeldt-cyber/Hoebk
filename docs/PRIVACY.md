@@ -13,7 +13,9 @@ The repo is **public**, so everything committed to it can be read by anyone. Thi
 | **Email addresses** | Google Sheet tabs *Spillere*, *Koder*, *Sessioner* | **No** — never leaves Google | Players themselves |
 | **Chat messages** (*Chat*) | Google Sheet tab *Beskeder* | **No** — shown only to logged-in members of that team/training group | Players themselves |
 | News from the board | Google Sheet tab *Nyheder* | Shown in the app; news for everyone is public | Administrators |
-| Login codes and session tokens | Google Sheet, as salted SHA-256 hashes only | No | Generated |
+| **Car pool** (who drives, seats, meeting point, *hvor kan jeg hentes*, who rides with whom) | Google Sheet tab *Kørsel* | **No** — shown only to logged-in users on the match/tournament page | Drivers, players and parents |
+| Activity tasks taken (name per task) | Google Sheet tab *Opgavetilmeldinger* | Only to logged-in users (counts without names when logged out) | Players and parents |
+| Login codes, device codes (*Log ind på en anden enhed*) and session tokens | Google Sheet (*Koder*, *Sessioner*), as salted SHA-256 hashes only | No | Generated |
 | Session token (plain) | The player's own phone (`localStorage`) | No | Generated |
 
 ## What is deliberately never stored
@@ -38,6 +40,7 @@ Youth players' full names, results and rankings are published by Badminton Danma
 - **Chat messages** stay in the Google Sheet. A deleted message is only marked deleted (column *slettet*) so it disappears from the app; delete the row in *Beskeder* to remove it completely.
 - **Registrations** stay in the Google Sheet until deleted there. Delete rows in *Tilmeldinger*; the next sync rebuilds `hoebk.db` and `tilmeldinger.json` without them. Git history still contains older versions — to remove something from history entirely, the repo history must be rewritten (ask the maintainer).
 - **Emails:** delete the player's rows in *Spillere*, *Koder* and *Sessioner*.
+- **Car pool:** rows in *Kørsel* can be deleted at any time (e.g. after the season); the app only reads the match/tournament being viewed.
 - **A request to be removed from the app:** results come from Badminton Danmark, so a full removal must be raised with them; the club can hide a player by filtering their id in `fetch_holdkampe.py`.
 
 ## Access

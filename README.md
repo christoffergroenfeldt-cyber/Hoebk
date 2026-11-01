@@ -9,12 +9,14 @@ Web app and data pipeline for **Hørsholm Badminton Klub**. It shows every Hørs
 
 | Tab | What it does |
 |---|---|
-| **Hold** | All 13 Hørsholm teams → match program, standings, players → every played match game by game |
-| **Kalender** | Day / week / month / season view of all matches and weekly training, filter by team |
-| **Min side** | Log in with a code sent by email; answer *Kan spille / Måske / Kan ikke* for matches and *Kommer / Kommer ikke* for training |
-| **Rangliste** | Club ranking across all teams: games won, win %, total points, average per game; All / Senior / Youth |
-| *Turneringer* (via Kalender) | All individual tournaments in Denmark grouped by level; matching ones on each player's profile and Min side; optional layer in the calendar |
-| **Spillere** | Search every player → profile with stats, national rankings (single/double/mix), results by discipline, every game this season |
+| **Nyt** | Start page: club news, the next 14 days (matches, activities), latest results, *Vi søger hjælp til …* banners |
+| **Hold** | All Hørsholm teams → match program, standings, players → every played match game by game; upcoming match with *Kan spille* answers, car pool (*Samkørsel*) and the selected squad |
+| **Kalender** | List / week / month / season view of matches, training, the app's activities, hoebk.dk activities and tournaments — one *Filter* sheet, colour legend, events listed under the month and season grids |
+| **Min side** | Login with an email code (or a code from another device). Tabs: *Program* (your month), *Chat*, then one per role: *Spiller*, *Forælder*, *Holdleder*, *Admin* |
+| **Spillere** | Search every player → profile with stats, national rankings, results; *Klubrangliste* at the top; *Registrér dig som forælder* |
+| **Sider** | Content pages from hoebk.dk |
+
+The top bar has ☆ *Gør til min forside* (open the app on this screen) and, for team leaders and administrators, the shield to their tools. A shareable overview of every screen is in the site map artifact (see *docs/APP.md* for the developer view).
 
 ## How it fits together
 

@@ -27,13 +27,13 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 |---|---|
 | `#/hold` | Team list (latest result or next match per team) |
 | `#/hold/<i>` | Team: tabs *Kampe / Stilling / Spillere* (`<i>` = position in the sorted team list) |
-| `#/hold/<i>/kamp/<m>` | Played match: score, every game with players and sets. Upcoming match: details + availability buttons + who's coming |
-| `#/kalender/<view>/<YYYY-MM-DD>` | Calendar; `view` = `dag`, `uge`, `maaned`, `aar` |
+| `#/hold/<i>/kamp/<m>` | Played match: score, every game with players and sets. Upcoming match: details, availability buttons (team members/selected players, and parents for their children), who's coming, **Samkørsel** (car pool) and the selected squad |
+| `#/kalender/<view>/<YYYY-MM-DD>` | Calendar; `view` = `liste`, `dag`, `uge`, `maaned`, `aar`. Month and year views list their events under the grid |
 | `#/nyt` | **Start page** and first tab (*Nyt*): latest news, matches and activities in the next 14 days, and results from the last 30 days |
-| `#/tilmeld` | Min side → **Program** (login flow when logged out). Tabs at the top: *Program* and *Chat* for everyone, then one per role the person has — *Spiller* (not for parent logins), *Forælder* (parents and players with children), *Holdleder*, *Admin*. Program covers the next month and shows only: matches of teams you follow, matches you are selected for (in the saved squad), all matches of your children's teams, tournaments you follow, your training groups/teams, and the app's activities aimed at your teams/groups or where you took a task — each tagged with why it's there |
+| `#/tilmeld` | Min side → **Program** (login flow when logged out). Tabs at the top: *Program* and *Chat* for everyone, then one per role the person has — *Spiller* (not for parent logins), *Forælder* (parents and players with children), *Holdleder*, *Admin*. Program covers the next month and shows only: matches of teams you follow, matches you are selected for (in the saved squad), all matches of your children's teams, tournaments you follow, your training groups/teams, and the app's activities aimed at your teams/groups or where you took a task — each tagged with why it's there. Children's training (Ungdom, and all training for parent logins) shows without *Kommer / Kommer ikke* (not mandatory for now). Parent logins follow no training until they choose it: the *Vælg træning du vil følge* card goes to Forælder → *Træning jeg følger*. Logged out: *Registrér dig som forælder* at the top, *Har du en kode fra en anden enhed?*, then the player name list |
 | `#/tilmeld/snak` | Min side → **Chat** |
-| `#/tilmeld/spiller` | Your player card, training groups/teams, teams and tournaments you follow, *Turneringer for dit niveau*, *Er du også forælder?*, settings (notifications, shop, log out) |
-| `#/tilmeld/foraelder` | Each child with their next match and whether they're selected, *+ Tilføj barn*, the children's team chats; for parent logins also training groups, follows and settings |
+| `#/tilmeld/spiller` | Your player card, training groups/teams, teams and tournaments you follow, *Turneringer for dit niveau*, *Er du også forælder?*, *Spiller du ikke i Hørsholm?* (players with children/administrators: become parent-only), settings (notifications, shop, *Log ind på en anden enhed*, log out) |
+| `#/tilmeld/foraelder` | Each child with their next match and whether they're selected, *+ Tilføj barn*, the children's team chats; for parent logins also your name (editable), *Træning jeg følger* (group + the child's team), follows and settings |
 | `#/tilmeld/holdleder` | Next match per team you lead with replies (*kan / måske / kan ikke*) and *Udtag spillere* / *Opstilling*; badge = matches missing a selection |
 | `#/tilmeld/admin` | Administrators: news, activities, admin chat, administrators and team leaders. The shield in the top bar opens this tab (team leaders: the Holdleder tab). `#/admin` and `#/holdleder` redirect here |
 | `#/brugere` | Administrators: all registered users (players get *Gør til forælder* — for a parent who registered as their child) — search (name, email, child, team), filters *Alle / Spillere / Forældre / Holdledere / Admin*, role badges, children, last active, push devices. Opened from Min side → Admin → *Registrerede brugere* |
@@ -41,7 +41,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/spillere` | Player search with filter chips *Alle / Har spillet / Har rangering / Uden rangering* (remembered, `hoebk_pf`) |
 | `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id), incl. *Turneringer for dit niveau* |
 | `#/turneringer` | All upcoming individual tournaments, chips per age group, sections per level (Elite, Mester, A–D) |
-| `#/turnering/<id>` | One tournament: dates, entry deadline, classes per day, Hørsholm players whose level fits |
+| `#/turnering/<id>` | One tournament: dates, entry deadline, follow, news, classes per day, **Samkørsel** (until it ends), Hørsholm players whose level fits |
 | `#/udtag[/<i>/<m>]` | Leaders: pick players for a team's upcoming match |
 | `#/opstilling/<i>/<m>` | Leaders: lineup per game with rule warnings and status |
 | `#/eksport/<i>/<m>` | Leaders: lineup ready to enter on badmintonplayer.dk |
