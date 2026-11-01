@@ -202,6 +202,14 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .news.new{border-left:5px solid var(--accent)}
 .news.plan{border-left:5px solid var(--plan)}
 .news.web{border-left:5px solid var(--akt)}
+.helpcard{width:100%;text-align:left;font-size:inherit;padding:12px 14px;display:flex;flex-direction:column;gap:8px;background:#FFF7EC;border:2px solid #F3B35B}
+.helphead{display:flex;align-items:center;gap:10px}
+.helphead b{font-size:16px;line-height:1.25}
+.helpicon{font-size:24px;flex:0 0 auto}
+.helpbar{display:block;height:8px;border-radius:999px;background:#F3D3A6;overflow:hidden}
+.helpbar i{display:block;height:100%;background:#1E8A4C;border-radius:999px}
+.helpstatus{border-radius:14px;padding:10px 14px;font-weight:700;font-size:14px;background:#FFF7EC;border:2px solid #F3B35B;display:flex;flex-direction:column;gap:6px}
+.helpstatus.done{background:#E6F4EA;border-color:#1E8A4C;color:#14532D}
 .planev b.ellip::before,.news.plan>b::before{content:'◆ ';color:var(--plan);font-size:.85em}
 .bar.planbar::before{content:'◆';margin-right:2px}
 .mseg button{display:flex;align-items:center;justify-content:center;gap:6px}
@@ -2642,13 +2650,33 @@ textarea.inp{resize:vertical;line-height:1.45}
       return (x.t.from ? 0 : 1) - (y.t.from ? 0 : 1) || (x.t.from || '').localeCompare(y.t.from || '') || x.i - y.i; }).map(function (x) { return x.t; });
   }
   function taskState(t) { return t.need ? (t.n >= t.need ? 'full' : t.n ? 'part' : 'none') : (t.n ? 'open' : 'none'); }
+  // En opgave "har en hjælper" når der er nok: antal nået (ubegrænset: mindst én)
+  function covered(t) { return t.need ? t.n >= t.need : t.n > 0; }
+  function helpStatus(a) {
+    var y = a.tasks.length, x = a.tasks.filter(covered).length;
+    return { x: x, y: y, done: y > 0 && x === y, txt: y && x === y ? 'Alle opgaver har en hjælper' : x + ' ud af ' + y + ' opgaver har en hjælper' };
+  }
+  function helpBanner() {   // øverst på forsiden: aktiviteter der søger hjælp og ikke er dækket endnu
+    if (!REG.url || PLAN.off) return '';
+    loadActs(false);
+    var now = nowLocal(), list = (PLAN.list || []).filter(function (a) { return a.help && a.end >= now && a.tasks.length && !helpStatus(a).done; });
+    return list.map(function (a) {
+      var st = helpStatus(a), pct = Math.round(100 * st.x / st.y);
+      return '<button class="card helpcard" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '">' +
+        '<span class="helphead"><span class="helpicon" aria-hidden="true">🙋</span><span class="col" style="flex:1 1 auto;min-width:0"><b>Vi søger hjælp til ' + esc(a.name) + '</b>' +
+        '<span class="xs">' + esc(rangeTxt(a)) + '</span></span><span class="h" style="font-size:20px">›</span></span>' +
+        '<span class="helpbar" aria-hidden="true"><i style="width:' + pct + '%"></i></span>' +
+        '<span class="xs" style="font-weight:700">' + esc(st.txt) + ' — tryk og skriv dig på en opgave</span></button>';
+    }).join('');
+  }
   function openSlots(a) { return a.tasks.reduce(function (s, t) { return s + (t.need ? Math.max(0, t.need - t.n) : 0); }, 0); }
   function actCard(a) {
     var mine = a.tasks.filter(function (t) { return t.mine; }), free = openSlots(a), past = a.end < nowLocal();
     return '<button class="card news' + (past ? '' : ' plan') + '" style="' + (past ? '' : 'border-left-color:' + actColor(a).bg) + '" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '">' +
       '<span class="xs">' + esc(rangeTxt(a)) + (a.to && a.to[0] !== '*' ? ' · ' + esc(a.to.map(audLabel).join(', ')) : '') + '</span>' +
       '<b>' + esc(a.name) + '</b>' +
-      (a.tasks.length ? '<span class="xs">' + a.tasks.length + ' opgave' + (a.tasks.length === 1 ? '' : 'r') + (free ? ' · <b class="need">' + free + ' plads' + (free === 1 ? '' : 'er') + ' ledig' + (free === 1 ? '' : 'e') + '</b>' : '') +
+      (a.help && !past && !helpStatus(a).done ? '<span class="xs"><b class="need">🙋 Søger hjælp</b></span>' : '') +
+      (a.tasks.length ? '<span class="xs">' + esc(helpStatus(a).txt) + (free ? ' · <b class="need">' + free + ' plads' + (free === 1 ? '' : 'er') + ' ledig' + (free === 1 ? '' : 'e') + '</b>' : '') +
         (mine.length ? ' · <b class="newtag">Du: ' + esc(mine.map(function (t) { return t.title; }).join(', ')) + '</b>' : '') + '</span>' : (a.desc ? '<span class="s clamp">' + esc(a.desc) + '</span>' : '')) +
       '</button>';
   }
@@ -2703,7 +2731,10 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!a) { setHeader('Aktivitet', '', true); loadActs(!PLAN.list || Date.now() - PLAN.at > 5000); return '<p class="empty">' + (PLAN.list ? 'Aktiviteten findes ikke længere.' : 'Henter …') + '</p>'; }
     setHeader(a.name, rangeTxt(a), true);
     var past = a.end < nowLocal(), logged = ME && ME.token;
-    var h = '<article class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px;border-top:6px solid ' + actColor(a).bg + '">' +
+    var hs = helpStatus(a);
+    var h = (a.tasks.length ? '<div class="helpstatus' + (hs.done ? ' done' : '') + '">' + (hs.done ? '✓ ' : (a.help ? '🙋 Vi søger hjælp · ' : '')) + esc(hs.txt) +
+      (hs.done ? '' : '<span class="helpbar" aria-hidden="true"><i style="width:' + Math.round(100 * hs.x / hs.y) + '%"></i></span>') + '</div>' : '') +
+      '<article class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px;border-top:6px solid ' + actColor(a).bg + '">' +
       '<span class="xs">' + esc(a.start.slice(0, 10) === a.end.slice(0, 10) ? DAY_FULL[parseD(a.start.slice(0, 10)).getDay()] + ' ' + rangeTxt(a).replace(/^\S+ /, '') : rangeTxt(a)) + '</span>' +
       '<h2 class="h" style="margin:0;font-size:20px;line-height:1.2">' + esc(a.name) + '</h2>' +
       (a.desc ? '<div style="font-size:15px;line-height:1.5">' + fmtText(a.desc) + '</div>' : '') +
@@ -2775,9 +2806,9 @@ textarea.inp{resize:vertical;line-height:1.45}
   // ---- formular (administrator) ----
   function actForm(a, nav) {
     var d = iso(addDays(new Date(), 7));
-    PLAN.form = a ? { id: a.id, name: a.name, desc: a.desc, start: a.start, end: a.end, cal: a.cal, push: false,
+    PLAN.form = a ? { id: a.id, name: a.name, desc: a.desc, start: a.start, end: a.end, cal: a.cal, push: false, help: !!a.help,
                       to: a.to.reduce(function (o, x) { o[x] = 1; return o; }, {}), tasks: a.tasks.map(function (t) { return { id: t.id, title: t.title, need: t.need, n: t.n, from: t.from || '', to: t.to || '' }; }) }
-                  : { id: '', name: '', desc: '', start: d + 'T10:00', end: d + 'T14:00', cal: true, push: true, to: { '*': 1 }, tasks: [{ title: '', need: 1 }] };
+                  : { id: '', name: '', desc: '', start: d + 'T10:00', end: d + 'T14:00', cal: true, push: true, help: false, to: { '*': 1 }, tasks: [{ title: '', need: 1 }] };
     if (nav !== false) location.hash = a ? '#/aktivitet/' + encodeURIComponent(a.id) + '/ret' : '#/aktiviteter/ny';
   }
   function audChips(F, attr) {
@@ -2804,7 +2835,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<div style="display:grid;grid-template-columns:1fr;gap:10px">' +
       '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Start</span><input id="afStart" class="inp" type="datetime-local" value="' + esc(F.start) + '"></label>' +
       '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Slut</span><input id="afEnd" class="inp" type="datetime-local" value="' + esc(F.end) + '"></label></div>' +
-      '<label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="afCal"' + (F.cal ? ' checked' : '') + ' style="width:20px;height:20px"><span>Vis i kalenderen</span></label></div>' +
+      '<label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="afCal"' + (F.cal ? ' checked' : '') + ' style="width:20px;height:20px"><span>Vis i kalenderen</span></label>' +
+      '<label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="afHelp"' + (F.help ? ' checked' : '') + ' style="width:20px;height:20px"><span><b>Søger hjælp</b> — vises øverst på forsiden, indtil alle opgaver har en hjælper</span></label></div>' +
       '<span class="lbl">Hvem er aktiviteten for?</span>' + audChips(F, 'data-actto') +
       '<p class="note">' + (F.to['*'] ? 'Alle kan se aktiviteten — også før de logger ind (uden navne på hvem der har taget opgaver).' : sel.length ? 'Kun ' + esc(sel.map(audLabel).join(', ')) + ' ser aktiviteten — spillere, deres forældre, holdledere og dem der følger holdene.' : 'Vælg mindst én.') + '</p>' +
       '<span class="lbl">Opgaver</span><p class="note" style="margin-top:-4px">Antal = hvor mange der skal til (0 = ubegrænset). Tid er valgfri.</p>' +
@@ -2828,7 +2860,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function bindActForm() {
     var F = PLAN.form; if (!F) return;
     var on = function (id, k, prop) { var el = document.getElementById(id); if (el) el.addEventListener(prop || 'input', function () { F[k] = el.type === 'checkbox' ? el.checked : el.value; }); };
-    on('afName', 'name'); on('afDesc', 'desc'); on('afStart', 'start', 'change'); on('afEnd', 'end', 'change'); on('afCal', 'cal', 'change'); on('afPush', 'push', 'change');
+    on('afName', 'name'); on('afDesc', 'desc'); on('afStart', 'start', 'change'); on('afEnd', 'end', 'change'); on('afCal', 'cal', 'change'); on('afPush', 'push', 'change'); on('afHelp', 'help', 'change');
     var st = document.getElementById('afStart');
     if (st) st.addEventListener('change', function () { if (!F.end || F.end < F.start) { F.end = F.start.slice(0, 11) + String(Math.min(23, +F.start.slice(11, 13) + 2)).padStart(2, '0') + F.start.slice(13); var en = document.getElementById('afEnd'); if (en) en.value = F.end; } });
     document.querySelectorAll('[data-tt]').forEach(function (el) { el.addEventListener('input', function () { F.tasks[+el.dataset.tt].title = el.value; }); });
@@ -2850,8 +2882,9 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!F.start || !F.end) { toast('Vælg start og slut'); return; }
     if (F.end < F.start) { toast('Slut er før start'); return; }
     if (!Object.keys(F.to).length) { toast('Vælg hvem aktiviteten er for'); return; }
+    if (F.help && !F.tasks.some(function (t) { return (t.title || '').trim(); })) { toast('Tilføj mindst én opgave, når I søger hjælp'); return; }
     PLAN.saving = true; route(true);
-    api({ action: 'actSave', token: ME.token, id: F.id, name: F.name, desc: F.desc, start: F.start.slice(0, 16), end: F.end.slice(0, 16), cal: F.cal, push: F.push,
+    api({ action: 'actSave', token: ME.token, id: F.id, name: F.name, desc: F.desc, start: F.start.slice(0, 16), end: F.end.slice(0, 16), cal: F.cal, push: F.push, help: !!F.help,
           to: Object.keys(F.to), tasks: F.tasks.map(function (t) { return { id: t.id, title: t.title, need: +t.need || 0, from: t.from || '', to: t.to || '' }; }) }).then(function (r) {
       if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
       PLAN.form = null; PLAN.saving = false;
@@ -2885,7 +2918,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     setTab('nyt'); setHeader('Nyt', 'Nyheder, kommende og resultater · ' + updTxt(), false);
     if (ME && ME.token) loadRooms(false); else loadPub();
     loadActs(false);
-    var h = '', news = allNews(), today = iso(new Date());
+    var h = helpBanner(), news = allNews(), today = iso(new Date());
     h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Nyheder fra klubben</span>' + (news.length ? '<button class="pl xs" data-go="#/nyheder">Alle ›</button>' : '') + '</div>';
     h += news.length ? news.slice(0, 3).map(newsCard).join('') : '<p class="empty">' + ((ME && ME.token ? SNAK.rooms : SNAK.pub) || !REG.url ? 'Ingen nyheder lige nu.' : 'Henter …') + '</p>';
     if (SNAK.canNews) h += '<button class="rb" style="align-self:flex-start;min-height:42px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>';

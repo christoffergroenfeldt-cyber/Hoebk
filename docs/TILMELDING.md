@@ -188,7 +188,7 @@ Saving the code is not enough — the live web app keeps running the old version
 | **Grupper** | Which training groups each email has chosen (decides who is in a training-group room) | No |
 | **Lydløs** | Rooms someone has muted | No |
 | **PushKø** | Push notifications waiting for GitHub to send them (emptied every run) | Only to the `push.yml` workflow |
-| **Aktiviteter** | Activities: id, created, name, description, start, end, in calendar, recipients, author, deleted, tasks (JSON) | No (shown in the app through the script) |
+| **Aktiviteter** | Activities: id, created, name, description, start, end, in calendar, recipients, author, deleted, tasks (JSON), seeking help | No (shown in the app through the script) |
 | **Opgavetilmeldinger** | Who took/withdrew from which task: time, activity, task, email, player, name, status | No — names shown only to logged-in members |
 | **Opstillinger** | Every saved squad/lineup: time, match, team, status, saved by, data (JSON) | Yes — latest per match, synced without emails |
 

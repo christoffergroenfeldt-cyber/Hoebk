@@ -44,7 +44,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.2';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -63,7 +63,7 @@ var SHEETS = {
   Grupper: ['email', 'playerId', 'grupper'],
   'Lydløs': ['email', 'rum'],
   'Forældre': ['email', 'forælderId', 'forælderNavn', 'barnId', 'barnNavn', 'tidspunkt'],
-  Aktiviteter: ['id', 'oprettet', 'navn', 'beskrivelse', 'start', 'slut', 'kalender', 'til', 'af', 'slettet', 'opgaver'],
+  Aktiviteter: ['id', 'oprettet', 'navn', 'beskrivelse', 'start', 'slut', 'kalender', 'til', 'af', 'slettet', 'opgaver', 'søgerHjælp'],
   Opgavetilmeldinger: ['tidspunkt', 'aktivitetId', 'opgaveId', 'email', 'playerId', 'navn', 'status'],
   Administratorer: ['email', 'navn', 'udnævntAf', 'tidspunkt'],
   'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag']
@@ -754,7 +754,7 @@ function actRows_() {
   return data_('Aktiviteter').map(function (r, i) {
     var tasks = []; try { tasks = JSON.parse(r[10] || '[]'); } catch (e) { tasks = []; }
     return { row: i + 2, id: String(r[0]), name: String(r[2]), desc: String(r[3]), start: String(r[4]), end: String(r[5]),
-             cal: bool_(r[6]), to: String(r[7]).split(',').map(function (x) { return x.trim(); }).filter(String), by: String(r[8]), del: bool_(r[9]), tasks: tasks };
+             cal: bool_(r[6]), to: String(r[7]).split(',').map(function (x) { return x.trim(); }).filter(String), by: String(r[8]), del: bool_(r[9]), tasks: tasks, help: bool_(r[11]) };
   }).filter(function (a) { return a.id && !a.del; });
 }
 function signups_() {   // seneste svar pr. (aktivitet, opgave, e-mail)
@@ -774,7 +774,7 @@ function signups_() {   // seneste svar pr. (aktivitet, opgave, e-mail)
 }
 function visible_(a, rooms, admin) { return admin || a.to.indexOf('*') >= 0 || a.to.some(function (x) { return !!rooms[x]; }); }
 function actOut_(a, sign, em, names) {
-  return { id: a.id, name: a.name, desc: a.desc, start: a.start, end: a.end, cal: a.cal, to: a.to, by: a.by,
+  return { id: a.id, name: a.name, desc: a.desc, start: a.start, end: a.end, cal: a.cal, to: a.to, by: a.by, help: !!a.help,
            tasks: a.tasks.map(function (t) {
              var list = sign[a.id + '|' + t.id] || [];
              return { id: t.id, title: t.title, need: t.need, from: t.from || '', to: t.to || '', n: list.length, mine: !!em && list.some(function (x) { return x.email === em; }),
@@ -809,6 +809,7 @@ function actSave_(b) {
   });
   if (!to.length) return { ok: false, error: 'Vælg hvem aktiviteten er for' };
   if (to.indexOf('*') >= 0) to = ['*'];
+  if (b.help && !(b.tasks || []).some(function (t) { return clean_(t && t.title, 80); })) return { ok: false, error: 'Tilføj mindst én opgave, når I søger hjælp' };
   var tasks = (b.tasks || []).slice(0, 40).map(function (t) {
     var from = dtOk_(String(t.from || '')) ? String(t.from) : '', to = dtOk_(String(t.to || '')) ? String(t.to) : '';
     if (from && to && to < from) to = from;
@@ -823,9 +824,9 @@ function actSave_(b) {
     if (id) {
       var cur = actRows_().filter(function (a) { return a.id === id; })[0];
       if (!cur) { id = ''; isNew = true; }
-      else sh.getRange(cur.row, 3, 1, 9).setValues([[safe_(name), safe_(desc), start, end, !!b.cal, to.join(','), safe_(ses.playerName), false, JSON.stringify(tasks)]]);
+      else sh.getRange(cur.row, 3, 1, 10).setValues([[safe_(name), safe_(desc), start, end, !!b.cal, to.join(','), safe_(ses.playerName), false, JSON.stringify(tasks), !!b.help]]);
     }
-    if (!id) { id = newId_('a'); sh.appendRow([id, new Date(), safe_(name), safe_(desc), start, end, !!b.cal, to.join(','), safe_(ses.playerName), false, JSON.stringify(tasks)]); }
+    if (!id) { id = newId_('a'); sh.appendRow([id, new Date(), safe_(name), safe_(desc), start, end, !!b.cal, to.join(','), safe_(ses.playerName), false, JSON.stringify(tasks), !!b.help]); }
   });
   var pushed = 0;
   if (b.push) {
