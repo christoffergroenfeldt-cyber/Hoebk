@@ -68,7 +68,7 @@ var SHEETS = {
   Opgavetilmeldinger: ['tidspunkt', 'aktivitetId', 'opgaveId', 'email', 'playerId', 'navn', 'status'],
   Administratorer: ['email', 'navn', 'udnævntAf', 'tidspunkt'],
   // Forberedt til godkendelse (bruges først når APPROVAL slås til — se docs/GODKENDELSE.md)
-  Medlemmer: ['email', 'navn', 'medlemsnr', 'forælderEmail', 'importeret'],
+  Medlemmer: ['email', 'navn', 'medlemsnr', 'importeret'],
   Godkendelser: ['tidspunkt', 'email', 'playerId', 'navn', 'rolle', 'status', 'note', 'behandletAf', 'behandlet'],
   Holdmedlemmer: ['playerId', 'navn', 'gruppe', 'tilføjetAf', 'tidspunkt'],
   'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag']
@@ -943,12 +943,13 @@ function pushQueue_(key) {
 // ======================================================================================
 // GODKENDELSE OG HOLDMEDLEMSKAB — FORBEREDT, IKKE SLÅET TIL
 // Slå til ved at sætte felterne nedenfor til true og udgive en ny version. Hele flowet: docs/GODKENDELSE.md
-//  enabled          nye spillere og forældre skal godkendes, før de kan skrive i chatten
+//  enabled          nye spillere og forældre skal godkendes af en administrator, før de kan skrive i chatten
+//  since            dato (YYYY-MM-DD) hvor godkendelse blev slået til — alle der havde logget ind før, er godkendt automatisk
 //  memberCheck      spillere skal have en e-mail der står i fanen Medlemmer (eksport fra medlemssystemet)
 //  teamsFromLeaders holdlederne bestemmer hvem der er på deres hold og i træningsgrupperne (fanen Holdmedlemmer)
 //                   i stedet for badmintonplayer.dk og spillernes eget valg
 // ======================================================================================
-var APPROVAL = { enabled: false, memberCheck: false, teamsFromLeaders: false };
+var APPROVAL = { enabled: false, since: '', memberCheck: false, teamsFromLeaders: false };
 
 function requestApprovalLocked_(email, pid, pname) {   // verify_ holder allerede låsen
   var w = withLock_; withLock_ = function (fn) { return fn(); };
@@ -957,13 +958,18 @@ function requestApprovalLocked_(email, pid, pname) {   // verify_ holder allered
 function approvalOf_(email) {   // 'godkendt' | 'afventer' | 'afvist' | '' (ingen anmodning)
   var em = String(email || '').toLowerCase().trim(), st = '';
   data_('Godkendelser').forEach(function (r) { if (String(r[1]).toLowerCase() === em) st = String(r[5]); });
+  if (!st && existedBefore_(em)) st = 'godkendt';
   return st;
 }
-function isMember_(email) {   // står e-mailen i medlemssystemet? (spillerens egen eller en forælders e-mail)
+// Brugere der havde bekræftet deres e-mail før APPROVAL.since, er godkendt automatisk (besluttet 1. nov 2026)
+function existedBefore_(email) {
+  if (!APPROVAL.since) return false;
+  var cut = new Date(APPROVAL.since + 'T00:00:00').getTime();
+  return data_('Spillere').some(function (r) { return String(r[2]).toLowerCase().trim() === email && ts_(r[3]) && ts_(r[3]) < cut; });
+}
+function isMember_(email) {   // står e-mailen i medlemssystemet? (Conventus har kun medlemmets egen e-mail — ikke forældres)
   var em = String(email || '').toLowerCase().trim();
-  return data_('Medlemmer').some(function (r) {
-    return String(r[0]).toLowerCase().trim() === em || String(r[3]).toLowerCase().split(/[,; ]+/).indexOf(em) >= 0;
-  });
+  return data_('Medlemmer').some(function (r) { return String(r[0]).toLowerCase().trim() === em; });
 }
 function adminEmails_() {
   var out = data_('Administratorer').map(function (r) { return String(r[0]).toLowerCase(); }).filter(String);
@@ -974,7 +980,7 @@ function adminEmails_() {
 function requestApproval_(email, pid, pname) {
   var em = String(email || '').toLowerCase().trim();
   if (isAdmin_(em, pid) || approvalOf_(em)) return approvalOf_(em) || 'godkendt';
-  var role = /^p:/.test(String(pid)) ? 'forælder' : 'spiller', note = '';
+  var role = /^p:/.test(String(pid)) ? 'forælder' : 'spiller', note = role === 'forælder' ? 'forælder — godkendes individuelt' : '';
   if (role === 'spiller' && APPROVAL.memberCheck && !isMember_(em)) {
     note = 'ikke i medlemssystemet';
     try {
@@ -991,19 +997,14 @@ function requestApproval_(email, pid, pname) {
   withLock_(function () { sh_('Godkendelser').appendRow([new Date(), em, safe_(pid), safe_(pname), role, 'afventer', note, '', '']); });
   return 'afventer';
 }
-// Administrator (eller holdleder for et af forælderens børns hold) godkender/afviser
+// Kun administratorer godkender/afviser (besluttet 1. nov 2026) — spillere og forældre hver for sig
 function approve_(b) {
   var ses = session_(b.token);
   if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
-  var em = clean_(b.email, 120).toLowerCase(), cx = ctx_(), role = roleIn_(cx, ses.email, ses.playerId);
+  if (!isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administratorer kan godkende' };
+  var em = clean_(b.email, 120).toLowerCase();
   var row = null; data_('Godkendelser').forEach(function (r) { if (String(r[1]).toLowerCase() === em) row = r; });
   if (!row) return { ok: false, error: 'Ingen anmodning for ' + em };
-  var allowed = role.admin;
-  if (!allowed && String(row[4]) === 'forælder' && role.teams.length) {   // holdleder for et af børnenes hold
-    var kids = cx.par.filter(function (r) { return String(r[0]).toLowerCase() === em; }).map(function (r) { return String(r[3]); });
-    allowed = Object.keys(cx.teams).some(function (id) { var t = cx.teams[id]; return role.teams.indexOf(t.l) >= 0 && kids.some(function (k) { return t.p.indexOf(k) >= 0; }); });
-  }
-  if (!allowed) return { ok: false, error: 'Kun administratorer (og holdledere for forældre på deres hold)' };
   var st = b.on ? 'godkendt' : 'afvist';
   withLock_(function () { sh_('Godkendelser').appendRow([new Date(), em, safe_(String(row[2])), safe_(String(row[3])), String(row[4]), st, safe_(clean_(b.note, 200)), safe_(ses.playerName), new Date()]); });
   return { ok: true, status: st };
