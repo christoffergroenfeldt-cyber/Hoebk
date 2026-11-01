@@ -3323,7 +3323,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         '<span class="xs ellip">' + esc([P && P.teams.length ? P.teams.join(', ') : '', u.kids.length ? 'Børn: ' + u.kids.map(function (k) { return k.name.split(' ')[0]; }).join(', ') : ''].filter(String).join(' · ')) + '</span>' +
         '<span style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px">' + pills.map(function (x) { return '<span class="upill" style="background:' + x[1] + ';color:' + x[2] + '">' + esc(x[0]) + '</span>'; }).join('') + '</span></span>' +
         '<span class="col" style="align-items:flex-end;flex:0 0 auto;gap:4px"><span class="xs">' + (u.active ? esc(ago(u.active)) : '–') + '</span>' + (u.push ? '<span class="xs" title="Notifikationer slået til">🔔 ' + u.push + '</span>' : '') +
-        (!/^p:/.test(u.id) && !u.superAdmin ? '<button class="pl xs" style="text-decoration:underline;color:' + PARENT.bg + ';font-weight:700" data-toparent="' + esc(u.email) + '" data-child="' + esc(u.id) + '" data-childname="' + esc(u.name) + '">Gør til forælder</button>' : '') + '</span></div>';
+        (!/^p:/.test(u.id) && !u.parent && !u.superAdmin ? '<button class="pl xs" style="text-decoration:underline;color:' + PARENT.bg + ';font-weight:700" data-toparent="' + esc(u.email) + '" data-child="' + esc(u.id) + '" data-childname="' + esc(u.name) + '">Gør til forælder</button>' : '') + '</span></div>';
     }).join('') : '<p class="empty" style="padding:12px">Ingen brugere matcher.</p>') + '</div>';
     h += '<p class="note">Viser ' + list.length + ' af ' + all.length + '. "Sidst aktiv" = sidste gang appen talte med klubbens server. E-mails er kun synlige for administratorer.</p>';
     return h;
@@ -3531,7 +3531,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     }
     if (b.dataset.usrf) { USR.f = b.dataset.usrf; route(true); return; }
     if (b.dataset.toparent) {
-      var cn = b.dataset.childname, nn = cn.split(' ')[0] + ' forældre';
+      var cn = b.dataset.childname, nn = cn.split(' ')[0] + ' forælder';
       if (!confirm(b.dataset.toparent + ' er registreret som spilleren ' + cn + '.\n\nGør brugeren til forælder til ' + cn + '? Navnet bliver "' + nn + '" (forælderen kan selv rette det).')) return;
       api({ action: 'toParent', token: ME.token, email: b.dataset.toparent, childId: b.dataset.child, childName: cn }).then(function (r) {
         if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke ændre');

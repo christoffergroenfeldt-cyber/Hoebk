@@ -26,7 +26,7 @@
  *  lineup   {token, eventId, team, status, squad[], games[], note} → holdopstilling (kun holdledere, se fanen Ledere)
  *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
  *  users    {token}                              → administratorer: alle registrerede brugere (navn, e-mail, rolle, børn, sidst aktiv)
- *  toParent {token, email, childId?}            → administrator: en forælder der har registreret sig som sit barn bliver forælder ("Carl forældre")
+ *  toParent {token, email, childId?}            → administrator: en forælder der har registreret sig som sit barn bliver forælder ("Carl forælder")
  *  rename   {token, name}                        → forældre kan ændre deres eget navn (spillere hedder som på badmintonplayer.dk)
  *  setAdmin {token, email, name, on}           → faste administratorer udnævner/fjerner administratorer (fanen Administratorer)
  *  follow   {token, tid, title, on}              → følg/stop med at følge en turnering (fanen Følger)
@@ -49,7 +49,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.8';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.9';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -123,6 +123,7 @@ function setup() {
   Logger.log('Læsenøgle til admin-chatten (IDEAS_KEY): ' + ideas);
   // Fjern standardfanen "Ark1"/"Sheet1" hvis arket lige er oprettet og fanen er tom
   ['Ark1', 'Sheet1'].forEach(function (n) { var x = ss.getSheetByName(n); if (x && x.getLastRow() === 0 && ss.getSheets().length > 1) ss.deleteSheet(x); });
+  fixParentNames_();
   Logger.log('Google Sheet: ' + ss.getUrl());
   Logger.log('E-mails tilbage i dag (Google-kvote): ' + MailApp.getRemainingDailyQuota());
 }
@@ -359,6 +360,15 @@ function changeIdentity_(email, newId, newName) {
   };
   upd('Spillere', 2, 0, 1); upd('Sessioner', 3, 1, 2); upd('Følger', 0, 1, 2); upd('Push', 0, 1, -1); upd('Forældre', 0, 1, 2);
 }
+// Engangsrettelse: forældre oprettet som "X forældre" (version 2026-11-01.8) hedder "X forælder" — kun hvis de ikke selv har ændret navnet
+function fixParentNames_() {
+  var fixed = 0, done = {};
+  data_('Spillere').forEach(function (r) {
+    var id = String(r[0]), nm = String(r[1]), em = String(r[2]).toLowerCase();
+    if (/^p:/.test(id) && / forældre$/.test(nm) && !done[em]) { done[em] = 1; changeIdentity_(em, id, nm.replace(/ forældre$/, ' forælder')); fixed++; }
+  });
+  if (fixed) Logger.log('Rettet ' + fixed + ' forældre-navn(e) til "… forælder"');
+}
 function parentIdFor_(name) { return 'p:' + String(name).toLowerCase().replace(/[^a-z0-9æøå]+/g, '-').replace(/^-|-$/g, ''); }
 
 // Administrator: en forælder har registreret sig under barnets navn → gør e-mailen til forælder til barnet
@@ -372,7 +382,8 @@ function toParent_(b) {
   var cur = rows[rows.length - 1], curId = String(cur[0]), curName = String(cur[1]);
   if (/^p:/.test(curId)) return { ok: false, error: 'Er allerede forælder' };
   var childId = clean_(b.childId, 40) || curId, childName = clean_(b.childName, 80) || curName;
-  var newName = childName.split(' ')[0] + ' forældre', newId = parentIdFor_(newName + '-' + em.split('@')[0]);
+  if (kids_(em).length) return { ok: false, error: 'Brugeren er allerede registreret som forælder' };
+  var newName = childName.split(' ')[0] + ' forælder', newId = parentIdFor_(newName + '-' + em.split('@')[0]);
   return withLock_(function () {
     changeIdentity_(em, newId, newName);
     var kids = kids_(em); if (!kids.some(function (k) { return k.id === childId; })) kids.push({ id: childId, name: childName });
