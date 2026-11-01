@@ -51,7 +51,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.12';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.13';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -400,7 +400,7 @@ function changeIdentity_(email, newId, newName) {
       if (nameCol >= 0) sh.getRange(i + 2, nameCol + 1).setValue(safe_(newName));
     });
   };
-  upd('Spillere', 2, 0, 1); upd('Sessioner', 3, 1, 2); upd('Følger', 0, 1, 2); upd('Push', 0, 1, -1); upd('Forældre', 0, 1, 2);
+  upd('Spillere', 2, 0, 1); upd('Sessioner', 3, 1, 2); upd('Følger', 0, 1, 2); upd('Push', 0, 1, -1); upd('Forældre', 0, 1, 2); upd('Grupper', 0, 1, -1);
 }
 // Engangsrettelse: forældre oprettet som "X forældre" (version 2026-11-01.8) hedder "X forælder" — kun hvis de ikke selv har ændret navnet
 function fixParentNames_() {
@@ -431,6 +431,21 @@ function toParent_(b) {
     var kids = kids_(em); if (!kids.some(function (k) { return k.id === childId; })) kids.push({ id: childId, name: childName });
     setKids_(em, newId, newName, kids, true);
     return { ok: true, id: newId, name: newName, kids: kids };
+  });
+}
+// Selv: "Jeg spiller ikke i Hørsholm" — en bruger der er logget ind som spiller, men har børn (eller er administrator),
+// bliver forælder med samme navn (id "p:…"). Børn, følger, push og login bevares.
+function notPlayer_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  if (/^p:/.test(ses.playerId)) return { ok: false, error: 'Du er allerede registreret som forælder' };
+  var em = ses.email.toLowerCase(), kids = kids_(em);
+  if (!kids.length && !isAdmin_(em, ses.playerId)) return { ok: false, error: 'Tilføj først dine børn under Forælder' };
+  var name = ses.playerName, newId = parentIdFor_(name + '-' + em.split('@')[0]);
+  return withLock_(function () {
+    changeIdentity_(em, newId, name);
+    if (kids.length) setKids_(em, newId, name, kids, true);
+    return { ok: true, id: newId, name: name, kids: kids_(em) };
   });
 }
 // Forældre må ændre deres eget navn (spillere hedder som på badmintonplayer.dk)
@@ -1332,6 +1347,7 @@ function doPost(e) {
       case 'users': return json_(users_(b));
       case 'toParent': return json_(toParent_(b));
       case 'rename': return json_(rename_(b));
+      case 'notPlayer': return json_(notPlayer_(b));
       case 'follow': return json_(follow_(b));
       case 'notify': return json_(notify_(b));
       case 'push': return json_(push_(b));

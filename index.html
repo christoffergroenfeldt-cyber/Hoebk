@@ -2012,6 +2012,9 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (P) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--tour)" data-go="#/spiller/' + encodeURIComponent(P.id) + '"><span class="col"><b style="font-size:14px">Turneringer for dit niveau</b><span class="xs">Turneringer der passer dig — og dine resultater</span></span><span class="xs">›</span></button>';
     if (!(ME.kids && ME.kids.length)) h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-go="#/boern"><span class="col"><b style="font-size:14px">Er du også forælder?</b>' +
       '<span class="xs">Tilføj dine børn — så får du en Forælder-fane og kommer med i deres holds chat</span></span><span class="xs">›</span></button>';
+    if ((ME.kids && ME.kids.length) || (ME.role && ME.role.admin)) h += '<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px"><b style="font-size:14px">Spiller du ikke i Hørsholm?</b>' +
+      '<span class="xs">Så fjerner vi din spillerprofil, og du står kun som forælder' + (ME.kids && ME.kids.length ? ' til ' + esc(ME.kids.map(function (k) { return k.name.split(' ')[0]; }).join(' og ')) : '') + '. Dit navn, dine børn, hold du følger og dit login bliver.</span>' +
+      '<button class="rb" data-act="notplayer" style="align-self:flex-start">Jeg spiller ikke i Hørsholm</button></div>';
     return h + settingsBlock();
   }
   // ---- Min side · Forælder ----
@@ -3780,6 +3783,17 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (b.dataset.ridesave) { rideSave(b.dataset.ridesave); return; }
     if (b.dataset.ridecancel) { delete RIDE.form[b.dataset.ridecancel]; route(true); return; }
     if (b.dataset.rpm) { RIDE.form[b.dataset.rk].pm = b.dataset.rpm; route(true); if (b.dataset.rpm === 'sted') { var rp = document.querySelector('[data-rfp]'); if (rp) rp.focus(); } return; }
+    if (b.dataset.act === 'notplayer') {
+      if (!confirm('Fjern din spillerprofil? Du står herefter kun som forælder (Spiller-fanen forsvinder).')) return;
+      b.disabled = true;
+      api({ action: 'notPlayer', token: ME.token }).then(function (r) {
+        if (r && r.error === 'Ukendt handling') throw new Error('Klubbens server skal opdateres først');
+        if (!r || !r.ok) throw new Error((r && r.error) || 'Kunne ikke ændre');
+        ME.id = r.id; ME.name = r.name; if (Array.isArray(r.kids)) ME.kids = r.kids; ME.groups = defaultGroups(kidTeams()); saveMe();
+        toast('Du står nu kun som forælder'); location.hash = '#/tilmeld/' + (ME.kids && ME.kids.length ? 'foraelder' : 'program');
+      }).catch(function (err) { toast(err.message); b.disabled = false; });
+      return;
+    }
     if (b.dataset.act === 'devcode') { makeDeviceCode(); return; }
     if (b.dataset.act === 'devopen') { UI.devOpen = true; route(true); var di = document.getElementById('devin'); if (di) di.focus(); return; }
     if (b.dataset.act === 'parentstart') { UI.step = 'parent'; route(); return; }
