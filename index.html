@@ -1630,21 +1630,17 @@ textarea.inp{resize:vertical;line-height:1.45}
   // ---- Min side · Mit program: det der kræver noget af dig + dit program de næste 14 dage ----
   function minProgram(P, parent, myTeams) {
     var h = '', today = iso(new Date()), now = nowLocal(), fids = follows();
-    // Holdleder: kampe der mangler udtagelse
-    if (isLeader()) {
-      var todo = 0;
-      leaderTeams().forEach(function (ti) { var t = D.teams[ti], mi = nextMatchIdx(t); if (mi >= 0 && !lineupFor(t.matches[mi])) todo++; });
-      if (todo) h += '<button class="card row alert" data-go="#/tilmeld/holdleder"><span class="col"><b style="font-size:14px">' + todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse</b><span class="xs">Holdleder · tryk for at udtage</span></span><span class="h" style="font-size:20px">›</span></button>';
-    }
     // Saml programmet: kampe for hold man følger, ens træning, appens aktiviteter
-    var items = [], last = iso(addDays(new Date(), 13)), kids = (ME.kids || []);
+    var DAYS_AHEAD = 31, items = [], last = iso(addDays(new Date(), DAYS_AHEAD - 1)), kids = (ME.kids || []);
     D.teams.forEach(function (t, ti) {
       var fol = fids.indexOf(teamFid(t)) >= 0;
       t.matches.forEach(function (m, mi) {
         if (m.played || m.date < today || m.date > last) return;
         var me = !parent && inSquad(m, ME.id), kidSel = kids.filter(function (k) { return inSquad(m, k.id); });
-        if (!fol && !me && !kidSel.length) return;
-        var why = me ? '✓ Du er udtaget' : kidSel.length ? '✓ ' + kidSel.map(function (k) { return k.name.split(' ')[0]; }).join(' og ') + ' er udtaget' : '★ Hold du følger';
+        var kidOn = kids.filter(function (k) { var kp = D.players[k.id]; return kp && kp.teams.indexOf(t.label) >= 0; });   // barnets hold
+        if (!fol && !me && !kidSel.length && !kidOn.length) return;
+        var fn = function (l) { return l.map(function (k) { return k.name.split(' ')[0]; }).join(' og '); };
+        var why = me ? '✓ Du er udtaget' : kidSel.length ? '✓ ' + fn(kidSel) + ' er udtaget' : kidOn.length ? fn(kidOn) + 's hold' : '★ Hold du følger';
         items.push({ k: 'match', d: m.date, t: m.time || '', team: t, ti: ti, m: m, mi: mi, eid: me || !parent ? matchEid(m) : '', why: why, sel: me || kidSel.length > 0 });
       });
     });
@@ -1654,7 +1650,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (en < today || st > last) return;
       items.push({ k: 'tour', d: st < today ? today : st, t: '', tour: t });
     });
-    for (var i = 0; i < 14; i++) {
+    for (var i = 0; i < DAYS_AHEAD; i++) {
       var ds = iso(addDays(new Date(), i));
       (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && myHoldPass(e.team, e.hold, e.also)) items.push({ k: 'training', d: ds, t: e.time, e: e, eid: e.eid }); });
     }
@@ -1678,10 +1674,10 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (tasks.length) h += tasks.slice(0, 3).map(function (x) {
       return '<button class="card row" style="min-height:48px;border-left:5px solid ' + actColor(x.a).bg + '" data-go="#/aktivitet/' + encodeURIComponent(x.a.id) + '"><span class="col"><b style="font-size:14px">' + esc(x.t.title) + '</b>' +
         '<span class="xs ellip">' + esc(x.a.name + ' · ' + (x.t.from ? taskTime(x.t, x.a).replace(/^kl\. /, dTxt(x.a.start.slice(0, 10)) + ' kl. ') : rangeTxt(x.a))) + '</span></span><span class="xs">›</span></button>'; }).join('');
-    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Dit program de næste 14 dage</span><button class="pl xs" data-go="#/kalender/uge/' + today + '">Kalender ›</button></div>';
-    h += '<p class="note" style="margin-top:-4px">Viser hold og turneringer du følger, kampe du' + ((ME.kids || []).length ? ' eller dine børn' : '') + ' er udtaget til, dine træningshold og aktiviteter for dem.</p>';
+    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Dit program den næste måned</span><button class="pl xs" data-go="#/kalender/uge/' + today + '">Kalender ›</button></div>';
+    h += '<p class="note" style="margin-top:-4px">Viser hold og turneringer du følger, kampe du er udtaget til' + ((ME.kids || []).length ? ', dine børns hold' : '') + ', dine træningshold og aktiviteter for dem.</p>';
     if (!items.length) {
-      return h + '<p class="empty">Intet i dit program de næste 14 dage.</p><p class="note">Følg hold og turneringer og vælg dine træningshold under <button class="pl" style="font-size:inherit;text-decoration:underline" data-go="#/tilmeld/' + (isParentId(ME.id) ? 'foraelder' : 'spiller') + '">' + (isParentId(ME.id) ? 'Forælder' : 'Spiller') + '</button>. Kampe du bliver udtaget til kommer også her.</p>';
+      return h + '<p class="empty">Intet i dit program den næste måned.</p><p class="note">Følg hold og turneringer og vælg dine træningshold under <button class="pl" style="font-size:inherit;text-decoration:underline" data-go="#/tilmeld/' + (isParentId(ME.id) ? 'foraelder' : 'spiller') + '">' + (isParentId(ME.id) ? 'Forælder' : 'Spiller') + '</button>. Kampe du bliver udtaget til kommer også her.</p>';
     }
     var day = '';
     items.forEach(function (x) {
