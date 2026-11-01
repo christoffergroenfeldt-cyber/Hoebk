@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-01T11:01:40+00:00",
- "scriptVersion": "2026-11-01.7",
+ "updated": "2026-11-01T11:46:44+00:00",
+ "scriptVersion": "2026-11-01.8",
  "latest": {
   "players": 5,
   "emails": 5,
@@ -15,7 +15,7 @@
   "mailOff": 1,
   "leaders": 1,
   "admins": 1,
-  "parents": 4
+  "parents": 5
  },
  "history": [
   {
@@ -139,7 +139,7 @@
    "mailOff": 1,
    "leaders": 1,
    "admins": 1,
-   "parents": 4,
+   "parents": 5,
    "date": "2026-11-01"
   }
  ]
