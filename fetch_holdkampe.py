@@ -1057,8 +1057,11 @@ def write_players(out_teams, out_dir, season, token=None, profiles=None, dump=la
             cats = [r.get("category", "") for r in (pl.get("profile") or {}).get("rankings", [])] + [(pl.get("profile") or {}).get("level", "")]
             pl["adult"] = any(re.match(r"(SEN|MOT|VET|\+)", c or "") for c in cats)
     players_out = sorted(players.values(), key=lambda p: p["name"])
-    # Klubrangliste: flest vundne kampe; ved lighed højest sejrsprocent, så flest point
-    ranked = sorted((p for p in players_out if p["played"]), key=lambda p: (-p["won"], -p["winPct"], -p["pointsFor"], p["name"]))
+    # Klubrangliste: 1) andel vundne kampe, 2) andel vundne sæt, 3) andel vundne bolde (fair på tværs af 2/3 sæt og sætlængder),
+    # så flest spillede kampe, så navn — samme regel som appen (rankCmp i index.html)
+    def _pct(a, b): return a / (a + b) if (a + b) else 0
+    ranked = sorted((p for p in players_out if p["played"]), key=lambda p: (-_pct(p["won"], p["lost"]), -_pct(p.get("setsWon", 0), p.get("setsLost", 0)),
+                                                                          -_pct(p["pointsFor"], p["pointsAgainst"]), -p["played"], p["name"]))
     club_ranking = [{"rank": i + 1, "id": p["id"], "name": p["name"], "teams": p["teams"],
                      "played": p["played"], "won": p["won"], "winPct": p["winPct"],
                      "pointsFor": p["pointsFor"], "avgPoints": p["avgPoints"], "avgDiff": p["avgDiff"]}

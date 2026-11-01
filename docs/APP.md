@@ -118,14 +118,14 @@ The *Sider* tab groups pages by what members look for (`SIDE_GROUPS`: Nyheder, B
 
 ## Club ranking
 
-Computed from team-match lineups (all teams, current season):
+Computed from team-match lineups (all teams, current season), one fixed order (`rankCmp()`; `fetch_holdkampe.py` writes the same order to `clubRanking`):
 
-- **Vundne kampe** — games won (default sort)
-- **Sejr %** — games won ÷ games played
-- **Point i alt** — rally points won across all sets
-- **Snit pr. kamp** — points won ÷ games with set scores (walkovers excluded)
+1. **Share of matches won** (won ÷ played)
+2. if tied: **share of sets won** (sets won ÷ sets played)
+3. if tied: **share of rally points won** (points won ÷ points played)
+4. then most matches played, then name
 
-Ties break on games won, then win %, then points, then name. Point totals favour divisions with longer sets (21 vs 15/11) — the *Senior/Ungdom* filter makes comparisons fair.
+Shares instead of totals, so divisions with 3-set matches or longer sets (21 vs 15/11) get no advantage. The *Alle / Senior / Ungdom* filter remains.
 
 ## Login state
 

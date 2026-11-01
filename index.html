@@ -360,8 +360,15 @@ textarea.inp{resize:vertical;line-height:1.45}
     return '<div class="legend">' + [['Senior', '#2F6FB3'], ['4 spillere', '#7FD3F7'], ['Motion', '#E58A2E'], ['Ungdom', '#D4F25A'], ['Forælder', PARENT.bg], ['Uden niveau', NOLEVEL.bg]].map(function (x) {
       return '<span><i style="background:' + x[1] + '"></i>' + x[0] + '</span>'; }).join('') + '</div>';
   }
-  var METRICS = { won: ['Vundne kampe', 'won', 'vundet'], pct: ['Sejr %', 'winPct', '%'],
-                  pf: ['Point i alt', 'pointsFor', 'point'], avg: ['Snit pr. kamp', 'avgPoints', 'point/kamp'] };
+  // Klubranglisten: 1) sejr-% i kampe, 2) ved lighed sæt-% (vundne/spillede sæt), 3) bold-% (vundne/spillede bolde).
+  // Procenter i stedet for antal/point, så rækker med 3-sætskampe eller længere sæt ikke får en fordel.
+  function pct(a, b) { return a + b ? a / (a + b) : 0; }
+  function rankVals(p) { return { m: pct(p.won, p.lost != null ? p.lost : p.played - p.won), s: pct(p.setsWon || 0, p.setsLost || 0), b: pct(p.pointsFor || 0, p.pointsAgainst || 0) }; }
+  function rankCmp(A, B) {
+    var a = rankVals(A), b = rankVals(B);
+    return (b.m - a.m) || (b.s - a.s) || (b.b - a.b) || (B.played - A.played) || A.name.localeCompare(B.name, 'da');
+  }
+  function pctTxt(x) { return Math.round(x * 100) + '%'; }
 
   var D = null;            // { teams, players: {id: p}, ids, clubRank: {id: n}, updated }
   var UI = { metric: 'won', filter: 'alle', q: '', seg: 'kampe' };
@@ -394,8 +401,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         var players = {};
         sp.players.forEach(function (p) { if (p.id) players[p.id] = p; });
         var ids = Object.keys(players);
-        var overall = ids.filter(function (id) { return players[id].played; }).sort(function (a, b) { var A = players[a], B = players[b];
-          return (B.won - A.won) || (B.winPct - A.winPct) || (B.pointsFor - A.pointsFor) || A.name.localeCompare(B.name, 'da'); });
+        var overall = ids.filter(function (id) { return players[id].played; }).sort(function (a, b) { return rankCmp(players[a], players[b]); });
         var clubRank = {}; overall.forEach(function (id, i) { clubRank[id] = i + 1; });
         D = { teams: teams, players: players, ids: ids, clubRank: clubRank, updated: sp.updated || hk.updated, training: tr, tours: (tu && tu.tournaments) || [], toursUpdated: tu && tu.updated,
               tourNews: nyt.tournaments || {}, tourAlias: nyt.alias || {} };
@@ -539,24 +545,20 @@ textarea.inp{resize:vertical;line-height:1.45}
 
   function viewRang() {
     setTab('spillere'); setHeader('Klubrangliste', 'Alle hold · ' + updTxt(), true);
-    var md = METRICS[UI.metric];
     var pool = D.ids.filter(function (id) { var p = D.players[id];
       if (!p.played) return false;   // kun spillere med holdkampe
       return UI.filter === 'alle' || (UI.filter === 'senior' ? p.adult : !p.adult); });
-    pool.sort(function (a, b) { var A = D.players[a], B = D.players[b];
-      return (B[md[1]] - A[md[1]]) || (B.won - A.won) || (B.winPct - A.winPct) || (B.pointsFor - A.pointsFor) || A.name.localeCompare(B.name, 'da'); });
-    var h = '<div class="chips" role="group" aria-label="Sortér efter">' + Object.keys(METRICS).map(function (k) {
-      return '<button class="chip" aria-pressed="' + (UI.metric === k) + '" data-metric="' + k + '">' + METRICS[k][0] + '</button>'; }).join('') + '</div>';
-    h += '<div class="seg" style="grid-template-columns:repeat(3,minmax(0,1fr))">' + [['alle', 'Alle'], ['senior', 'Senior'], ['ungdom', 'Ungdom']].map(function (f) {
+    pool.sort(function (a, b) { return rankCmp(D.players[a], D.players[b]); });
+    var h = '<div class="seg" style="grid-template-columns:repeat(3,minmax(0,1fr))">' + [['alle', 'Alle'], ['senior', 'Senior'], ['ungdom', 'Ungdom']].map(function (f) {
       return '<button aria-selected="' + (UI.filter === f[0]) + '" data-filter="' + f[0] + '">' + f[1] + '</button>'; }).join('') + '</div>';
     h += '<div class="card" style="overflow:hidden">' + pool.map(function (id, i) {
-      var p = D.players[id], v = p[md[1]];
+      var p = D.players[id], v = rankVals(p);
       return '<button class="rk' + (i < 3 ? ' top3' : '') + '" data-go="#/spiller/' + esc(id) + '">' +
         '<span class="h" style="font-size:16px;color:' + (i < 3 ? 'var(--ink)' : 'var(--muted2)') + '">' + (i + 1) + '</span>' +
-        '<span class="col"><b class="ellip" style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(p.teams.join(', ')) + ' · ' + p.won + '/' + p.played + ' vundet</span></span>' +
-        '<span class="col" style="align-items:flex-end"><span class="h" style="font-size:17px">' + esc(UI.metric === 'pct' ? v + '%' : v) + '</span><span style="font-size:11px;color:var(--muted)">' + md[2] + '</span></span></button>';
+        '<span class="col"><b class="ellip" style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(p.teams.join(', ')) + ' · ' + p.won + '/' + p.played + ' kampe · sæt ' + (p.setsWon || 0) + '-' + (p.setsLost || 0) + '</span></span>' +
+        '<span class="col" style="align-items:flex-end"><span class="h" style="font-size:17px">' + pctTxt(v.m) + '</span><span style="font-size:11px;color:var(--muted)">sæt ' + pctTxt(v.s) + ' · bolde ' + pctTxt(v.b) + '</span></span></button>';
     }).join('') + '</div>';
-    h += '<p class="note">Alle holdkampe i sæsonen. Point = vundne bolde i alle sæt; snit = pr. kamp. Rækker med kortere sæt giver færre point.</p>';
+    h += '<p class="note">Rangeret efter 1) andel vundne kampe, 2) ved lighed andel vundne sæt, 3) derefter andel vundne bolde — så det er fair på tværs af rækker med 2 eller 3 sæt og forskellig sætlængde. Ved fuld lighed tæller flest spillede kampe.</p>';
     return h;
   }
 
