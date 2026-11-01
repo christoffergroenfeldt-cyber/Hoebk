@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T15:16:42+00:00",
+  "updated": "2026-11-01T15:46:42+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -11416,6 +11416,17 @@
       "standing": [
         {
           "pos": "1",
+          "team": "Stenløse 1",
+          "teamID": "122723",
+          "isUs": false,
+          "played": "3",
+          "won": "3",
+          "score": "27-9",
+          "sets": "56-30",
+          "points": "9"
+        },
+        {
+          "pos": "2",
           "team": "Måløv 1",
           "teamID": "122725",
           "isUs": false,
@@ -11426,25 +11437,14 @@
           "points": "6"
         },
         {
-          "pos": "2",
-          "team": "Stenløse 1",
-          "teamID": "122723",
-          "isUs": false,
-          "played": "2",
-          "won": "2",
-          "score": "18-6",
-          "sets": "38-18",
-          "points": "6"
-        },
-        {
           "pos": "3",
           "team": "Hareskov 2",
           "teamID": "122726",
           "isUs": false,
-          "played": "1",
+          "played": "2",
           "won": "0",
-          "score": "6-6",
-          "sets": "15-15",
+          "score": "9-15",
+          "sets": "27-33",
           "points": "1"
         },
         {
