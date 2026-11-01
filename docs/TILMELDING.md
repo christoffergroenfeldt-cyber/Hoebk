@@ -151,7 +151,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.7` or later.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.8` or later.
 
 ## Lineup rules in the app
 
@@ -213,6 +213,8 @@ Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite 
 | `POST {action:"register", token, type, eventId, status, label, player?}` | Saves an answer for the player behind the token — or, with `player` = one of the parent's children, for that child (stored under the child's name) |
 | `POST {action:"me" / "logout", token}` | Check / end a session; `me` and `verify` also return the role `{leader, all, admin, teams}` |
 | `POST {action:"lineup", token, eventId, team, status, squad[], games[], note}` | Save a squad/lineup — only leaders for that team |
+| `POST {action:"toParent", token, email, childId, childName}` | Administrator: a parent who registered as their child becomes a parent (`p:…`, "<child's first name> forældre") with that child; sessions, follows and push follow along |
+| `POST {action:"rename", token, name}` | Parents (`p:` logins) change their own name — players keep their badmintonplayer.dk name |
 | `POST {action:"users", token}` | All registered users (name, email, role, children, last active, push) — administrators only; the head administrator is shown only to himself |
 | `POST {action:"leaders" / "setLeader", token, …}` | List / set team leaders — administrator only |
 | `POST {action:"rooms", token, groups[]}` | My chat rooms with latest activity, and news for me; saves my training groups (tab *Grupper*) |

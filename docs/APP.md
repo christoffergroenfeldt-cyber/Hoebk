@@ -15,6 +15,8 @@ One self-contained file: HTML, CSS and vanilla JavaScript, no build step and no 
 
 Requests add `?t=<minute>` so phones never show data older than a minute.
 
+**Own start page.** Logged-in users see a ☆ in the top bar on most screens; tapping it (*Gør til min forside*) makes that screen the one the app opens on (stored per phone, `hoebk_home`; for the calendar the view, not the date). Tap the filled ★ again to go back to Nyt. Logging out clears it.
+
 **App updates.** Phones (especially the iPhone home-screen app) keep `index.html` cached and resume it without reloading. The app therefore compares a fingerprint of its own code (all `<style>` + the main `<script>`) with a fresh `index.html?t=…` from the server — 1.5 s after start, every time the app comes back to the foreground, and when the refresh button is pressed. If they differ it reloads via `?v=<timestamp>` (removed from the address bar afterwards) and keeps the current screen. Returning to the app after 10+ minutes also refetches the data. A guard in `sessionStorage` stops reload loops while GitHub Pages is still rolling out.
 
 ## Screens and routes
@@ -34,7 +36,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/tilmeld/foraelder` | Each child with their next match and whether they're selected, *+ Tilføj barn*, the children's team chats; for parent logins also training groups, follows and settings |
 | `#/tilmeld/holdleder` | Next match per team you lead with replies (*kan / måske / kan ikke*) and *Udtag spillere* / *Opstilling*; badge = matches missing a selection |
 | `#/tilmeld/admin` | Administrators: news, activities, admin chat, administrators and team leaders. The shield in the top bar opens this tab (team leaders: the Holdleder tab). `#/admin` and `#/holdleder` redirect here |
-| `#/brugere` | Administrators: all registered users — search (name, email, child, team), filters *Alle / Spillere / Forældre / Holdledere / Admin*, role badges, children, last active, push devices. Opened from Min side → Admin → *Registrerede brugere* |
+| `#/brugere` | Administrators: all registered users (players get *Gør til forælder* — for a parent who registered as their child) — search (name, email, child, team), filters *Alle / Spillere / Forældre / Holdledere / Admin*, role badges, children, last active, push devices. Opened from Min side → Admin → *Registrerede brugere* |
 | `#/rangliste` | Club ranking with metric and All/Senior/Youth filters — opened from the top of *Spillere* (no tab of its own) |
 | `#/spillere` | Player search with filter chips *Alle / Har spillet / Har rangering / Uden rangering* (remembered, `hoebk_pf`) |
 | `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id), incl. *Turneringer for dit niveau* |

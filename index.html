@@ -27,6 +27,12 @@ a{color:var(--ink)}
 .top .back{width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
 .top .back:focus-visible{outline:2px solid var(--accent)}
 .top .back[hidden]{display:none}
+.top .homebtn{margin-left:auto;width:40px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#C3CED9;display:flex;align-items:center;justify-content:center}
+.top .homebtn[hidden]{display:none}
+.top .homebtn.on{color:var(--accent)}
+.top .homebtn.on svg{fill:var(--accent)}
+.top .homebtn:not([hidden])+.adminbtn{margin-left:0}
+.top .homebtn:not([hidden])~.refresh{margin-left:0}
 .top .adminbtn{margin-left:auto;width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
 .top .adminbtn[hidden]{display:none}
 .top .adminbtn.on{background:rgba(255,255,255,.16);color:var(--accent)}
@@ -311,6 +317,7 @@ textarea.inp{resize:vertical;line-height:1.45}
 </button>
 <img class="brand" src="logo.png" alt="Hørsholm Badminton Klub" width="40" height="43">
 <div class="t"><h1 id="title">HØBK</h1><span class="sub" id="subtitle">Henter data …</span></div>
+<button class="homebtn" id="homeBtn" aria-label="Gør til min forside" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></button>
 <button class="adminbtn" id="adminBtn" aria-label="Administration" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></button>
 <button class="refresh" id="refresh" aria-label="Opdater data"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></button>
 </header>
@@ -456,8 +463,23 @@ textarea.inp{resize:vertical;line-height:1.45}
     b.hidden = !back;
     document.getElementById('top').classList.toggle('has-back', !!back);
     document.title = title + ' · HØBK';
+    updHomeBtn();
     var ab = document.getElementById('adminBtn');   // administration — kun for holdledere og administratorer
     if (ab) { ab.hidden = !(typeof isLeader === 'function' && isLeader()); ab.classList.toggle('on', /^#\/(admin|holdleder|ledere|tilmeld\/(admin|holdleder))/.test(location.hash)); }
+  }
+  // "Gør til min forside": en logget-ind bruger kan vælge den side appen åbner på (gemmes på telefonen)
+  function myHome() { try { return localStorage.getItem('hoebk_home') || ''; } catch (e) { return ''; } }
+  function homeable(h) { return /^#\/(nyt|hold|kalender|tilmeld|spillere|rangliste|sider|side|aktiviteter|turneringer|nyheder|snak\/|spiller\/)/.test(h) && !/^#\/(nyheder\/ny|aktiviteter\/ny|aktivitet\/[^/]+\/ret)/.test(h); }
+  function homeKey(h) { return h.replace(/^(#\/kalender\/[a-z]+)\/\d{4}-\d{2}-\d{2}$/, '$1'); }   // kalender: visningen, ikke datoen
+  function updHomeBtn() {
+    var b = document.getElementById('homeBtn'); if (!b) return;
+    var logged = typeof ME !== 'undefined' && ME && ME.token, h = homeKey(location.hash || '#/nyt'), cur = myHome() || '#/nyt';
+    b.hidden = !logged || !homeable(h);
+    var on = homeKey(cur) === h;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on);
+    b.setAttribute('aria-label', on ? 'Din forside — tryk for at bruge Nyt igen' : 'Gør til min forside');
+    b.title = on ? 'Din forside' : 'Gør til min forside';
   }
   function setTab(tab) {
     document.querySelectorAll('nav.tabs a').forEach(function (a) {
@@ -1931,7 +1953,10 @@ textarea.inp{resize:vertical;line-height:1.45}
   }
   // ---- Min side · Forælder ----
   function minForaelder(parent) {
-    var today = iso(new Date()), h = '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Mine børn</span><button class="pl xs" data-go="#/boern">Ret ›</button></div>';
+    var today = iso(new Date()), h = '';
+    if (parent) h += '<span class="lbl">Dit navn</span><div class="card search"><input id="pnameEdit" type="text" maxlength="60" autocomplete="name" value="' + esc(UI.pnameEdit != null ? UI.pnameEdit : ME.name) + '" aria-label="Dit navn">' +
+      '<button class="rb" data-act="pnamesave" style="min-height:36px">Gem</button></div><p class="note" style="margin-top:-4px">Navnet står ved dine beskeder i chatten.</p>';
+    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Mine børn</span><button class="pl xs" data-go="#/boern">Ret ›</button></div>';
     var kids = ME.kids || [];
     if (!kids.length) h += '<p class="empty">Du har ikke valgt nogen børn endnu.</p>';
     var kidTeamIds = {};
@@ -2044,7 +2069,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function refreshRole() {
     if (!REG.url || !ME || !ME.token) return Promise.resolve();
     return api({ action: 'me', token: ME.token }).then(function (res) {
-      if (res && res.ok) { ME.role = res.role || null; if (Array.isArray(res.follows)) ME.follows = res.follows; if (res.settings) ME.settings = res.settings; if (Array.isArray(res.kids)) ME.kids = res.kids; saveMe(); route(true); }
+      if (res && res.ok) { if (res.player && (res.player.id !== ME.id || res.player.name !== ME.name)) { ME.id = res.player.id; ME.name = res.player.name; } ME.role = res.role || null; if (Array.isArray(res.follows)) ME.follows = res.follows; if (res.settings) ME.settings = res.settings; if (Array.isArray(res.kids)) ME.kids = res.kids; saveMe(); route(true); }
       else if (res && res.error === 'login') { ME = null; saveMe(); route(true); }
     }).catch(function () {});
   }
@@ -3297,7 +3322,8 @@ textarea.inp{resize:vertical;line-height:1.45}
         '<a class="xs ellip" href="mailto:' + esc(u.email) + '">' + esc(u.email) + '</a>' +
         '<span class="xs ellip">' + esc([P && P.teams.length ? P.teams.join(', ') : '', u.kids.length ? 'Børn: ' + u.kids.map(function (k) { return k.name.split(' ')[0]; }).join(', ') : ''].filter(String).join(' · ')) + '</span>' +
         '<span style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px">' + pills.map(function (x) { return '<span class="upill" style="background:' + x[1] + ';color:' + x[2] + '">' + esc(x[0]) + '</span>'; }).join('') + '</span></span>' +
-        '<span class="col" style="align-items:flex-end;flex:0 0 auto"><span class="xs">' + (u.active ? esc(ago(u.active)) : '–') + '</span>' + (u.push ? '<span class="xs" title="Notifikationer slået til">🔔 ' + u.push + '</span>' : '') + '</span></div>';
+        '<span class="col" style="align-items:flex-end;flex:0 0 auto;gap:4px"><span class="xs">' + (u.active ? esc(ago(u.active)) : '–') + '</span>' + (u.push ? '<span class="xs" title="Notifikationer slået til">🔔 ' + u.push + '</span>' : '') +
+        (!/^p:/.test(u.id) && !u.superAdmin ? '<button class="pl xs" style="text-decoration:underline;color:' + PARENT.bg + ';font-weight:700" data-toparent="' + esc(u.email) + '" data-child="' + esc(u.id) + '" data-childname="' + esc(u.name) + '">Gør til forælder</button>' : '') + '</span></div>';
     }).join('') : '<p class="empty" style="padding:12px">Ingen brugere matcher.</p>') + '</div>';
     h += '<p class="note">Viser ' + list.length + ' af ' + all.length + '. "Sidst aktiv" = sidste gang appen talte med klubbens server. E-mails er kun synlige for administratorer.</p>';
     return h;
@@ -3405,6 +3431,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       var uq = document.getElementById('usrQ');
       uq.addEventListener('input', function () { USR.q = uq.value; route(true); var x = document.getElementById('usrQ'); x.focus(); x.setSelectionRange(x.value.length, x.value.length); });
     }
+    var pne = document.getElementById('pnameEdit'); if (pne) pne.addEventListener('input', function () { UI.pnameEdit = pne.value; });
     if (document.getElementById('afName')) bindActForm();
     if (document.getElementById('kq')) {
       renderKidList();
@@ -3491,9 +3518,27 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf],[data-toparent]');
     if (!b) return;
+    if (b.dataset.act === 'pnamesave') {
+      var nv = ((document.getElementById('pnameEdit') || {}).value || '').trim().replace(/\s+/g, ' ');
+      if (nv.length < 2) { toast('Skriv et navn'); return; }
+      api({ action: 'rename', token: ME.token, name: nv }).then(function (r) {
+        if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
+        ME.name = r.name; saveMe(); UI.pnameEdit = null; toast('Navnet er ændret'); route(true);
+      }).catch(function (err) { toast(err.message); });
+      return;
+    }
     if (b.dataset.usrf) { USR.f = b.dataset.usrf; route(true); return; }
+    if (b.dataset.toparent) {
+      var cn = b.dataset.childname, nn = cn.split(' ')[0] + ' forældre';
+      if (!confirm(b.dataset.toparent + ' er registreret som spilleren ' + cn + '.\n\nGør brugeren til forælder til ' + cn + '? Navnet bliver "' + nn + '" (forælderen kan selv rette det).')) return;
+      api({ action: 'toParent', token: ME.token, email: b.dataset.toparent, childId: b.dataset.child, childName: cn }).then(function (r) {
+        if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke ændre');
+        toast(cn.split(' ')[0] + 's forælder er nu registreret som "' + r.name + '"'); USR.data = null; route(true);
+      }).catch(function (err) { toast(err.message); });
+      return;
+    }
     if (b.dataset.act === 'eligtoggle') { UI.showElig = !UI.showElig; route(true); return; }
     if (b.dataset.kid) { toggleKid(b.dataset.kid); return; }
     if (b.dataset.act === 'admadd' || b.dataset.admdel) {
@@ -3561,7 +3606,7 @@ textarea.inp{resize:vertical;line-height:1.45}
           if (!sub) return; var j = sub.toJSON(); return sub.unsubscribe().then(function () { return api({ action: 'push', token: tok, on: false, sub: j }); });
         }).catch(function () {}) : Promise.resolve()).then(function () { PUSH.state = 'fra'; return api({ action: 'logout', token: tok }); }).catch(function () {});
       }
-      ME = null; saveMe(); UI.step = 'name'; SNAK.rooms = null; SNAK.news = []; SNAK.msgs = {}; SNAK.canNews = false; UI.kids = {}; UI.kidsEdit = false; PLAN.list = null; PLAN.canEdit = false; buildEvents(); updDot(); toast('Du er logget ud'); route(); return;
+      ME = null; saveMe(); UI.step = 'name'; SNAK.rooms = null; SNAK.news = []; SNAK.msgs = {}; SNAK.canNews = false; UI.kids = {}; UI.kidsEdit = false; PLAN.list = null; PLAN.canEdit = false; buildEvents(); updDot(); try { localStorage.removeItem('hoebk_home'); } catch (e5) {} toast('Du er logget ud'); route(); return;
     }
     if (b.dataset.trg) { CAL.trGroup = b.dataset.trg; CAL.trHold = ''; calSave(true); route(true); return; }
     if (b.dataset.trh !== undefined) { CAL.trHold = b.dataset.trh; calSave(true); route(true); return; }
@@ -3599,6 +3644,12 @@ textarea.inp{resize:vertical;line-height:1.45}
 
   $main.addEventListener('change', function (e) { if (e.target && e.target.id === 'mailpref') setMailPref(e.target.checked); });
 
+  document.getElementById('homeBtn').addEventListener('click', function () {
+    var h = homeKey(location.hash), on = homeKey(myHome() || '#/nyt') === h;
+    try { if (on || h === '#/nyt') localStorage.removeItem('hoebk_home'); else localStorage.setItem('hoebk_home', h); } catch (e) {}
+    toast(on && h !== '#/nyt' ? 'Appen åbner igen på Nyt' : 'Appen åbner nu på denne side');
+    updHomeBtn();
+  });
   document.getElementById('adminBtn').addEventListener('click', function () { location.hash = ME && ME.role && ME.role.admin ? '#/tilmeld/admin' : '#/tilmeld/holdleder'; });
   document.getElementById('refresh').addEventListener('click', function () {
     var btn = this; if (btn.classList.contains('spin')) return;
@@ -3626,8 +3677,11 @@ textarea.inp{resize:vertical;line-height:1.45}
   });
   setTimeout(function () { checkAppVersion(false); }, 1500);
   // Nyt er startsiden — også for hjemmeskærms-ikoner installeret med en gammel start-adresse (#/hold eller #/tilmeld)
-  if (!location.hash || location.hash === '#/' || (!(typeof APP_RELOAD !== 'undefined' && APP_RELOAD) && /^#\/(hold|tilmeld)$/.test(location.hash))) {
-    try { history.replaceState(null, '', location.pathname + location.search + '#/nyt'); } catch (e) { location.hash = '#/nyt'; }
+  // Har brugeren valgt sin egen forside (stjernen øverst), åbner appen der — når den startes, ikke ved genindlæsning pga. ny version
+  var START = ME && ME.token && myHome() && homeable(myHome()) ? myHome() : '#/nyt';
+  var RELOADED = typeof APP_RELOAD !== 'undefined' && APP_RELOAD;
+  if (!location.hash || location.hash === '#/' || (!RELOADED && /^#\/(hold|tilmeld|nyt)$/.test(location.hash))) {
+    if (location.hash !== START) { try { history.replaceState(null, '', location.pathname + location.search + START); } catch (e) { location.hash = START; } }
   }
 
   load().then(function () { prevHash = location.hash; route(); loadActivities(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).then(function () { loadActs(true); return loadRooms(true); }).catch(function () {

@@ -26,6 +26,8 @@
  *  lineup   {token, eventId, team, status, squad[], games[], note} → holdopstilling (kun holdledere, se fanen Ledere)
  *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
  *  users    {token}                              → administratorer: alle registrerede brugere (navn, e-mail, rolle, børn, sidst aktiv)
+ *  toParent {token, email, childId?}            → administrator: en forælder der har registreret sig som sit barn bliver forælder ("Carl forældre")
+ *  rename   {token, name}                        → forældre kan ændre deres eget navn (spillere hedder som på badmintonplayer.dk)
  *  setAdmin {token, email, name, on}           → faste administratorer udnævner/fjerner administratorer (fanen Administratorer)
  *  follow   {token, tid, title, on}              → følg/stop med at følge en turnering (fanen Følger)
  *  notify   {key, items[{ids[], title, lines[], url}]} → GitHub sender nyt om turneringer; mail til dem der følger
@@ -47,7 +49,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.7';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.8';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -342,6 +344,50 @@ function users_(b) {
              admin: role.admin, superAdmin: isSuper_(em), leader: role.all || role.teams.length > 0, teams: role.teams, first: u.first, active: Math.max(u.active, u.seen), push: u.push };
   }).sort(function (a, b) { return a.name.localeCompare(b.name, 'da'); });
   return { ok: true, users: users };
+}
+
+// Skift playerId/navn for en e-mail i alle faner der gemmer det (aktive sessioner følger med, så ingen skal logge ind igen)
+function changeIdentity_(email, newId, newName) {
+  var em = String(email || '').toLowerCase().trim();
+  var upd = function (tab, emailCol, idCol, nameCol) {
+    var sh = sh_(tab), rows = data_(tab);
+    rows.forEach(function (r, i) {
+      if (String(r[emailCol]).toLowerCase().trim() !== em) return;
+      if (idCol >= 0) sh.getRange(i + 2, idCol + 1).setValue(safe_(newId));
+      if (nameCol >= 0) sh.getRange(i + 2, nameCol + 1).setValue(safe_(newName));
+    });
+  };
+  upd('Spillere', 2, 0, 1); upd('Sessioner', 3, 1, 2); upd('Følger', 0, 1, 2); upd('Push', 0, 1, -1); upd('Forældre', 0, 1, 2);
+}
+function parentIdFor_(name) { return 'p:' + String(name).toLowerCase().replace(/[^a-z0-9æøå]+/g, '-').replace(/^-|-$/g, ''); }
+
+// Administrator: en forælder har registreret sig under barnets navn → gør e-mailen til forælder til barnet
+function toParent_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  var em = clean_(b.email, 120).toLowerCase();
+  if (isSuper_(em)) return { ok: false, error: 'Kan ikke ændre hovedadministratoren' };
+  var rows = data_('Spillere').filter(function (r) { return String(r[2]).toLowerCase().trim() === em; });
+  if (!rows.length) return { ok: false, error: 'Ukendt bruger' };
+  var cur = rows[rows.length - 1], curId = String(cur[0]), curName = String(cur[1]);
+  if (/^p:/.test(curId)) return { ok: false, error: 'Er allerede forælder' };
+  var childId = clean_(b.childId, 40) || curId, childName = clean_(b.childName, 80) || curName;
+  var newName = childName.split(' ')[0] + ' forældre', newId = parentIdFor_(newName + '-' + em.split('@')[0]);
+  return withLock_(function () {
+    changeIdentity_(em, newId, newName);
+    var kids = kids_(em); if (!kids.some(function (k) { return k.id === childId; })) kids.push({ id: childId, name: childName });
+    setKids_(em, newId, newName, kids, true);
+    return { ok: true, id: newId, name: newName, kids: kids };
+  });
+}
+// Forældre må ændre deres eget navn (spillere hedder som på badmintonplayer.dk)
+function rename_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  if (!/^p:/.test(ses.playerId)) return { ok: false, error: 'Kun forældre kan ændre deres navn — spillere hedder som på badmintonplayer.dk' };
+  var name = clean_(b.name, 60).replace(/\s+/g, ' ');
+  if (name.length < 2) return { ok: false, error: 'Skriv et navn' };
+  return withLock_(function () { changeIdentity_(ses.email, ses.playerId, name); return { ok: true, name: name }; });
 }
 
 function lineups_() {
@@ -1098,6 +1144,8 @@ function doPost(e) {
       case 'setLeader': return json_(setLeader_(b));
       case 'setAdmin': return json_(setAdmin_(b));
       case 'users': return json_(users_(b));
+      case 'toParent': return json_(toParent_(b));
+      case 'rename': return json_(rename_(b));
       case 'follow': return json_(follow_(b));
       case 'notify': return json_(notify_(b));
       case 'push': return json_(push_(b));
