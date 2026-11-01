@@ -176,6 +176,8 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .rb[aria-pressed=true].nej{background:var(--loss);border-color:#E3B4AD}
 .rb[aria-pressed=true].maaske{background:#FFE3C2;border-color:#F3C58F}
 .rb:disabled{opacity:.6}
+.rb.go{background:var(--ink);border-color:var(--ink);color:#fff;font-size:16px;min-height:50px;box-shadow:0 2px 6px rgba(14,34,54,.25)}
+.rb.go:active{transform:translateY(1px);box-shadow:none}
 .rb.follow{align-self:flex-start;min-height:44px;font-size:14px}
 .rb.follow[aria-pressed=true]{background:var(--accent);border-color:var(--accent)}
 .star{color:#C99A06}
@@ -1665,8 +1667,8 @@ textarea.inp{resize:vertical;line-height:1.45}
   try { ME = JSON.parse(localStorage.getItem('hoebk_me') || 'null'); } catch (e) { ME = null; }
   function saveMe() { try { if (ME) localStorage.setItem('hoebk_me', JSON.stringify(ME)); else localStorage.removeItem('hoebk_me'); } catch (e) {} }
   var GROUPS = ['Ungdom', 'Senior', 'Senior2', 'Voksenfjer', 'Veteran'];
-  var OPTS = { match: [['ja', 'Kan spille'], ['maaske', 'Måske'], ['nej', 'Kan ikke']], training: [['ja', 'Kommer'], ['nej', 'Kommer ikke']] };
-  var WORD = { ja: { match: 'kan', training: 'kommer' }, nej: { match: 'kan ikke', training: 'kommer ikke' }, maaske: { match: 'måske', training: 'måske' } };
+  var OPTS = { match: [['ja', 'Kan spille'], ['maaske', 'Til rådighed'], ['nej', 'Kan ikke']], training: [['ja', 'Kommer'], ['nej', 'Kommer ikke']] };
+  var WORD = { ja: { match: 'kan', training: 'kommer' }, nej: { match: 'kan ikke', training: 'kommer ikke' }, maaske: { match: 'til rådighed', training: 'måske' } };
   function matchEid(m) { return 'm:' + (m.matchID || (m.date + ':' + m.home + ':' + m.away)); }
   function toast(msg) {
     var t = document.getElementById('toast'); t.textContent = msg; t.hidden = false;
@@ -1724,7 +1726,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     }
     if (forWho && forWho.noSummary) return h + '</div>';
     var total = w.ja.length + w.maaske.length + w.nej.length;
-    var summary = w.ja.length + ' ' + WORD.ja[type] + (w.maaske.length ? ' · ' + w.maaske.length + ' måske' : '') + (w.nej.length ? ' · ' + w.nej.length + ' ' + WORD.nej[type] : '');
+    var summary = w.ja.length + ' ' + WORD.ja[type] + (w.maaske.length ? ' · ' + w.maaske.length + ' ' + WORD.maaske[type] : '') + (w.nej.length ? ' · ' + w.nej.length + ' ' + WORD.nej[type] : '');
     if (total) {
       h += '<details class="who"' + (open ? ' open' : '') + '><summary>' + summary + '</summary><ul>' +
         ['ja', 'maaske', 'nej'].map(function (k) { return w[k].map(function (n) { return '<li class="' + k + '">' + esc(n) + '</li>'; }).join(''); }).join('') + '</ul></details>';
@@ -1786,14 +1788,14 @@ textarea.inp{resize:vertical;line-height:1.45}
         return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">' +
           '<b>Hvilken e-mail skal koden sendes til?</b><span class="s">' + (UI.pending.kids && UI.pending.kids.length ? 'Din egen e-mail' : 'Brug din egen eller en forælders e-mail') + '. Den gemmes kun hos klubben.</span>' +
           '<div class="card search"><input id="email" type="email" inputmode="email" autocomplete="email" placeholder="navn@eksempel.dk" aria-label="E-mail" value="' + esc(UI.email || '') + '"></div>' +
-          '<button class="rb ja" id="sendcode" aria-pressed="true" style="min-height:46px">Send kode</button></div>';
+          '<button class="rb go" id="sendcode">Send kode</button></div>';
       }
       if (UI.step === 'code') {
         setHeader('Indtast kode', 'Sendt til ' + UI.email, true);
         return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">' +
           '<b>Tjek din e-mail</b><span class="s">Vi har sendt en 6-cifret kode til ' + esc(UI.email) + '. Den gælder i 15 minutter.</span>' +
           '<div class="card search"><input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456" aria-label="Kode" style="font-size:22px;letter-spacing:.3em"></div>' +
-          '<button class="rb ja" id="verify" aria-pressed="true" style="min-height:46px">Log ind</button>' +
+          '<button class="rb go" id="verify">Log ind</button>' +
           '<button class="pl s" id="resend" style="align-self:flex-start">Send en ny kode</button></div>';
       }
       if (UI.step === 'parent') {
@@ -2093,7 +2095,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       return '<div class="card" style="padding:12px;display:flex;flex-direction:column;gap:8px;border-left:5px solid ' + teamColor(t.label).bg + '">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="col"><b style="font-size:14px">' + esc(t.label) + ' <span style="font-weight:500">' + (m.isHome ? 'mod ' : '@ ') + esc(m.opponent) + '</span></b>' +
         '<span class="xs">' + esc(dTxt(m.date)) + ' kl. ' + esc(m.time || '') + '</span></span>' + (lu ? stPill(lu.status) : '<span class="st st-udkast">Ikke udtaget</span>') + '</div>' +
-        '<span class="xs"><b style="color:var(--ink)">' + w.ja.length + '</b> kan · <b style="color:var(--ink)">' + w.maaske.length + '</b> måske · <b style="color:var(--ink)">' + w.nej.length + '</b> kan ikke' + (ans ? '' : ' · ingen svar endnu') + '</span>' +
+        '<span class="xs"><b style="color:var(--ink)">' + w.ja.length + '</b> kan · <b style="color:var(--ink)">' + w.maaske.length + '</b> til rådighed · <b style="color:var(--ink)">' + w.nej.length + '</b> kan ikke' + (ans ? '' : ' · ingen svar endnu') + '</span>' +
         '<div class="reg"><button class="rb' + (lu ? '' : ' ja') + '" aria-pressed="' + !lu + '" data-go="#/udtag/' + ti + '/' + mi + '" style="flex:1">' + (lu ? 'Ret udtagelse' : 'Udtag spillere') + '</button>' +
         (lu ? '<button class="rb" data-go="#/opstilling/' + ti + '/' + mi + '" style="flex:1">Opstilling</button>' : '') + '</div></div>';
     }).join('') : '<p class="empty">Ingen kommende kampe for dine hold.</p>';
@@ -2345,7 +2347,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       var sub = [p ? p.teams.join(', ') : 'Ikke i spillerlisten', lvl, (el.ok ? (el.unknown ? '? ' : '') : '✕ ') + el.why].filter(String).join(' · ');
       return '<button class="pick" aria-pressed="' + (!!LU.sel[id]) + '" data-pick="' + esc(id) + '"><span class="box">' + (LU.sel[id] ? '✓' : '') + '</span>' +
         '<span class="col"><b style="font-size:14px">' + esc(cands[id]) + (roster[id] ? '' : '') + '</b><span class="xs ellip">' + esc(sub) + '</span></span>' +
-        '<span class="st av-' + st + '">' + ({ ja: 'Kan', maaske: 'Måske', nej: 'Kan ikke', none: 'Intet svar' }[st]) + '</span></button>';
+        '<span class="st av-' + st + '">' + ({ ja: 'Kan', maaske: 'Til rådighed', nej: 'Kan ikke', none: 'Intet svar' }[st]) + '</span></button>';
     }).join('');
     if (hidden) h += '<p class="note">' + hidden + ' spiller' + (hidden === 1 ? '' : 'e') + ' skjult af filtrene.</p>';
     var notOk = Object.keys(LU.sel).filter(function (id) { return !eligibility(t, id).ok; });

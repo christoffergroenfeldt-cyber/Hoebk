@@ -34,7 +34,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/tilmeld/snak` | Min side → **Chat** |
 | `#/tilmeld/spiller` | Your player card, training groups/teams, teams and tournaments you follow, *Turneringer for dit niveau*, *Er du også forælder?*, *Spiller du ikke i Hørsholm?* (players with children/administrators: become parent-only), settings (notifications, shop, *Log ind på en anden enhed*, log out) |
 | `#/tilmeld/foraelder` | Each child with their next match and whether they're selected, *+ Tilføj barn*, the children's team chats; for parent logins also your name (editable), *Træning jeg følger* (group + the child's team), follows and settings |
-| `#/tilmeld/holdleder` | Next match per team you lead with replies (*kan / måske / kan ikke*) and *Udtag spillere* / *Opstilling*; badge = matches missing a selection |
+| `#/tilmeld/holdleder` | Next match per team you lead with replies (*kan / til rådighed / kan ikke*) and *Udtag spillere* / *Opstilling*; badge = matches missing a selection |
 | `#/tilmeld/admin` | Administrators: news, activities, admin chat, administrators and team leaders. The shield in the top bar opens this tab (team leaders: the Holdleder tab). `#/admin` and `#/holdleder` redirect here |
 | `#/brugere` | Administrators: all registered users (players get *Gør til forælder* — for a parent who registered as their child) — search (name, email, child, team), filters *Alle / Spillere / Forældre / Holdledere / Admin*, role badges, children, last active, push devices. Opened from Min side → Admin → *Registrerede brugere* |
 | `#/rangliste` | Club ranking with metric and All/Senior/Youth filters — opened from the top of *Spillere* (no tab of its own) |
