@@ -45,7 +45,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.4';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.5';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -581,9 +581,10 @@ function memberRooms_(cx, email, pid, strict) {
   return out;
 }
 // Hvem må SKRIVE i chatten (alle medlemmer af et rum kan læse): administratorer, holdledere, forældre
-// og spillere på et hold der ikke er ungdom. Ungdomsspillere (kun U-hold) og spillere uden hold kan kun læse.
+// og spillere på et hold der ikke er ungdom. Ungdomsspillere (kun U-hold) kan kun læse.
+// Voksne uden hold må kun skrive i de træningsgruppers chat de er med i (ikke holdchat, ikke Ungdom).
 // Når godkendelse er slået til (APPROVAL.enabled), skal man også være godkendt.
-function canWrite_(cx, email, pid) {
+function canWrite_(cx, email, pid, room) {
   var em = String(email || '').toLowerCase().trim(), role = roleIn_(cx, em, pid);
   if (role.admin) return { ok: true };
   if (APPROVAL.enabled && approvalOf_(em) !== 'godkendt') return { ok: false, why: 'afventer', msg: 'Din profil afventer godkendelse — du kan læse med, men ikke skrive endnu' };
@@ -591,6 +592,11 @@ function canWrite_(cx, email, pid) {
   if (/^p:/.test(String(pid)) || (cx.par || []).some(function (r) { return String(r[0]).toLowerCase() === em; })) return { ok: true };
   var senior = Object.keys(cx.teams).some(function (id) { var t = cx.teams[id]; return !/^U\d/.test(t.l) && t.p.indexOf(String(pid)) >= 0; });
   if (senior) return { ok: true };
+  var onTeam = Object.keys(cx.teams).some(function (id) { return cx.teams[id].p.indexOf(String(pid)) >= 0; });
+  if (!onTeam) {   // uden hold: må skrive i sin egen træningsgruppe (ikke Ungdom), ikke i holdchat
+    if (room && /^g:/.test(room) && room !== 'g:Ungdom') return { ok: true };
+    return { ok: false, why: 'udenhold', msg: 'Du er ikke på holdet, så du kan læse med her, men ikke skrive. Du kan skrive i chatten for din træningsgruppe.' };
+  }
   return { ok: false, why: 'ungdom', msg: 'Ungdomsspillere kan læse med i chatten, men ikke skrive. Forældre, holdledere og seniorspillere kan skrive.' };
 }
 function canModerate_(cx, ses, room) {
@@ -666,7 +672,7 @@ function messages_(b) {
     var pid = String(r[3]), se = String(r[5]).toLowerCase();
     return { id: String(r[0]), t: ts_(r[1]), p: pid, n: String(r[4]), x: String(r[6]), mine: se === em, k: kidsOf[se] && kidsOf[se].length ? kidsOf[se] : undefined };
   }).sort(function (a, b) { return a.t - b.t; }).slice(-150);
-  var cw = canWrite_(cx, ses.email, ses.playerId);
+  var cw = canWrite_(cx, ses.email, ses.playerId, room);
   return { ok: true, room: room, title: mr[room], messages: list, canMod: canModerate_(cx, ses, room), muted: !!muted_(em)[room], canWrite: cw.ok, readOnlyMsg: cw.ok ? '' : cw.msg };
 }
 
@@ -677,7 +683,7 @@ function post_(b) {
   if (!text) return { ok: false, error: 'Skriv en besked' };
   var cx = ctx_(), mr = memberRooms_(cx, ses.email, ses.playerId);
   if (!mr[room]) return { ok: false, error: 'Du er ikke med i ' + (/^g:/.test(room) ? 'træningsgruppen' : 'holdet') };
-  var cw = canWrite_(cx, ses.email, ses.playerId);
+  var cw = canWrite_(cx, ses.email, ses.playerId, room);
   if (!cw.ok) return { ok: false, error: cw.msg, readOnly: true };
   var em = ses.email.toLowerCase();
   var msg = withLock_(function () {

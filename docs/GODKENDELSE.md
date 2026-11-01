@@ -4,7 +4,7 @@ Status: koden ligger i `apps-script/Code.gs` (afsnittet *GODKENDELSE OG HOLDMEDL
 `APPROVAL = { enabled: false, since: '', memberCheck: false, teamsFromLeaders: false }`. Intet ændrer sig, før et flag sættes til `true`
 og der udgives en ny version. Appen (`index.html`) har endnu ingen skærme til det — se *Mangler i appen* nederst.
 
-## Det gælder allerede nu (version 2026-11-01.4)
+## Det gælder allerede nu (version 2026-11-01.5)
 
 Alle der er med i et chatrum kan **læse**. Kun disse kan **skrive** (`canWrite_` i Code.gs — kontrolleres på serveren):
 
@@ -15,7 +15,7 @@ Alle der er med i et chatrum kan **læse**. Kun disse kan **skrive** (`canWrite_
 | Forælder (`p:`-login eller spiller med børn tilføjet) | ja |
 | Spiller på mindst ét hold der ikke er ungdom (ikke `U…`) | ja |
 | Ungdomsspiller (kun U-hold) | nej — ser *🔒 Ungdomsspillere kan læse med …* |
-| Spiller uden hold i år / nyt navn | nej (indtil de kommer på et hold) |
+| Voksen uden hold (ingen holdkampe i år / nyt navn) | kun i chatten for sine **træningsgrupper** (ikke holdchat og ikke Ungdom) |
 
 ## 1. Godkendelse (`APPROVAL.enabled`)
 
@@ -77,6 +77,5 @@ og i en træningsgruppes chat, hvis man er sat i gruppen. *Følger holdet* giver
 
 ## Stadig åbent
 
-- Må voksne medlemmer uden hold (fx motionister uden holdkampe) skrive, når de er godkendt?
 - Ungdomsspillere er ofte registreret i Conventus med en forælders e-mail. Logger barnet ind med sin egen e-mail, matcher den ikke —
   administratoren må så godkende manuelt (mailen fortæller hvad der skal rettes).

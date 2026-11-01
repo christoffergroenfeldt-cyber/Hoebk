@@ -133,7 +133,7 @@ A parent is automatically in the chat rooms of their children's teams (and gets 
 
 ## Who can write in the chat
 
-Everyone in a room can read; only administrators, team leaders, parents and players on a non-youth team can write (`canWrite_`, checked by the script). Youth players see a 🔒 note instead of the input field. The planned approval of players and parents, the member-system check and team lists managed by team leaders are prepared but switched off — see [GODKENDELSE.md](GODKENDELSE.md).
+Everyone in a room can read; only administrators, team leaders, parents and players on a non-youth team can write (`canWrite_`, checked by the script); adults without a team can write only in the chats of their own training groups (not team chats, not Ungdom). Youth players see a 🔒 note instead of the input field. The planned approval of players and parents, the member-system check and team lists managed by team leaders are prepared but switched off — see [GODKENDELSE.md](GODKENDELSE.md).
 
 ## Admin chat (suggestions for the app)
 
@@ -151,7 +151,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.4` or later.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.5` or later.
 
 ## Lineup rules in the app
 
