@@ -81,6 +81,22 @@ Players and parents who can see the activity tap **Tag opgaven** on a task (and 
 
 Stored in the sheet tabs **Aktiviteter** (tasks as JSON in the last column) and **Opgavetilmeldinger** (one row per take/withdraw — latest per person and task wins).
 
+## Car pool (samkørsel)
+
+Every upcoming team match (*Hold → kamp*) and every tournament that hasn't ended (*Kalender → turnering*) has a **Samkørsel** section for logged-in users (logged out: *Log ind for at køre med eller tilbyde et lift*). Each person chooses one of:
+
+- **Jeg kører**: number of free seats (1–8, not counting yourself and your own children), pick-up (**Henter alle på vejen** or **Mødested** + text) and an optional departure time. Pressing *Jeg kører* again opens the form to change it; *Træk tilbud tilbage* withdraws.
+- **Jeg mangler et lift**: you can then press **+ Kør med** on any car with free seats, until it is *Fuld*. You can optionally write where you can be picked up (shown next to your name when the driver picks everyone up on the way). *Jeg kører ikke med alligevel* frees the seat, and *Skift til denne bil* moves you.
+- **Jeg kører selv**.
+
+Parents answer for each of their children on the team (all children on tournaments) with **Mangler lift / Kommer selv** and **+ <name> kører med**, and can offer seats themselves. Children can't be drivers. Tapping the chosen option again removes it.
+
+At the top: *x biler · y ledige pladser · z mangler lift*. Each car shows the driver, *n af m ledige* / *Fuld*, the pick-up point and departure, its passengers (yours in dark) and the empty seats.
+
+Push notifications (to the person who registered, so parents get them for their children): the driver is told when someone takes or frees a seat (*Oliver kører med dig · 2 af 3 pladser taget*). Passengers are told when the driver changes pick-up or time, or stops driving, in which case they are back on *Mangler lift*. A driver can't lower seats below the number of passengers.
+
+Stored in the sheet tab **Kørsel**: one row per person per match/tournament (`m:<matchID>` / `t:<turneringId>`), with choice (drive/need/own), seats, pick-up (`vej` = on the way), departure, the chosen driver's id and a note.
+
 ## Calendar
 
 - **Views:** *Liste* (everything from today, 60 days, compact rows grouped by day), *Uge*, *Måned*, *År*; *Dag* opens from "Hele dagen ›" or a day in week/year view. `#/kalender/<liste|uge|maaned|aar|dag>/<YYYY-MM-DD>`.

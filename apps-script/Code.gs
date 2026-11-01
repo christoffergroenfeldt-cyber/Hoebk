@@ -38,6 +38,7 @@
  *  GET ?action=follows&key=NØGLE → hvilke turneringer der følges (kun id'er, ingen e-mails)
  *  logout   {token}
  *  request  for forældre: playerId "p:<navn>" + children[{id, name}] · children {token, children[]} → ret sine børn
+ *  rides {token, event} · rideSet {token, event, mode, seats, pickup, time, note, player?} · rideTake {token, event, driver, player?} → samkørsel
  *  acts {token} / GET ?action=acts → aktiviteter · actSave / actDel (administrator) · taskSign {token, act, task, on}
  *  Admin-chat: rummet x:admin — kun administratorer. GET ?action=ideas&key=IDEAS_KEY → beskederne (kun læsning, uden e-mails)
  *  rooms    {token, groups[]}                    → mine snak-rum (hold + træningsgrupper) med seneste aktivitet + nyheder til mig
@@ -49,7 +50,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.9';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.10';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -75,7 +76,9 @@ var SHEETS = {
   Medlemmer: ['email', 'navn', 'medlemsnr', 'importeret'],
   Godkendelser: ['tidspunkt', 'email', 'playerId', 'navn', 'rolle', 'status', 'note', 'behandletAf', 'behandlet'],
   Holdmedlemmer: ['playerId', 'navn', 'gruppe', 'tilføjetAf', 'tidspunkt'],
-  'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag']
+  'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag'],
+  // Samkørsel til holdkampe og turneringer: én række pr. person pr. kamp/turnering
+  'Kørsel': ['tidspunkt', 'begivenhed', 'titel', 'playerId', 'navn', 'email', 'valg', 'pladser', 'opsamling', 'afgang', 'chauffør', 'note']
 };
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
 // Den FØRSTE e-mail der bekræfter navnet (fanen Spillere) ejer rollen — en anden e-mail med samme navn bliver ikke admin.
@@ -998,6 +1001,119 @@ function taskSign_(b) {
   });
 }
 
+// ---------- Samkørsel (holdkampe og turneringer) ----------
+// Begivenhed: "m:<matchID>" (holdkamp) eller "t:<turneringId>". Én række pr. person (eller barn) pr. begivenhed.
+// valg: drive = kører (pladser = ledige pladser, opsamling = "vej" (henter på vejen) eller et mødested, afgang = HH:MM)
+//       need  = mangler lift (chauffør = playerId på den bil man har taget plads i, note = hvor man kan hentes)
+//       own   = kører selv / kommer selv
+var RIDE_MODES = ['drive', 'need', 'own'];
+function rideRows_(ev) {
+  var out = [];
+  data_('Kørsel').forEach(function (r, i) {
+    if (String(r[1]) !== ev) return;
+    out.push({ row: i + 2, p: String(r[3]), n: String(r[4]), email: String(r[5]).toLowerCase(), mode: String(r[6]), seats: Number(r[7]) || 0,
+               pickup: String(r[8] || ''), time: String(r[9] || ''), driver: String(r[10] || ''), note: String(r[11] || ''), title: String(r[2] || '') });
+  });
+  return out;
+}
+function ridePub_(rows, em, kidIds) {
+  return rows.filter(function (r) { return RIDE_MODES.indexOf(r.mode) >= 0; }).map(function (r) {
+    return { p: r.p, n: r.n, mode: r.mode, seats: r.seats, pickup: r.pickup, time: r.time, driver: r.driver, note: r.note,
+             mine: r.p === kidIds.self || kidIds[r.p] === 1 };
+  });
+}
+function rideWho_(ses, forId) {   // hvem svarer man for: sig selv eller et af sine børn
+  if (!forId || forId === ses.playerId) return { id: ses.playerId, name: ses.playerName, kid: false };
+  var kid = kids_(ses.email).filter(function (k) { return k.id === forId; })[0];
+  return kid ? { id: kid.id, name: kid.name, kid: true } : null;
+}
+function rideIds_(ses) { var o = { self: ses.playerId }; kids_(ses.email).forEach(function (k) { o[k.id] = 1; }); return o; }
+function rideEv_(b) { var ev = clean_(b.event, 80); return /^[mt]:[\w:.\- æøåÆØÅ]+$/.test(ev) ? ev : ''; }
+function rideLink_(b) { var l = clean_(b.link, 120); return /^#\/(holdid\/\d+(\/kamp\/\d+)?|turnering\/[\w%.\-]+)$/.test(l) ? l : ''; }
+function ridePush_(emails, title, text, link, tag) {
+  var want = {}; emails.forEach(function (e) { if (e) want[e] = 1; });
+  if (!Object.keys(want).length) return 0;
+  var jobs = pushTargets_(null, function (em) { return !!want[em]; }).map(function (t) {
+    return [new Date(), t.endpoint, t.p256dh, t.auth, clean_(title, 80), clean_(text, 140), APP_URL + (link || ''), tag];
+  });
+  queuePush_(jobs);
+  return jobs.length;
+}
+function rides_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var ev = rideEv_(b); if (!ev) return { ok: false, error: 'Ukendt kamp' };
+  return { ok: true, event: ev, rides: ridePub_(rideRows_(ev), ses.email.toLowerCase(), rideIds_(ses)) };
+}
+function rideSet_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var ev = rideEv_(b); if (!ev) return { ok: false, error: 'Ukendt kamp' };
+  var who = rideWho_(ses, clean_(b.player, 40));
+  if (!who) return { ok: false, error: 'Du kan kun svare for dig selv og dine egne børn' };
+  var mode = clean_(b.mode, 10);
+  if (mode !== 'clear' && RIDE_MODES.indexOf(mode) < 0) return { ok: false, error: 'Ugyldigt valg' };
+  if (mode === 'drive' && who.kid) return { ok: false, error: 'Et barn kan ikke være chauffør' };
+  var seats = Math.max(0, Math.min(8, Math.floor(Number(b.seats) || 0)));
+  if (mode === 'drive' && seats < 1) return { ok: false, error: 'Vælg mindst 1 ledig plads' };
+  var pickup = mode === 'drive' ? (clean_(b.pickup, 80) || 'vej') : '';
+  var time = mode === 'drive' && /^\d{1,2}[:.]\d{2}$/.test(clean_(b.time, 5)) ? clean_(b.time, 5).replace('.', ':') : '';
+  var note = mode === 'need' ? clean_(b.note, 80) : '';
+  var title = clean_(b.title, 120), link = rideLink_(b), em = ses.email.toLowerCase(), notify = [];
+  var res = withLock_(function () {
+    var rows = rideRows_(ev), sh = sh_('Kørsel'), mine = rows.filter(function (r) { return r.p === who.id; })[0];
+    var pass = rows.filter(function (r) { return r.mode === 'need' && r.driver === who.id; });
+    if (mode === 'drive' && pass.length > seats) return { ok: false, error: 'Du har allerede ' + pass.length + ' passagerer — vælg mindst ' + pass.length + ' pladser' };
+    if (mine && mine.mode === 'drive' && mode !== 'drive' && pass.length) {   // chaufføren kører ikke alligevel: passagererne mangler igen et lift
+      pass.forEach(function (r) { sh.getRange(r.row, 11).setValue(''); notify.push({ em: r.email, t: who.name + ' kører ikke alligevel', x: r.n.split(' ')[0] + ' mangler igen et lift' + (title ? ' · ' + title : '') }); });
+    } else if (mine && mine.mode === 'drive' && mode === 'drive' && pass.length && (mine.pickup !== pickup || mine.time !== time)) {
+      pass.forEach(function (r) { notify.push({ em: r.email, t: 'Ny opsamling hos ' + who.name, x: (pickup === 'vej' ? 'Henter på vejen' : 'Mødested: ' + pickup) + (time ? ' kl. ' + time : '') + (title ? ' · ' + title : '') }); });
+    }
+    var driver = mode === 'need' && mine && mine.mode === 'need' ? mine.driver : '';
+    var vals = [new Date(), safe_(ev), safe_(title || (mine && mine.title) || ''), safe_(who.id), safe_(who.name), em, mode === 'clear' ? 'ryd' : mode, mode === 'drive' ? seats : '',
+                safe_(pickup), time, safe_(driver), safe_(note)];
+    if (mine) sh.getRange(mine.row, 1, 1, vals.length).setValues([vals]); else if (mode !== 'clear') sh.appendRow(vals);
+    if (mine && mine.mode === 'need' && mine.driver && mode !== 'need') {   // forlod en bil ved at skifte valg
+      var d = rows.filter(function (r) { return r.p === mine.driver && r.mode === 'drive'; })[0];
+      if (d) notify.push({ em: d.email, t: who.name + ' kører ikke med alligevel', x: 'Der er en plads mere i din bil' + (title ? ' · ' + title : '') });
+    }
+    return { ok: true };
+  });
+  if (!res.ok) return res;
+  notify.forEach(function (n) { try { ridePush_([n.em], n.t, n.x, link, 'k:' + ev); } catch (e) {} });
+  return { ok: true, event: ev, rides: ridePub_(rideRows_(ev), em, rideIds_(ses)) };
+}
+function rideTake_(b) {   // tag en plads i en bil (driver = chaufførens playerId) eller forlad den (driver = '')
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var ev = rideEv_(b); if (!ev) return { ok: false, error: 'Ukendt kamp' };
+  var who = rideWho_(ses, clean_(b.player, 40));
+  if (!who) return { ok: false, error: 'Du kan kun svare for dig selv og dine egne børn' };
+  var did = clean_(b.driver, 40), title = clean_(b.title, 120), link = rideLink_(b), em = ses.email.toLowerCase(), notify = null;
+  var res = withLock_(function () {
+    var rows = rideRows_(ev), sh = sh_('Kørsel'), mine = rows.filter(function (r) { return r.p === who.id; })[0];
+    if (did) {
+      if (did === who.id) return { ok: false, error: 'Du kan ikke tage plads i din egen bil' };
+      var d = rows.filter(function (r) { return r.p === did && r.mode === 'drive'; })[0];
+      if (!d) return { ok: false, error: 'Bilen findes ikke længere' };
+      if (mine && mine.mode === 'need' && mine.driver === did) return { ok: true };
+      var taken = rows.filter(function (r) { return r.mode === 'need' && r.driver === did; }).length;
+      if (taken >= d.seats) return { ok: false, error: 'Bilen er fuld' };
+      if (mine && mine.mode === 'drive' && rows.some(function (r) { return r.mode === 'need' && r.driver === who.id; })) return { ok: false, error: 'Du har selv passagerer — skift først dit eget valg' };
+      notify = { em: d.email, t: who.name + ' kører med dig', x: (taken + 1) + ' af ' + d.seats + ' pladser taget' + (title ? ' · ' + title : '') };
+    } else if (mine && mine.driver) {
+      var od = rows.filter(function (r) { return r.p === mine.driver && r.mode === 'drive'; })[0];
+      if (od) notify = { em: od.email, t: who.name + ' kører ikke med alligevel', x: 'Der er en plads mere i din bil' + (title ? ' · ' + title : '') };
+    }
+    var vals = [new Date(), safe_(ev), safe_(title || (mine && mine.title) || ''), safe_(who.id), safe_(who.name), em, 'need', '', '', '', safe_(did), safe_(mine && mine.mode === 'need' ? mine.note : '')];
+    if (mine) sh.getRange(mine.row, 1, 1, vals.length).setValues([vals]); else sh.appendRow(vals);
+    return { ok: true };
+  });
+  if (!res.ok) return res;
+  if (notify) { try { ridePush_([notify.em], notify.t, notify.x, link, 'k:' + ev); } catch (e) {} }
+  return { ok: true, event: ev, rides: ridePub_(rideRows_(ev), em, rideIds_(ses)) };
+}
+
 // ---------- Push-kø ----------
 // Scriptet kan ikke selv underskrive web-push. Beskeder lægges i fanen PushKø; GitHub-workflowet push.yml henter
 // køen (?action=pushqueue), tømmer den og sender. Workflowet startes med det samme (højst hvert minut) og af tick().
@@ -1170,6 +1286,9 @@ function doPost(e) {
       case 'actSave': return json_(actSave_(b));
       case 'actDel': return json_(actDel_(b));
       case 'taskSign': return json_(taskSign_(b));
+      case 'rides': return json_(rides_(b));
+      case 'rideSet': return json_(rideSet_(b));
+      case 'rideTake': return json_(rideTake_(b));
       case 'rooms': return json_(rooms_(b));
       case 'messages': return json_(messages_(b));
       case 'post': return json_(post_(b));

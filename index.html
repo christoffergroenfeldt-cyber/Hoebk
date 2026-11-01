@@ -307,6 +307,21 @@ textarea.inp{resize:vertical;line-height:1.45}
 .st-udkast{background:var(--soft)} .st-klar{background:#FFE3C2} .st-indtastet{background:var(--accent)}
 .brand{flex:none;width:40px;height:43px;padding:3px 4px;background:#fff;border-radius:10px;object-fit:contain;box-sizing:border-box}
 .back:not([hidden])+.brand{display:none}
+/* Samkørsel */
+.ride{padding:12px;display:flex;flex-direction:column;gap:10px}
+.rcar{border:1px solid var(--line2);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.rcar.full{background:var(--bg)}
+.rcar .rtop{display:flex;align-items:center;gap:8px}
+.rcar .seats{margin-left:auto;font-size:12px;font-weight:800;border-radius:999px;padding:3px 9px;background:var(--accent);white-space:nowrap}
+.rcar.full .seats{background:var(--seg)}
+.rpass{display:flex;flex-wrap:wrap;gap:6px}
+.rpass span{font-size:12px;font-weight:600;background:var(--seg);border-radius:999px;padding:4px 9px}
+.rpass span.me{background:var(--ink);color:#fff}
+.rpass .free{background:transparent;border:1.5px dashed var(--muted2);color:var(--muted)}
+.rform{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:12px;background:var(--bg)}
+.rform input[type=text],.rform input[type=time],.rform select{min-height:40px;border:1px solid var(--line2);border-radius:10px;padding:0 10px;font:inherit;background:#fff;width:100%;box-sizing:border-box}
+.rb.rsel[aria-pressed=true]{background:var(--ink);color:#fff}
+.rb.take{background:var(--accent);border-color:var(--accent)}
 </style>
 </head>
 <body>
@@ -593,6 +608,7 @@ textarea.inp{resize:vertical;line-height:1.45}
           }
           return mineBlock + (kk.length ? '<span class="lbl">Kan ' + esc(kk.map(function (k) { return k.name.split(' ')[0]; }).join(' / ')) + ' spille?</span>' + kidRegBlocks('match', eid, lab, true, t.label, false) : '');
         })() +
+        rideSection(matchEid(m), t.label + ' ' + (m.isHome ? 'mod ' : '@ ') + m.opponent + ' · ' + dTxt(m.date), m.matchID ? '#/holdid/' + t.leagueGroupTeamID + '/kamp/' + m.matchID : '', kidsOnTeam(t.label)) +
         lineupSection(ti, mi);
     }
     var pts = m.points ? (m.isHome ? m.points : flipScore(m.points)) : '';
@@ -905,6 +921,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span class="xs">' + (isFollowed(t.id) ? 'Du får en mail når der er nyt: ændret frist eller dato, nye rækker, deltagerliste, program og resultater — og 7 og 2 dage før tilmeldingsfristen. Tryk igen for at stoppe.'
         : 'Følg for at få en mail ved ændringer, når program og deltagerliste er klar, og før tilmeldingsfristen.' + (ME && ME.token ? '' : ' Kræver login på Min side.')) + '</span>' +
       '<span class="xs">Arrangør: ' + esc(t.organiser) + '. Placering og køretid er beregnet ud fra arrangørens navn — tjek spillestedet i arrangørens indbydelse.</span></div>';
+    if ((t.end || t.start || '') >= today) h += rideSection('t:' + t.id, t.organiser + ' · ' + dRange(t), '#/turnering/' + encodeURIComponent(t.id), (ME && ME.kids) || []);
     var news = (D.tourNews || {})[t.id] || [];
     if (news.length) h += '<span class="lbl">Nyt</span><div class="card" style="overflow:hidden">' + news.map(function (n, i) {
       return '<div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:10px 12px;' + (i ? 'border-top:1px solid var(--line2)' : '') + '">' +
@@ -2955,6 +2972,141 @@ textarea.inp{resize:vertical;line-height:1.45}
     }).catch(function (err) { toast(err.message); });
   }
 
+  // ---------- Samkørsel (holdkampe og turneringer) ----------
+  // Begivenhed "m:<matchID>" / "t:<turneringId>". Hver person (eller forælderens barn) vælger: kører (ledige pladser +
+  // opsamling: henter på vejen eller et mødested), mangler lift, eller kører selv. Den der mangler lift tager en ledig plads.
+  var RIDE = { ev: {}, ctx: {}, form: {}, busy: {}, off: false };
+  function loadRides(ev, force) {
+    if (!REG.url || !ME || !ME.token || RIDE.off) return;
+    var x = RIDE.ev[ev] || (RIDE.ev[ev] = { list: null, at: 0, loading: false });
+    if (x.loading || (!force && x.list && Date.now() - x.at < 30000)) return;
+    x.loading = true;
+    api({ action: 'rides', token: ME.token, event: ev }).then(function (r) {
+      x.loading = false;
+      if (r && r.ok) { x.list = r.rides || []; x.at = Date.now(); }
+      else if (r && r.error === 'login') { ME = null; saveMe(); }
+      else if (r && r.error === 'Ukendt handling') RIDE.off = true;   // scriptet er ikke opdateret endnu
+      else return;
+      var a = document.activeElement;
+      if (!(a && a.closest && a.closest('.ridebox') && /INPUT|SELECT/.test(a.tagName))) route(true);
+    }).catch(function () { x.loading = false; });
+  }
+  function rideSection(ev, title, link, kids) {
+    if (!REG.url || RIDE.off) return '';
+    var head = '<span class="lbl">Samkørsel</span>';
+    if (!ME || !ME.token) return head + '<button class="rb" data-go="#/tilmeld" style="align-self:flex-start">Log ind for at køre med eller tilbyde et lift</button>';
+    RIDE.ctx[ev] = { title: title, link: link };
+    loadRides(ev);
+    var x = RIDE.ev[ev];
+    if (!x || !x.list) return head + '<div class="card ride"><span class="xs">Henter samkørsel …</span></div>';
+    var L = x.list, drivers = L.filter(function (r) { return r.mode === 'drive'; });
+    var people = [{ id: ME.id, name: ME.name, kid: false }].concat((kids || []).map(function (k) { return { id: k.id, name: k.name, kid: true }; }));
+    var mineOf = function (pid) { return L.filter(function (r) { return r.p === pid; })[0]; };
+    var first = function (n) { return esc(String(n).split(' ')[0]); };
+    var free = 0, need = L.filter(function (r) { return r.mode === 'need' && !r.driver; });
+    var cars = drivers.map(function (d) {
+      var pass = L.filter(function (r) { return r.mode === 'need' && r.driver === d.p; }), left = Math.max(0, d.seats - pass.length); free += left;
+      var takeBtns = left ? people.filter(function (pp) { var m = mineOf(pp.id); return pp.id !== d.p && !(m && m.mode === 'drive') && !(m && m.driver === d.p); }).map(function (pp) {
+        var k = ev + '|' + pp.id;
+        return '<button class="rb take" data-ridetake="' + esc(d.p) + '" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '"' + (RIDE.busy[k] ? ' disabled' : '') + '>' +
+          (mineOf(pp.id) && mineOf(pp.id).driver ? (pp.kid ? 'Flyt ' + first(pp.name) + ' hertil' : 'Skift til denne bil') : pp.kid ? '+ ' + first(pp.name) + ' kører med' : '+ Kør med') + '</button>'; }).join('') : '';
+      var leaveBtns = people.filter(function (pp) { var m = mineOf(pp.id); return m && m.mode === 'need' && m.driver === d.p; }).map(function (pp) {
+        return '<button class="rb" data-ridetake="" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '"' + (RIDE.busy[ev + '|' + pp.id] ? ' disabled' : '') + '>' + (pp.kid ? first(pp.name) + ' kører ikke med' : 'Jeg kører ikke med alligevel') + '</button>'; }).join('');
+      return '<div class="rcar' + (left ? '' : ' full') + '"><div class="rtop">' + CAR + '<b style="font-size:14px">' + esc(d.n) + (d.mine && d.p === ME.id ? ' (dig)' : '') + '</b>' +
+        '<span class="seats">' + (left ? left + ' af ' + d.seats + ' ledig' + (left > 1 ? 'e' : '') : 'Fuld') + '</span></div>' +
+        '<span class="xs">' + (d.pickup && d.pickup !== 'vej' ? 'Mødested: ' + esc(d.pickup) : 'Henter alle på vejen') + (d.time ? ' · afgang kl. ' + esc(d.time) : '') + '</span>' +
+        '<div class="rpass">' + pass.map(function (r) { return '<span' + (r.mine ? ' class="me"' : '') + '>' + esc(r.n) + (r.note && (!d.pickup || d.pickup === 'vej') ? ' · ' + esc(r.note) : '') + '</span>'; }).join('') +
+        new Array(left + 1).join('<span class="free">ledig</span>') + '</div>' +
+        (takeBtns || leaveBtns ? '<div class="reg">' + takeBtns + leaveBtns + '</div>' : '') + '</div>';
+    }).join('');
+    var own = L.filter(function (r) { return r.mode === 'own'; });
+    var sum = L.length ? drivers.length + (drivers.length === 1 ? ' bil' : ' biler') + ' · ' + free + ' ledig' + (free === 1 ? '' : 'e') + ' plads' + (free === 1 ? '' : 'er') + (need.length ? ' · ' + need.length + ' mangler lift' : '')
+                       : 'Ingen har meldt noget endnu — tilbyd et lift eller sig, at du mangler et.';
+    var h = head + '<div class="card ride ridebox"><b style="font-size:14px">' + sum + '</b>' + cars +
+      (need.length ? '<div class="col" style="gap:4px"><span class="xs" style="font-weight:700">Mangler lift</span><div class="rpass">' + need.map(function (r) { return '<span' + (r.mine ? ' class="me"' : '') + '>' + esc(r.n) + (r.note ? ' · ' + esc(r.note) : '') + '</span>'; }).join('') + '</div></div>' : '') +
+      (own.length ? '<span class="xs"><b>Kører selv:</b> ' + esc(own.map(function (r) { return r.n; }).join(', ')) + '</span>' : '') + '</div>';
+    // Dit valg — for dig selv og hvert barn
+    h += people.map(function (pp) {
+      var m = mineOf(pp.id), k = ev + '|' + pp.id, f = RIDE.form[k], mode = f ? 'drive' : (m ? m.mode : '');
+      var opts = pp.kid ? [['need', 'Mangler lift'], ['own', 'Kommer selv']] : [['drive', 'Jeg kører'], ['need', 'Jeg mangler et lift'], ['own', 'Jeg kører selv']];
+      var hh = '<div class="card ride ridebox"><b style="font-size:14px">' + (pp.kid ? esc(pp.name) : (people.length > 1 ? 'Dig' : 'Dit valg')) + '</b><div class="reg">' + opts.map(function (o) {
+        return '<button class="rb rsel" aria-pressed="' + (mode === o[0]) + '" data-ride="' + o[0] + '" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '"' + (RIDE.busy[k] ? ' disabled' : '') + '>' + o[1] + '</button>'; }).join('') + '</div>';
+      if (f) {
+        hh += '<div class="rform"><label class="xs" style="font-weight:700">Ledige pladser (ud over dig selv og dine egne)<select data-rfs="' + esc(k) + '">' +
+          [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) { return '<option' + (+f.seats === n ? ' selected' : '') + '>' + n + '</option>'; }).join('') + '</select></label>' +
+          '<span class="xs" style="font-weight:700">Opsamling</span><div class="reg">' +
+          '<button class="rb rsel" aria-pressed="' + (f.pm === 'vej') + '" data-rpm="vej" data-rk="' + esc(k) + '">Henter alle på vejen</button>' +
+          '<button class="rb rsel" aria-pressed="' + (f.pm === 'sted') + '" data-rpm="sted" data-rk="' + esc(k) + '">Mødested</button></div>' +
+          (f.pm === 'sted' ? '<input type="text" maxlength="80" placeholder="Fx parkeringen ved Hørsholm Hallen" aria-label="Mødested" data-rfp="' + esc(k) + '" value="' + esc(f.place || '') + '">' : '<span class="xs">Passagererne kan skrive, hvor de kan hentes.</span>') +
+          '<label class="xs" style="font-weight:700">Afgang (valgfrit)<input type="time" data-rft="' + esc(k) + '" value="' + esc(f.time || '') + '"></label>' +
+          '<div class="reg"><button class="rb ja" aria-pressed="true" data-ridesave="' + esc(k) + '"' + (RIDE.busy[k] ? ' disabled' : '') + '>' + (m && m.mode === 'drive' ? 'Gem ændringer' : 'Tilbyd lift') + '</button>' +
+          '<button class="rb" data-ridecancel="' + esc(k) + '">Fortryd</button>' +
+          (m && m.mode === 'drive' ? '<button class="rb" data-ride="clear" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '">Træk tilbud tilbage</button>' : '') + '</div></div>';
+      } else if (m && m.mode === 'drive') {
+        hh += '<span class="xs">Du tilbyder ' + m.seats + ' plads' + (m.seats > 1 ? 'er' : '') + '. Tryk på <b>Jeg kører</b> for at ændre pladser, opsamling eller afgang.</span>';
+      } else if (m && m.mode === 'need') {
+        var dr = m.driver && drivers.filter(function (d) { return d.p === m.driver; })[0];
+        hh += '<span class="xs">' + (dr ? (pp.kid ? first(pp.name) + ' kører' : 'Du kører') + ' med <b>' + esc(dr.n) + '</b>.' : (free ? 'Tag en ledig plads i en af bilerne ovenfor.' : 'Ingen ledige pladser endnu — du får besked her, når nogen tilbyder et lift.')) + '</span>' +
+          '<input type="text" maxlength="80" placeholder="Hvor kan ' + (pp.kid ? first(pp.name) : 'du') + ' hentes? (valgfrit)" aria-label="Hvor kan ' + (pp.kid ? first(pp.name) : 'du') + ' hentes" data-rnote="' + esc(k) + '" value="' + esc(m.note || '') + '" style="min-height:40px;border:1px solid var(--line2);border-radius:10px;padding:0 10px;font:inherit">';
+      }
+      if (m && !f && m.mode !== 'drive') hh += '<span class="xs">Tryk på dit valg igen for at fjerne det.</span>';
+      return hh + '</div>';
+    }).join('');
+    return h;
+  }
+  function rideSend(ev, pid, body, okMsg) {
+    var k = ev + '|' + pid, c = RIDE.ctx[ev] || {};
+    RIDE.busy[k] = 1; route(true);
+    var req = { token: ME.token, event: ev, title: c.title, link: c.link, player: pid !== ME.id ? pid : undefined };
+    Object.keys(body).forEach(function (x) { req[x] = body[x]; });
+    return api(req).then(function (r) {
+      if (r && r.error === 'login') { ME = null; saveMe(); throw new Error('Log ind igen'); }
+      if (r && r.error === 'Ukendt handling') { RIDE.off = true; throw new Error('Klubbens server skal opdateres, før samkørsel virker'); }
+      if (!r || !r.ok) throw new Error((r && r.error) || 'Kunne ikke gemme');
+      RIDE.ev[ev] = { list: r.rides, at: Date.now(), loading: false };
+      if (okMsg) toast(okMsg);
+      return true;
+    }).catch(function (err) { toast(err.message); loadRides(ev, true); return false; })
+      .then(function (ok) { delete RIDE.busy[k]; route(true); return ok; });
+  }
+  function rideClick(b) {
+    var ev = b.dataset.rev, pid = b.dataset.rp, k = ev + '|' + pid, L = (RIDE.ev[ev] && RIDE.ev[ev].list) || [];
+    var m = L.filter(function (r) { return r.p === pid; })[0], kid = pid !== ME.id, nm = kid ? ((ME.kids || []).filter(function (x) { return x.id === pid; })[0] || {}).name || '' : '';
+    var fn = nm ? nm.split(' ')[0] : '';
+    if (b.dataset.ridetake !== undefined) {
+      var d = b.dataset.ridetake, dn = d ? (L.filter(function (r) { return r.p === d; })[0] || {}).n || '' : '';
+      if (!d && !confirm((kid ? fn + ' kører' : 'Du kører') + ' ikke med alligevel?')) return;
+      rideSend(ev, pid, { action: 'rideTake', driver: d }, d ? (kid ? fn + ' kører' : 'Du kører') + ' med ' + dn.split(' ')[0] + ' — ' + dn.split(' ')[0] + ' får besked' : 'Pladsen er givet fri');
+      return;
+    }
+    var mode = b.dataset.ride;
+    if (mode === 'drive') {
+      if (RIDE.form[k]) { delete RIDE.form[k]; route(true); return; }
+      RIDE.form[k] = m && m.mode === 'drive' ? { seats: m.seats, pm: m.pickup && m.pickup !== 'vej' ? 'sted' : 'vej', place: m.pickup !== 'vej' ? m.pickup : '', time: m.time }
+                                              : { seats: 3, pm: 'vej', place: '', time: '' };
+      route(true); return;
+    }
+    delete RIDE.form[k];
+    var clear = mode === 'clear' || (m && m.mode === mode);
+    if (m && m.mode === 'drive' && L.some(function (r) { return r.driver === pid; }) && !confirm('Du har passagerer. De får besked om, at du ikke kører alligevel. Fortsæt?')) return;
+    rideSend(ev, pid, { action: 'rideSet', mode: clear ? 'clear' : mode, note: mode === 'need' && m ? m.note : '' },
+      clear ? 'Valget er fjernet' : mode === 'need' ? (kid ? fn + ' mangler' : 'Du mangler') + ' et lift — tag en ledig plads i en bil' : 'Gemt: ' + (kid ? fn + ' kommer selv' : 'du kører selv'));
+  }
+  function rideSave(k) {
+    var f = RIDE.form[k]; if (!f) return;
+    var i = k.lastIndexOf('|'), ev = k.slice(0, i), pid = k.slice(i + 1);
+    if (f.pm === 'sted' && !String(f.place || '').trim()) { toast('Skriv mødestedet'); return; }
+    rideSend(ev, pid, { action: 'rideSet', mode: 'drive', seats: +f.seats, pickup: f.pm === 'sted' ? f.place.trim() : 'vej', time: f.time || '' }, 'Tak! Dit lift er tilbudt').then(function (ok) { if (ok) { delete RIDE.form[k]; route(true); } });
+  }
+  function bindRides() {
+    document.querySelectorAll('[data-rfs]').forEach(function (el) { el.addEventListener('change', function () { RIDE.form[el.dataset.rfs].seats = +el.value; }); });
+    document.querySelectorAll('[data-rfp]').forEach(function (el) { el.addEventListener('input', function () { RIDE.form[el.dataset.rfp].place = el.value; }); });
+    document.querySelectorAll('[data-rft]').forEach(function (el) { el.addEventListener('change', function () { RIDE.form[el.dataset.rft].time = el.value; }); });
+    document.querySelectorAll('[data-rnote]').forEach(function (el) { el.addEventListener('change', function () {
+      var k = el.dataset.rnote, i = k.lastIndexOf('|');
+      rideSend(k.slice(0, i), k.slice(i + 1), { action: 'rideSet', mode: 'need', note: el.value.trim() }, 'Gemt');
+    }); });
+  }
   // ---------- Aktiviteter (administrator planlægger, spillere og forældre tager opgaver) ----------
   // Tider er lokal tid "YYYY-MM-DDTHH:MM". Hentes fra scriptet (acts) — uden login kun aktiviteter for alle, uden navne.
   var PLAN = { list: null, canEdit: false, at: 0, loading: false, form: null, saving: false, busy: {} };
@@ -3441,6 +3593,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       kq.addEventListener('input', function () { UI.kq = kq.value; renderKidList(); });
       var pn = document.getElementById('pname'); if (pn) pn.addEventListener('input', function () { UI.pname = pn.value; });
     }
+    if (document.querySelector('.ridebox')) bindRides();
     if (parts[0] === 'nyheder' && parts[1] === 'ny' && document.getElementById('nwTitle')) {
       document.getElementById('nwTitle').addEventListener('input', function (e) { SNAK.nf.title = e.target.value; });
       document.getElementById('nwText').addEventListener('input', function (e) { SNAK.nf.text = e.target.value; });
@@ -3520,7 +3673,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf],[data-toparent]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf],[data-toparent],[data-ride],[data-ridetake],[data-ridesave],[data-ridecancel],[data-rpm]');
     if (!b) return;
     if (b.dataset.act === 'pnamesave') {
       var nv = ((document.getElementById('pnameEdit') || {}).value || '').trim().replace(/\s+/g, ' ');
@@ -3563,6 +3716,10 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (b.dataset.act === 'actedit') { actForm(actById(b.dataset.id)); return; }
     if (b.dataset.act === 'actdel') { delAct(b.dataset.id); return; }
     if (b.dataset.act === 'actsave') { saveAct(); return; }
+    if (b.dataset.ride || b.dataset.ridetake !== undefined) { rideClick(b); return; }
+    if (b.dataset.ridesave) { rideSave(b.dataset.ridesave); return; }
+    if (b.dataset.ridecancel) { delete RIDE.form[b.dataset.ridecancel]; route(true); return; }
+    if (b.dataset.rpm) { RIDE.form[b.dataset.rk].pm = b.dataset.rpm; route(true); if (b.dataset.rpm === 'sted') { var rp = document.querySelector('[data-rfp]'); if (rp) rp.focus(); } return; }
     if (b.dataset.act === 'parentstart') { UI.step = 'parent'; route(); return; }
     if (b.dataset.act === 'parentnext') { parentNext(); return; }
     if (b.dataset.act === 'kidsave') { saveKids(); return; }
