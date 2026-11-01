@@ -213,6 +213,13 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .planev b.ellip::before,.news.plan>b::before{content:'◆ ';color:var(--plan);font-size:.85em}
 .bar.planbar::before{content:'◆';margin-right:2px}
 .mseg button{display:flex;align-items:center;justify-content:center;gap:6px}
+.mtabs{padding:2px 0 4px;margin:0 -14px;padding-left:14px;padding-right:14px}
+.mtabs .chip{display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 11px}
+.mtabs .chip.par[aria-pressed=true]{background:#5F7D0F;border-color:#5F7D0F}
+.badge.warnb{background:#F3B35B;color:#0E2236}
+.why{font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;background:var(--soft)}
+.why.sel{background:var(--accent);font-weight:800}
+.kidnext{width:100%;border:0;border-top:1px solid var(--line2);background:none;padding:8px 0 0;display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;font-size:inherit}
 .badge.sm{min-width:18px;height:18px;font-size:11px;padding:0 5px}
 .alert{border-left:5px solid #F3B35B;background:#FFF7EC}
 .tile.warn2{background:#FFF7EC;border-color:#F3D3A6}
@@ -408,7 +415,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     document.getElementById('top').classList.toggle('has-back', !!back);
     document.title = title + ' · HØBK';
     var ab = document.getElementById('adminBtn');   // administration — kun for holdledere og administratorer
-    if (ab) { ab.hidden = !(typeof isLeader === 'function' && isLeader()); ab.classList.toggle('on', /^#\/(admin|holdleder|ledere)/.test(location.hash)); }
+    if (ab) { ab.hidden = !(typeof isLeader === 'function' && isLeader()); ab.classList.toggle('on', /^#\/(admin|holdleder|ledere|tilmeld\/(admin|holdleder))/.test(location.hash)); }
   }
   function setTab(tab) {
     document.querySelectorAll('nav.tabs a').forEach(function (a) {
@@ -1576,14 +1583,48 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!ME.groups) { ME.groups = defaultGroups(myTeams); saveMe(); }
     setHeader('Min side', ME.name, false);
     loadRooms(false); loadActs(false);
-    sub = sub === 'snak' || sub === 'profil' ? sub : 'program';
+    // Faner: Program og Chat for alle, derefter én pr. rolle man har
+    var roles = myRoles(), tabs = [['program', 'Program'], ['snak', 'Chat']].concat(roles);
+    if (sub === 'profil') sub = roles.length ? roles[0][0] : 'program';   // gammel adresse
+    if (!tabs.some(function (t) { return t[0] === sub; })) sub = 'program';
     var unreadRooms = (SNAK.rooms || []).reduce(function (n, r) { return n + (r.muted || r.extra ? 0 : unread(r)); }, 0);
-    var h = '<div class="seg mseg" role="tablist" style="grid-template-columns:repeat(3,minmax(0,1fr))">' +
-      [['program', 'Mit program'], ['snak', 'Chat' + (unreadRooms ? ' <span class="badge sm">' + unreadRooms + '</span>' : '')], ['profil', 'Profil']].map(function (x) {
-        return '<button role="tab" aria-selected="' + (sub === x[0]) + '" data-go="#/tilmeld' + (x[0] === 'program' ? '' : '/' + x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>';
+    var badge = { snak: unreadRooms, holdleder: missingSelections(), admin: adminChatUnread() };
+    var h = '<nav class="chips mtabs" aria-label="Min side">' + tabs.map(function (x) {
+      var on = sub === x[0], n = badge[x[0]] || 0;
+      return '<button class="chip' + (x[0] === 'foraelder' ? ' par' : '') + '" aria-pressed="' + on + '" data-go="#/tilmeld' + (x[0] === 'program' ? '' : '/' + x[0]) + '">' + x[1] +
+        (n ? ' <span class="badge sm' + (x[0] === 'snak' ? '' : ' warnb') + '">' + n + '</span>' : '') + '</button>'; }).join('') + '</nav>';
     if (sub === 'snak') return h + minSnak();
-    if (sub === 'profil') return h + minProfil(P, parent, myTeams);
+    if (sub === 'spiller') return h + minSpiller(P, myTeams);
+    if (sub === 'foraelder') return h + minForaelder(parent);
+    if (sub === 'holdleder') return h + minHoldleder();
+    if (sub === 'admin') return h + adminCards();
     return h + minProgram(P, parent, myTeams);
+  }
+  function myRoles() {
+    var r = [];
+    if (ME && !isParentId(ME.id)) r.push(['spiller', 'Spiller']);
+    if (ME && (isParentId(ME.id) || (ME.kids && ME.kids.length))) r.push(['foraelder', 'Forælder']);
+    if (isLeader()) r.push(['holdleder', 'Holdleder']);
+    if (ME && ME.role && ME.role.admin) r.push(['admin', 'Admin']);
+    return r;
+  }
+  function missingSelections() {
+    if (!isLeader()) return 0;
+    var n = 0; leaderTeams().forEach(function (ti) { var t = D.teams[ti], mi = nextMatchIdx(t); if (mi >= 0 && !lineupFor(t.matches[mi])) n++; });
+    return n;
+  }
+  function adminChatUnread() { var r = (SNAK.rooms || []).filter(function (x) { return x.id === 'x:admin'; })[0]; return r && !r.muted ? unread(r) : 0; }
+  function inSquad(m, id) { var lu = lineupFor(m); return !!(lu && (lu.squad || []).some(function (p) { return String(p.id) === String(id); })); }
+  // Er en aktivitet rettet mod mig? (mine/fulgte/børnenes hold eller mine træningsgrupper)
+  function actForMe(a) {
+    if (!a.to || a.to.indexOf('*') >= 0) return false;
+    var mine = {};
+    D.teams.forEach(function (t) {
+      var id = 'h:' + t.leagueGroupTeamID, P = D.players[ME.id];
+      if (follows().indexOf(teamFid(t)) >= 0 || (P && P.teams.indexOf(t.label) >= 0) || kidTeams().indexOf(t.label) >= 0) mine[id] = 1;
+    });
+    (ME.groups || []).forEach(function (g) { mine['g:' + g] = 1; });
+    return a.to.some(function (x) { return mine[x]; });
   }
   // ---- Min side · Mit program: det der kræver noget af dig + dit program de næste 14 dage ----
   function minProgram(P, parent, myTeams) {
@@ -1592,25 +1633,41 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (isLeader()) {
       var todo = 0;
       leaderTeams().forEach(function (ti) { var t = D.teams[ti], mi = nextMatchIdx(t); if (mi >= 0 && !lineupFor(t.matches[mi])) todo++; });
-      if (todo) h += '<button class="card row alert" data-go="#/admin"><span class="col"><b style="font-size:14px">' + todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse</b><span class="xs">Holdleder · tryk for at udtage</span></span><span class="h" style="font-size:20px">›</span></button>';
+      if (todo) h += '<button class="card row alert" data-go="#/tilmeld/holdleder"><span class="col"><b style="font-size:14px">' + todo + ' kamp' + (todo === 1 ? '' : 'e') + ' mangler udtagelse</b><span class="xs">Holdleder · tryk for at udtage</span></span><span class="h" style="font-size:20px">›</span></button>';
     }
     // Saml programmet: kampe for hold man følger, ens træning, appens aktiviteter
-    var items = [];
+    var items = [], last = iso(addDays(new Date(), 13)), kids = (ME.kids || []);
     D.teams.forEach(function (t, ti) {
-      if (fids.indexOf(teamFid(t)) < 0) return;
-      t.matches.forEach(function (m, mi) { if (!m.played && m.date >= today && m.date <= iso(addDays(new Date(), 13))) items.push({ k: 'match', d: m.date, t: m.time || '', team: t, ti: ti, m: m, mi: mi, eid: matchEid(m) }); });
+      var fol = fids.indexOf(teamFid(t)) >= 0;
+      t.matches.forEach(function (m, mi) {
+        if (m.played || m.date < today || m.date > last) return;
+        var me = !parent && inSquad(m, ME.id), kidSel = kids.filter(function (k) { return inSquad(m, k.id); });
+        if (!fol && !me && !kidSel.length) return;
+        var why = me ? '✓ Du er udtaget' : kidSel.length ? '✓ ' + kidSel.map(function (k) { return k.name.split(' ')[0]; }).join(' og ') + ' er udtaget' : '★ Hold du følger';
+        items.push({ k: 'match', d: m.date, t: m.time || '', team: t, ti: ti, m: m, mi: mi, eid: me || !parent ? matchEid(m) : '', why: why, sel: me || kidSel.length > 0 });
+      });
+    });
+    (D.tours || []).forEach(function (t) {   // turneringer man følger
+      if (fids.indexOf(t.id) < 0) return;
+      var st = t.start, en = t.end || t.start;
+      if (en < today || st > last) return;
+      items.push({ k: 'tour', d: st < today ? today : st, t: '', tour: t });
     });
     for (var i = 0; i < 14; i++) {
       var ds = iso(addDays(new Date(), i));
       (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && myHoldPass(e.team, e.hold, e.also)) items.push({ k: 'training', d: ds, t: e.time, e: e, eid: e.eid }); });
     }
-    (PLAN.list || []).forEach(function (a) { if (a.end >= now && a.start.slice(0, 10) <= iso(addDays(new Date(), 13))) items.push({ k: 'plan', d: a.start.slice(0, 10) < today ? today : a.start.slice(0, 10), t: a.start.slice(11, 16), a: a }); });
+    (PLAN.list || []).forEach(function (a) {   // appens aktiviteter: rettet mod dine hold/grupper, eller du har taget en opgave
+      if (a.end < now || a.start.slice(0, 10) > last) return;
+      if (!actForMe(a) && !a.tasks.some(function (t) { return t.mine; })) return;
+      items.push({ k: 'plan', d: a.start.slice(0, 10) < today ? today : a.start.slice(0, 10), t: a.start.slice(11, 16), a: a });
+    });
     items.sort(function (x, y) { return (x.d + x.t).localeCompare(y.d + y.t); });
     var missing = items.filter(function (x) { return x.eid && !mine(x.eid); }).length;
     // Valgt en træningsgruppe med flere hold uden at vælge sit hold → alle holdenes træning kommer med
     var wide = (ME.groups || []).filter(function (g) { var hs = trHolds(g); return hs.length > 1 && !(ME.holds || []).some(function (x) { return hs.indexOf(x) >= 0; }); });
-    if (wide.length) h += '<button class="card row alert" data-go="#/tilmeld/profil"><span class="col"><b style="font-size:14px">Vælg dit hold i ' + esc(wide.join(' og ')) + '</b>' +
-      '<span class="xs">Lige nu står træningen for alle ' + esc(wide.join('/')) + '-hold i dit program. Vælg dit eget hold under Profil.</span></span><span class="h" style="font-size:20px">›</span></button>';
+    if (wide.length) h += '<button class="card row alert" data-go="#/tilmeld/' + (isParentId(ME.id) ? 'foraelder' : 'spiller') + '"><span class="col"><b style="font-size:14px">Vælg dit hold i ' + esc(wide.join(' og ')) + '</b>' +
+      '<span class="xs">Lige nu står træningen for alle ' + esc(wide.join('/')) + '-hold i dit program. Vælg dit eget hold.</span></span><span class="h" style="font-size:20px">›</span></button>';
     var tasks = []; (PLAN.list || []).forEach(function (a) { if (a.end >= now) a.tasks.forEach(function (t) { if (t.mine) tasks.push({ a: a, t: t }); }); });
     if (missing || tasks.length) {
       h += '<div class="tiles" style="grid-template-columns:repeat(2,minmax(0,1fr))">' +
@@ -1621,8 +1678,9 @@ textarea.inp{resize:vertical;line-height:1.45}
       return '<button class="card row" style="min-height:48px;border-left:5px solid ' + actColor(x.a).bg + '" data-go="#/aktivitet/' + encodeURIComponent(x.a.id) + '"><span class="col"><b style="font-size:14px">' + esc(x.t.title) + '</b>' +
         '<span class="xs ellip">' + esc(x.a.name + ' · ' + (x.t.from ? taskTime(x.t, x.a).replace(/^kl\. /, dTxt(x.a.start.slice(0, 10)) + ' kl. ') : rangeTxt(x.a))) + '</span></span><span class="xs">›</span></button>'; }).join('');
     h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Dit program de næste 14 dage</span><button class="pl xs" data-go="#/kalender/uge/' + today + '">Kalender ›</button></div>';
+    h += '<p class="note" style="margin-top:-4px">Viser hold og turneringer du følger, kampe du' + ((ME.kids || []).length ? ' eller dine børn' : '') + ' er udtaget til, dine træningshold og aktiviteter for dem.</p>';
     if (!items.length) {
-      return h + '<p class="empty">Intet i dit program endnu.</p><p class="note">Følg dine hold og vælg dine træningsgrupper under <button class="pl" style="font-size:inherit;text-decoration:underline" data-go="#/tilmeld/profil">Profil</button>, så kommer kampe og træning her.</p>';
+      return h + '<p class="empty">Intet i dit program de næste 14 dage.</p><p class="note">Følg hold og turneringer og vælg dine træningshold under <button class="pl" style="font-size:inherit;text-decoration:underline" data-go="#/tilmeld/' + (isParentId(ME.id) ? 'foraelder' : 'spiller') + '">' + (isParentId(ME.id) ? 'Forælder' : 'Spiller') + '</button>. Kampe du bliver udtaget til kommer også her.</p>';
     }
     var day = '';
     items.forEach(function (x) {
@@ -1633,11 +1691,17 @@ textarea.inp{resize:vertical;line-height:1.45}
         h += '<div class="evwrap' + need + '" style="border-left-color:' + teamColor(u.team.label).bg + '"><button class="evtop" data-go="#/hold/' + u.ti + '/kamp/' + u.mi + '">' +
           '<span class="col"><b style="font-size:13px">' + esc(u.m.time || '–') + '</b></span>' +
           '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.team.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveShort(u.m) ? driveShort(u.m) + ' · ' : '') + u.m.venue) + '</span></span>' +
-          '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' + regBlock('match', u.eid, label, false) + '</div>';
+          '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' +
+          '<div style="display:flex;gap:6px;flex-wrap:wrap;padding:0 2px"><span class="why' + (u.sel ? ' sel' : '') + '">' + esc(u.why) + '</span></div>' +
+          (u.eid ? regBlock('match', u.eid, label, false) : '') + '</div>';
+      } else if (x.k === 'tour') {
+        var tt = x.tour;
+        h += '<button class="ev" style="border-left-color:var(--tour);width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="#/turnering/' + encodeURIComponent(tt.id) + '">' +
+          '<span class="tm">–</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(tt.organiser) + '</b><span class="xs ellip">★ Turnering du følger' + (tt.deadline && tt.deadline >= today ? ' · frist ' + esc(dTxt(tt.deadline)) : '') + '</span></span><span></span></button>';
       } else if (x.k === 'training') {
         var e = x.e;
         h += '<div class="evwrap tr' + need + '"><div class="evtop"><span class="col"><b style="font-size:13px">' + esc(e.time) + '</b></span>' +
-          '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + '</span></span><span></span></div>' +
+          '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + ' · din træningsgruppe</span></span><span></span></div>' +
           regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
       } else {
         var a = x.a, my = a.tasks.filter(function (t) { return t.mine; }), free = openSlots(a);
@@ -1653,37 +1717,97 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (SNAK.off) return '<p class="empty">Chat er ikke slået til endnu.</p>';
     return snakBlock(99) + '<p class="note">Du er med i chatten for de hold du spiller på, følger eller er holdleder for' + (ME.kids && ME.kids.length ? ', dine børns hold' : '') + ' og for de træningsgrupper du har valgt under Profil.</p>';
   }
-  // ---- Min side · Profil: dig, børn, administration, træningsgrupper, følger, notifikationer ----
-  function minProfil(P, parent, myTeams) {
-    var h = '<div class="card me"><span class="av" style="' + (parent ? 'background:' + PARENT.bg + ';color:' + PARENT.fg : avStyle(P)) + '">' + esc(ini(ME.name)) + '</span>' +
-      '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (parent ? 'Forælder til ' + esc(kidsTxt()) : myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') + '</span>' +
-      '<span class="xs ellip">' + esc(ME.email || '') + '</span></span>' +
-      '<button class="rb" data-act="logout" style="min-height:36px">Log ud</button></div>';
-    if (parent || (ME.kids && ME.kids.length)) h += '<button class="card row" style="min-height:52px" data-go="#/boern"><span class="col"><b style="font-size:14px">Mine børn</b>' +
-      '<span class="xs ellip">' + (ME.kids && ME.kids.length ? esc(ME.kids.map(function (k) { var kp = D.players[k.id]; return k.name.split(' ')[0] + (kp && kp.teams.length ? ' (' + kp.teams.join(', ') + ')' : ''); }).join(' · ')) : 'Vælg dit barn') + '</span></span><span class="xs">Ret ›</span></button>';
-    else if (REG.ver >= '2026-10-31.2') h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-go="#/boern"><span class="col"><b style="font-size:14px">Er du også forælder?</b>' +
-      '<span class="xs">Tilføj dine børn — så kommer du med i deres holds chat</span></span><span class="xs">›</span></button>';
-    if (isLeader()) h += '<p class="note">Administration (nyheder, aktiviteter, holdledere, udtagelse) ligger under skjoldet øverst til højre.</p>';
-    // Træningsgrupper og hold
-    h += '<span class="lbl">Mine træningsgrupper</span><div class="chips" role="group" aria-label="Mine træningsgrupper" style="flex-wrap:wrap">' + GROUPS.map(function (g) {
+  // ---- Min side · fælles blokke ----
+  function groupsBlock() {
+    var h = '<span class="lbl">Mine træningshold</span><div class="chips" role="group" aria-label="Mine træningsgrupper" style="flex-wrap:wrap">' + GROUPS.map(function (g) {
       return '<button class="chip" aria-pressed="' + (ME.groups.indexOf(g) >= 0) + '" data-group="' + g + '">' + g + '</button>'; }).join('') + '</div>';
     GROUPS.forEach(function (g) {
       var hs = ME.groups.indexOf(g) >= 0 ? trHolds(g) : [];
       if (hs.length > 1) h += '<span class="xs" style="display:block;margin:2px 4px 0">' + esc(g) + ': vælg dit hold (ingen valgt = alle)</span><div class="chips" role="group" aria-label="Mine hold – ' + esc(g) + '" style="flex-wrap:wrap">' +
         hs.map(function (x) { return '<button class="chip" aria-pressed="' + ((ME.holds || []).indexOf(x) >= 0) + '" data-mhold="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</div>';
     });
-    h += '<p class="note">Bestemmer hvilken træning der står i dit program og hvilke træningsgruppers chat du er med i.</p>';
-    // Hold og turneringer du følger
+    return h + '<p class="note">Bestemmer hvilken træning der står i dit program og hvilke træningsgruppers chat du er med i.</p>';
+  }
+  function followBlock(myTeams) {
     var fb = followedBlock();
-    if (fb) h += fb;
-    else {
-      var mineT = D.teams.filter(function (t) { return myTeams.indexOf(t.label) >= 0; });
-      h += '<span class="lbl">Hold du følger</span><p class="empty" style="margin-bottom:6px">Du følger ingen hold endnu. Følg et hold for at få dets kampe i dit program og besked før kampene.</p>' +
-        (mineT.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px">' + mineT.map(function (t) { return '<button class="chip" data-follow="' + esc(teamFid(t)) + '">☆ Følg ' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') +
-        '<p class="note">Eller tryk <b>☆ Følg holdet</b> på et holds side under Hold.</p>';
-    }
-    if (P) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--tour)" data-go="#/spiller/' + encodeURIComponent(P.id) + '"><span class="col"><b style="font-size:14px">Turneringer for dit niveau</b><span class="xs">Din spillerside med resultater og turneringer der passer dig</span></span><span class="xs">›</span></button>';
-    h += '<span class="lbl">Indstillinger</span>' + pushCard() + shopCard();
+    if (fb) return fb;
+    var mineT = D.teams.filter(function (t) { return myTeams.indexOf(t.label) >= 0; });
+    return '<span class="lbl">Hold jeg følger</span><p class="empty" style="margin-bottom:6px">Du følger ingen hold endnu. Følg et hold for at få dets kampe i dit program og besked før kampene.</p>' +
+      (mineT.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px">' + mineT.map(function (t) { return '<button class="chip" data-follow="' + esc(teamFid(t)) + '">☆ Følg ' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') +
+      '<p class="note">Eller tryk <b>☆ Følg holdet</b> på et holds side under Hold.</p>';
+  }
+  function settingsBlock() {
+    return '<span class="lbl">Indstillinger</span>' + pushCard() + shopCard() +
+      '<div class="card row" style="min-height:56px"><span class="col"><b style="font-size:14px">Log ud</b><span class="xs ellip">' + esc(ME.email || '') + '</span></span>' +
+      '<button class="rb" data-act="logout" style="min-height:38px">Log ud</button></div>';
+  }
+  function roomsFor(pred) { return sortedRooms().filter(function (r) { return !r.extra && pred(r); }); }
+  // ---- Min side · Spiller ----
+  function minSpiller(P, myTeams) {
+    var h = '<div class="card me"><span class="av" style="' + avStyle(P) + '">' + esc(ini(ME.name)) + '</span>' +
+      '<span class="col" style="flex:1 1 auto"><b>' + esc(ME.name) + '</b><span class="xs">' + (myTeams.length ? esc(myTeams.join(', ')) : 'Ingen hold endnu') +
+      (P && playerLevels(P).length ? ' · niveau ' + esc(playerLevels(P)[0]) : '') + '</span></span>' +
+      (P ? '<button class="pl xs" data-go="#/spiller/' + encodeURIComponent(P.id) + '">Min spillerside ›</button>' : '') + '</div>';
+    h += groupsBlock();
+    h += followBlock(myTeams);
+    if (P) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--tour)" data-go="#/spiller/' + encodeURIComponent(P.id) + '"><span class="col"><b style="font-size:14px">Turneringer for dit niveau</b><span class="xs">Turneringer der passer dig — og dine resultater</span></span><span class="xs">›</span></button>';
+    if (!(ME.kids && ME.kids.length) && REG.ver >= '2026-10-31.2') h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-go="#/boern"><span class="col"><b style="font-size:14px">Er du også forælder?</b>' +
+      '<span class="xs">Tilføj dine børn — så får du en Forælder-fane og kommer med i deres holds chat</span></span><span class="xs">›</span></button>';
+    return h + settingsBlock();
+  }
+  // ---- Min side · Forælder ----
+  function minForaelder(parent) {
+    var today = iso(new Date()), h = '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Mine børn</span><button class="pl xs" data-go="#/boern">Ret ›</button></div>';
+    var kids = ME.kids || [];
+    if (!kids.length) h += '<p class="empty">Du har ikke valgt nogen børn endnu.</p>';
+    var kidTeamIds = {};
+    kids.forEach(function (k) {
+      var kp = D.players[k.id], teams = kp ? kp.teams : [], next = null;
+      D.teams.forEach(function (t, ti) {
+        if (teams.indexOf(t.label) < 0) return;
+        kidTeamIds['h:' + t.leagueGroupTeamID] = 1;
+        var mi = nextMatchIdx(t); if (mi < 0) return;
+        var m = t.matches[mi];
+        if (!next || (m.date + m.time) < (next.m.date + next.m.time)) next = { t: t, ti: ti, m: m, mi: mi };
+      });
+      h += '<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:10px">' +
+        '<div style="display:flex;align-items:center;gap:12px"><span class="av" style="width:42px;height:42px;' + avStyle(kp) + '">' + esc(ini(k.name)) + '</span>' +
+        '<span class="col" style="flex:1 1 auto"><b style="font-size:15px">' + esc(k.name) + '</b><span class="xs">' + esc(teams.length ? teams.join(', ') : 'Ingen holdkampe i år') + '</span></span>' +
+        (kp ? '<button class="pl xs" data-go="#/spiller/' + encodeURIComponent(k.id) + '">Spillerside ›</button>' : '') + '</div>' +
+        (next ? '<button class="kidnext" data-go="#/hold/' + next.ti + '/kamp/' + next.mi + '"><span class="col"><b style="font-size:13px">' + esc(dTxt(next.m.date)) + ' · ' + esc(next.t.label) + ' ' + (next.m.isHome ? 'mod ' : '@ ') + esc(next.m.opponent) + '</b>' +
+          '<span class="xs">kl. ' + esc(next.m.time || '–') + (driveShort(next.m) ? ' · ' + esc(driveShort(next.m)) : next.m.isHome ? ' · hjemme' : '') + '</span></span>' +
+          (inSquad(next.m, k.id) ? '<span class="why sel">Udtaget</span>' : lineupFor(next.m) ? '<span class="why">Ikke udtaget</span>' : '<span class="why">Ikke udtaget endnu</span>') + '</button>'
+          : '<span class="xs">Ingen kommende holdkampe.</span>') + '</div>';
+    });
+    h += '<button class="rb" data-go="#/boern" style="min-height:44px;border-style:dashed;border-color:' + PARENT.bg + ';color:' + PARENT.bg + '">+ Tilføj barn</button>';
+    var rooms = roomsFor(function (r) { return kidTeamIds[r.id]; });
+    if (rooms.length) h += '<span class="lbl">Børnenes chat</span>' + rooms.map(roomRow).join('');
+    h += '<p class="note">Kampe dine børn bliver udtaget til, står også i dit Program.</p>';
+    if (parent) h += groupsBlock() + followBlock(kidTeams()) + settingsBlock();   // ren forælder: ingen Spiller-fane
+    return h;
+  }
+  // ---- Min side · Holdleder ----
+  function minHoldleder() {
+    if (!isLeader()) return '<p class="empty">Kun for holdledere.</p>';
+    var h = '', n = missingSelections();
+    if (n) h += '<div class="card row alert" style="cursor:default"><span class="col"><b style="font-size:14px">' + n + ' kamp' + (n === 1 ? '' : 'e') + ' mangler udtagelse</b><span class="xs">Tryk på kampen for at udtage spillere</span></span></div>';
+    var order = leaderTeams().filter(function (ti) { return nextMatchIdx(D.teams[ti]) >= 0; }).sort(function (a, b) {
+      var ma = D.teams[a].matches[nextMatchIdx(D.teams[a])], mb = D.teams[b].matches[nextMatchIdx(D.teams[b])];
+      return (ma.date + (ma.time || '')).localeCompare(mb.date + (mb.time || '')); });
+    h += '<span class="lbl">' + (ME.role.admin ? 'Alle hold' : 'Mine hold') + ' · næste kamp</span>';
+    h += order.length ? order.map(function (ti) {
+      var t = D.teams[ti], mi = nextMatchIdx(t), m = t.matches[mi], lu = lineupFor(m), w = who(matchEid(m));
+      var ans = w.ja.length + w.maaske.length + w.nej.length;
+      return '<div class="card" style="padding:12px;display:flex;flex-direction:column;gap:8px;border-left:5px solid ' + teamColor(t.label).bg + '">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="col"><b style="font-size:14px">' + esc(t.label) + ' <span style="font-weight:500">' + (m.isHome ? 'mod ' : '@ ') + esc(m.opponent) + '</span></b>' +
+        '<span class="xs">' + esc(dTxt(m.date)) + ' kl. ' + esc(m.time || '') + '</span></span>' + (lu ? stPill(lu.status) : '<span class="st st-udkast">Ikke udtaget</span>') + '</div>' +
+        '<span class="xs"><b style="color:var(--ink)">' + w.ja.length + '</b> kan · <b style="color:var(--ink)">' + w.maaske.length + '</b> måske · <b style="color:var(--ink)">' + w.nej.length + '</b> kan ikke' + (ans ? '' : ' · ingen svar endnu') + '</span>' +
+        '<div class="reg"><button class="rb' + (lu ? '' : ' ja') + '" aria-pressed="' + !lu + '" data-go="#/udtag/' + ti + '/' + mi + '" style="flex:1">' + (lu ? 'Ret udtagelse' : 'Udtag spillere') + '</button>' +
+        (lu ? '<button class="rb" data-go="#/opstilling/' + ti + '/' + mi + '" style="flex:1">Opstilling</button>' : '') + '</div></div>';
+    }).join('') : '<p class="empty">Ingen kommende kampe for dine hold.</p>';
+    var leadT = {}; leaderTeams().forEach(function (ti) { leadT['h:' + D.teams[ti].leagueGroupTeamID] = 1; });
+    var rooms = roomsFor(function (r) { return leadT[r.id]; });
+    if (rooms.length && !ME.role.admin) h += '<span class="lbl">Holdenes chat</span>' + rooms.map(roomRow).join('');
     return h;
   }
   function renderMeList() {
@@ -1832,11 +1956,12 @@ textarea.inp{resize:vertical;line-height:1.45}
     return h;
   }
   // Administration (knappen med skjoldet i topbjælken): alt for holdledere og administratorer samlet ét sted
-  function viewHoldleder() {
-    setTab('');
+  function viewHoldleder() {   // gammel adresse (#/admin, #/holdleder) → Min side-fanen
+    location.replace(ME && ME.role && ME.role.admin ? '#/tilmeld/admin' : '#/tilmeld/holdleder'); return '';
+  }
+  function adminCards() {
     var admin = !!(ME && ME.role && ME.role.admin);
-    setHeader('Administration', admin ? (ME.role.super ? 'Hovedadministrator' : 'Administrator' + (ME.role.owner ? ' · fast' : '')) + ' · alle hold' : 'Holdleder · dine hold', true);
-    if (!isLeader()) return '<p class="empty">Siden er kun for holdledere og administratorer.</p>';
+    if (!admin) return '<p class="empty">Kun for administratorer.</p>';
     var card = function (go, title, sub, color, act) {
       return '<button class="card row" style="min-height:56px;border-left:5px solid ' + color + '" ' + (act ? 'data-act="' + act + '"' : 'data-go="' + go + '"') + '><span class="col"><b style="font-size:15px">' + title + '</b><span class="xs">' + sub + '</span></span><span class="h" style="font-size:20px">›</span></button>';
     };
@@ -1858,7 +1983,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       h += '<span class="lbl">Personer</span>' +
         card('#/ledere', 'Administratorer og holdledere', (ME.role.owner ? 'Udnævn administratorer og holdledere' : 'Udnævn holdledere') + ' · brugerstatistik', 'var(--ink)');
     }
-    h += '<span class="lbl">Holdkampe — udtagelse og opstilling</span><p class="s" style="margin:-2px 4px 0">Næste kamp for ' + (admin ? 'hvert hold' : 'dine hold') + '. Tryk for at udtage spillere og lave opstillingen.</p>' + leaderBlock().replace('<span class="lbl">Næste kampe</span>', '');
+    h += '<p class="note">' + (ME.role.super ? 'Du er hovedadministrator.' : ME.role.owner ? 'Du er fast administrator.' : 'Du er administrator.') + ' Udtagelse til holdkampe ligger under fanen Holdleder.</p>';
     return h;
   }
   function leaderBlock() {
@@ -3031,6 +3156,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (!keepScroll) scrollBottom();
       markSeen(sroom);
     }
+    var mt = document.querySelector('.mtabs [aria-pressed="true"]');   // valgt fane i Min side altid synlig
+    if (mt && mt.parentNode.scrollWidth > mt.parentNode.clientWidth) mt.parentNode.scrollLeft = Math.max(0, mt.offsetLeft - mt.parentNode.clientWidth / 2 + mt.offsetWidth / 2);
     if (document.getElementById('afName')) bindActForm();
     if (document.getElementById('kq')) {
       renderKidList();
@@ -3216,7 +3343,7 @@ textarea.inp{resize:vertical;line-height:1.45}
 
   $main.addEventListener('change', function (e) { if (e.target && e.target.id === 'mailpref') setMailPref(e.target.checked); });
 
-  document.getElementById('adminBtn').addEventListener('click', function () { location.hash = '#/admin'; });
+  document.getElementById('adminBtn').addEventListener('click', function () { location.hash = ME && ME.role && ME.role.admin ? '#/tilmeld/admin' : '#/tilmeld/holdleder'; });
   document.getElementById('refresh').addEventListener('click', function () {
     var btn = this; if (btn.classList.contains('spin')) return;
     btn.classList.add('spin'); FORCE = Date.now();
