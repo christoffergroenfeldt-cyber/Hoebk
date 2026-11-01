@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T19:46:43+00:00",
+  "updated": "2026-11-01T20:45:35+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -12332,22 +12332,22 @@
           "team": "Hareskov 3",
           "teamID": "122734",
           "isUs": false,
-          "played": "0",
-          "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
+          "played": "1",
+          "won": "1",
+          "score": "7-5",
+          "sets": "16-11",
+          "points": "2"
         },
         {
           "pos": "6",
           "team": "Holte 4",
           "teamID": "122730",
           "isUs": false,
-          "played": "1",
+          "played": "2",
           "won": "0",
-          "score": "4-8",
-          "sets": "10-17",
-          "points": "0"
+          "score": "9-15",
+          "sets": "21-33",
+          "points": "1"
         },
         {
           "pos": "7",
