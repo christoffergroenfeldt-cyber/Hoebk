@@ -148,6 +148,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .evrow .cbar{width:4px;align-self:stretch;border-radius:2px;flex:0 0 auto;box-sizing:border-box}
 .evrow .t{font-size:13px;width:42px;flex:0 0 auto;font-variant-numeric:tabular-nums}
 .dlab{display:block;margin:8px 4px 0;font-weight:700;color:var(--ink)}
+.dlab.dsel{background:var(--ink);color:#fff;border-radius:999px;padding:3px 10px;align-self:flex-start;display:inline-block;scroll-margin-top:80px}
 .bar{display:block;border-radius:4px;padding:1px 3px;font-size:10px;font-weight:700;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar.tr{background:transparent!important;border:1px dashed #9AA6B1;color:var(--muted);font-weight:600}
 .more{font-size:10px;color:var(--muted);padding-left:2px}
@@ -1530,6 +1531,20 @@ textarea.inp{resize:vertical;line-height:1.45}
     return '<button class="evrow" data-go="' + esc(go) + '"><i class="cbar" style="' + (color ? 'background:' + color : 'border-left:3px dashed #9AA6B1') + '"></i>' +
       '<b class="t">' + esc(e.time || '–') + '</b><span class="col" style="flex:1 1 auto;min-width:0"><b class="ellip" style="font-size:14px">' + (e.kind === 'plan' ? '◆ ' : '') + esc(title) + '</b><span class="xs ellip">' + esc(sub) + '</span></span>' + right + '</button>';
   }
+  // Liste over begivenheder i en periode (under måned- og årsvisningen), grupperet pr. dag — evt. med månedsoverskrifter
+  function periodList(from, to, o) {
+    o = o || {};
+    var h = '', n = 0, curMon = '', today = iso(new Date()), tomorrow = iso(addDays(new Date(), 1));
+    for (var x = parseD(from); iso(x) <= to && n < 400; x = addDays(x, 1)) {
+      var xs = iso(x), le = evFor(xs).filter(function (e) { return e.kind !== 'ferie' && !(o.noTraining && e.kind === 'training'); });
+      if (!le.length && xs !== o.sel) continue;
+      if (o.months && xs.slice(0, 7) !== curMon) { curMon = xs.slice(0, 7); h += '<span class="lbl" style="margin-top:12px">' + MON_FULL[x.getMonth()].charAt(0).toUpperCase() + MON_FULL[x.getMonth()].slice(1) + ' ' + x.getFullYear() + '</span>'; }
+      n += le.length;
+      h += '<span class="xs dlab' + (xs === o.sel ? ' dsel' : '') + '" id="cald-' + xs + '">' + (xs === today ? 'I dag' : xs === tomorrow ? 'I morgen' : esc(DAY_FULL[x.getDay()] + ' ' + dTxt(xs).replace(/^\S+ /, ''))) + '</span>' +
+        (le.length ? '<div class="card evlist">' + le.map(evRow).join('') + '</div>' : '<p class="empty" style="margin:2px 4px 0">Intet denne dag med dette filter.</p>');
+    }
+    return h || '<p class="empty">' + (o.empty || 'Ingen begivenheder med dette filter.') + '</p>';
+  }
   function viewCal(view, ds) {
     setTab('kalender');
     var d = ds ? parseD(ds) : new Date(); CAL.date = iso(d);
@@ -1597,6 +1612,10 @@ textarea.inp{resize:vertical;line-height:1.45}
              '<div class="yg">' + ['M', 'T', 'O', 'T', 'F', 'L', 'S'].map(function (w) { return '<span style="font-size:9px;text-align:center;color:var(--muted)">' + w + '</span>'; }).join('') + cells + '</div></div>';
       }
       h += '</div><p class="note">Prik = kampdag (farve efter række)' + (CAL.tours ? ', lilla = turnering' : '') + ', grå = kun træning. Tryk på en dag for detaljer.</p>';
+      var yEnd = iso(new Date(start.getFullYear() + 1, 6, 31)), yFrom = today > iso(start) && today <= yEnd && !UI.calPast ? today : iso(start);
+      h += '<span class="lbl" style="margin-top:6px">' + (yFrom > iso(start) ? 'Resten af sæsonen' : 'Hele sæsonen') + ' · uden træning</span>' +
+        (yFrom > iso(start) ? '<button class="pl xs" data-act="calpast" style="align-self:flex-start;margin:-4px 4px 0;text-decoration:underline">Vis også tidligere i sæsonen</button>' : '') +
+        periodList(yFrom, yEnd, { noTraining: true, months: true, empty: 'Ingen kampe, turneringer eller aktiviteter med dette filter.' });
     } else {
       var f = new Date(d.getFullYear(), d.getMonth(), 1);
       label = MON_FULL[f.getMonth()].charAt(0).toUpperCase() + MON_FULL[f.getMonth()].slice(1) + ' ' + f.getFullYear();
@@ -1621,16 +1640,16 @@ textarea.inp{resize:vertical;line-height:1.45}
         var tsN = ge.filter(function (e) { return e.kind === 'training'; }).length, fe = ge.some(function (e) { return e.kind === 'ferie'; });
         if (tsN) addDot('border:1.5px dashed #6A7682;background:transparent', 'tr');
         var sel = ds && gds === CAL.date;
-        h += '<button class="mday' + (inMonth ? '' : ' out') + (gds === today ? ' now' : '') + (sel ? ' sel' : '') + (fe ? ' fe' : '') + '" data-go="#/kalender/maaned/' + gds + '" aria-label="' + gd.getDate() + '. ' + MON_FULL[gd.getMonth()] + (ge.length ? ', ' + ge.length + ' begivenheder' : '') + '">' +
+        h += '<button class="mday' + (inMonth ? '' : ' out') + (gds === today ? ' now' : '') + (sel ? ' sel' : '') + (fe ? ' fe' : '') + '" data-calpick="1" data-go="#/kalender/maaned/' + gds + '" aria-label="' + gd.getDate() + '. ' + MON_FULL[gd.getMonth()] + (ge.length ? ', ' + ge.length + ' begivenheder' : '') + '">' +
           '<span class="n">' + gd.getDate() + '</span><span class="dots">' + dots.join('') + '</span>' + (fe && !dots.length ? '<span class="fe">ferie</span>' : '') + '</button>';
       }
       h += '</div>';
-      var sd = ds && CAL.date.slice(0, 7) === iso(f).slice(0, 7) ? CAL.date : (today.slice(0, 7) === iso(f).slice(0, 7) ? today : '');
-      if (sd) {
-        var se = evFor(sd);
-        h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">' + esc(DAY_FULL[parseD(sd).getDay()] + ' ' + dTxt(sd).replace(/^\S+ /, '')) + '</span><button class="pl xs" data-go="#/kalender/dag/' + sd + '">Hele dagen ›</button></div>' +
-          (se.length ? '<div class="card evlist">' + se.map(evRow).join('') + '</div>' : '<p class="empty">Intet denne dag med dette filter.</p>');
-      } else h += '<p class="note">Tryk på en dag for at se, hvad der sker.</p>';
+      var mStart = iso(f), mEnd = iso(new Date(f.getFullYear(), f.getMonth() + 1, 0)), curM = today.slice(0, 7) === mStart.slice(0, 7);
+      var msel = UI.calPick && ds ? CAL.date : '', mFrom = curM && !UI.calPast ? today : mStart;
+      if (msel && msel < mFrom) mFrom = msel;
+      h += '<span class="lbl">' + (curM && mFrom > mStart ? 'Resten af ' : 'Hele ') + MON_FULL[f.getMonth()] + '</span>' +
+        (curM && mFrom > mStart ? '<button class="pl xs" data-act="calpast" style="align-self:flex-start;margin:-4px 4px 0;text-decoration:underline">Vis også tidligere i ' + MON_FULL[f.getMonth()] + '</button>' : '') +
+        periodList(mFrom, mEnd, { sel: msel, empty: 'Ingen begivenheder ' + (curM ? 'resten af ' : 'i ') + MON_FULL[f.getMonth()] + ' med dette filter.' });
       if (mcount) h += '<p class="note">' + mcount + ' kampe i ' + MON_FULL[f.getMonth()] + ' med dette filter.</p>';
     }
     return h;
@@ -3728,6 +3747,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (parts[0] === 'hold' && parts.length === 2 && !(prevHash || '').startsWith('#/hold/' + parts[1])) UI.seg = 'kampe';
     prevHash = location.hash;
     route(); $main.scrollTop = 0;
+    if (UI.calScrollTo) { var cs = document.getElementById('cald-' + UI.calScrollTo); UI.calScrollTo = ''; if (cs) cs.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
   document.getElementById('back').addEventListener('click', function () {
     if (location.hash.indexOf('#/tilmeld') === 0 && (!ME || !ME.token) && UI.step && UI.step !== 'name') {
@@ -3737,6 +3757,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   });
   $main.addEventListener('click', function (e) {
     var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf],[data-toparent],[data-ride],[data-ridetake],[data-ridesave],[data-ridecancel],[data-rpm]');
+    if (b) { UI.calPick = !!b.dataset.calpick; if (b.dataset.calpick) UI.calScrollTo = (b.dataset.go || '').split('/').pop(); }
     if (!b) return;
     if (b.dataset.act === 'pnamesave') {
       var nv = ((document.getElementById('pnameEdit') || {}).value || '').trim().replace(/\s+/g, ' ');
@@ -3845,6 +3866,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     }
     if (b.dataset.trg) { CAL.trGroup = b.dataset.trg; CAL.trHold = ''; calSave(true); route(true); return; }
     if (b.dataset.trh !== undefined) { CAL.trHold = b.dataset.trh; calSave(true); route(true); return; }
+    if (b.dataset.act === 'calpast') { UI.calPast = true; route(true); return; }
     if (b.dataset.act === 'calsheet') { CAL.sheet = !CAL.sheet; UI.calScroll = 0; route(true); return; }
     if (b.dataset.calpre) { if (b.dataset.calpre === 'alt') calPreset(CAL_ALT, false); else calPreset(CAL_MIT, true); route(true); return; }
     if (b.dataset.calteam) { CAL.team = b.dataset.calteam; calSave(true); route(true); return; }

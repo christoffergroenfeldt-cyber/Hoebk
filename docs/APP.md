@@ -110,6 +110,13 @@ Stored in the sheet tab **Kørsel**: one row per person per match/tournament (`m
 - Events are built once after load (`buildEvents()`): every match, each training session in `data/traening.json` for every matching weekday in the season (minus `skip` periods, shown as holidays), events from `traening.json`, the app's activities with *Vis i kalenderen*, and tournaments.
 - **Aktiviteter fra hoebk.dk** come from Conventus (`kalender.php?…foreningsid=6493`, a `document.write` script), loaded on the phone and cached in `localStorage` (`hoebk_akt`, hourly). Only club activities are kept (`ACT_KEEP`), private hall rentals and team-match bookings dropped (`ACT_DROP`).
 
+
+**Lists under the views:**
+- **Måned:** the month's events are listed under the grid, grouped by day with the same rows as *Liste*. The current month starts from today, with a *Vis også tidligere i …* link to show the earlier days. Tapping a day highlights it in the list and scrolls down to it.
+- **År:** the rest of the season is listed under the month grids by month, without training. *Vis også tidligere i sæsonen* shows the earlier part.
+- **Uge:** is already a list of the week's days.
+
+All the lists follow the filter.
 ## Drive time and directions
 
 - Upcoming away matches show *ca. 35 min i bil* in the team list, calendar and Min side; the match page shows the drive time from Hørsholm and a **Rutevejledning i Google Maps** button.
