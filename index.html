@@ -514,14 +514,35 @@ textarea.inp{resize:vertical;line-height:1.45}
             '</td><td class="r">' + esc(r.score) + '</td><td class="r" style="padding-right:10px;font-weight:700">' + esc(r.points) + '</td></tr>';
         }).join('') + '</tbody></table></div>';
     } else {
-      var ps = t.players.filter(function (p) { return D.players[p.id]; });
-      h += ps.length ? ps.map(function (p, i) {
-        var P = D.players[p.id];
-        return '<button class="card row" style="min-height:56px;padding:10px 12px" data-go="#/spiller/' + esc(p.id) + '">' +
-          '<span class="av" style="' + avStyle(P) + '">' + esc(ini(P.name)) + '</span>' +
-          '<span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(P.name) + '</b><span class="xs">' + p.games + ' kampe for holdet · ' + p.won + ' vundet</span></span>' +
-          '<span class="h" style="font-size:15px">' + P.winPct + '%</span></button>';
-      }).join('') : '<p class="empty">Spillerlisten bygges op efter holdets første kamp.</p>';
+      // Holdets spillere: dem der har spillet for holdet + dem der er udtaget til en kommende kamp
+      var today2 = iso(new Date()), sel = {};
+      t.matches.forEach(function (m) {
+        if (m.played || m.date < today2) return;
+        var lu = lineupFor(m); if (!lu) return;
+        (lu.squad || []).forEach(function (x) { if (!sel[x.id]) sel[x.id] = { name: x.name, m: m }; });
+      });
+      var played = {}; t.players.forEach(function (p) { played[p.id] = p; });
+      var row = function (id, sub, tag) {
+        var P = D.players[id], nm = P ? P.name : (sel[id] && sel[id].name) || id;
+        return '<button class="card row" style="min-height:56px;padding:10px 12px" ' + (P ? 'data-go="#/spiller/' + esc(id) + '"' : 'disabled') + '>' +
+          '<span class="av" style="' + avStyle(P) + '">' + esc(ini(nm)) + '</span>' +
+          '<span class="col" style="flex:1 1 auto;min-width:0"><b style="font-size:14px" class="ellip">' + esc(nm) + '</b><span class="xs ellip">' + esc(sub) + '</span></span>' + (tag || '') + '</button>';
+      };
+      var ids = Object.keys(played).concat(Object.keys(sel).filter(function (id) { return !played[id]; }));
+      h += ids.length ? ids.map(function (id) {
+        var p = played[id], s2 = sel[id];
+        var sub = p ? p.games + ' kampe for holdet · ' + p.won + ' vundet' : 'Ingen kampe for holdet endnu';
+        return row(id, sub, s2 ? '<span class="why sel" style="flex:0 0 auto">Udtaget ' + esc(dTxt(s2.m.date).replace(/^\S+ /, '')) + '</span>' : '');
+      }).join('') : '<p class="empty">Ingen spillere endnu — listen bygges op efter holdets første kamp, eller når holdlederen udtager spillere.</p>';
+      // Spilleberettigede: alle i klubben der må spille på holdet ud fra rangliste-kategori (alder)
+      h += '<button class="chip" data-act="eligtoggle" aria-pressed="' + !!UI.showElig + '" style="align-self:flex-start;margin-top:4px">' + (UI.showElig ? 'Skjul spilleberettigede' : 'Vis hvem der er spilleberettiget') + '</button>';
+      if (UI.showElig) {
+        var el = D.ids.filter(function (id) { if (played[id] || sel[id]) return false; var e = eligibility(t, id); return e.ok && !e.unknown; })
+          .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); });
+        h += '<span class="lbl">Spilleberettigede til ' + esc(t.label) + ' · ' + el.length + '</span>' +
+          '<p class="note" style="margin-top:-4px">Ud fra alder (rangliste-kategori på badmintonplayer.dk): ' + (/^U\d/.test(t.label) ? 'aldersgruppen og yngre' : 'seniorer og U17/U19') + '. Pointgrænser og veteranregler tjekkes ikke.</p>' +
+          (el.length ? el.map(function (id) { var e = eligibility(t, id), P = D.players[id]; return row(id, e.why + (P.teams.length ? ' · ' + P.teams.join(', ') : '')); }).join('') : '<p class="empty">Ingen andre spilleberettigede fundet.</p>');
+      }
     }
     return h;
   }
@@ -3473,6 +3494,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf]');
     if (!b) return;
     if (b.dataset.usrf) { USR.f = b.dataset.usrf; route(true); return; }
+    if (b.dataset.act === 'eligtoggle') { UI.showElig = !UI.showElig; route(true); return; }
     if (b.dataset.kid) { toggleKid(b.dataset.kid); return; }
     if (b.dataset.act === 'admadd' || b.dataset.admdel) {
       var on = b.dataset.act === 'admadd', em2 = on ? (ADM.na.email || '').toLowerCase() : b.dataset.admdel, nm2 = on ? ADM.na.name.trim() : b.dataset.name;
