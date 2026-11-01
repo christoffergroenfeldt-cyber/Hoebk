@@ -213,7 +213,7 @@ Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite 
 | `POST {action:"register", token, type, eventId, status, label, player?}` | Saves an answer for the player behind the token — or, with `player` = one of the parent's children, for that child (stored under the child's name) |
 | `POST {action:"me" / "logout", token}` | Check / end a session; `me` and `verify` also return the role `{leader, all, admin, teams}` |
 | `POST {action:"lineup", token, eventId, team, status, squad[], games[], note}` | Save a squad/lineup — only leaders for that team |
-| `POST {action:"toParent", token, email, childId, childName}` | Administrator: a parent who registered as their child becomes a parent (`p:…`, "<child's first name> forældre") with that child; sessions, follows and push follow along |
+| `POST {action:"toParent", token, email, childId, childName}` | Administrator: a parent who registered as their child becomes a parent (`p:…`, "<child's first name> forælder") with that child; sessions, follows and push follow along |
 | `POST {action:"rename", token, name}` | Parents (`p:` logins) change their own name — players keep their badmintonplayer.dk name |
 | `POST {action:"users", token}` | All registered users (name, email, role, children, last active, push) — administrators only; the head administrator is shown only to himself |
 | `POST {action:"leaders" / "setLeader", token, …}` | List / set team leaders — administrator only |
