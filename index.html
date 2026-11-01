@@ -243,6 +243,9 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .usr a{color:var(--muted)}
 .upill{font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px}
 .regcta{min-height:64px;background:var(--hi);border-color:#DCEBA5;border-left:5px solid var(--accent)}
+.regtwo{display:flex;flex-direction:column;gap:8px}
+.regtwo .regcta{width:100%}
+.regpar{border-left-color:#5F7D0F}
 .helpcard{width:100%;text-align:left;font-size:inherit;padding:12px 14px;display:flex;flex-direction:column;gap:8px;background:#FFF7EC;border:2px solid #F3B35B}
 .helphead{display:flex;align-items:center;gap:10px}
 .helphead b{font-size:16px;line-height:1.25}
@@ -1773,6 +1776,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!ME || !ME.token) {
       UI.step = UI.step || 'name';
       if (sub === 'foraelder' && UI.step === 'name') UI.step = 'parent';   // #/tilmeld/foraelder åbner forældre-registreringen
+      if (sub === 'spiller' && UI.step === 'parent') UI.step = 'name';     // #/tilmeld/spiller åbner spillerlisten
       if (!REG.url) {
         setHeader('Min side', 'Log ind med kode på e-mail', false);
         return '<div class="card" style="padding:16px"><b>Login åbner snart</b><p class="s" style="margin:6px 0 0">Når klubben har koblet sin Google-konto på, kan du logge ind med en kode på e-mail og melde dig til kampe og træning her.</p></div>';
@@ -3519,8 +3523,11 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (ME && ME.token) loadRooms(false); else loadPub();
     loadActs(false);
     var h = helpBanner(), news = allNews(), today = iso(new Date());
-    if (REG.url && !(ME && ME.token)) h += '<button class="card row regcta" data-go="#/tilmeld"><span class="col"><b style="font-size:15px">Registrer dig for at se dine hold og træninger</b>' +
-      '<span class="xs">Log ind med en kode på mail — så får du dit eget program, kan melde afbud og være med i chatten</span></span><span class="h" style="font-size:20px">›</span></button>';
+    if (REG.url && !(ME && ME.token)) h += '<div class="regtwo">' +
+      '<button class="card row regcta" data-go="#/tilmeld/spiller"><span class="col"><b style="font-size:15px">Registrér dig som spiller</b>' +
+      '<span class="xs">Find dit navn på listen</span></span><span class="h" style="font-size:20px">›</span></button>' +
+      '<button class="card row regcta regpar" data-go="#/tilmeld/foraelder"><span class="col"><b style="font-size:15px">Registrér dig som forælder</b>' +
+      '<span class="xs">Med dit eget navn og din e-mail</span></span><span class="h" style="font-size:20px">›</span></button></div>';
     h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Nyheder fra klubben</span>' + (news.length ? '<button class="pl xs" data-go="#/nyheder">Alle ›</button>' : '') + '</div>';
     h += news.length ? news.slice(0, 3).map(newsCard).join('') : '<p class="empty">' + ((ME && ME.token ? SNAK.rooms : SNAK.pub) || !REG.url ? 'Ingen nyheder lige nu.' : 'Henter …') + '</p>';
     if (SNAK.canNews) h += '<button class="rb" style="align-self:flex-start;min-height:42px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>';
