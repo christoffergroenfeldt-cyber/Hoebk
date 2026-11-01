@@ -1894,7 +1894,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     });
     for (var i = 0; i < DAYS_AHEAD; i++) {
       var ds = iso(addDays(new Date(), i));
-      (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && myHoldPass(e.team, e.hold, e.also)) items.push({ k: 'training', d: ds, t: e.time, e: e, eid: e.eid }); });
+      // Børnenes træning (Ungdom, og alt for en forælder): ingen tilmelding indtil videre — det er ikke obligatorisk
+      (EVENTS[ds] || []).forEach(function (e) { if (e.kind === 'training' && myHoldPass(e.team, e.hold, e.also)) { var noReg = parent || e.team === 'Ungdom'; items.push({ k: 'training', d: ds, t: e.time, e: e, eid: noReg ? '' : e.eid, noReg: noReg }); } });
     }
     (PLAN.list || []).forEach(function (a) {   // appens aktiviteter: rettet mod dine hold/grupper, eller du har taget en opgave
       if (a.end < now || a.start.slice(0, 10) > last) return;
@@ -1941,8 +1942,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       } else if (x.k === 'training') {
         var e = x.e;
         h += '<div class="evwrap tr' + need + '"><div class="evtop"><span class="col"><b style="font-size:13px">' + esc(e.time) + '</b></span>' +
-          '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + ' · din træningsgruppe</span></span><span></span></div>' +
-          regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
+          '<span class="col"><b style="font-size:14px">' + esc(e.title) + '</b><span class="xs">' + esc(e.time) + '–' + esc(e.end) + ' · ' + (parent ? 'dit barns træning' : x.noReg ? 'ungdomstræning' : 'din træningsgruppe') + '</span></span><span></span></div>' +
+          (x.noReg ? '' : regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false)) + '</div>';
       } else {
         var a = x.a, my = a.tasks.filter(function (t) { return t.mine; }), free = openSlots(a);
         h += '<button class="ev planev" style="border-left-color:' + actColor(a).bg + ';width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '">' +
