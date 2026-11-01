@@ -35,6 +35,7 @@
  *  logout   {token}
  *  request  for forældre: playerId "p:<navn>" + children[{id, name}] · children {token, children[]} → ret sine børn
  *  acts {token} / GET ?action=acts → aktiviteter · actSave / actDel (administrator) · taskSign {token, act, task, on}
+ *  Admin-chat: rummet x:admin — kun administratorer. GET ?action=ideas&key=IDEAS_KEY → beskederne (kun læsning, uden e-mails)
  *  rooms    {token, groups[]}                    → mine snak-rum (hold + træningsgrupper) med seneste aktivitet + nyheder til mig
  *  messages {token, room}                        → beskeder i et rum (kun medlemmer) · post {token, room, text} · delMsg {token, id}
  *  mute     {token, room, on}                    → ingen push for et rum
@@ -44,7 +45,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.2';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.3';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -109,6 +110,9 @@ function setup() {
   var key = props.getProperty('KEY');
   if (!key) { key = Utilities.getUuid().replace(/-/g, ''); props.setProperty('KEY', key); }
   Logger.log('NØGLE til GitHub-secret REG_KEY: ' + key);
+  var ideas = props.getProperty('IDEAS_KEY');   // kun til at læse admin-chatten (fx når Claude skal se forslagene)
+  if (!ideas) { ideas = Utilities.getUuid().replace(/-/g, '').slice(0, 20); props.setProperty('IDEAS_KEY', ideas); }
+  Logger.log('Læsenøgle til admin-chatten (IDEAS_KEY): ' + ideas);
   // Fjern standardfanen "Ark1"/"Sheet1" hvis arket lige er oprettet og fanen er tom
   ['Ark1', 'Sheet1'].forEach(function (n) { var x = ss.getSheetByName(n); if (x && x.getLastRow() === 0 && ss.getSheets().length > 1) ss.deleteSheet(x); });
   Logger.log('Google Sheet: ' + ss.getUrl());
@@ -552,8 +556,10 @@ function roleIn_(cx, email, pid) {
 }
 // {rumId: titel} for en bruger. strict = kun rum man selv er en del af (ikke dem administrator/leder for alle hold kan se) —
 // bruges til push og ulæst-markering, så administratorer ikke får besked om alt.
+var ADMIN_ROOM = 'x:admin';
 function memberRooms_(cx, email, pid, strict) {
   var em = String(email || '').toLowerCase().trim(), role = roleIn_(cx, em, pid), out = {};
+  if (role.admin) out[ADMIN_ROOM] = 'Admin-chat';   // administratorernes egen snak
   if (strict) role = { admin: false, all: false, teams: role.teams };
   var follows = {}; cx.fol.forEach(function (r) { if (String(r[0]).toLowerCase() === em) follows[String(r[3])] = 1; });
   var kids = []; (cx.par || []).forEach(function (r) { if (String(r[0]).toLowerCase() === em) kids.push(String(r[3])); });
@@ -964,6 +970,13 @@ function doGet(e) {
   }
   if (action === 'pushqueue') return json_(pushQueue_(e.parameter.key));
   if (action === 'acts') return json_(actsPublic_());
+  if (action === 'ideas') {   // admin-chatten, kun læsning, kræver IDEAS_KEY (ikke REG_KEY)
+    var ik = PropertiesService.getScriptProperties().getProperty('IDEAS_KEY');
+    if (!ik || e.parameter.key !== ik) return json_({ ok: false, error: 'Forkert nøgle' });
+    var since = Number(e.parameter.since || 0);
+    return json_({ ok: true, messages: tail_('Beskeder', TAIL).rows.filter(function (r) { return String(r[2]) === ADMIN_ROOM && !bool_(r[7]) && ts_(r[1]) > since; })
+      .map(function (r) { return { id: String(r[0]), t: (r[1] instanceof Date ? r[1] : new Date(r[1])).toISOString(), n: String(r[4]), x: String(r[6]) }; }).slice(-300) });
+  }
   if (action === 'follows') {
     var k = PropertiesService.getScriptProperties().getProperty('KEY');
     if (!k || e.parameter.key !== k) return json_({ ok: false, error: 'Forkert nøgle' });

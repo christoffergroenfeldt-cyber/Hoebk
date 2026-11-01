@@ -131,6 +131,12 @@ A parent is automatically in the chat rooms of their children's teams (and gets 
 
 **Players who are also parents** don't need a second login: *Min side → Er du også forælder?* opens the same child picker. They keep their own player colour; the *Forælder til …* label is shown on their messages only in their children's team rooms (script `2026-10-31.3`). The older way — logging in under the child's name with a parent's email — still works.
 
+## Admin chat (suggestions for the app)
+
+Room `x:admin` is a chat for administrators only — opened from *Administration → Admin-chat* (and listed first under Min side → Snak). Use it to suggest new functions and changes. It works like the other rooms (push, mute, delete).
+
+To let Claude read the suggestions, `setup` creates a separate read-only key **IDEAS_KEY** (shown in the execution log, also under Project settings → Script properties). `GET ?action=ideas&key=<IDEAS_KEY>[&since=<ms>]` returns only the admin chat (names, time, text — no emails); the key can't do anything else. Replace the property value to revoke it.
+
 ## Snak and news — notifications
 
 New chat messages and news marked *Send også som notifikation* are pushed, never mailed (the ~100 mails/day quota is kept for login codes and match/tournament mails).
@@ -141,7 +147,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-10-31.6` or later.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.3` or later.
 
 ## Lineup rules in the app
 

@@ -1842,7 +1842,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     };
     var h = '';
     if (admin) {
-      loadActs(false);
+      loadActs(false); loadRooms(false);
       var now = nowLocal(), up = (PLAN.list || []).filter(function (a) { return a.end >= now; }), miss = 0;
       up.forEach(function (a) { a.tasks.forEach(function (t) { var st = taskState(t); if (st === 'none' || st === 'part') miss++; }); });
       h += '<span class="lbl">Kommunikation</span>' +
@@ -1852,6 +1852,9 @@ textarea.inp{resize:vertical;line-height:1.45}
         card('', 'Ny aktivitet', 'Arrangement med opgaver som spillere og forældre kan tage', 'var(--plan)', 'actnew') +
         card('#/aktiviteter/oversigt', 'Oversigt over opgaver', PLAN.list ? up.length + ' kommende aktivitet' + (up.length === 1 ? '' : 'er') + (miss ? ' · ' + miss + ' opgave' + (miss === 1 ? '' : 'r') + ' mangler folk' : ' · alle opgaver har folk') : 'Hvem har taget hvad, og hvad mangler', 'var(--plan)') +
         card('#/aktiviteter', 'Alle aktiviteter', 'Ret og slet aktiviteter', 'var(--line)');
+      var ar = (SNAK.rooms || []).filter(function (r) { return r.id === 'x:admin'; })[0], au = ar ? unread(ar) : 0;
+      h += '<span class="lbl">Udvikling af appen</span>' +
+        card('#/snak/x%3Aadmin', 'Admin-chat' + (au ? ' <span class="badge sm">' + au + '</span>' : ''), ar && ar.last ? esc(ar.by.split(' ')[0] + ': ' + ar.x) : 'Foreslå nye funktioner og ændringer — kun for administratorer', '#5B6B7A');
       h += '<span class="lbl">Personer</span>' +
         card('#/ledere', 'Administratorer og holdledere', (ME.role.owner ? 'Udnævn administratorer og holdledere' : 'Udnævn holdledere') + ' · brugerstatistik', 'var(--ink)');
     }
@@ -2369,6 +2372,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function roomTitle(id) {
     var r = (SNAK.rooms || []).filter(function (x) { return x.id === id; })[0];
     if (r) return r.title;
+    if (id === 'x:admin') return 'Admin-chat';
     if (/^g:/.test(id)) return 'Træning · ' + id.slice(2);
     var t = D.teams.filter(function (x) { return 'h:' + x.leagueGroupTeamID === id; })[0];
     return t ? t.label : 'Snak';
@@ -2389,7 +2393,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       (n ? '<span class="badge">' + n + '</span>' : '') + '</span></button>';
   }
   function sortedRooms() {
-    return (SNAK.rooms || []).slice().sort(function (a, b) { return (b.last - a.last) || (a.id.charAt(0) === b.id.charAt(0) ? a.title.localeCompare(b.title, 'da') : a.id < b.id ? 1 : -1); });
+    return (SNAK.rooms || []).slice().sort(function (a, b) { return ((b.id === 'x:admin') - (a.id === 'x:admin')) || (b.last - a.last) || (a.id.charAt(0) === b.id.charAt(0) ? a.title.localeCompare(b.title, 'da') : a.id < b.id ? 1 : -1); });
   }
   function snakBlock(max) {
     if (!REG.url || SNAK.off) return '';
@@ -2440,12 +2444,12 @@ textarea.inp{resize:vertical;line-height:1.45}
   function viewRoom(room) {
     setTab('tilmeld');
     var title = roomTitle(room);
-    setHeader(title, /^g:/.test(room) ? 'Snak · træningsgruppe' : 'Snak · holdet', true);
+    setHeader(title, room === 'x:admin' ? 'Kun administratorer' : /^g:/.test(room) ? 'Snak · træningsgruppe' : 'Snak · holdet', true);
     if (!ME || !ME.token) return '<p class="empty">Log ind på Min side for at være med i snakken.</p>';
     var M = SNAK.msgs[room];
     if (!M || (!M.list && !M.error)) { if (!M || !M.loading) fetchMsgs(room, false); return '<p class="empty">Henter beskeder …</p>'; }
     if (M.error) return '<div class="warn">' + esc(M.error) + '</div><p class="note">' + (/^g:/.test(room) ? 'Vælg gruppen under Træning på Min side for at være med.' : 'Følg holdet under Hold for at være med i holdets snak.') + '</p>';
-    return '<div class="snakbar"><span class="xs" style="flex:1">' + (/^g:/.test(room) ? 'Alle der har valgt ' + esc(room.slice(2)) + ' under Træning på Min side' : 'Holdets spillere, holdledere og dem der følger holdet') + '</span>' +
+    return '<div class="snakbar"><span class="xs" style="flex:1">' + (room === 'x:admin' ? 'Foreslå nye funktioner og ændringer til appen. Kun administratorer kan se det.' : /^g:/.test(room) ? 'Alle der har valgt ' + esc(room.slice(2)) + ' under Træning på Min side' : 'Holdets spillere, holdledere og dem der følger holdet') + '</span>' +
       '<button class="chip mute' + (M.muted ? ' off' : ' on') + '" data-act="mute" aria-pressed="' + !!M.muted + '" aria-label="' + (M.muted ? 'Lydløs — tryk for at modtage nyt' : 'Modtager nyt — tryk for lydløs') + '">' + (M.muted ? '🔕 Lydløs' : '🔔 Modtager nyt') + '</button></div>' +
       '<div id="msgs" class="msgs">' + msgsHtml(room) + '</div>' +
       '<div class="compose"><textarea id="msgText" rows="1" maxlength="1000" placeholder="Skriv en besked …" aria-label="Besked til ' + esc(title) + '">' + esc(SNAK.draft[room] || '') + '</textarea>' +
