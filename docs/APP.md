@@ -149,6 +149,8 @@ Shares instead of totals, so divisions with 3-set matches or longer sets (21 vs 
 
 Stored in `localStorage` under `hoebk_me`: `{id, name, email, token, groups}`. `groups` are the training groups the player follows on Min side (defaulted from their teams, editable with chips). *Log ud* revokes the session on the server and clears it locally.
 
+
+**Log ind på en anden enhed** (Min side → Spiller/Forælder → Indstillinger): *Lav kode* gives a one-time code like `98RF-EVQB` (8 characters, no 0/O/1/I, valid 10 minutes, only the newest code works). On the other device: Min side → *Har du en kode fra en anden enhed?* → type it (case and dash don't matter) → logged in as the same person, without an email code. Both devices stay logged in. Stored in the sheet tab **Koder** with email `enhed:<email>`; after 30 wrong codes in 10 minutes, device login pauses for 10 minutes.
 ## Player colours
 
 A player's circle has the colour of the division they've played most team matches in — the same colours as the calendar (`teamColor()`): Senior blue, 4 players light blue, Motion orange, Youth lime. Parents (logged in as `p:…`) are dark Ungdom-green (`PARENT`); players without team matches or a level are grey (`NOLEVEL`). The legend is shown above the player list.

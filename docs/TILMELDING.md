@@ -151,7 +151,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø, Kørsel*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.10` or later.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø, Kørsel*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.11` or later.
 
 ## Lineup rules in the app
 
@@ -221,6 +221,7 @@ Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite 
 | `POST {action:"messages" / "post" / "delMsg" / "mute", token, room, …}` | Read / write / delete messages in a room; push on/off per room — members only |
 | `POST {action:"newsSave" / "newsDel" / "newsList", token, …}` | Write / delete / list news — administrator only |
 | `POST {action:"acts" / "taskSign", token, …}` | Activities I can see with tasks and who took them / take or withdraw from a task (stops when full) |
+| `POST {action:"deviceCode", token}` / `{action:"deviceLogin", code}` | One-time 8-character code (10 min) to log in on another device / log in with it → same response as `verify` |
 | `POST {action:"rides" / "rideSet" / "rideTake", token, event, …}` | Car pool for a match (`m:<matchID>`) or tournament (`t:<id>`): list / set my (or my child's) choice: drive + seats + pick-up + time, need a lift, own car, or clear / take or free a seat in a car (stops when full; pushes the driver) |
 | `POST {action:"actSave" / "actDel", token, …}` | Create or edit / delete an activity — administrator only |
 | `GET ?action=acts` | Upcoming activities for everyone — counts only, no names |

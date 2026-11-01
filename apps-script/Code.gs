@@ -39,6 +39,7 @@
  *  logout   {token}
  *  request  for forældre: playerId "p:<navn>" + children[{id, name}] · children {token, children[]} → ret sine børn
  *  rides {token, event} · rideSet {token, event, mode, seats, pickup, time, note, player?} · rideTake {token, event, driver, player?} → samkørsel
+ *  deviceCode {token} → engangskode til en anden enhed · deviceLogin {code} → login med den
  *  acts {token} / GET ?action=acts → aktiviteter · actSave / actDel (administrator) · taskSign {token, act, task, on}
  *  Admin-chat: rummet x:admin — kun administratorer. GET ?action=ideas&key=IDEAS_KEY → beskederne (kun læsning, uden e-mails)
  *  rooms    {token, groups[]}                    → mine snak-rum (hold + træningsgrupper) med seneste aktivitet + nyheder til mig
@@ -50,7 +51,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.10';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.11';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -198,20 +199,58 @@ function verify_(b) {
         return { ok: false, error: 'Forkert kode' };
       }
       s.getRange(i + 2, 7).setValue(true);
-      var pid = String(r[3]), pname = String(r[4]);
-      var token = Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '');
-      sh_('Sessioner').appendRow([hash_('t:' + token), safe_(pid), safe_(pname), email, new Date(), new Date(), true]);
-      var sp = sh_('Spillere'), known = data_('Spillere'), found = false;
-      for (var j = 0; j < known.length; j++) {
-        if (String(known[j][0]) === pid && String(known[j][2]) === email) { sp.getRange(j + 2, 5).setValue(new Date()); found = true; }
-      }
-      if (!found) sp.appendRow([safe_(pid), safe_(pname), email, new Date(), new Date()]);
-      var kids = []; try { kids = r[7] ? JSON.parse(r[7]) : []; } catch (e) { kids = []; }
-      if (kids.length) setKids_(email, pid, pname, kids, true);
-      var approval = APPROVAL.enabled ? requestApprovalLocked_(email, pid, pname) : '';
-      return { ok: true, token: token, player: { id: pid, name: pname, email: email }, role: role_(email, pid), follows: follows_(email), kids: kids_(email), approval: approval };
+      return startSession_(email, String(r[3]), String(r[4]), r[7]);
     }
     return { ok: false, error: 'Koden er udløbet eller forkert — bed om en ny' };
+  });
+}
+function startSession_(email, pid, pname, kidsJson) {   // kaldes inde i låsen
+  var token = Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '');
+  sh_('Sessioner').appendRow([hash_('t:' + token), safe_(pid), safe_(pname), email, new Date(), new Date(), true]);
+  var sp = sh_('Spillere'), known = data_('Spillere'), found = false;
+  for (var j = 0; j < known.length; j++) {
+    if (String(known[j][0]) === pid && String(known[j][2]) === email) { sp.getRange(j + 2, 5).setValue(new Date()); found = true; }
+  }
+  if (!found) sp.appendRow([safe_(pid), safe_(pname), email, new Date(), new Date()]);
+  var kids = []; try { kids = kidsJson ? JSON.parse(kidsJson) : []; } catch (e) { kids = []; }
+  if (kids.length) setKids_(email, pid, pname, kids, true);
+  var approval = APPROVAL.enabled ? requestApprovalLocked_(email, pid, pname) : '';
+  return { ok: true, token: token, player: { id: pid, name: pname, email: email }, role: role_(email, pid), follows: follows_(email), kids: kids_(email), approval: approval };
+}
+
+// ---------- Log ind på en anden enhed ----------
+// En logget-ind bruger laver en engangskode (8 tegn, gælder DEVICE_MINUTES) under Min side og skriver den på den nye enhed.
+// Gemmes i fanen Koder med e-mailen "enhed:<email>" så den ikke blandes med e-mail-koderne.
+var DEVICE_MINUTES = 10, DEVICE_ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function deviceCode_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var em = ses.email.toLowerCase(), code = '';
+  var bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, Utilities.getUuid() + Utilities.getUuid());
+  for (var i = 0; i < 8; i++) code += DEVICE_ALPHA.charAt((bytes[i] & 0xff) % DEVICE_ALPHA.length);
+  withLock_(function () {
+    var s = sh_('Koder'), rows = data_('Koder');
+    rows.forEach(function (r, i) { if (r[1] === 'enhed:' + em && r[6] !== true) s.getRange(i + 2, 7).setValue(true); });   // kun den nyeste kode gælder
+    s.appendRow([new Date(), 'enhed:' + em, hash_('d:' + code), safe_(ses.playerId), safe_(ses.playerName), 0, false, '']);
+  });
+  return { ok: true, code: code.slice(0, 4) + '-' + code.slice(4), minutes: DEVICE_MINUTES };
+}
+function deviceLogin_(b) {
+  var code = clean_(b.code, 20).toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (code.length !== 8) return { ok: false, error: 'Koden har 8 tegn' };
+  var cache = CacheService.getScriptCache(), fails = Number(cache.get('devfail') || 0);
+  if (fails >= 30) return { ok: false, error: 'For mange forkerte forsøg — vent 10 minutter' };
+  return withLock_(function () {
+    var s = sh_('Koder'), rows = data_('Koder'), limit = new Date(Date.now() - DEVICE_MINUTES * 60000), h = hash_('d:' + code);
+    for (var i = rows.length - 1; i >= 0; i--) {
+      var r = rows[i];
+      if (String(r[1]).indexOf('enhed:') !== 0 || r[6] === true || new Date(r[0]) < limit || r[2] !== h) continue;
+      s.getRange(i + 2, 7).setValue(true);
+      var email = String(r[1]).slice(6);
+      return startSession_(email, String(r[3]), String(r[4]), '');
+    }
+    cache.put('devfail', String(fails + 1), 600);
+    return { ok: false, error: 'Koden er forkert eller udløbet — lav en ny på din anden enhed' };
   });
 }
 
@@ -1265,6 +1304,8 @@ function doPost(e) {
     switch (b.action) {
       case 'request': return json_(request_(b));
       case 'verify': return json_(verify_(b));
+      case 'deviceCode': return json_(deviceCode_(b));
+      case 'deviceLogin': return json_(deviceLogin_(b));
       case 'register': return json_(register_(b));
       case 'lineup': return json_(saveLineup_(b));
       case 'leaders': return json_(leaders_(b));

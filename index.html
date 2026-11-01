@@ -1784,6 +1784,11 @@ textarea.inp{resize:vertical;line-height:1.45}
       loadPub();
       return '<button class="card row" style="min-height:64px;border-left:5px solid ' + PARENT.bg + '" data-act="parentstart"><span class="col"><b style="font-size:15px">Registrér dig som forælder</b>' +
         '<span class="xs">Er du forælder til en spiller? Opret dig med dit eget navn og vælg dit barn</span></span><span class="h" style="font-size:20px">›</span></button>' +
+        (UI.devOpen ? '<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px"><b style="font-size:14px">Kode fra en anden enhed</b>' +
+          '<span class="xs">Lav koden på den enhed, hvor du allerede er logget ind: <b>Min side → Spiller</b> (eller <b>Forælder</b>) <b>→ Log ind på en anden enhed</b>.</span>' +
+          '<div class="card search"><input id="devin" type="text" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" maxlength="9" placeholder="ABCD-1234" aria-label="Kode fra en anden enhed" style="font-size:19px;letter-spacing:.1em;text-transform:uppercase;min-width:0">' +
+          '<button class="rb ja" id="devok" aria-pressed="true" style="min-height:36px;white-space:nowrap;flex:0 0 auto">Log ind</button></div></div>'
+          : '<button class="pl s" data-act="devopen" style="align-self:flex-start;margin:0 4px;text-decoration:underline">Har du en kode fra en anden enhed?</button>') +
         '<span class="lbl">Spiller? Vælg dit navn</span>' +
         '<p class="s" style="margin:0 4px">Vælg dit eget navn, så sender vi en kode til din e-mail. Forældre skal bruge knappen ovenfor.</p><label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
         '<input id="mq" type="search" value="' + esc(UI.mq || '') + '" placeholder="Søg dit navn" aria-label="Søg dit navn" autocomplete="off"></label>' +
@@ -1951,8 +1956,45 @@ textarea.inp{resize:vertical;line-height:1.45}
       (mineT.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px">' + mineT.map(function (t) { return '<button class="chip" data-follow="' + esc(teamFid(t)) + '">☆ Følg ' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') +
       '<p class="note">Eller tryk <b>☆ Følg holdet</b> på et holds side under Hold.</p>';
   }
+  // Log ind på en anden enhed: engangskode (8 tegn, 10 minutter) i stedet for en kode på e-mail
+  var DEV = { code: '', until: 0, busy: false, timer: null };
+  function deviceCard() {
+    var live = DEV.code && Date.now() < DEV.until, min = live ? Math.max(1, Math.ceil((DEV.until - Date.now()) / 60000)) : 0;
+    return '<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px"><b style="font-size:14px">Log ind på en anden enhed</b>' +
+      (live ? '<span class="h" style="font-size:28px;letter-spacing:.12em;text-align:center;user-select:all">' + esc(DEV.code) + '</span>' +
+        '<span class="xs">På den anden enhed: åbn appen → <b>Min side</b> → <b>Har du en kode fra en anden enhed?</b> og skriv koden. Den virker én gang og gælder ' + min + ' min. mere.</span>' +
+        '<button class="rb" data-act="devcode" style="align-self:flex-start"' + (DEV.busy ? ' disabled' : '') + '>Lav en ny kode</button>'
+      : '<span class="xs">Lav en kode og skriv den på din telefon, tablet eller computer — så er du logget ind dér også, uden kode på e-mail.</span>' +
+        '<button class="rb ja" aria-pressed="true" data-act="devcode" style="align-self:flex-start;min-height:42px"' + (DEV.busy ? ' disabled' : '') + '>' + (DEV.busy ? 'Laver kode …' : 'Lav kode') + '</button>') + '</div>';
+  }
+  function makeDeviceCode() {
+    if (!ME || !ME.token || DEV.busy) return;
+    DEV.busy = true; route(true);
+    api({ action: 'deviceCode', token: ME.token }).then(function (r) {
+      if (r && r.error === 'login') { ME = null; saveMe(); throw new Error('Log ind igen'); }
+      if (r && r.error === 'Ukendt handling') throw new Error('Klubbens server skal opdateres, før koden virker');
+      if (!r || !r.ok) throw new Error((r && r.error) || 'Kunne ikke lave kode');
+      DEV.code = r.code; DEV.until = Date.now() + (r.minutes || 10) * 60000;
+      clearInterval(DEV.timer);
+      DEV.timer = setInterval(function () { if (Date.now() >= DEV.until) { clearInterval(DEV.timer); DEV.code = ''; } if (/^#\/tilmeld\/(spiller|foraelder)/.test(location.hash)) route(true); }, 30000);
+    }).catch(function (err) { toast(err.message); }).then(function () { DEV.busy = false; route(true); });
+  }
+  function deviceLogin() {
+    var el = document.getElementById('devin'), code = ((el && el.value) || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (code.length !== 8) { toast('Koden har 8 tegn'); return; }
+    var btn = document.getElementById('devok'); if (btn) btn.disabled = true;
+    api({ action: 'deviceLogin', code: code }).then(function (res) {
+      if (res && res.error === 'Ukendt handling') throw new Error('Klubbens server skal opdateres, før koden virker');
+      if (!res || !res.ok) throw new Error((res && res.error) || 'Forkert kode');
+      var p = res.player;
+      ME = { id: p.id, name: p.name, email: p.email, token: res.token, role: res.role || null, follows: res.follows || [], kids: res.kids || [] };
+      ME.groups = defaultGroups(isParentId(p.id) ? kidTeams() : D.players[p.id] ? D.players[p.id].teams : []);
+      saveMe(); UI.step = 'name'; UI.devOpen = false;
+      toast('Hej ' + p.name.split(' ')[0] + '! Du er logget ind'); route(); loadRooms(true); PLAN.list = null; loadActs(true); refreshRole();
+    }).catch(function (err) { toast(err.message); if (btn) btn.disabled = false; });
+  }
   function settingsBlock() {
-    return '<span class="lbl">Indstillinger</span>' + pushCard() + shopCard() +
+    return '<span class="lbl">Indstillinger</span>' + pushCard() + shopCard() + deviceCard() +
       '<div class="card row" style="min-height:56px"><span class="col"><b style="font-size:14px">Log ud</b><span class="xs ellip">' + esc(ME.email || '') + '</span></span>' +
       '<button class="rb" data-act="logout" style="min-height:38px">Log ud</button></div>';
   }
@@ -3594,6 +3636,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       var pn = document.getElementById('pname'); if (pn) pn.addEventListener('input', function () { UI.pname = pn.value; });
     }
     if (document.querySelector('.ridebox')) bindRides();
+    var devok = document.getElementById('devok'); if (devok) { devok.addEventListener('click', deviceLogin); document.getElementById('devin').addEventListener('keydown', function (e) { if (e.key === 'Enter') deviceLogin(); }); }
     if (parts[0] === 'nyheder' && parts[1] === 'ny' && document.getElementById('nwTitle')) {
       document.getElementById('nwTitle').addEventListener('input', function (e) { SNAK.nf.title = e.target.value; });
       document.getElementById('nwText').addEventListener('input', function (e) { SNAK.nf.text = e.target.value; });
@@ -3720,6 +3763,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (b.dataset.ridesave) { rideSave(b.dataset.ridesave); return; }
     if (b.dataset.ridecancel) { delete RIDE.form[b.dataset.ridecancel]; route(true); return; }
     if (b.dataset.rpm) { RIDE.form[b.dataset.rk].pm = b.dataset.rpm; route(true); if (b.dataset.rpm === 'sted') { var rp = document.querySelector('[data-rfp]'); if (rp) rp.focus(); } return; }
+    if (b.dataset.act === 'devcode') { makeDeviceCode(); return; }
+    if (b.dataset.act === 'devopen') { UI.devOpen = true; route(true); var di = document.getElementById('devin'); if (di) di.focus(); return; }
     if (b.dataset.act === 'parentstart') { UI.step = 'parent'; route(); return; }
     if (b.dataset.act === 'parentnext') { parentNext(); return; }
     if (b.dataset.act === 'kidsave') { saveKids(); return; }
