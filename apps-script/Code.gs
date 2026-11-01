@@ -51,7 +51,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.11';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.12';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -1056,15 +1056,31 @@ function rideRows_(ev) {
   return out;
 }
 function ridePub_(rows, em, kidIds) {
+  // Forældre: et barn som forælderen har meldt → by = forælderens navn. En forælder → kids = forælderens børn (så man kan se hvis forælder det er)
+  var par = data_('Forældre'), pname = {}, kidsOf = {};
+  par.forEach(function (r) {
+    var e = String(r[0]).toLowerCase();
+    pname[e + '|' + String(r[3])] = String(r[2]);
+    (kidsOf[e] = kidsOf[e] || []).push({ id: String(r[3]), n: String(r[4]) });
+  });
   return rows.filter(function (r) { return RIDE_MODES.indexOf(r.mode) >= 0; }).map(function (r) {
+    var by = pname[r.email + '|' + r.p] || '';
     return { p: r.p, n: r.n, mode: r.mode, seats: r.seats, pickup: r.pickup, time: r.time, driver: r.driver, note: r.note,
-             mine: r.p === kidIds.self || kidIds[r.p] === 1 };
+             mine: r.p === kidIds.self || kidIds[r.p] === 1, by: by, kids: by ? [] : (kidsOf[r.email] || []) };
   });
 }
-function rideWho_(ses, forId) {   // hvem svarer man for: sig selv eller et af sine børn
-  if (!forId || forId === ses.playerId) return { id: ses.playerId, name: ses.playerName, kid: false };
+// Ungdomskamp/-turnering: kun forældre (og voksne) melder samkørsel — ungdomsspillere kan ikke selv vælge.
+function rideYouthBlock_(b, ses, who) {
+  if (who.kid) return '';
+  var team = clean_(b.team, 20), cx = ctx_(), youth = !!b.youth;
+  if (team && cx.teams[team]) youth = /^U\d/.test(cx.teams[team].l);
+  if (!youth) return '';
+  return canWrite_(cx, ses.email, ses.playerId, null).why === 'ungdom' ? 'Til ungdomskampe er det forældrene der melder samkørsel — bed din forælder om at gøre det i appen' : '';
+}
+function rideWho_(ses, forId) {   // hvem svarer man for: sig selv eller et af sine børn (label bruges i push: "Oliver (Per Hansen)")
+  if (!forId || forId === ses.playerId) return { id: ses.playerId, name: ses.playerName, kid: false, label: ses.playerName };
   var kid = kids_(ses.email).filter(function (k) { return k.id === forId; })[0];
-  return kid ? { id: kid.id, name: kid.name, kid: true } : null;
+  return kid ? { id: kid.id, name: kid.name, kid: true, label: kid.name + ' (' + ses.playerName + ')' } : null;
 }
 function rideIds_(ses) { var o = { self: ses.playerId }; kids_(ses.email).forEach(function (k) { o[k.id] = 1; }); return o; }
 function rideEv_(b) { var ev = clean_(b.event, 80); return /^[mt]:[\w:.\- æøåÆØÅ]+$/.test(ev) ? ev : ''; }
@@ -1092,6 +1108,7 @@ function rideSet_(b) {
   if (!who) return { ok: false, error: 'Du kan kun svare for dig selv og dine egne børn' };
   var mode = clean_(b.mode, 10);
   if (mode !== 'clear' && RIDE_MODES.indexOf(mode) < 0) return { ok: false, error: 'Ugyldigt valg' };
+  var yb = rideYouthBlock_(b, ses, who); if (yb) return { ok: false, error: yb };
   if (mode === 'drive' && who.kid) return { ok: false, error: 'Et barn kan ikke være chauffør' };
   var seats = Math.max(0, Math.min(8, Math.floor(Number(b.seats) || 0)));
   if (mode === 'drive' && seats < 1) return { ok: false, error: 'Vælg mindst 1 ledig plads' };
@@ -1114,7 +1131,7 @@ function rideSet_(b) {
     if (mine) sh.getRange(mine.row, 1, 1, vals.length).setValues([vals]); else if (mode !== 'clear') sh.appendRow(vals);
     if (mine && mine.mode === 'need' && mine.driver && mode !== 'need') {   // forlod en bil ved at skifte valg
       var d = rows.filter(function (r) { return r.p === mine.driver && r.mode === 'drive'; })[0];
-      if (d) notify.push({ em: d.email, t: who.name + ' kører ikke med alligevel', x: 'Der er en plads mere i din bil' + (title ? ' · ' + title : '') });
+      if (d) notify.push({ em: d.email, t: who.label + ' kører ikke med alligevel', x: 'Der er en plads mere i din bil' + (title ? ' · ' + title : '') });
     }
     return { ok: true };
   });
@@ -1128,6 +1145,7 @@ function rideTake_(b) {   // tag en plads i en bil (driver = chaufførens player
   var ev = rideEv_(b); if (!ev) return { ok: false, error: 'Ukendt kamp' };
   var who = rideWho_(ses, clean_(b.player, 40));
   if (!who) return { ok: false, error: 'Du kan kun svare for dig selv og dine egne børn' };
+  var yb = rideYouthBlock_(b, ses, who); if (yb) return { ok: false, error: yb };
   var did = clean_(b.driver, 40), title = clean_(b.title, 120), link = rideLink_(b), em = ses.email.toLowerCase(), notify = null;
   var res = withLock_(function () {
     var rows = rideRows_(ev), sh = sh_('Kørsel'), mine = rows.filter(function (r) { return r.p === who.id; })[0];
@@ -1139,10 +1157,10 @@ function rideTake_(b) {   // tag en plads i en bil (driver = chaufførens player
       var taken = rows.filter(function (r) { return r.mode === 'need' && r.driver === did; }).length;
       if (taken >= d.seats) return { ok: false, error: 'Bilen er fuld' };
       if (mine && mine.mode === 'drive' && rows.some(function (r) { return r.mode === 'need' && r.driver === who.id; })) return { ok: false, error: 'Du har selv passagerer — skift først dit eget valg' };
-      notify = { em: d.email, t: who.name + ' kører med dig', x: (taken + 1) + ' af ' + d.seats + ' pladser taget' + (title ? ' · ' + title : '') };
+      notify = { em: d.email, t: who.label + ' kører med dig', x: (taken + 1) + ' af ' + d.seats + ' pladser taget' + (title ? ' · ' + title : '') };
     } else if (mine && mine.driver) {
       var od = rows.filter(function (r) { return r.p === mine.driver && r.mode === 'drive'; })[0];
-      if (od) notify = { em: od.email, t: who.name + ' kører ikke med alligevel', x: 'Der er en plads mere i din bil' + (title ? ' · ' + title : '') };
+      if (od) notify = { em: od.email, t: who.label + ' kører ikke med alligevel', x: 'Der er en plads mere i din bil' + (title ? ' · ' + title : '') };
     }
     var vals = [new Date(), safe_(ev), safe_(title || (mine && mine.title) || ''), safe_(who.id), safe_(who.name), em, 'need', '', '', '', safe_(did), safe_(mine && mine.mode === 'need' ? mine.note : '')];
     if (mine) sh.getRange(mine.row, 1, 1, vals.length).setValues([vals]); else sh.appendRow(vals);

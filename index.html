@@ -315,8 +315,8 @@ textarea.inp{resize:vertical;line-height:1.45}
 .rcar .seats{margin-left:auto;font-size:12px;font-weight:800;border-radius:999px;padding:3px 9px;background:var(--accent);white-space:nowrap}
 .rcar.full .seats{background:var(--seg)}
 .rpass{display:flex;flex-wrap:wrap;gap:6px}
-.rpass span{font-size:12px;font-weight:600;background:var(--seg);border-radius:999px;padding:4px 9px}
-.rpass span.me{background:var(--ink);color:#fff}
+.rpass>span{font-size:12px;font-weight:600;background:var(--seg);border-radius:999px;padding:4px 9px}
+.rpass>span.me{background:var(--ink);color:#fff}
 .rpass .free{background:transparent;border:1.5px dashed var(--muted2);color:var(--muted)}
 .rform{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:12px;background:var(--bg)}
 .rform input[type=text],.rform input[type=time],.rform select{min-height:40px;border:1px solid var(--line2);border-radius:10px;padding:0 10px;font:inherit;background:#fff;width:100%;box-sizing:border-box}
@@ -608,7 +608,8 @@ textarea.inp{resize:vertical;line-height:1.45}
           }
           return mineBlock + (kk.length ? '<span class="lbl">Kan ' + esc(kk.map(function (k) { return k.name.split(' ')[0]; }).join(' / ')) + ' spille?</span>' + kidRegBlocks('match', eid, lab, true, t.label, false) : '');
         })() +
-        rideSection(matchEid(m), t.label + ' ' + (m.isHome ? 'mod ' : '@ ') + m.opponent + ' · ' + dTxt(m.date), m.matchID ? '#/holdid/' + t.leagueGroupTeamID + '/kamp/' + m.matchID : '', kidsOnTeam(t.label)) +
+        rideSection(matchEid(m), t.label + ' ' + (m.isHome ? 'mod ' : '@ ') + m.opponent + ' · ' + dTxt(m.date), m.matchID ? '#/holdid/' + t.leagueGroupTeamID + '/kamp/' + m.matchID : '', kidsOnTeam(t.label),
+          { youth: /^U\d/.test(t.label), team: t.leagueGroupTeamID, label: t.label }) +
         lineupSection(ti, mi);
     }
     var pts = m.points ? (m.isHome ? m.points : flipScore(m.points)) : '';
@@ -921,7 +922,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span class="xs">' + (isFollowed(t.id) ? 'Du får en mail når der er nyt: ændret frist eller dato, nye rækker, deltagerliste, program og resultater — og 7 og 2 dage før tilmeldingsfristen. Tryk igen for at stoppe.'
         : 'Følg for at få en mail ved ændringer, når program og deltagerliste er klar, og før tilmeldingsfristen.' + (ME && ME.token ? '' : ' Kræver login på Min side.')) + '</span>' +
       '<span class="xs">Arrangør: ' + esc(t.organiser) + '. Placering og køretid er beregnet ud fra arrangørens navn — tjek spillestedet i arrangørens indbydelse.</span></div>';
-    if ((t.end || t.start || '') >= today) h += rideSection('t:' + t.id, t.organiser + ' · ' + dRange(t), '#/turnering/' + encodeURIComponent(t.id), (ME && ME.kids) || []);
+    if ((t.end || t.start || '') >= today) h += rideSection('t:' + t.id, t.organiser + ' · ' + dRange(t), '#/turnering/' + encodeURIComponent(t.id), (ME && ME.kids) || [],
+      { youth: t.classes.length > 0 && t.classes.every(function (c) { return /^U\d/.test(c.raw); }) });
     var news = (D.tourNews || {})[t.id] || [];
     if (news.length) h += '<span class="lbl">Nyt</span><div class="card" style="overflow:hidden">' + news.map(function (n, i) {
       return '<div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:10px 12px;' + (i ? 'border-top:1px solid var(--line2)' : '') + '">' +
@@ -3033,31 +3035,45 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (!(a && a.closest && a.closest('.ridebox') && /INPUT|SELECT/.test(a.tagName))) route(true);
     }).catch(function () { x.loading = false; });
   }
-  function rideSection(ev, title, link, kids) {
+  function youthPlayer() {   // logget ind som ungdomsspiller (kun U-hold, ikke forælder/holdleder/admin)
+    if (!ME || isParentId(ME.id) || (ME.kids && ME.kids.length) || isLeader() || (ME.role && ME.role.admin)) return false;
+    var P = D.players[ME.id];
+    return !!(P && P.teams.length && P.teams.every(function (l) { return /^U\d/.test(l); }));
+  }
+  function rideSection(ev, title, link, kids, opt) {
+    opt = opt || {};
     if (!REG.url || RIDE.off) return '';
     var head = '<span class="lbl">Samkørsel</span>';
     if (!ME || !ME.token) return head + '<button class="rb" data-go="#/tilmeld" style="align-self:flex-start">Log ind for at køre med eller tilbyde et lift</button>';
-    RIDE.ctx[ev] = { title: title, link: link };
+    RIDE.ctx[ev] = { title: title, link: link, youth: !!opt.youth, team: opt.team || '' };
     loadRides(ev);
     var x = RIDE.ev[ev];
     if (!x || !x.list) return head + '<div class="card ride"><span class="xs">Henter samkørsel …</span></div>';
     var L = x.list, drivers = L.filter(function (r) { return r.mode === 'drive'; });
-    var people = [{ id: ME.id, name: ME.name, kid: false }].concat((kids || []).map(function (k) { return { id: k.id, name: k.name, kid: true }; }));
+    // Ungdom: forældrene melder for deres børn (og kan selv tilbyde lift); ungdomsspillere kan kun se med
+    var yMe = opt.youth && youthPlayer(), parentHere = opt.youth && kids && kids.length;
+    var people = yMe ? [] : [{ id: ME.id, name: ME.name, kid: false, driveOnly: parentHere }].concat((kids || []).map(function (k) { return { id: k.id, name: k.name, kid: true }; }));
+    var kidOk = function (id) { var P = D.players[id]; return !opt.label || (P && P.teams.indexOf(opt.label) >= 0); };
+    var rname = function (r) {   // "Per Hansen · forælder til Oliver" / "Oliver Nørrelund (Per Hansen)"
+      if (r.by) return esc(r.n) + ' <span style="font-weight:500">(' + esc(r.by) + ')</span>';
+      var ks = (r.kids || []).filter(function (k) { return kidOk(k.id); }).map(function (k) { return k.n.split(' ')[0]; });
+      return esc(r.n) + (ks.length ? ' <span style="font-weight:500">· forælder til ' + esc(ks.join(' og ')) + '</span>' : '');
+    };
     var mineOf = function (pid) { return L.filter(function (r) { return r.p === pid; })[0]; };
     var first = function (n) { return esc(String(n).split(' ')[0]); };
     var free = 0, need = L.filter(function (r) { return r.mode === 'need' && !r.driver; });
     var cars = drivers.map(function (d) {
       var pass = L.filter(function (r) { return r.mode === 'need' && r.driver === d.p; }), left = Math.max(0, d.seats - pass.length); free += left;
-      var takeBtns = left ? people.filter(function (pp) { var m = mineOf(pp.id); return pp.id !== d.p && !(m && m.mode === 'drive') && !(m && m.driver === d.p); }).map(function (pp) {
+      var takeBtns = left ? people.filter(function (pp) { var m = mineOf(pp.id); return pp.id !== d.p && !pp.driveOnly && !(m && m.mode === 'drive') && !(m && m.driver === d.p); }).map(function (pp) {
         var k = ev + '|' + pp.id;
         return '<button class="rb take" data-ridetake="' + esc(d.p) + '" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '"' + (RIDE.busy[k] ? ' disabled' : '') + '>' +
           (mineOf(pp.id) && mineOf(pp.id).driver ? (pp.kid ? 'Flyt ' + first(pp.name) + ' hertil' : 'Skift til denne bil') : pp.kid ? '+ ' + first(pp.name) + ' kører med' : '+ Kør med') + '</button>'; }).join('') : '';
       var leaveBtns = people.filter(function (pp) { var m = mineOf(pp.id); return m && m.mode === 'need' && m.driver === d.p; }).map(function (pp) {
         return '<button class="rb" data-ridetake="" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '"' + (RIDE.busy[ev + '|' + pp.id] ? ' disabled' : '') + '>' + (pp.kid ? first(pp.name) + ' kører ikke med' : 'Jeg kører ikke med alligevel') + '</button>'; }).join('');
-      return '<div class="rcar' + (left ? '' : ' full') + '"><div class="rtop">' + CAR + '<b style="font-size:14px">' + esc(d.n) + (d.mine && d.p === ME.id ? ' (dig)' : '') + '</b>' +
+      return '<div class="rcar' + (left ? '' : ' full') + '"><div class="rtop">' + CAR + '<b style="font-size:14px;min-width:0">' + rname(d) + (d.p === ME.id ? ' (dig)' : '') + '</b>' +
         '<span class="seats">' + (left ? left + ' af ' + d.seats + ' ledig' + (left > 1 ? 'e' : '') : 'Fuld') + '</span></div>' +
         '<span class="xs">' + (d.pickup && d.pickup !== 'vej' ? 'Mødested: ' + esc(d.pickup) : 'Henter alle på vejen') + (d.time ? ' · afgang kl. ' + esc(d.time) : '') + '</span>' +
-        '<div class="rpass">' + pass.map(function (r) { return '<span' + (r.mine ? ' class="me"' : '') + '>' + esc(r.n) + (r.note && (!d.pickup || d.pickup === 'vej') ? ' · ' + esc(r.note) : '') + '</span>'; }).join('') +
+        '<div class="rpass">' + pass.map(function (r) { return '<span' + (r.mine ? ' class="me"' : '') + '>' + rname(r) + (r.note && (!d.pickup || d.pickup === 'vej') ? ' · ' + esc(r.note) : '') + '</span>'; }).join('') +
         new Array(left + 1).join('<span class="free">ledig</span>') + '</div>' +
         (takeBtns || leaveBtns ? '<div class="reg">' + takeBtns + leaveBtns + '</div>' : '') + '</div>';
     }).join('');
@@ -3065,12 +3081,13 @@ textarea.inp{resize:vertical;line-height:1.45}
     var sum = L.length ? drivers.length + (drivers.length === 1 ? ' bil' : ' biler') + ' · ' + free + ' ledig' + (free === 1 ? '' : 'e') + ' plads' + (free === 1 ? '' : 'er') + (need.length ? ' · ' + need.length + ' mangler lift' : '')
                        : 'Ingen har meldt noget endnu — tilbyd et lift eller sig, at du mangler et.';
     var h = head + '<div class="card ride ridebox"><b style="font-size:14px">' + sum + '</b>' + cars +
-      (need.length ? '<div class="col" style="gap:4px"><span class="xs" style="font-weight:700">Mangler lift</span><div class="rpass">' + need.map(function (r) { return '<span' + (r.mine ? ' class="me"' : '') + '>' + esc(r.n) + (r.note ? ' · ' + esc(r.note) : '') + '</span>'; }).join('') + '</div></div>' : '') +
-      (own.length ? '<span class="xs"><b>Kører selv:</b> ' + esc(own.map(function (r) { return r.n; }).join(', ')) + '</span>' : '') + '</div>';
+      (need.length ? '<div class="col" style="gap:4px"><span class="xs" style="font-weight:700">Mangler lift</span><div class="rpass">' + need.map(function (r) { return '<span' + (r.mine ? ' class="me"' : '') + '>' + rname(r) + (r.note ? ' · ' + esc(r.note) : '') + '</span>'; }).join('') + '</div></div>' : '') +
+      (own.length ? '<span class="xs"><b>' + (opt.youth ? 'Kommer selv' : 'Kører selv') + ':</b> ' + own.map(rname).join(', ') + '</span>' : '') + '</div>';
+    if (yMe) h += '<p class="note" style="margin-top:-2px">Til ungdomskampe er det forældrene, der melder samkørsel. Bed din forælder om at registrere sig som forælder i appen (Min side → Registrér dig som forælder).</p>';
     // Dit valg — for dig selv og hvert barn
     h += people.map(function (pp) {
       var m = mineOf(pp.id), k = ev + '|' + pp.id, f = RIDE.form[k], mode = f ? 'drive' : (m ? m.mode : '');
-      var opts = pp.kid ? [['need', 'Mangler lift'], ['own', 'Kommer selv']] : [['drive', 'Jeg kører'], ['need', 'Jeg mangler et lift'], ['own', 'Jeg kører selv']];
+      var opts = pp.kid ? [['need', 'Mangler lift'], ['own', 'Kommer selv']] : pp.driveOnly ? [['drive', 'Jeg kører og har plads til flere']] : [['drive', 'Jeg kører'], ['need', 'Jeg mangler et lift'], ['own', 'Jeg kører selv']];
       var hh = '<div class="card ride ridebox"><b style="font-size:14px">' + (pp.kid ? esc(pp.name) : (people.length > 1 ? 'Dig' : 'Dit valg')) + '</b><div class="reg">' + opts.map(function (o) {
         return '<button class="rb rsel" aria-pressed="' + (mode === o[0]) + '" data-ride="' + o[0] + '" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '"' + (RIDE.busy[k] ? ' disabled' : '') + '>' + o[1] + '</button>'; }).join('') + '</div>';
       if (f) {
@@ -3085,7 +3102,7 @@ textarea.inp{resize:vertical;line-height:1.45}
           '<button class="rb" data-ridecancel="' + esc(k) + '">Fortryd</button>' +
           (m && m.mode === 'drive' ? '<button class="rb" data-ride="clear" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '">Træk tilbud tilbage</button>' : '') + '</div></div>';
       } else if (m && m.mode === 'drive') {
-        hh += '<span class="xs">Du tilbyder ' + m.seats + ' plads' + (m.seats > 1 ? 'er' : '') + '. Tryk på <b>Jeg kører</b> for at ændre pladser, opsamling eller afgang.</span>';
+        hh += '<span class="xs">Du tilbyder ' + m.seats + ' plads' + (m.seats > 1 ? 'er' : '') + '. Tryk på knappen igen for at ændre pladser, opsamling eller afgang.</span>';
       } else if (m && m.mode === 'need') {
         var dr = m.driver && drivers.filter(function (d) { return d.p === m.driver; })[0];
         hh += '<span class="xs">' + (dr ? (pp.kid ? first(pp.name) + ' kører' : 'Du kører') + ' med <b>' + esc(dr.n) + '</b>.' : (free ? 'Tag en ledig plads i en af bilerne ovenfor.' : 'Ingen ledige pladser endnu — du får besked her, når nogen tilbyder et lift.')) + '</span>' +
@@ -3099,7 +3116,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function rideSend(ev, pid, body, okMsg) {
     var k = ev + '|' + pid, c = RIDE.ctx[ev] || {};
     RIDE.busy[k] = 1; route(true);
-    var req = { token: ME.token, event: ev, title: c.title, link: c.link, player: pid !== ME.id ? pid : undefined };
+    var req = { token: ME.token, event: ev, title: c.title, link: c.link, youth: c.youth, team: c.team, player: pid !== ME.id ? pid : undefined };
     Object.keys(body).forEach(function (x) { req[x] = body[x]; });
     return api(req).then(function (r) {
       if (r && r.error === 'login') { ME = null; saveMe(); throw new Error('Log ind igen'); }

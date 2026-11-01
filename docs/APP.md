@@ -91,6 +91,10 @@ Every upcoming team match (*Hold → kamp*) and every tournament that hasn't end
 
 Parents answer for each of their children on the team (all children on tournaments) with **Mangler lift / Kommer selv** and **+ <name> kører med**, and can offer seats themselves. Children can't be drivers. Tapping the chosen option again removes it.
 
+**Youth matches** (U-teams) **and youth tournaments** (every class is U…): the parents arrange it. A parent sees only **Jeg kører og har plads til flere** for themselves, plus the choices for each child. Youth players (only on U-teams, not parent/team leader/admin) see the car pool but can't choose. They get a note to ask a parent to register as a parent. The server enforces this from the match's team, not from the app. On senior matches, players choose for themselves, youth players included.
+
+**Who is whose:** a parent is shown as *Per Hansen · forælder til Oliver* (children on that team, or all children on tournaments). A child the parent registered is shown as *Oliver Nørrelund (Per Hansen)*, also in the driver's push notification (*Oliver Nørrelund (Per Hansen) kører med dig*).
+
 At the top: *x biler · y ledige pladser · z mangler lift*. Each car shows the driver, *n af m ledige* / *Fuld*, the pick-up point and departure, its passengers (yours in dark) and the empty seats.
 
 Push notifications (to the person who registered, so parents get them for their children): the driver is told when someone takes or frees a seat (*Oliver kører med dig · 2 af 3 pladser taget*). Passengers are told when the driver changes pick-up or time, or stops driving, in which case they are back on *Mangler lift*. A driver can't lower seats below the number of passengers.
