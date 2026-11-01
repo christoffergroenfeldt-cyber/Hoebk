@@ -1825,7 +1825,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function viewHoldleder() {
     setTab('');
     var admin = !!(ME && ME.role && ME.role.admin);
-    setHeader('Administration', admin ? 'Administrator' + (ME.role.owner ? ' · fast' : '') + ' · alle hold' : 'Holdleder · dine hold', true);
+    setHeader('Administration', admin ? (ME.role.super ? 'Hovedadministrator' : 'Administrator' + (ME.role.owner ? ' · fast' : '')) + ' · alle hold' : 'Holdleder · dine hold', true);
     if (!isLeader()) return '<p class="empty">Siden er kun for holdledere og administratorer.</p>';
     var card = function (go, title, sub, color, act) {
       return '<button class="card row" style="min-height:56px;border-left:5px solid ' + color + '" ' + (act ? 'data-act="' + act + '"' : 'data-go="' + go + '"') + '><span class="col"><b style="font-size:15px">' + title + '</b><span class="xs">' + sub + '</span></span><span class="h" style="font-size:20px">›</span></button>';

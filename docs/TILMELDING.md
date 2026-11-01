@@ -81,6 +81,7 @@ Google shows menus in your account's language — Danish names are given first, 
 
 | Role | Who | Can |
 |---|---|---|
+| **Head administrator** | Christoffer — the app's creator (`SUPER_ADMIN_SHA256` in `Code.gs`, by login email) | Everything, including appointing administrators. Cannot be removed or changed from the app, never shown in the administrator/leader lists, and his email cannot be added to them |
 | **Administrator** | Anders Vedsted Nørrelund (player id `12813`, set in `ADMIN_PLAYER_IDS` at the top of `Code.gs`) | Appoint and remove team leaders in the app (*Min side → Udnævn holdledere*); also acts as leader for all teams |
 | **Appointed administrator** | Anyone a fixed administrator adds under *Administration → Administratorer* (tab *Administratorer*, by login email) | Everything an administrator can — news, activities, team leaders, all teams — except appointing other administrators |
 | **Team leader** | Anyone the administrator appoints (row in the *Ledere* tab) | Pick players and make lineups for their teams |

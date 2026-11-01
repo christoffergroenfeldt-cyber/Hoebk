@@ -44,7 +44,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-10-31.6';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -73,7 +73,10 @@ var SHEETS = {
 var ADMIN_PLAYER_IDS = ['12813'];   // Anders Vedsted Nørrelund
 // Administratorer ud fra login-e-mail (gemt som SHA-256 af e-mailen med små bogstaver, så adressen ikke står i koden).
 // Ny: kør  printf '%s' 'navn@eksempel.dk' | sha256sum  og tilføj tallet.
-var ADMIN_EMAIL_SHA256 = ['61b300daa9a1d0d7ce2848c73b1207e5c2c98dd5a93a2b66884f460ef587b90f'];   // Christoffer (udvikler)
+var ADMIN_EMAIL_SHA256 = [];   // flere faste administratorer ud fra e-mail (SHA-256)
+// Hovedadministrator: appens skaber og ansvarlige (Christoffer). Står kun her i koden — kan ikke fjernes eller ændres
+// fra appen, vises ikke i lister over administratorer/holdledere og kan ikke tilføjes til dem.
+var SUPER_ADMIN_SHA256 = ['61b300daa9a1d0d7ce2848c73b1207e5c2c98dd5a93a2b66884f460ef587b90f'];   // Christoffer
 var CODE_MINUTES = 15, MAX_CODES_PER_HOUR = 4, MAX_TRIES = 5, SESSION_DAYS = 365;
 
 // Virker både når scriptet er oprettet fra et Google Sheet (Udvidelser → Apps Script)
@@ -202,7 +205,12 @@ function sha256hex_(s) {
     .map(function (b) { return ('0' + (b & 0xff).toString(16)).slice(-2); }).join('');
 }
 // Faste administratorer (står i koden ovenfor) — de eneste der kan udnævne flere administratorer
+function isSuper_(email) {
+  var em = String(email || '').toLowerCase().trim();
+  return !!em && SUPER_ADMIN_SHA256.indexOf(sha256hex_(em)) >= 0;
+}
 function isOwner_(email, playerId) {
+  if (isSuper_(email)) return true;
   var em = String(email || '').toLowerCase().trim(), pid = String(playerId || '');
   if (em && ADMIN_EMAIL_SHA256.indexOf(sha256hex_(em)) >= 0) return true;
   if (!em || ADMIN_PLAYER_IDS.indexOf(pid) < 0) return false;
@@ -220,7 +228,7 @@ function isAdmin_(email, playerId) {
 function role_(email, playerId) {
   var em = String(email || '').toLowerCase().trim();
   if (!em) return { leader: false, teams: [] };
-  if (isAdmin_(em, playerId)) return { leader: true, all: true, admin: true, owner: isOwner_(em, playerId), teams: [] };
+  if (isAdmin_(em, playerId)) return { leader: true, all: true, admin: true, owner: isOwner_(em, playerId), super: isSuper_(em), teams: [] };
   var teams = [], all = false;
   data_('Ledere').forEach(function (r) {
     if (String(r[0]).toLowerCase().trim() !== em) return;
@@ -257,13 +265,14 @@ function saveLineup_(b) {
 function leaders_(b) {
   var ses = session_(b.token);
   if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
-  var leaders = data_('Ledere').map(function (r) {
+  var leaders = data_('Ledere').filter(function (r) { return !isSuper_(r[0]); }).map(function (r) {
     return { email: String(r[0]), name: String(r[1]), teams: String(r[2]).split(',').map(function (t) { return t.trim(); }).filter(String) };
   }).filter(function (l) { return l.email; });
   var emails = {};   // spiller-id → bekræftede e-mails (kun til administrator)
   data_('Spillere').forEach(function (r) { var id = String(r[0]); (emails[id] = emails[id] || []); if (emails[id].indexOf(String(r[2])) < 0) emails[id].push(String(r[2])); });
-  var admins = data_('Administratorer').filter(function (r) { return String(r[0]); }).map(function (r) { return { email: String(r[0]), name: String(r[1]), by: String(r[2]) }; });
-  return { ok: true, leaders: leaders, emails: emails, stats: stats_(), admins: admins, owner: isOwner_(ses.email, ses.playerId) };
+  var admins = data_('Administratorer').filter(function (r) { return String(r[0]) && !isSuper_(r[0]); }).map(function (r) { return { email: String(r[0]), name: String(r[1]), by: String(r[2]) }; });
+  Object.keys(emails).forEach(function (id) { emails[id] = emails[id].filter(function (e) { return !isSuper_(e); }); });   // hovedadministratorens e-mail vises ikke
+  return { ok: true, leaders: leaders, emails: emails, stats: stats_(), admins: admins, owner: isOwner_(ses.email, ses.playerId), super: isSuper_(ses.email) };
 }
 
 function setLeader_(b) {
@@ -271,6 +280,7 @@ function setLeader_(b) {
   if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
   var email = clean_(b.email, 120).toLowerCase();
   if (!validEmail_(email)) return { ok: false, error: 'Ugyldig e-mail' };
+  if (isSuper_(email)) return { ok: false, error: 'Det er hovedadministratoren — leder for alle hold i forvejen' };
   var teams = (b.teams || []).map(function (t) { return clean_(t, 60); }).filter(function (t) { return t && t.toLowerCase() !== 'admin'; });
   var name = clean_(b.name, 80);
   return withLock_(function () {
@@ -289,6 +299,7 @@ function setAdmin_(b) {
   var email = clean_(b.email, 120).toLowerCase();
   if (!validEmail_(email)) return { ok: false, error: 'Ugyldig e-mail' };
   if (email === ses.email.toLowerCase()) return { ok: false, error: 'Du er allerede fast administrator' };
+  if (isSuper_(email)) return { ok: false, error: 'Det er hovedadministratoren — den rolle kan ikke ændres i appen' };
   return withLock_(function () {
     var sh = sh_('Administratorer'), rows = data_('Administratorer');
     for (var i = rows.length - 1; i >= 0; i--) if (String(rows[i][0]).toLowerCase().trim() === email) sh.deleteRow(i + 2);
