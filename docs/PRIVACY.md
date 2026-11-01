@@ -11,7 +11,7 @@ The repo is **public**, so everything committed to it can be read by anyone. Thi
 | Opponents' names in lineups | `data/holdkampe.json`, `data/spillere.json` | Yes | badmintonplayer.dk |
 | Who answered what for matches/training (name + answer) | Google Sheet, `data/tilmeldinger.json`, `data/hoebk.db` | Yes (in the repo and in the app) | Players themselves |
 | **Email addresses** | Google Sheet tabs *Spillere*, *Koder*, *Sessioner* | **No** — never leaves Google | Players themselves |
-| **Chat messages** (*Snak*) | Google Sheet tab *Beskeder* | **No** — shown only to logged-in members of that team/training group | Players themselves |
+| **Chat messages** (*Chat*) | Google Sheet tab *Beskeder* | **No** — shown only to logged-in members of that team/training group | Players themselves |
 | News from the board | Google Sheet tab *Nyheder* | Shown in the app; news for everyone is public | Administrators |
 | Login codes and session tokens | Google Sheet, as salted SHA-256 hashes only | No | Generated |
 | Session token (plain) | The player's own phone (`localStorage`) | No | Generated |

@@ -28,7 +28,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/hold/<i>/kamp/<m>` | Played match: score, every game with players and sets. Upcoming match: details + availability buttons + who's coming |
 | `#/kalender/<view>/<YYYY-MM-DD>` | Calendar; `view` = `dag`, `uge`, `maaned`, `aar` |
 | `#/tilmeld` | Min side → **Mit program** (login flow when logged out): matches needing selection (leaders), tiles *Mangler dit svar* / *Dine opgaver*, a hint if a training group is chosen without your own team, then one combined programme for the next 14 days — followed teams' matches, your training and the app's activities — with answer buttons (unanswered items outlined in orange) |
-| `#/tilmeld/snak` | Min side → **Snak**: all your chat rooms with unread counts (the sub-tab shows the count) |
+| `#/tilmeld/snak` | Min side → **Chat**: all your chat rooms with unread counts (the sub-tab shows the count) |
 | `#/tilmeld/profil` | Min side → **Profil**: name, email, log out, *Mine børn* / *Er du også forælder?*, *Administration* (leaders/admins), training groups and teams, teams and tournaments you follow, *Turneringer for dit niveau* (player page), notifications, club shop |
 | `#/nyt` | **Start page** and first tab (*Nyt*): latest news, matches and activities in the next 14 days, and results from the last 30 days |
 | `#/rangliste` | Club ranking with metric and All/Senior/Youth filters — opened from the top of *Spillere* (no tab of its own) |
@@ -55,11 +55,11 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 
 Team order is fixed in `ORDER` at the top of the script (seniors, motion, youth). A team not listed there goes last — add new team labels to `ORDER` when a new division appears.
 
-## Snak (chat) and news
+## Chat and news
 
 **Rooms.** Every team has a room (`h:<leagueGroupTeamID>`) and every training group has one (`g:Senior` …). The server decides who is in a room: a team room is for players who have played for the team (from `data/holdkampe.json`), people who follow the team, its leaders and administrators; a training-group room is for everyone who picked that group under *Træning* on Min side (the app sends the chosen groups with every `rooms` call). Following a team is how parents and new players get in.
 
-**Where it shows.** Min side has *Nyheder fra klubben* (unread first, *Ny* tag) and *Snak* (4 most recent rooms with unread badges); the team page has a *💬 Holdets snak* button; the *Min side* tab gets a red dot when there's something unread. Unread is tracked per phone in `localStorage` (`hoebk_seen` = last seen message time per room, `hoebk_nseen` = news ids read). A room you see for the first time starts as read.
+**Where it shows.** Min side has *Nyheder fra klubben* (unread first, *Ny* tag) and *Chat* (4 most recent rooms with unread badges); the team page has a *💬 Holdets snak* button; the *Min side* tab gets a red dot when there's something unread. Unread is tracked per phone in `localStorage` (`hoebk_seen` = last seen message time per room, `hoebk_nseen` = news ids read). A room you see for the first time starts as read.
 
 **Chat.** Messages load when a room opens and every 15 s while it is open and the app is in front. Links become clickable, line breaks are kept, max 1000 characters, max 10 messages a minute per person. You can delete your own messages; administrators and the team's leaders can delete any message in a team room. *🔔 Modtager nyt* (green) / *🔕 Lydløs* (red) switches push for that room on this account.
 

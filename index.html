@@ -194,7 +194,7 @@ nav.tabs a[aria-current=page]{color:var(--ink)}
 .slot:first-child{border-top:0}
 .slot select{width:100%;min-height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;font-family:inherit;font-size:14px;padding:0 8px;color:var(--ink)}
 .warn{font-size:12px;color:#8A4B00;background:#FFF2E2;border-radius:10px;padding:8px 10px}
-/* Snak + nyheder */
+/* Chat + nyheder */
 nav.tabs a{position:relative}
 nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:9px;border-radius:50%;background:#D93A2B;border:2px solid #fff}
 .badge{min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
@@ -444,7 +444,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       (isFollowed(teamFid(t)) ? '★ Følger holdet' : '☆ Følg holdet') + '</button><span class="xs" style="flex:1">' +
       (isFollowed(teamFid(t)) ? 'Besked 3 dage før og på kampdagen, ved resultater og hvis en kamp flyttes.' : 'Få besked før kampe, ved resultater og ændringer.') + '</span></div>';
     var troom = ME && ME.token ? roomFor(t) : null;
-    if (troom) h += '<button class="card row" style="min-height:52px" data-go="#/snak/' + encodeURIComponent(troom.id) + '"><span class="col"><b style="font-size:14px">💬 Holdets snak</b>' +
+    if (troom) h += '<button class="card row" style="min-height:52px" data-go="#/snak/' + encodeURIComponent(troom.id) + '"><span class="col"><b style="font-size:14px">💬 Holdets chat</b>' +
       '<span class="xs ellip">' + (troom.last ? esc(troom.by.split(' ')[0] + ': ' + troom.x) : 'Skriv til holdet') + '</span></span>' + (unread(troom) ? '<span class="badge">' + unread(troom) + '</span>' : '<span class="xs">›</span>') + '</button>';
     h += '<div class="seg" role="tablist" style="grid-template-columns:repeat(3,minmax(0,1fr))">' +
       [['kampe', 'Kampe'], ['stilling', 'Stilling'], ['spillere', 'Spillere']].map(function (s) {
@@ -1552,11 +1552,11 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (UI.step === 'parent') {
         setHeader('Forælder', 'Opret dig som forælder', true);
         return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">' +
-          '<b>Dit navn</b><span class="s">Dit eget navn — det står ved dine beskeder i snakken.</span>' +
+          '<b>Dit navn</b><span class="s">Dit eget navn — det står ved dine beskeder i chatten.</span>' +
           '<div class="card search"><input id="pname" type="text" autocomplete="name" maxlength="60" placeholder="Fx Anne Hansen" aria-label="Dit fulde navn" value="' + esc(UI.pname || '') + '"></div></div>' +
           kidPicker('Hvem er du forælder til?') +
           '<button class="rb ja" aria-pressed="true" data-act="parentnext" style="min-height:48px;font-size:15px">Fortsæt</button>' +
-          '<p class="note">Som forælder kommer du med i dine børns holds snak, får nyheder til deres hold og kan følge hold og træningsgrupper.</p>';
+          '<p class="note">Som forælder kommer du med i dine børns holds chat, får nyheder til deres hold og kan følge hold og træningsgrupper.</p>';
       }
       setHeader('Log ind', 'Vælg dit navn', false);
       loadPub();
@@ -1579,7 +1579,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     sub = sub === 'snak' || sub === 'profil' ? sub : 'program';
     var unreadRooms = (SNAK.rooms || []).reduce(function (n, r) { return n + (r.muted || r.extra ? 0 : unread(r)); }, 0);
     var h = '<div class="seg mseg" role="tablist" style="grid-template-columns:repeat(3,minmax(0,1fr))">' +
-      [['program', 'Mit program'], ['snak', 'Snak' + (unreadRooms ? ' <span class="badge sm">' + unreadRooms + '</span>' : '')], ['profil', 'Profil']].map(function (x) {
+      [['program', 'Mit program'], ['snak', 'Chat' + (unreadRooms ? ' <span class="badge sm">' + unreadRooms + '</span>' : '')], ['profil', 'Profil']].map(function (x) {
         return '<button role="tab" aria-selected="' + (sub === x[0]) + '" data-go="#/tilmeld' + (x[0] === 'program' ? '' : '/' + x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>';
     if (sub === 'snak') return h + minSnak();
     if (sub === 'profil') return h + minProfil(P, parent, myTeams);
@@ -1650,8 +1650,8 @@ textarea.inp{resize:vertical;line-height:1.45}
   }
   // ---- Min side · Snak ----
   function minSnak() {
-    if (SNAK.off) return '<p class="empty">Snak er ikke slået til endnu.</p>';
-    return snakBlock(99) + '<p class="note">Du er med i snakken for de hold du spiller på, følger eller er holdleder for' + (ME.kids && ME.kids.length ? ', dine børns hold' : '') + ' og for de træningsgrupper du har valgt under Profil.</p>';
+    if (SNAK.off) return '<p class="empty">Chat er ikke slået til endnu.</p>';
+    return snakBlock(99) + '<p class="note">Du er med i chatten for de hold du spiller på, følger eller er holdleder for' + (ME.kids && ME.kids.length ? ', dine børns hold' : '') + ' og for de træningsgrupper du har valgt under Profil.</p>';
   }
   // ---- Min side · Profil: dig, børn, administration, træningsgrupper, følger, notifikationer ----
   function minProfil(P, parent, myTeams) {
@@ -1662,7 +1662,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (parent || (ME.kids && ME.kids.length)) h += '<button class="card row" style="min-height:52px" data-go="#/boern"><span class="col"><b style="font-size:14px">Mine børn</b>' +
       '<span class="xs ellip">' + (ME.kids && ME.kids.length ? esc(ME.kids.map(function (k) { var kp = D.players[k.id]; return k.name.split(' ')[0] + (kp && kp.teams.length ? ' (' + kp.teams.join(', ') + ')' : ''); }).join(' · ')) : 'Vælg dit barn') + '</span></span><span class="xs">Ret ›</span></button>';
     else if (REG.ver >= '2026-10-31.2') h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-go="#/boern"><span class="col"><b style="font-size:14px">Er du også forælder?</b>' +
-      '<span class="xs">Tilføj dine børn — så kommer du med i deres holds snak</span></span><span class="xs">›</span></button>';
+      '<span class="xs">Tilføj dine børn — så kommer du med i deres holds chat</span></span><span class="xs">›</span></button>';
     if (isLeader()) h += '<p class="note">Administration (nyheder, aktiviteter, holdledere, udtagelse) ligger under skjoldet øverst til højre.</p>';
     // Træningsgrupper og hold
     h += '<span class="lbl">Mine træningsgrupper</span><div class="chips" role="group" aria-label="Mine træningsgrupper" style="flex-wrap:wrap">' + GROUPS.map(function (g) {
@@ -1672,7 +1672,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (hs.length > 1) h += '<span class="xs" style="display:block;margin:2px 4px 0">' + esc(g) + ': vælg dit hold (ingen valgt = alle)</span><div class="chips" role="group" aria-label="Mine hold – ' + esc(g) + '" style="flex-wrap:wrap">' +
         hs.map(function (x) { return '<button class="chip" aria-pressed="' + ((ME.holds || []).indexOf(x) >= 0) + '" data-mhold="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</div>';
     });
-    h += '<p class="note">Bestemmer hvilken træning der står i dit program og hvilke træningsgruppers snak du er med i.</p>';
+    h += '<p class="note">Bestemmer hvilken træning der står i dit program og hvilke træningsgruppers chat du er med i.</p>';
     // Hold og turneringer du følger
     var fb = followedBlock();
     if (fb) h += fb;
@@ -2303,10 +2303,10 @@ textarea.inp{resize:vertical;line-height:1.45}
     setTab('tilmeld'); setHeader('Mine børn', ME ? ME.name : '', true);
     if (!ME || !ME.token) return '<p class="empty">Log ind på Min side først.</p>';
     if (!UI.kidsEdit) { UI.kids = {}; (ME.kids || []).forEach(function (k) { UI.kids[k.id] = k.name; }); UI.kidsEdit = true; }
-    return (isParentId(ME.id) ? '' : '<p class="s" style="margin:0 4px">Du er logget ind som spiller. Vælg dine børn her, så kommer du også med i deres holds snak og får nyheder til deres hold — uden at logge ud.</p>') +
+    return (isParentId(ME.id) ? '' : '<p class="s" style="margin:0 4px">Du er logget ind som spiller. Vælg dine børn her, så kommer du også med i deres holds chat og får nyheder til deres hold — uden at logge ud.</p>') +
       kidPicker('Du er forælder til') +
       '<button class="rb ja" aria-pressed="true" data-act="kidsave" style="min-height:48px;font-size:15px">Gem</button>' +
-      '<p class="note">Du kommer med i snakken for dine børns hold og får nyheder til holdene.</p>';
+      '<p class="note">Du kommer med i chatten for dine børns hold og får nyheder til holdene.</p>';
   }
   function saveKids() {
     var kids = kidsList();
@@ -2375,7 +2375,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (id === 'x:admin') return 'Admin-chat';
     if (/^g:/.test(id)) return 'Træning · ' + id.slice(2);
     var t = D.teams.filter(function (x) { return 'h:' + x.leagueGroupTeamID === id; })[0];
-    return t ? t.label : 'Snak';
+    return t ? t.label : 'Chat';
   }
   function roomFor(t) { return (SNAK.rooms || []).filter(function (x) { return x.id === 'h:' + t.leagueGroupTeamID; })[0]; }
   function audLabel(x) {
@@ -2397,12 +2397,12 @@ textarea.inp{resize:vertical;line-height:1.45}
   }
   function snakBlock(max) {
     if (!REG.url || SNAK.off) return '';
-    var h = '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Snak</span>' +
+    var h = '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Chat</span>' +
       (SNAK.rooms && SNAK.rooms.length > max ? '<button class="pl xs" data-go="#/snak">Alle ' + SNAK.rooms.length + ' ›</button>' : '') + '</div>';
     if (!SNAK.rooms) return h + '<p class="empty">Henter …</p>';
-    if (!SNAK.rooms.length) return h + '<p class="note">Snak åbner for de hold du spiller på eller følger, og for de træningsgrupper du vælger under <b>Træning</b> længere nede.</p>';
+    if (!SNAK.rooms.length) return h + '<p class="note">Chat åbner for de hold du spiller på eller følger, og for de træningsgrupper du vælger under <b>Træning</b> længere nede.</p>';
     var own = sortedRooms().filter(function (r) { return !r.extra; });
-    if (max < 99) return h + (own.length ? own.slice(0, max).map(roomRow).join('') : '<p class="note">Du er ikke selv med i nogen snak endnu — tryk <b>Alle</b> for at se alle holds snak.</p>');
+    if (max < 99) return h + (own.length ? own.slice(0, max).map(roomRow).join('') : '<p class="note">Du er ikke selv med i nogen chat endnu — tryk <b>Alle</b> for at se alle holds chat.</p>');
     var extra = sortedRooms().filter(function (r) { return r.extra; });
     return h + own.map(roomRow).join('') + (extra.length ? '<span class="lbl">Alle andre hold og grupper · administrator</span>' + extra.map(roomRow).join('') : '');
   }
@@ -2422,10 +2422,10 @@ textarea.inp{resize:vertical;line-height:1.45}
       (SNAK.canNews ? '<button class="rb" style="align-self:flex-start;min-height:42px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>' : '');
   }
   function viewSnak() {
-    setTab('tilmeld'); setHeader('Snak', 'Hold og træningsgrupper', true);
-    if (!ME || !ME.token) return '<p class="empty">Log ind på Min side for at være med i snakken.</p>';
+    setTab('tilmeld'); setHeader('Chat', 'Hold og træningsgrupper', true);
+    if (!ME || !ME.token) return '<p class="empty">Log ind på Min side for at være med i chatten.</p>';
     loadRooms(false);
-    return snakBlock(99) + '<p class="note">Du er med i snakken for de hold du har spillet på, følger eller er holdleder for, og for de træningsgrupper du har valgt på Min side.</p>';
+    return snakBlock(99) + '<p class="note">Du er med i chatten for de hold du har spillet på, følger eller er holdleder for, og for de træningsgrupper du har valgt på Min side.</p>';
   }
   function msgsHtml(room) {
     var M = SNAK.msgs[room], h = '', day = '';
@@ -2444,11 +2444,11 @@ textarea.inp{resize:vertical;line-height:1.45}
   function viewRoom(room) {
     setTab('tilmeld');
     var title = roomTitle(room);
-    setHeader(title, room === 'x:admin' ? 'Kun administratorer' : /^g:/.test(room) ? 'Snak · træningsgruppe' : 'Snak · holdet', true);
-    if (!ME || !ME.token) return '<p class="empty">Log ind på Min side for at være med i snakken.</p>';
+    setHeader(title, room === 'x:admin' ? 'Kun administratorer' : /^g:/.test(room) ? 'Chat · træningsgruppe' : 'Chat · holdet', true);
+    if (!ME || !ME.token) return '<p class="empty">Log ind på Min side for at være med i chatten.</p>';
     var M = SNAK.msgs[room];
     if (!M || (!M.list && !M.error)) { if (!M || !M.loading) fetchMsgs(room, false); return '<p class="empty">Henter beskeder …</p>'; }
-    if (M.error) return '<div class="warn">' + esc(M.error) + '</div><p class="note">' + (/^g:/.test(room) ? 'Vælg gruppen under Træning på Min side for at være med.' : 'Følg holdet under Hold for at være med i holdets snak.') + '</p>';
+    if (M.error) return '<div class="warn">' + esc(M.error) + '</div><p class="note">' + (/^g:/.test(room) ? 'Vælg gruppen under Træning på Min side for at være med.' : 'Følg holdet under Hold for at være med i holdets chat.') + '</p>';
     return '<div class="snakbar"><span class="xs" style="flex:1">' + (room === 'x:admin' ? 'Foreslå nye funktioner og ændringer til appen. Kun administratorer kan se det.' : /^g:/.test(room) ? 'Alle der har valgt ' + esc(room.slice(2)) + ' under Træning på Min side' : 'Holdets spillere, holdledere og dem der følger holdet') + '</span>' +
       '<button class="chip mute' + (M.muted ? ' off' : ' on') + '" data-act="mute" aria-pressed="' + !!M.muted + '" aria-label="' + (M.muted ? 'Lydløs — tryk for at modtage nyt' : 'Modtager nyt — tryk for lydløs') + '">' + (M.muted ? '🔕 Lydløs' : '🔔 Modtager nyt') + '</button></div>' +
       '<div id="msgs" class="msgs">' + msgsHtml(room) + '</div>' +
@@ -2485,7 +2485,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         if (quiet && old.list && document.getElementById('msgs')) { if (changed) refreshMsgs(room); }
         else { route(true); scrollBottom(); markSeen(room); }
       } else if (r && r.error === 'login') { ME = null; saveMe(); route(); }
-      else { SNAK.msgs[room] = old.list ? (old.loading = false, old) : { error: (r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres, før snakken virker' : ((r && r.error) || 'Kunne ikke hente beskeder') }; if (!quiet && curRoom() === room) route(true); }
+      else { SNAK.msgs[room] = old.list ? (old.loading = false, old) : { error: (r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres, før chatten virker' : ((r && r.error) || 'Kunne ikke hente beskeder') }; if (!quiet && curRoom() === room) route(true); }
     }).catch(function () {
       var o = SNAK.msgs[room];
       if (o && o.list) o.loading = false; else SNAK.msgs[room] = { error: 'Ingen forbindelse — prøv igen' };
@@ -2943,6 +2943,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!D) return;
     var y = $main.scrollTop;
     var parts = (location.hash || '#/nyt').replace(/^#\/?/, '').split('/');
+    if (parts[0] === 'chat') parts[0] = 'snak';   // #/chat/… er det samme som #/snak/… (gamle links fra notifikationer)
     var html;
     if (parts[0] !== 'boern') UI.kidsEdit = false;
     if (parts[0] === 'holdid') {   // stabile links (fra notifikationer): #/holdid/<leagueGroupTeamID>[/kamp/<matchID>]

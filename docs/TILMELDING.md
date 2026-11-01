@@ -133,11 +133,11 @@ A parent is automatically in the chat rooms of their children's teams (and gets 
 
 ## Admin chat (suggestions for the app)
 
-Room `x:admin` is a chat for administrators only — opened from *Administration → Admin-chat* (and listed first under Min side → Snak). Use it to suggest new functions and changes. It works like the other rooms (push, mute, delete).
+Room `x:admin` is a chat for administrators only — opened from *Administration → Admin-chat* (and listed first under Min side → Chat). Use it to suggest new functions and changes. It works like the other rooms (push, mute, delete).
 
 To let Claude read the suggestions, `setup` creates a separate read-only key **IDEAS_KEY** (shown in the execution log, also under Project settings → Script properties). `GET ?action=ideas&key=<IDEAS_KEY>[&since=<ms>]` returns only the admin chat (names, time, text — no emails); the key can't do anything else. Replace the property value to revoke it.
 
-## Snak and news — notifications
+## Chat and news — notifications
 
 New chat messages and news marked *Send også som notifikation* are pushed, never mailed (the ~100 mails/day quota is kept for login codes and match/tournament mails).
 
