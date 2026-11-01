@@ -231,6 +231,10 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .news.new{border-left:5px solid var(--accent)}
 .news.plan{border-left:5px solid var(--plan)}
 .news.web{border-left:5px solid var(--akt)}
+.usr{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-top:1px solid var(--line2)}
+.usr:first-child{border-top:0}
+.usr a{color:var(--muted)}
+.upill{font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px}
 .regcta{min-height:64px;background:var(--hi);border-color:#DCEBA5;border-left:5px solid var(--accent)}
 .helpcard{width:100%;text-align:left;font-size:inherit;padding:12px 14px;display:flex;flex-direction:column;gap:8px;background:#FFF7EC;border:2px solid #F3B35B}
 .helphead{display:flex;align-items:center;gap:10px}
@@ -2130,6 +2134,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       h += '<span class="lbl">Udvikling af appen</span>' +
         card('#/snak/x%3Aadmin', 'Admin-chat' + (au ? ' <span class="badge sm">' + au + '</span>' : ''), ar && ar.last ? esc(ar.by.split(' ')[0] + ': ' + ar.x) : 'Foreslå nye funktioner og ændringer — kun for administratorer', '#5B6B7A');
       h += '<span class="lbl">Personer</span>' +
+        card('#/brugere', 'Registrerede brugere', 'Alle der har logget ind — søg, se roller, børn og sidst aktiv', 'var(--ink)') +
         card('#/ledere', 'Administratorer og holdledere', (ME.role.owner ? 'Udnævn administratorer og holdledere' : 'Udnævn holdledere') + ' · brugerstatistik', 'var(--ink)');
     }
     h += '<p class="note">' + (ME.role.super ? 'Du er hovedadministrator.' : ME.role.owner ? 'Du er fast administrator.' : 'Du er administrator.') + ' Udtagelse til holdkampe ligger under fanen Holdleder.</p>';
@@ -3236,6 +3241,47 @@ textarea.inp{resize:vertical;line-height:1.45}
     return h;
   }
 
+  // ---------- Administration: registrerede brugere ----------
+  var USR = { data: null, loading: false, q: '', f: 'alle' };
+  function viewBrugere() {
+    setTab('tilmeld'); setHeader('Brugere', 'Alle registrerede i appen', true);
+    if (!ME || !ME.role || !ME.role.admin) return '<p class="empty">Kun for administratorer.</p>';
+    if (!REG.url) return '<p class="empty">Henter …</p>';
+    if (!USR.data) {
+      if (!USR.loading) { USR.loading = true; api({ action: 'users', token: ME.token }).then(function (r) {
+        USR.loading = false; USR.data = r && r.ok ? r.users : { error: r && r.error === 'Ukendt handling' ? 'Klubbens server skal opdateres, før listen kan vises' : (r && r.error) || 'Kunne ikke hente brugere' }; route(true);
+      }).catch(function () { USR.loading = false; USR.data = { error: 'Ingen forbindelse' }; route(true); }); }
+      return '<p class="empty">Henter brugere …</p>';
+    }
+    if (USR.data.error) return '<div class="warn">' + esc(USR.data.error) + '</div>';
+    var all = USR.data, F = { alle: ['Alle', function () { return true; }], spiller: ['Spillere', function (u) { return !/^p:/.test(u.id); }],
+      foraelder: ['Forældre', function (u) { return u.parent; }], leder: ['Holdledere', function (u) { return u.leader && !u.admin; }], admin: ['Admin', function (u) { return u.admin; }] };
+    var q = USR.q.toLowerCase().trim();
+    var list = all.filter(F[USR.f][1]).filter(function (u) { return !q || (u.name + ' ' + u.email + ' ' + u.kids.map(function (k) { return k.name; }).join(' ') + ' ' + ((D.players[u.id] || {}).teams || []).join(' ')).toLowerCase().indexOf(q) >= 0; });
+    var week = Date.now() - 7 * 86400000;
+    var h = '<div class="tiles">' + [['Brugere', all.length], ['Aktive 7 dage', all.filter(function (u) { return u.active > week; }).length], ['Forældre', all.filter(function (u) { return u.parent; }).length]].map(function (x) {
+      return '<div class="card tile"><span class="lbl" style="margin:0">' + x[0] + '</span><b>' + x[1] + '</b></div>'; }).join('') + '</div>' +
+      '<label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
+      '<input id="usrQ" type="search" value="' + esc(USR.q) + '" placeholder="Søg navn, e-mail, barn eller hold" aria-label="Søg brugere" autocomplete="off"></label>' +
+      '<div class="chips" role="group" aria-label="Vis">' + Object.keys(F).map(function (k) {
+        return '<button class="chip" data-usrf="' + k + '" aria-pressed="' + (USR.f === k) + '">' + F[k][0] + ' <span class="xs" style="color:inherit;opacity:.7">' + all.filter(F[k][1]).length + '</span></button>'; }).join('') + '</div>';
+    h += '<div class="card" style="overflow:hidden">' + (list.length ? list.map(function (u) {
+      var P = D.players[u.id], pills = [];
+      if (u.superAdmin) pills.push(['Hovedadmin', 'var(--ink)', '#fff']); else if (u.admin) pills.push(['Admin', 'var(--ink)', '#fff']);
+      if (u.leader && !u.admin) pills.push(['Holdleder' + (u.teams.length ? ' · ' + u.teams.join(', ') : ''), 'var(--accent)', 'var(--ink)']);
+      if (u.parent) pills.push(['Forælder', PARENT.bg, '#fff']);
+      if (!/^p:/.test(u.id)) pills.push(['Spiller', 'var(--soft)', 'var(--ink)']);
+      return '<div class="usr"><span class="av" style="width:38px;height:38px;font-size:13px;' + (/^p:/.test(u.id) ? 'background:' + PARENT.bg + ';color:#fff' : avStyle(P)) + '">' + esc(ini(u.name)) + '</span>' +
+        '<span class="col" style="flex:1 1 auto;min-width:0;gap:2px"><b style="font-size:14px">' + esc(u.name) + '</b>' +
+        '<a class="xs ellip" href="mailto:' + esc(u.email) + '">' + esc(u.email) + '</a>' +
+        '<span class="xs ellip">' + esc([P && P.teams.length ? P.teams.join(', ') : '', u.kids.length ? 'Børn: ' + u.kids.map(function (k) { return k.name.split(' ')[0]; }).join(', ') : ''].filter(String).join(' · ')) + '</span>' +
+        '<span style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px">' + pills.map(function (x) { return '<span class="upill" style="background:' + x[1] + ';color:' + x[2] + '">' + esc(x[0]) + '</span>'; }).join('') + '</span></span>' +
+        '<span class="col" style="align-items:flex-end;flex:0 0 auto"><span class="xs">' + (u.active ? esc(ago(u.active)) : '–') + '</span>' + (u.push ? '<span class="xs" title="Notifikationer slået til">🔔 ' + u.push + '</span>' : '') + '</span></div>';
+    }).join('') : '<p class="empty" style="padding:12px">Ingen brugere matcher.</p>') + '</div>';
+    h += '<p class="note">Viser ' + list.length + ' af ' + all.length + '. "Sidst aktiv" = sidste gang appen talte med klubbens server. E-mails er kun synlige for administratorer.</p>';
+    return h;
+  }
+
   // ---------- Router ----------
   var lastTab = 'hold';
   function route(keepScroll) {
@@ -3264,6 +3310,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     else if (parts[0] === 'opstilling') { html = viewOpstilling(+parts[1], +parts[2]); }
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
+    else if (parts[0] === 'brugere') { lastTab = 'tilmeld'; html = viewBrugere(); }
     else if (parts[0] === 'holdleder' || parts[0] === 'admin') { html = viewHoldleder(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'oversigt') { lastTab = 'tilmeld'; html = viewOversigt(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'ny') { lastTab = 'tilmeld'; html = viewActForm(''); }
@@ -3333,6 +3380,10 @@ textarea.inp{resize:vertical;line-height:1.45}
     }
     var selTab = document.querySelector('.mtabs [aria-pressed="true"]');   // valgt fane i Min side altid synlig
     if (selTab && selTab.parentNode.scrollWidth > selTab.parentNode.clientWidth) selTab.parentNode.scrollLeft = Math.max(0, selTab.offsetLeft - selTab.parentNode.clientWidth / 2 + selTab.offsetWidth / 2);
+    if (parts[0] === 'brugere' && document.getElementById('usrQ')) {
+      var uq = document.getElementById('usrQ');
+      uq.addEventListener('input', function () { USR.q = uq.value; route(true); var x = document.getElementById('usrQ'); x.focus(); x.setSelectionRange(x.value.length, x.value.length); });
+    }
     if (document.getElementById('afName')) bindActForm();
     if (document.getElementById('kq')) {
       renderKidList();
@@ -3419,8 +3470,9 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel]');
+    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf]');
     if (!b) return;
+    if (b.dataset.usrf) { USR.f = b.dataset.usrf; route(true); return; }
     if (b.dataset.kid) { toggleKid(b.dataset.kid); return; }
     if (b.dataset.act === 'admadd' || b.dataset.admdel) {
       var on = b.dataset.act === 'admadd', em2 = on ? (ADM.na.email || '').toLowerCase() : b.dataset.admdel, nm2 = on ? ADM.na.name.trim() : b.dataset.name;
@@ -3534,7 +3586,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       loadActivities(true);
       return load();
     }).then(function () { return loadReg(); })
-      .then(function () { route(true); SNAK.pub = null; loadPub(); var rm = curRoom(); if (rm && ME && ME.token) fetchMsgs(rm, true); loadActs(true); return loadRooms(true); })
+      .then(function () { route(true); SNAK.pub = null; USR.data = null; loadPub(); var rm = curRoom(); if (rm && ME && ME.token) fetchMsgs(rm, true); loadActs(true); return loadRooms(true); })
       .then(function () { toast('Opdateret'); })
       .catch(function () { toast('Kunne ikke opdatere — tjek forbindelsen'); })
       .then(function () { btn.classList.remove('spin'); FORCE = 0; });

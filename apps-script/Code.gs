@@ -25,6 +25,7 @@
  *           player = et af ens børns spiller-id → forælderen svarer på barnets vegne (gemmes under barnets navn)
  *  lineup   {token, eventId, team, status, squad[], games[], note} → holdopstilling (kun holdledere, se fanen Ledere)
  *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
+ *  users    {token}                              → administratorer: alle registrerede brugere (navn, e-mail, rolle, børn, sidst aktiv)
  *  setAdmin {token, email, name, on}           → faste administratorer udnævner/fjerner administratorer (fanen Administratorer)
  *  follow   {token, tid, title, on}              → følg/stop med at følge en turnering (fanen Følger)
  *  notify   {key, items[{ids[], title, lines[], url}]} → GitHub sender nyt om turneringer; mail til dem der følger
@@ -46,7 +47,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.6';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.7';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -316,6 +317,31 @@ function setAdmin_(b) {
     if (b.on) sh.appendRow([email, safe_(clean_(b.name, 80)), safe_(ses.playerName), new Date()]);
     return { ok: true };
   });
+}
+
+// Alle der har bekræftet en e-mail i appen — kun til administratorer (hovedadministratoren vises kun for sig selv)
+function users_(b) {
+  var ses = session_(b.token);
+  if (!ses || !isAdmin_(ses.email, ses.playerId)) return { ok: false, error: 'Kun administrator' };
+  var meSuper = isSuper_(ses.email), cx = ctx_(), by = {};
+  data_('Spillere').forEach(function (r) {
+    var em = String(r[2]).toLowerCase().trim(); if (!em) return;
+    if (isSuper_(em) && !meSuper) return;
+    var u = by[em] = by[em] || { email: em, profiles: [], first: 0, seen: 0, active: 0, push: 0, kids: [] };
+    var id = String(r[0]), nm = String(r[1]);
+    if (!u.profiles.some(function (p) { return p.id === id; })) u.profiles.push({ id: id, name: nm });
+    var f = ts_(r[3]); if (f && (!u.first || f < u.first)) u.first = f;
+    var l = ts_(r[4]); if (l > u.seen) u.seen = l;
+  });
+  data_('Sessioner').forEach(function (r) { var u = by[String(r[3]).toLowerCase()]; if (!u) return; var t = ts_(r[5]); if (t > u.active) u.active = t; });
+  data_('Push').forEach(function (r) { var u = by[String(r[0]).toLowerCase()]; if (u) u.push++; });
+  cx.par.forEach(function (r) { var u = by[String(r[0]).toLowerCase()]; if (u) u.kids.push({ id: String(r[3]), name: String(r[4]) }); });
+  var users = Object.keys(by).map(function (em) {
+    var u = by[em], p = u.profiles[u.profiles.length - 1], role = roleIn_(cx, em, p.id);
+    return { email: em, name: p.name, id: p.id, profiles: u.profiles, parent: /^p:/.test(p.id) || u.kids.length > 0, kids: u.kids,
+             admin: role.admin, superAdmin: isSuper_(em), leader: role.all || role.teams.length > 0, teams: role.teams, first: u.first, active: Math.max(u.active, u.seen), push: u.push };
+  }).sort(function (a, b) { return a.name.localeCompare(b.name, 'da'); });
+  return { ok: true, users: users };
 }
 
 function lineups_() {
@@ -1071,6 +1097,7 @@ function doPost(e) {
       case 'leaders': return json_(leaders_(b));
       case 'setLeader': return json_(setLeader_(b));
       case 'setAdmin': return json_(setAdmin_(b));
+      case 'users': return json_(users_(b));
       case 'follow': return json_(follow_(b));
       case 'notify': return json_(notify_(b));
       case 'push': return json_(push_(b));

@@ -34,6 +34,7 @@ Navigation uses the URL hash, so the browser's back button works and every scree
 | `#/tilmeld/foraelder` | Each child with their next match and whether they're selected, *+ Tilføj barn*, the children's team chats; for parent logins also training groups, follows and settings |
 | `#/tilmeld/holdleder` | Next match per team you lead with replies (*kan / måske / kan ikke*) and *Udtag spillere* / *Opstilling*; badge = matches missing a selection |
 | `#/tilmeld/admin` | Administrators: news, activities, admin chat, administrators and team leaders. The shield in the top bar opens this tab (team leaders: the Holdleder tab). `#/admin` and `#/holdleder` redirect here |
+| `#/brugere` | Administrators: all registered users — search (name, email, child, team), filters *Alle / Spillere / Forældre / Holdledere / Admin*, role badges, children, last active, push devices. Opened from Min side → Admin → *Registrerede brugere* |
 | `#/rangliste` | Club ranking with metric and All/Senior/Youth filters — opened from the top of *Spillere* (no tab of its own) |
 | `#/spillere` | Player search with filter chips *Alle / Har spillet / Har rangering / Uden rangering* (remembered, `hoebk_pf`) |
 | `#/spiller/<id>` | Player profile (`id` = badmintonplayer.dk player id), incl. *Turneringer for dit niveau* |
