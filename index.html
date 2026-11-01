@@ -3085,18 +3085,18 @@ textarea.inp{resize:vertical;line-height:1.45}
       var ks = (r.kids || []).filter(function (k) { return kidOk(k.id); }).map(function (k) { return k.n.split(' ')[0]; });
       return esc(r.n) + (ks.length ? ' <span style="font-weight:500">· forælder til ' + esc(ks.join(' og ')) + '</span>' : '');
     };
-    var mineOf = function (pid) { return L.filter(function (r) { return r.p === pid; })[0]; };
+    var mineOf = function (pid) { return rideMine(L, pid); };
     var first = function (n) { return esc(String(n).split(' ')[0]); };
     var free = 0, need = L.filter(function (r) { return r.mode === 'need' && !r.driver; });
     var cars = drivers.map(function (d) {
       var pass = L.filter(function (r) { return r.mode === 'need' && r.driver === d.p; }), left = Math.max(0, d.seats - pass.length); free += left;
-      var takeBtns = left ? people.filter(function (pp) { var m = mineOf(pp.id); return pp.id !== d.p && !pp.driveOnly && !(m && m.mode === 'drive') && !(m && m.driver === d.p); }).map(function (pp) {
+      var takeBtns = left ? people.filter(function (pp) { var m = mineOf(pp.id); return mineOf(pp.id) !== d && !pp.driveOnly && !(m && m.mode === 'drive') && !(m && m.driver === d.p); }).map(function (pp) {
         var k = ev + '|' + pp.id;
         return '<button class="rb take" data-ridetake="' + esc(d.p) + '" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '"' + (RIDE.busy[k] ? ' disabled' : '') + '>' +
           (mineOf(pp.id) && mineOf(pp.id).driver ? (pp.kid ? 'Flyt ' + first(pp.name) + ' hertil' : 'Skift til denne bil') : pp.kid ? '+ ' + first(pp.name) + ' kører med' : '+ Kør med') + '</button>'; }).join('') : '';
       var leaveBtns = people.filter(function (pp) { var m = mineOf(pp.id); return m && m.mode === 'need' && m.driver === d.p; }).map(function (pp) {
         return '<button class="rb" data-ridetake="" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '"' + (RIDE.busy[ev + '|' + pp.id] ? ' disabled' : '') + '>' + (pp.kid ? first(pp.name) + ' kører ikke med' : 'Jeg kører ikke med alligevel') + '</button>'; }).join('');
-      return '<div class="rcar' + (left ? '' : ' full') + '"><div class="rtop">' + CAR + '<b style="font-size:14px;min-width:0">' + rname(d) + (d.p === ME.id ? ' (dig)' : '') + '</b>' +
+      return '<div class="rcar' + (left ? '' : ' full') + '"><div class="rtop">' + CAR + '<b style="font-size:14px;min-width:0">' + rname(d) + (mineOf(ME.id) === d ? ' (dig)' : '') + '</b>' +
         '<span class="seats">' + (left ? left + ' af ' + d.seats + ' ledig' + (left > 1 ? 'e' : '') : 'Fuld') + '</span></div>' +
         '<span class="xs">' + (d.pickup && d.pickup !== 'vej' ? 'Mødested: ' + esc(d.pickup) : 'Henter alle på vejen') + (d.time ? ' · afgang kl. ' + esc(d.time) : '') + '</span>' +
         '<div class="rpass">' + pass.map(function (r) { return '<span' + (r.mine ? ' class="me"' : '') + '>' + rname(r) + (r.note && (!d.pickup || d.pickup === 'vej') ? ' · ' + esc(r.note) : '') + '</span>'; }).join('') +
@@ -3128,7 +3128,8 @@ textarea.inp{resize:vertical;line-height:1.45}
           '<button class="rb" data-ridecancel="' + esc(k) + '">Fortryd</button>' +
           (m && m.mode === 'drive' ? '<button class="rb" data-ride="clear" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '">Træk tilbud tilbage</button>' : '') + '</div></div>';
       } else if (m && m.mode === 'drive') {
-        hh += '<span class="xs">Du tilbyder ' + m.seats + ' plads' + (m.seats > 1 ? 'er' : '') + '. Tryk på knappen igen for at ændre pladser, opsamling eller afgang.</span>';
+        hh += '<span class="xs">Du tilbyder ' + m.seats + ' plads' + (m.seats > 1 ? 'er' : '') + '. Tryk på knappen ovenfor for at ændre pladser, opsamling eller afgang.</span>' +
+          '<button class="rb" data-ride="clear" data-rev="' + esc(ev) + '" data-rp="' + esc(pp.id) + '" style="align-self:flex-start"' + (RIDE.busy[k] ? ' disabled' : '') + '>Jeg kører ikke alligevel</button>';
       } else if (m && m.mode === 'need') {
         var dr = m.driver && drivers.filter(function (d) { return d.p === m.driver; })[0];
         hh += '<span class="xs">' + (dr ? (pp.kid ? first(pp.name) + ' kører' : 'Du kører') + ' med <b>' + esc(dr.n) + '</b>.' : (free ? 'Tag en ledig plads i en af bilerne ovenfor.' : 'Ingen ledige pladser endnu — du får besked her, når nogen tilbyder et lift.')) + '</span>' +
@@ -3138,6 +3139,13 @@ textarea.inp{resize:vertical;line-height:1.45}
       return hh + '</div>';
     }).join('');
     return h;
+  }
+  // Min egen række (eller mit barns): samme id — eller (for mig selv) en række jeg har meldt under et tidligere id
+  function rideMine(L, pid) {
+    var m = L.filter(function (r) { return r.p === pid; })[0];
+    if (m || pid !== ME.id) return m;
+    var kids = {}; (ME.kids || []).forEach(function (k) { kids[k.id] = 1; });
+    return L.filter(function (r) { return r.mine && !r.by && !kids[r.p]; })[0];
   }
   function rideSend(ev, pid, body, okMsg) {
     var k = ev + '|' + pid, c = RIDE.ctx[ev] || {};
@@ -3156,7 +3164,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   }
   function rideClick(b) {
     var ev = b.dataset.rev, pid = b.dataset.rp, k = ev + '|' + pid, L = (RIDE.ev[ev] && RIDE.ev[ev].list) || [];
-    var m = L.filter(function (r) { return r.p === pid; })[0], kid = pid !== ME.id, nm = kid ? ((ME.kids || []).filter(function (x) { return x.id === pid; })[0] || {}).name || '' : '';
+    var m = rideMine(L, pid), kid = pid !== ME.id, nm = kid ? ((ME.kids || []).filter(function (x) { return x.id === pid; })[0] || {}).name || '' : '';
     var fn = nm ? nm.split(' ')[0] : '';
     if (b.dataset.ridetake !== undefined) {
       var d = b.dataset.ridetake, dn = d ? (L.filter(function (r) { return r.p === d; })[0] || {}).n || '' : '';
@@ -3173,9 +3181,9 @@ textarea.inp{resize:vertical;line-height:1.45}
     }
     delete RIDE.form[k];
     var clear = mode === 'clear' || (m && m.mode === mode);
-    if (m && m.mode === 'drive' && L.some(function (r) { return r.driver === pid; }) && !confirm('Du har passagerer. De får besked om, at du ikke kører alligevel. Fortsæt?')) return;
+    if (m && m.mode === 'drive' && L.some(function (r) { return r.driver === m.p; }) && !confirm('Du har passagerer. De får besked om, at du ikke kører alligevel. Fortsæt?')) return;
     rideSend(ev, pid, { action: 'rideSet', mode: clear ? 'clear' : mode, note: mode === 'need' && m ? m.note : '' },
-      clear ? 'Valget er fjernet' : mode === 'need' ? (kid ? fn + ' mangler' : 'Du mangler') + ' et lift — tag en ledig plads i en bil' : 'Gemt: ' + (kid ? fn + ' kommer selv' : 'du kører selv'));
+      clear ? (m && m.mode === 'drive' ? 'Du kører ikke alligevel' + (L.some(function (r) { return r.driver === m.p; }) ? ' — passagererne har fået besked' : '') : 'Valget er fjernet') : mode === 'need' ? (kid ? fn + ' mangler' : 'Du mangler') + ' et lift — tag en ledig plads i en bil' : 'Gemt: ' + (kid ? fn + ' kommer selv' : 'du kører selv'));
   }
   function rideSave(k) {
     var f = RIDE.form[k]; if (!f) return;

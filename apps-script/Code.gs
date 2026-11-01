@@ -51,7 +51,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.13';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.14';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -1081,7 +1081,7 @@ function ridePub_(rows, em, kidIds) {
   return rows.filter(function (r) { return RIDE_MODES.indexOf(r.mode) >= 0; }).map(function (r) {
     var by = pname[r.email + '|' + r.p] || '';
     return { p: r.p, n: r.n, mode: r.mode, seats: r.seats, pickup: r.pickup, time: r.time, driver: r.driver, note: r.note,
-             mine: r.p === kidIds.self || kidIds[r.p] === 1, by: by, kids: by ? [] : (kidsOf[r.email] || []) };
+             mine: r.p === kidIds.self || kidIds[r.p] === 1 || (r.email === em && !by), by: by, kids: by ? [] : (kidsOf[r.email] || []) };
   });
 }
 // Ungdomskamp/-turnering: kun forældre (og voksne) melder samkørsel — ungdomsspillere kan ikke selv vælge.
@@ -1096,6 +1096,20 @@ function rideWho_(ses, forId) {   // hvem svarer man for: sig selv eller et af s
   if (!forId || forId === ses.playerId) return { id: ses.playerId, name: ses.playerName, kid: false, label: ses.playerName };
   var kid = kids_(ses.email).filter(function (k) { return k.id === forId; })[0];
   return kid ? { id: kid.id, name: kid.name, kid: true, label: kid.name + ' (' + ses.playerName + ')' } : null;
+}
+// Ens egen række: samme playerId — eller samme e-mail (ikke et barn), hvis man har skiftet id siden (fx spiller → forælder).
+// Så rettes rækken til det nye id, og passagerernes chauffør-henvisning følger med.
+function rideMine_(rows, who, em, sh) {
+  var mine = rows.filter(function (r) { return r.p === who.id; })[0];
+  if (mine || who.kid) return mine;
+  var kids = {}; kids_(em).forEach(function (k) { kids[k.id] = 1; });
+  mine = rows.filter(function (r) { return r.email === em && !kids[r.p]; })[0];
+  if (!mine) return null;
+  var old = mine.p;
+  sh.getRange(mine.row, 4, 1, 2).setValues([[safe_(who.id), safe_(who.name)]]);
+  rows.forEach(function (r) { if (r.driver === old) { r.driver = who.id; sh.getRange(r.row, 11).setValue(safe_(who.id)); } });
+  mine.p = who.id; mine.n = who.name;
+  return mine;
 }
 function rideIds_(ses) { var o = { self: ses.playerId }; kids_(ses.email).forEach(function (k) { o[k.id] = 1; }); return o; }
 function rideEv_(b) { var ev = clean_(b.event, 80); return /^[mt]:[\w:.\- æøåÆØÅ]+$/.test(ev) ? ev : ''; }
@@ -1132,7 +1146,7 @@ function rideSet_(b) {
   var note = mode === 'need' ? clean_(b.note, 80) : '';
   var title = clean_(b.title, 120), link = rideLink_(b), em = ses.email.toLowerCase(), notify = [];
   var res = withLock_(function () {
-    var rows = rideRows_(ev), sh = sh_('Kørsel'), mine = rows.filter(function (r) { return r.p === who.id; })[0];
+    var rows = rideRows_(ev), sh = sh_('Kørsel'), mine = rideMine_(rows, who, em, sh);
     var pass = rows.filter(function (r) { return r.mode === 'need' && r.driver === who.id; });
     if (mode === 'drive' && pass.length > seats) return { ok: false, error: 'Du har allerede ' + pass.length + ' passagerer — vælg mindst ' + pass.length + ' pladser' };
     if (mine && mine.mode === 'drive' && mode !== 'drive' && pass.length) {   // chaufføren kører ikke alligevel: passagererne mangler igen et lift
@@ -1163,7 +1177,7 @@ function rideTake_(b) {   // tag en plads i en bil (driver = chaufførens player
   var yb = rideYouthBlock_(b, ses, who); if (yb) return { ok: false, error: yb };
   var did = clean_(b.driver, 40), title = clean_(b.title, 120), link = rideLink_(b), em = ses.email.toLowerCase(), notify = null;
   var res = withLock_(function () {
-    var rows = rideRows_(ev), sh = sh_('Kørsel'), mine = rows.filter(function (r) { return r.p === who.id; })[0];
+    var rows = rideRows_(ev), sh = sh_('Kørsel'), mine = rideMine_(rows, who, em, sh);
     if (did) {
       if (did === who.id) return { ok: false, error: 'Du kan ikke tage plads i din egen bil' };
       var d = rows.filter(function (r) { return r.p === did && r.mode === 'drive'; })[0];
