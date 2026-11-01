@@ -2270,6 +2270,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         card('#/snak/x%3Aadmin', 'Admin-chat' + (au ? ' <span class="badge sm">' + au + '</span>' : ''), ar && ar.last ? esc(ar.by.split(' ')[0] + ': ' + ar.x) : 'Foreslå nye funktioner og ændringer — kun for administratorer', '#5B6B7A');
       h += '<span class="lbl">Personer</span>' +
         card('#/brugere', 'Registrerede brugere', 'Alle der har logget ind — søg, se roller, børn og sidst aktiv', 'var(--ink)') +
+        '<a class="card row" style="min-height:56px;border-left:5px solid var(--ink);text-decoration:none;color:inherit" href="https://claude.ai/artifact/EpD317eMUbCD5uFZwNUPwu" target="_blank" rel="noopener"><span class="col"><b style="font-size:15px">Oversigt over appen</b><span class="xs">Alle skærme, roller, farver og vejledning — kan deles med udvalgte</span></span><span class="h" style="font-size:20px">↗</span></a>' +
         card('#/ledere', 'Administratorer og holdledere', (ME.role.owner ? 'Udnævn administratorer og holdledere' : 'Udnævn holdledere') + ' · brugerstatistik', 'var(--ink)');
     }
     h += '<p class="note">' + (ME.role.super ? 'Du er hovedadministrator.' : ME.role.owner ? 'Du er fast administrator.' : 'Du er administrator.') + ' Udtagelse til holdkampe ligger under fanen Holdleder.</p>';
