@@ -585,7 +585,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       return '<button class="rk' + (i < 3 ? ' top3' : '') + '" data-go="#/spiller/' + esc(id) + '">' +
         '<span class="h" style="font-size:16px;color:' + (i < 3 ? 'var(--ink)' : 'var(--muted2)') + '">' + (i + 1) + '</span>' +
         '<span class="col"><b class="ellip" style="font-size:14px">' + esc(p.name) + '</b><span class="xs ellip">' + esc(p.teams.join(', ')) + ' · ' + p.won + '/' + p.played + ' kampe · sæt ' + (p.setsWon || 0) + '-' + (p.setsLost || 0) + '</span></span>' +
-        '<span class="col" style="align-items:flex-end"><span class="h" style="font-size:17px">' + pctTxt(v.m) + '</span><span style="font-size:11px;color:var(--muted)">sæt ' + pctTxt(v.s) + ' · bolde ' + pctTxt(v.b) + '</span></span></button>';
+        '<span class="col" style="align-items:flex-end"><span class="h" style="font-size:17px">' + pctTxt(v.m) + '</span><span style="font-size:11px;color:var(--muted)">sæt ' + pctTxt(v.s) + ' · bolde ' + (Math.round(v.b * 1000) / 10).toFixed(1).replace('.', ',') + '%</span></span></button>';
     }).join('') + '</div>';
     h += '<p class="note">Rangeret efter 1) andel vundne kampe, 2) ved lighed andel vundne sæt, 3) derefter andel vundne bolde — så det er fair på tværs af rækker med 2 eller 3 sæt og forskellig sætlængde. Ved fuld lighed tæller flest spillede kampe.</p>';
     return h;
