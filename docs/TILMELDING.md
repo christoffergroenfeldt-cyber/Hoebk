@@ -151,7 +151,7 @@ New chat messages and news marked *Send også som notifikation* are pushed, neve
 
 Tapping the notification opens the room or the news item. Messages themselves stay in the Google Sheet; only the push text (first 140 characters) passes through GitHub Actions, and it isn't written to the repo or the log.
 
-**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.5` or later.
+**Setup after updating `Code.gs`:** paste the new code, run **setup** once (creates the new tabs *Beskeder, Nyheder, Grupper, Lydløs, PushKø*), then *Implementer → Administrer implementeringer → Ny version*. The script now also calls `UrlFetchApp` to read `holdkampe.json` from GitHub Pages, so Google asks for one extra permission (*connect to an external service*) — approve it. Check with *Tjek Apps Script-version*: it should say `2026-11-01.6` or later.
 
 ## Lineup rules in the app
 
@@ -210,7 +210,7 @@ Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite 
 |---|---|
 | `POST {action:"request", email, playerId, playerName}` | Emails a 6-digit code (15 min validity, max 4 codes per email per hour) |
 | `POST {action:"verify", email, code}` | Checks the code (max 5 tries), returns a session token valid for 365 days |
-| `POST {action:"register", token, type, eventId, status, label}` | Saves an answer for the player behind the token |
+| `POST {action:"register", token, type, eventId, status, label, player?}` | Saves an answer for the player behind the token — or, with `player` = one of the parent's children, for that child (stored under the child's name) |
 | `POST {action:"me" / "logout", token}` | Check / end a session; `me` and `verify` also return the role `{leader, all, admin, teams}` |
 | `POST {action:"lineup", token, eventId, team, status, squad[], games[], note}` | Save a squad/lineup — only leaders for that team |
 | `POST {action:"leaders" / "setLeader", token, …}` | List / set team leaders — administrator only |

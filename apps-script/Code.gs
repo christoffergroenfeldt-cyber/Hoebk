@@ -21,7 +21,8 @@
  *  request  {email, playerId, playerName}       → sender 6-cifret kode (gyldig 15 min)
  *  verify   {email, code}                        → {token, player}
  *  me       {token}                              → {player}
- *  register {token, type, eventId, status, label}→ gemmer svar for den indloggede spiller (status 'ryd' fjerner svaret)
+ *  register {token, type, eventId, status, label, player?}→ gemmer svar for den indloggede spiller (status 'ryd' fjerner svaret);
+ *           player = et af ens børns spiller-id → forælderen svarer på barnets vegne (gemmes under barnets navn)
  *  lineup   {token, eventId, team, status, squad[], games[], note} → holdopstilling (kun holdledere, se fanen Ledere)
  *  leaders / setLeader {token, email, name, teams[]} → administrator (ADMIN_PLAYER_IDS) udnævner holdledere
  *  setAdmin {token, email, name, on}           → faste administratorer udnævner/fjerner administratorer (fanen Administratorer)
@@ -45,7 +46,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.5';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-01.6';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -470,10 +471,16 @@ function register_(b) {
   if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
   var type = clean_(b.type, 10), status = clean_(b.status, 10), eventId = clean_(b.eventId, 80);
   if (!TYPES[type] || TYPES[type].indexOf(status) < 0 || !eventId) return { ok: false, error: 'Ugyldigt svar' };
+  var pid = ses.playerId, pname = ses.playerName, forId = clean_(b.player, 40);
+  if (forId && forId !== ses.playerId) {   // forælder svarer for sit barn
+    var kid = kids_(ses.email).filter(function (k) { return k.id === forId; })[0];
+    if (!kid) return { ok: false, error: 'Du kan kun svare for dine egne børn' };
+    pid = kid.id; pname = kid.name;
+  }
   withLock_(function () {
-    sh_('Tilmeldinger').appendRow([new Date(), type, safe_(eventId), safe_(ses.playerId), safe_(ses.playerName), status, safe_(clean_(b.label, 120))]);
+    sh_('Tilmeldinger').appendRow([new Date(), type, safe_(eventId), safe_(pid), safe_(pname), status, safe_(clean_(b.label, 120))]);
   });
-  return { ok: true };
+  return { ok: true, player: { id: pid, name: pname } };
 }
 
 // ---------- Forældre ----------

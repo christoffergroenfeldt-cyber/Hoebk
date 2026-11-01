@@ -219,6 +219,7 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .badge.warnb{background:#F3B35B;color:#0E2236}
 .why{font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;background:var(--soft)}
 .why.sel{background:var(--accent);font-weight:800}
+.kidreg{display:flex;flex-direction:column;gap:4px;padding:6px 2px 0;border-top:1px solid var(--line2)}
 .kidnext{width:100%;border:0;border-top:1px solid var(--line2);background:none;padding:8px 0 0;display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;font-size:inherit}
 .badge.sm{min-width:18px;height:18px;font-size:11px;padding:0 5px}
 .alert{border-left:5px solid #F3B35B;background:#FFF7EC}
@@ -498,7 +499,11 @@ textarea.inp{resize:vertical;line-height:1.45}
         '<span class="s">' + esc(m.venue) + (m.organiser ? ' · arrangør ' + esc(m.organiser) : '') + '</span>' +
         (driveTxt(m) ? '<span class="drive">' + CAR + esc(driveTxt(m)) + (m.travel.min > 3 ? ' fra Hørsholm' : '') + '</span>' : '') +
         routeBtn(mapsDest(m)) + '</div>' +
-        '<span class="lbl">Kan du spille?</span>' + regBlock('match', eid, t.label + ' ' + (m.isHome ? 'mod ' : '@ ') + m.opponent + ' ' + m.date, true) +
+        (function () {
+          var lab = t.label + ' ' + (m.isHome ? 'mod ' : '@ ') + m.opponent + ' ' + m.date, kk = kidsOnTeam(t.label);
+          var mineBlock = ME && isParentId(ME.id) && kk.length ? '' : '<span class="lbl">Kan du spille?</span>' + regBlock('match', eid, lab, true);
+          return mineBlock + (kk.length ? '<span class="lbl">Kan ' + esc(kk.map(function (k) { return k.name.split(' ')[0]; }).join(' / ')) + ' spille?</span>' + kidRegBlocks('match', eid, lab, true, t.label) : '');
+        })() +
         lineupSection(ti, mi);
     }
     var pts = m.points ? (m.isHome ? m.points : flipScore(m.points)) : '';
@@ -1469,21 +1474,23 @@ textarea.inp{resize:vertical;line-height:1.45}
     Object.keys(out).forEach(function (k) { out[k].sort(function (a, b) { return a.localeCompare(b, 'da'); }); });
     return out;
   }
-  function mine(eid) { return ME ? ((REG.map[eid + '|' + ME.id] || {}).s || '') : ''; }
+  function mine(eid, pid) { return ME ? ((REG.map[eid + '|' + (pid || ME.id)] || {}).s || '') : ''; }
   function regChip(eid, inline) {
     var w = who(eid), n = w.ja.length;
     if (!n && !mine(eid)) return inline ? '' : 'Kommer';
     var m = mine(eid);
     return (inline ? ' · ' : '') + (m === 'ja' ? '✓ ' : m === 'nej' ? '✕ ' : '') + n + ' kan';
   }
-  function regBlock(type, eid, label, open) {
-    var w = who(eid), m = mine(eid), h = '<div class="col" style="gap:8px">';
+  // forWho = {id, name}: svar på et barns vegne (forælder) — gemmes under barnets navn
+  function regBlock(type, eid, label, open, forWho) {
+    var w = who(eid), m = mine(eid, forWho && forWho.id), h = '<div class="col" style="gap:8px">';
+    var fw = forWho ? ' data-pid="' + esc(forWho.id) + '" data-pname="' + esc(forWho.name) + '"' : '';
     if (!REG.url && !Object.keys(REG.map).length) {
       h += '<p class="note" style="margin:0">Tilmelding åbner, når klubben har koblet Google Sheet på.</p>';
     }
     if (ME && ME.token) {
       h += '<div class="reg">' + OPTS[type].map(function (o) {
-        return '<button class="rb ' + o[0] + '" aria-pressed="' + (m === o[0]) + '" data-reg="' + type + '" data-eid="' + esc(eid) + '" data-status="' + o[0] + '" data-label="' + esc(label) + '"' + (REG.url ? '' : ' disabled') + '>' + o[1] + '</button>';
+        return '<button class="rb ' + o[0] + '" aria-pressed="' + (m === o[0]) + '" data-reg="' + type + '" data-eid="' + esc(eid) + '" data-status="' + o[0] + '" data-label="' + esc(label) + '"' + fw + (REG.url ? '' : ' disabled') + '>' + o[1] + '</button>';
       }).join('') + '</div>' + (m && open ? '<span class="xs">Tryk på dit svar igen for at fjerne det.</span>' : '');
     } else {
       h += '<button class="rb" data-go="#/tilmeld">Log ind for at svare</button>';
@@ -1502,25 +1509,27 @@ textarea.inp{resize:vertical;line-height:1.45}
     return fetch(REG.url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
       .then(function (r) { return r.json(); });
   }
-  function sendReg(type, eid, status, label) {
+  function sendReg(type, eid, status, label, pid, pname) {
     if (!ME || !ME.token) { location.hash = '#/tilmeld'; return; }
     if (!REG.url) { toast('Tilmelding er ikke slået til endnu'); return; }
-    var prev = REG.map[eid + '|' + ME.id];
+    var who_ = pid || ME.id, nm = pname || ME.name;
+    var prev = REG.map[eid + '|' + who_];
     if (prev && prev.s === status) status = 'ryd';          // tryk på det valgte svar igen = fjern svaret
-    if (status === 'ryd') delete REG.map[eid + '|' + ME.id]; else REG.map[eid + '|' + ME.id] = { s: status, n: ME.name };
+    if (status === 'ryd') delete REG.map[eid + '|' + who_]; else REG.map[eid + '|' + who_] = { s: status, n: nm };
     route(true);
-    var who_ = ME.id;
-    api({ action: 'register', token: ME.token, type: type, eventId: eid, status: status, label: label })
+    api({ action: 'register', token: ME.token, type: type, eventId: eid, status: status, label: label, player: pid && pid !== ME.id ? pid : undefined })
       .then(function (res) {
         if (res && res.error === 'login') { ME = null; saveMe(); throw new Error('login'); }
         if (!res || !res.ok) throw new Error((res && res.error) || 'fejl');
-        toast(status === 'ryd' ? 'Dit svar er fjernet' : 'Gemt: ' + WORD[status][type] + ' — tryk igen for at fjerne');
+        if (pid && pid !== ME.id && !(res.player && res.player.id === pid)) throw new Error('forkid');   // gammelt script: svaret blev ikke gemt for barnet
+        toast(status === 'ryd' ? (pid && pid !== ME.id ? nm.split(' ')[0] + 's svar er fjernet' : 'Dit svar er fjernet') : 'Gemt: ' + (pid && pid !== ME.id ? nm.split(' ')[0] + ' ' : '') + WORD[status][type] + ' — tryk igen for at fjerne');
       })
       .catch(function (err) {
         if (prev) REG.map[eid + '|' + who_] = prev; else delete REG.map[eid + '|' + who_];
         route(true);
         if (err && err.message === 'login') { toast('Log ind igen'); location.hash = '#/tilmeld'; }
         else if (status === 'ryd' && err && err.message === 'Ugyldigt svar') toast('Klubbens server skal opdateres, før svar kan fjernes');
+        else if (err && err.message === 'forkid') toast('Klubbens server skal opdateres, før forældre kan svare for deres børn');
         else toast('Kunne ikke gemme — prøv igen');
       });
   }
@@ -1641,7 +1650,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         if (!fol && !me && !kidSel.length && !kidOn.length) return;
         var fn = function (l) { return l.map(function (k) { return k.name.split(' ')[0]; }).join(' og '); };
         var why = me ? '✓ Du er udtaget' : kidSel.length ? '✓ ' + fn(kidSel) + ' er udtaget' : kidOn.length ? fn(kidOn) + 's hold' : '★ Hold du følger';
-        items.push({ k: 'match', d: m.date, t: m.time || '', team: t, ti: ti, m: m, mi: mi, eid: me || !parent ? matchEid(m) : '', why: why, sel: me || kidSel.length > 0 });
+        items.push({ k: 'match', d: m.date, t: m.time || '', team: t, ti: ti, m: m, mi: mi, eid: me || (!parent && !kidOn.length) ? matchEid(m) : '', kidEid: kidOn.length ? matchEid(m) : '', why: why, sel: me || kidSel.length > 0 });
       });
     });
     (D.tours || []).forEach(function (t) {   // turneringer man følger
@@ -1660,7 +1669,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       items.push({ k: 'plan', d: a.start.slice(0, 10) < today ? today : a.start.slice(0, 10), t: a.start.slice(11, 16), a: a });
     });
     items.sort(function (x, y) { return (x.d + x.t).localeCompare(y.d + y.t); });
-    var missing = items.filter(function (x) { return x.eid && !mine(x.eid); }).length;
+    var missing = items.filter(function (x) { return x.eid && !mine(x.eid); }).length +
+      items.reduce(function (n, x) { return n + (x.kidEid ? kidsOnTeam(x.team.label).filter(function (k) { return !mine(x.kidEid, k.id); }).length : 0); }, 0);
     // Valgt en træningsgruppe med flere hold uden at vælge sit hold → alle holdenes træning kommer med
     var wide = (ME.groups || []).filter(function (g) { var hs = trHolds(g); return hs.length > 1 && !(ME.holds || []).some(function (x) { return hs.indexOf(x) >= 0; }); });
     if (wide.length) h += '<button class="card row alert" data-go="#/tilmeld/' + (isParentId(ME.id) ? 'foraelder' : 'spiller') + '"><span class="col"><b style="font-size:14px">Vælg dit hold i ' + esc(wide.join(' og ')) + '</b>' +
@@ -1682,7 +1692,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     var day = '';
     items.forEach(function (x) {
       if (x.d !== day) { day = x.d; h += '<span class="xs" style="margin:6px 4px 0;font-weight:700;color:var(--ink)">' + (x.d === today ? 'I dag' : x.d === iso(addDays(new Date(), 1)) ? 'I morgen' : esc(DAY_FULL[parseD(x.d).getDay()] + ' ' + dTxt(x.d).replace(/^\S+ /, ''))) + '</span>'; }
-      var need = x.eid && !mine(x.eid) ? ' ans' : '';
+      var need = (x.eid && !mine(x.eid)) || (x.kidEid && kidsOnTeam(x.team.label).some(function (k) { return !mine(x.kidEid, k.id); })) ? ' ans' : '';
       if (x.k === 'match') {
         var u = x, label = u.team.label + ' ' + (u.m.isHome ? 'mod ' : '@ ') + u.m.opponent + ' ' + u.m.date;
         h += '<div class="evwrap' + need + '" style="border-left-color:' + teamColor(u.team.label).bg + '"><button class="evtop" data-go="#/hold/' + u.ti + '/kamp/' + u.mi + '">' +
@@ -1690,7 +1700,7 @@ textarea.inp{resize:vertical;line-height:1.45}
           '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.team.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveShort(u.m) ? driveShort(u.m) + ' · ' : '') + u.m.venue) + '</span></span>' +
           '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' +
           '<div style="display:flex;gap:6px;flex-wrap:wrap;padding:0 2px"><span class="why' + (u.sel ? ' sel' : '') + '">' + esc(u.why) + '</span></div>' +
-          (u.eid ? regBlock('match', u.eid, label, false) : '') + '</div>';
+          (u.eid ? regBlock('match', u.eid, label, false) : '') + (u.kidEid ? kidRegBlocks('match', u.kidEid, label, false, u.team.label) : '') + '</div>';
       } else if (x.k === 'tour') {
         var tt = x.tour;
         h += '<button class="ev" style="border-left-color:var(--tour);width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="#/turnering/' + encodeURIComponent(tt.id) + '">' +
@@ -2369,6 +2379,11 @@ textarea.inp{resize:vertical;line-height:1.45}
 
   // ---------- Forældre ----------
   // En forælder logger ind med sit eget navn (id "p:<navn>") og vælger sine børn blandt spillerne.
+  function kidsOnTeam(label) { return ((ME && ME.kids) || []).filter(function (k) { var kp = D.players[k.id]; return kp && kp.teams.indexOf(label) >= 0; }); }
+  function kidRegBlocks(type, eid, label, open, teamLabel) {   // én svarrække pr. barn på holdet
+    return kidsOnTeam(teamLabel).map(function (k) {
+      return '<div class="kidreg"><span class="xs" style="font-weight:700;color:var(--ink)">' + esc(k.name.split(' ')[0]) + ':</span>' + regBlock(type, eid, label, open, k) + '</div>'; }).join('');
+  }
   function kidTeams() {
     var t = [];
     (ME && ME.kids || []).forEach(function (k) { var kp = D.players[k.id]; (kp ? kp.teams : []).forEach(function (x) { if (t.indexOf(x) < 0) t.push(x); }); });
@@ -3302,7 +3317,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (rg === '__alle') TF.regions = []; else if (ri >= 0) TF.regions.splice(ri, 1); else TF.regions.push(rg);
       saveTF(); route(true); return;
     }
-    if (b.dataset.reg) { sendReg(b.dataset.reg, b.dataset.eid, b.dataset.status, b.dataset.label); return; }
+    if (b.dataset.reg) { sendReg(b.dataset.reg, b.dataset.eid, b.dataset.status, b.dataset.label, b.dataset.pid, b.dataset.pname); return; }
     if (b.dataset.me) { setMe(b.dataset.me, D.players[b.dataset.me].name); return; }
     if (b.dataset.act === 'logout') {
       if (REG.url && ME && ME.token) {
