@@ -1,37 +1,9 @@
 {
- "updated": "2026-11-01T09:46:46+00:00",
+ "updated": "2026-11-01T10:16:47+00:00",
  "season": "2026",
  "clubRanking": [
   {
    "rank": 1,
-   "id": "13323",
-   "name": "Henrik Schroller Broerson",
-   "teams": [
-    "Danmarksserien"
-   ],
-   "played": 8,
-   "won": 8,
-   "winPct": 100,
-   "pointsFor": 251,
-   "avgPoints": 31.4,
-   "avgDiff": 12.9
-  },
-  {
-   "rank": 2,
-   "id": "13008",
-   "name": "Anders Frewald",
-   "teams": [
-    "Danmarksserien"
-   ],
-   "played": 8,
-   "won": 8,
-   "winPct": 100,
-   "pointsFor": 240,
-   "avgPoints": 30.0,
-   "avgDiff": 14.2
-  },
-  {
-   "rank": 3,
    "id": "328467",
    "name": "Mathilde Baldvinsson Frewald",
    "teams": [
@@ -46,7 +18,133 @@
    "avgDiff": 15.1
   },
   {
+   "rank": 2,
+   "id": "250193",
+   "name": "Hans Christian Blomberg",
+   "teams": [
+    "MOT 4+4 Serie 3-4"
+   ],
+   "played": 3,
+   "won": 3,
+   "winPct": 100,
+   "pointsFor": 90,
+   "avgPoints": 30.0,
+   "avgDiff": 14.7
+  },
+  {
+   "rank": 3,
+   "id": "13008",
+   "name": "Anders Frewald",
+   "teams": [
+    "Danmarksserien"
+   ],
+   "played": 8,
+   "won": 8,
+   "winPct": 100,
+   "pointsFor": 240,
+   "avgPoints": 30.0,
+   "avgDiff": 14.2
+  },
+  {
    "rank": 4,
+   "id": "339514",
+   "name": "Sutthita Høybye",
+   "teams": [
+    "MOT 4+4 Serie 3-4"
+   ],
+   "played": 6,
+   "won": 6,
+   "winPct": 100,
+   "pointsFor": 180,
+   "avgPoints": 30.0,
+   "avgDiff": 14.2
+  },
+  {
+   "rank": 5,
+   "id": "156777",
+   "name": "Jonas Aarup Iversen",
+   "teams": [
+    "Serie 2"
+   ],
+   "played": 2,
+   "won": 2,
+   "winPct": 100,
+   "pointsFor": 60,
+   "avgPoints": 30.0,
+   "avgDiff": 12.5
+  },
+  {
+   "rank": 6,
+   "id": "365654",
+   "name": "Max Han Chen",
+   "teams": [
+    "U11 Dx"
+   ],
+   "played": 4,
+   "won": 4,
+   "winPct": 100,
+   "pointsFor": 90,
+   "avgPoints": 30.0,
+   "avgDiff": 11.3
+  },
+  {
+   "rank": 7,
+   "id": "237819",
+   "name": "Gitte Kruse",
+   "teams": [
+    "Serie 2"
+   ],
+   "played": 4,
+   "won": 4,
+   "winPct": 100,
+   "pointsFor": 120,
+   "avgPoints": 30.0,
+   "avgDiff": 9.2
+  },
+  {
+   "rank": 8,
+   "id": "237773",
+   "name": "Olivia Høberg Brams",
+   "teams": [
+    "Serie 2"
+   ],
+   "played": 4,
+   "won": 4,
+   "winPct": 100,
+   "pointsFor": 90,
+   "avgPoints": 30.0,
+   "avgDiff": 6.7
+  },
+  {
+   "rank": 9,
+   "id": "46285",
+   "name": "Maria O. Arildsen",
+   "teams": [
+    "Serie 2"
+   ],
+   "played": 2,
+   "won": 2,
+   "winPct": 100,
+   "pointsFor": 33,
+   "avgPoints": 33.0,
+   "avgDiff": 6.0
+  },
+  {
+   "rank": 10,
+   "id": "13323",
+   "name": "Henrik Schroller Broerson",
+   "teams": [
+    "Danmarksserien"
+   ],
+   "played": 8,
+   "won": 8,
+   "winPct": 100,
+   "pointsFor": 251,
+   "avgPoints": 31.4,
+   "avgDiff": 12.9
+  },
+  {
+   "rank": 11,
    "id": "13721",
    "name": "Marie Madsen",
    "teams": [
@@ -60,21 +158,35 @@
    "avgDiff": 9.0
   },
   {
-   "rank": 5,
-   "id": "338663",
-   "name": "Sebastian Rossau",
+   "rank": 12,
+   "id": "324936",
+   "name": "Aksel Schroller Broerson",
    "teams": [
-    "Serie 2"
+    "U15 A"
    ],
-   "played": 8,
-   "won": 7,
-   "winPct": 88,
-   "pointsFor": 248,
-   "avgPoints": 31.0,
-   "avgDiff": 8.6
+   "played": 5,
+   "won": 5,
+   "winPct": 100,
+   "pointsFor": 165,
+   "avgPoints": 33.0,
+   "avgDiff": 12.2
   },
   {
-   "rank": 6,
+   "rank": 13,
+   "id": "364606",
+   "name": "Torbjørn Petersson",
+   "teams": [
+    "MOT 4+4 Serie 3-4"
+   ],
+   "played": 3,
+   "won": 3,
+   "winPct": 100,
+   "pointsFor": 132,
+   "avgPoints": 44.0,
+   "avgDiff": 3.0
+  },
+  {
+   "rank": 14,
    "id": "38545",
    "name": "Shankar Ralhan",
    "teams": [
@@ -88,7 +200,21 @@
    "avgDiff": 8.4
   },
   {
-   "rank": 7,
+   "rank": 15,
+   "id": "338663",
+   "name": "Sebastian Rossau",
+   "teams": [
+    "Serie 2"
+   ],
+   "played": 8,
+   "won": 7,
+   "winPct": 88,
+   "pointsFor": 248,
+   "avgPoints": 31.0,
+   "avgDiff": 8.6
+  },
+  {
+   "rank": 16,
    "id": "12881",
    "name": "Katrine Schou Andersen",
    "teams": [
@@ -102,7 +228,7 @@
    "avgDiff": 10.7
   },
   {
-   "rank": 8,
+   "rank": 17,
    "id": "13374",
    "name": "Signe Baldvinsson",
    "teams": [
@@ -116,21 +242,7 @@
    "avgDiff": 9.3
   },
   {
-   "rank": 9,
-   "id": "13123",
-   "name": "Camilla Strøm",
-   "teams": [
-    "Danmarksserien"
-   ],
-   "played": 8,
-   "won": 7,
-   "winPct": 88,
-   "pointsFor": 190,
-   "avgPoints": 31.7,
-   "avgDiff": 8.2
-  },
-  {
-   "rank": 10,
+   "rank": 18,
    "id": "12992",
    "name": "Henriette Stang Hellen",
    "teams": [
@@ -145,91 +257,21 @@
    "avgDiff": 5.2
   },
   {
-   "rank": 11,
-   "id": "339514",
-   "name": "Sutthita Høybye",
+   "rank": 19,
+   "id": "13123",
+   "name": "Camilla Strøm",
    "teams": [
-    "MOT 4+4 Serie 3-4"
-   ],
-   "played": 6,
-   "won": 6,
-   "winPct": 100,
-   "pointsFor": 180,
-   "avgPoints": 30.0,
-   "avgDiff": 14.2
-  },
-  {
-   "rank": 12,
-   "id": "9877",
-   "name": "Thomas Steffensen",
-   "teams": [
-    "Serie 2"
+    "Danmarksserien"
    ],
    "played": 8,
-   "won": 6,
-   "winPct": 75,
-   "pointsFor": 269,
-   "avgPoints": 33.6,
-   "avgDiff": 6.4
-  },
-  {
-   "rank": 13,
-   "id": "324936",
-   "name": "Aksel Schroller Broerson",
-   "teams": [
-    "U15 A"
-   ],
-   "played": 5,
-   "won": 5,
-   "winPct": 100,
-   "pointsFor": 165,
-   "avgPoints": 33.0,
-   "avgDiff": 12.2
-  },
-  {
-   "rank": 14,
-   "id": "348495",
-   "name": "Alexander Dahl Plougmann",
-   "teams": [
-    "U11 C"
-   ],
-   "played": 6,
-   "won": 5,
-   "winPct": 83,
-   "pointsFor": 228,
-   "avgPoints": 38.0,
+   "won": 7,
+   "winPct": 88,
+   "pointsFor": 190,
+   "avgPoints": 31.7,
    "avgDiff": 8.2
   },
   {
-   "rank": 15,
-   "id": "350815",
-   "name": "Cornelius Engen Peetz",
-   "teams": [
-    "U11 C"
-   ],
-   "played": 6,
-   "won": 5,
-   "winPct": 83,
-   "pointsFor": 190,
-   "avgPoints": 31.7,
-   "avgDiff": 2.8
-  },
-  {
-   "rank": 16,
-   "id": "338789",
-   "name": "Charles Jordahn Brandt",
-   "teams": [
-    "Serie 2"
-   ],
-   "played": 6,
-   "won": 5,
-   "winPct": 83,
-   "pointsFor": 185,
-   "avgPoints": 30.8,
-   "avgDiff": 7.5
-  },
-  {
-   "rank": 17,
+   "rank": 20,
    "id": "362880",
    "name": "Jonas Gaudesen",
    "teams": [
@@ -243,133 +285,49 @@
    "avgDiff": 8.2
   },
   {
-   "rank": 18,
-   "id": "236648",
-   "name": "Rasmus Thorsted Mortensen",
-   "teams": [
-    "Danmarksserien"
-   ],
-   "played": 8,
-   "won": 5,
-   "winPct": 62,
-   "pointsFor": 260,
-   "avgPoints": 32.5,
-   "avgDiff": 4.2
-  },
-  {
-   "rank": 19,
-   "id": "11839",
-   "name": "Morten Plougmann",
-   "teams": [
-    "Danmarksserien"
-   ],
-   "played": 8,
-   "won": 5,
-   "winPct": 62,
-   "pointsFor": 247,
-   "avgPoints": 30.9,
-   "avgDiff": 3.6
-  },
-  {
-   "rank": 20,
-   "id": "12813",
-   "name": "Anders Vedsted Nørrelund",
-   "teams": [
-    "Danmarksserien"
-   ],
-   "played": 8,
-   "won": 5,
-   "winPct": 62,
-   "pointsFor": 230,
-   "avgPoints": 28.8,
-   "avgDiff": 3.0
-  },
-  {
    "rank": 21,
-   "id": "250810",
-   "name": "Andreas Qianyou Kristensen",
+   "id": "338789",
+   "name": "Charles Jordahn Brandt",
    "teams": [
-    "Danmarksserien"
+    "Serie 2"
    ],
-   "played": 8,
+   "played": 6,
    "won": 5,
-   "winPct": 62,
-   "pointsFor": 218,
-   "avgPoints": 27.2,
-   "avgDiff": 2.9
+   "winPct": 83,
+   "pointsFor": 185,
+   "avgPoints": 30.8,
+   "avgDiff": 7.5
   },
   {
    "rank": 22,
-   "id": "237819",
-   "name": "Gitte Kruse",
+   "id": "348495",
+   "name": "Alexander Dahl Plougmann",
    "teams": [
-    "Serie 2"
+    "U11 C"
    ],
-   "played": 4,
-   "won": 4,
-   "winPct": 100,
-   "pointsFor": 120,
-   "avgPoints": 30.0,
-   "avgDiff": 9.2
+   "played": 6,
+   "won": 5,
+   "winPct": 83,
+   "pointsFor": 228,
+   "avgPoints": 38.0,
+   "avgDiff": 8.2
   },
   {
    "rank": 23,
-   "id": "365654",
-   "name": "Max Han Chen",
+   "id": "350815",
+   "name": "Cornelius Engen Peetz",
    "teams": [
-    "U11 Dx"
+    "U11 C"
    ],
-   "played": 4,
-   "won": 4,
-   "winPct": 100,
-   "pointsFor": 90,
-   "avgPoints": 30.0,
-   "avgDiff": 11.3
+   "played": 6,
+   "won": 5,
+   "winPct": 83,
+   "pointsFor": 190,
+   "avgPoints": 31.7,
+   "avgDiff": 2.8
   },
   {
    "rank": 24,
-   "id": "237773",
-   "name": "Olivia Høberg Brams",
-   "teams": [
-    "Serie 2"
-   ],
-   "played": 4,
-   "won": 4,
-   "winPct": 100,
-   "pointsFor": 90,
-   "avgPoints": 30.0,
-   "avgDiff": 6.7
-  },
-  {
-   "rank": 25,
-   "id": "362187",
-   "name": "Max van Daalen",
-   "teams": [
-    "U13 C-D"
-   ],
-   "played": 5,
-   "won": 4,
-   "winPct": 80,
-   "pointsFor": 153,
-   "avgPoints": 30.6,
-   "avgDiff": 3.4
-  },
-  {
-   "rank": 26,
-   "id": "357023",
-   "name": "Ellie Schroller Broerson",
-   "teams": [
-    "U13 C-D"
-   ],
-   "played": 5,
-   "won": 4,
-   "winPct": 80,
-   "pointsFor": 150,
-   "avgPoints": 30.0,
-   "avgDiff": 5.2
-  },
-  {
-   "rank": 27,
    "id": "348191",
    "name": "Manfred Bjørn Kirk",
    "teams": [
@@ -383,7 +341,7 @@
    "avgDiff": 10.8
   },
   {
-   "rank": 28,
+   "rank": 25,
    "id": "334106",
    "name": "Malthe Larsen",
    "teams": [
@@ -397,7 +355,7 @@
    "avgDiff": 6.0
   },
   {
-   "rank": 29,
+   "rank": 26,
    "id": "366509",
    "name": "Oscar spliid",
    "teams": [
@@ -411,7 +369,161 @@
    "avgDiff": 6.2
   },
   {
+   "rank": 27,
+   "id": "357023",
+   "name": "Ellie Schroller Broerson",
+   "teams": [
+    "U13 C-D"
+   ],
+   "played": 5,
+   "won": 4,
+   "winPct": 80,
+   "pointsFor": 150,
+   "avgPoints": 30.0,
+   "avgDiff": 5.2
+  },
+  {
+   "rank": 28,
+   "id": "362187",
+   "name": "Max van Daalen",
+   "teams": [
+    "U13 C-D"
+   ],
+   "played": 5,
+   "won": 4,
+   "winPct": 80,
+   "pointsFor": 153,
+   "avgPoints": 30.6,
+   "avgDiff": 3.4
+  },
+  {
+   "rank": 29,
+   "id": "324944",
+   "name": "August Drescher",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 4,
+   "won": 3,
+   "winPct": 75,
+   "pointsFor": 109,
+   "avgPoints": 27.2,
+   "avgDiff": 8.0
+  },
+  {
    "rank": 30,
+   "id": "320930",
+   "name": "Julius Tolsøe",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 4,
+   "won": 3,
+   "winPct": 75,
+   "pointsFor": 109,
+   "avgPoints": 27.2,
+   "avgDiff": 8.0
+  },
+  {
+   "rank": 31,
+   "id": "9877",
+   "name": "Thomas Steffensen",
+   "teams": [
+    "Serie 2"
+   ],
+   "played": 8,
+   "won": 6,
+   "winPct": 75,
+   "pointsFor": 269,
+   "avgPoints": 33.6,
+   "avgDiff": 6.4
+  },
+  {
+   "rank": 32,
+   "id": "309153",
+   "name": "Mark saejueng",
+   "teams": [
+    "MOT 4+4 Serie 3-4"
+   ],
+   "played": 4,
+   "won": 3,
+   "winPct": 75,
+   "pointsFor": 120,
+   "avgPoints": 30.0,
+   "avgDiff": 6.5
+  },
+  {
+   "rank": 33,
+   "id": "348034",
+   "name": "Dorte Glintborg",
+   "teams": [
+    "MOT 4+4 Serie 3-4"
+   ],
+   "played": 3,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 60,
+   "avgPoints": 30.0,
+   "avgDiff": 14.5
+  },
+  {
+   "rank": 34,
+   "id": "337294",
+   "name": "Julie Bille Rannes",
+   "teams": [
+    "MOT 4+4 Serie 3-4"
+   ],
+   "played": 3,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 74,
+   "avgPoints": 37.0,
+   "avgDiff": 6.5
+  },
+  {
+   "rank": 35,
+   "id": "352483",
+   "name": "Birk Lund Dujardin",
+   "teams": [
+    "U15 A"
+   ],
+   "played": 3,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 94,
+   "avgPoints": 31.3,
+   "avgDiff": 5.3
+  },
+  {
+   "rank": 36,
+   "id": "352440",
+   "name": "Ethan Jing",
+   "teams": [
+    "U11 C"
+   ],
+   "played": 6,
+   "won": 4,
+   "winPct": 67,
+   "pointsFor": 188,
+   "avgPoints": 31.3,
+   "avgDiff": 5.3
+  },
+  {
+   "rank": 37,
+   "id": "275709",
+   "name": "Sebastian Søbjerg Lynfort",
+   "teams": [
+    "Serie 2"
+   ],
+   "played": 6,
+   "won": 4,
+   "winPct": 67,
+   "pointsFor": 175,
+   "avgPoints": 29.2,
+   "avgDiff": 4.3
+  },
+  {
+   "rank": 38,
    "id": "9643",
    "name": "Kim Eriksen",
    "teams": [
@@ -426,7 +538,7 @@
    "avgDiff": 4.3
   },
   {
-   "rank": 31,
+   "rank": 39,
    "id": "360548",
    "name": "MUHAMMAD MOHSIN Ali KHAN",
    "teams": [
@@ -441,21 +553,7 @@
    "avgDiff": 4.0
   },
   {
-   "rank": 32,
-   "id": "352440",
-   "name": "Ethan Jing",
-   "teams": [
-    "U11 C"
-   ],
-   "played": 6,
-   "won": 4,
-   "winPct": 67,
-   "pointsFor": 188,
-   "avgPoints": 31.3,
-   "avgDiff": 5.3
-  },
-  {
-   "rank": 33,
+   "rank": 40,
    "id": "320827",
    "name": "Emma Sejberg Rasmussen",
    "teams": [
@@ -469,91 +567,119 @@
    "avgDiff": 5.5
   },
   {
-   "rank": 34,
-   "id": "275709",
-   "name": "Sebastian Søbjerg Lynfort",
-   "teams": [
-    "Serie 2"
-   ],
-   "played": 6,
-   "won": 4,
-   "winPct": 67,
-   "pointsFor": 175,
-   "avgPoints": 29.2,
-   "avgDiff": 4.3
-  },
-  {
-   "rank": 35,
-   "id": "364606",
-   "name": "Torbjørn Petersson",
+   "rank": 41,
+   "id": "361298",
+   "name": "Stine Lund Nielsen",
    "teams": [
     "MOT 4+4 Serie 3-4"
    ],
    "played": 3,
-   "won": 3,
-   "winPct": 100,
-   "pointsFor": 132,
-   "avgPoints": 44.0,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 88,
+   "avgPoints": 29.3,
+   "avgDiff": 4.7
+  },
+  {
+   "rank": 42,
+   "id": "158737",
+   "name": "Michael Schutt Nielsen",
+   "teams": [
+    "4 Spillere A-række"
+   ],
+   "played": 3,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 96,
+   "avgPoints": 32.0,
+   "avgDiff": 2.7
+  },
+  {
+   "rank": 43,
+   "id": "358565",
+   "name": "Vincent Ziyu Ding",
+   "teams": [
+    "MOT 4+4 Serie 3-4"
+   ],
+   "played": 3,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 91,
+   "avgPoints": 30.3,
+   "avgDiff": 0.3
+  },
+  {
+   "rank": 44,
+   "id": "318476",
+   "name": "Valdemar Bæhrenz Peetz",
+   "teams": [
+    "4 Spillere"
+   ],
+   "played": 3,
+   "won": 2,
+   "winPct": 67,
+   "pointsFor": 103,
+   "avgPoints": 34.3,
+   "avgDiff": 2.3
+  },
+  {
+   "rank": 45,
+   "id": "11839",
+   "name": "Morten Plougmann",
+   "teams": [
+    "Danmarksserien"
+   ],
+   "played": 8,
+   "won": 5,
+   "winPct": 62,
+   "pointsFor": 247,
+   "avgPoints": 30.9,
+   "avgDiff": 3.6
+  },
+  {
+   "rank": 46,
+   "id": "12813",
+   "name": "Anders Vedsted Nørrelund",
+   "teams": [
+    "Danmarksserien"
+   ],
+   "played": 8,
+   "won": 5,
+   "winPct": 62,
+   "pointsFor": 230,
+   "avgPoints": 28.8,
    "avgDiff": 3.0
   },
   {
-   "rank": 36,
-   "id": "250193",
-   "name": "Hans Christian Blomberg",
+   "rank": 47,
+   "id": "250810",
+   "name": "Andreas Qianyou Kristensen",
    "teams": [
-    "MOT 4+4 Serie 3-4"
+    "Danmarksserien"
    ],
-   "played": 3,
-   "won": 3,
-   "winPct": 100,
-   "pointsFor": 90,
-   "avgPoints": 30.0,
-   "avgDiff": 14.7
-  },
-  {
-   "rank": 37,
-   "id": "309153",
-   "name": "Mark saejueng",
-   "teams": [
-    "MOT 4+4 Serie 3-4"
-   ],
-   "played": 4,
-   "won": 3,
-   "winPct": 75,
-   "pointsFor": 120,
-   "avgPoints": 30.0,
-   "avgDiff": 6.5
-  },
-  {
-   "rank": 38,
-   "id": "324944",
-   "name": "August Drescher",
-   "teams": [
-    "U15 A"
-   ],
-   "played": 4,
-   "won": 3,
-   "winPct": 75,
-   "pointsFor": 109,
+   "played": 8,
+   "won": 5,
+   "winPct": 62,
+   "pointsFor": 218,
    "avgPoints": 27.2,
-   "avgDiff": 8.0
+   "avgDiff": 2.9
   },
   {
-   "rank": 39,
-   "id": "320930",
-   "name": "Julius Tolsøe",
+   "rank": 48,
+   "id": "236648",
+   "name": "Rasmus Thorsted Mortensen",
    "teams": [
-    "U15 A"
+    "Danmarksserien"
    ],
-   "played": 4,
-   "won": 3,
-   "winPct": 75,
-   "pointsFor": 109,
-   "avgPoints": 27.2,
-   "avgDiff": 8.0
+   "played": 8,
+   "won": 5,
+   "winPct": 62,
+   "pointsFor": 260,
+   "avgPoints": 32.5,
+   "avgDiff": 4.2
   },
   {
-   "rank": 40,
+   "rank": 49,
    "id": "359708",
    "name": "Marius Løkke Knutsson",
    "teams": [
@@ -567,7 +693,7 @@
    "avgDiff": 3.4
   },
   {
-   "rank": 41,
+   "rank": 50,
    "id": "365721",
    "name": "Sylvester Engen Peetz",
    "teams": [
@@ -581,7 +707,35 @@
    "avgDiff": -8.3
   },
   {
-   "rank": 42,
+   "rank": 51,
+   "id": "336079",
+   "name": "Stefanie Flamand",
+   "teams": [
+    "U13 C-D"
+   ],
+   "played": 4,
+   "won": 2,
+   "winPct": 50,
+   "pointsFor": 127,
+   "avgPoints": 31.8,
+   "avgDiff": 9.2
+  },
+  {
+   "rank": 52,
+   "id": "346992",
+   "name": "Carl Grønfeldt",
+   "teams": [
+    "U15 B"
+   ],
+   "played": 4,
+   "won": 2,
+   "winPct": 50,
+   "pointsFor": 110,
+   "avgPoints": 27.5,
+   "avgDiff": -4.0
+  },
+  {
+   "rank": 53,
    "id": "335593",
    "name": "Oliver Vedsted Nørrelund",
    "teams": [
@@ -595,7 +749,35 @@
    "avgDiff": 1.5
   },
   {
-   "rank": 43,
+   "rank": 54,
+   "id": "357024",
+   "name": "Ella Baldvinsson Frewald",
+   "teams": [
+    "U11 C"
+   ],
+   "played": 6,
+   "won": 3,
+   "winPct": 50,
+   "pointsFor": 156,
+   "avgPoints": 26.0,
+   "avgDiff": 0.5
+  },
+  {
+   "rank": 55,
+   "id": "330569",
+   "name": "Anders Johannessen",
+   "teams": [
+    "4 Spillere"
+   ],
+   "played": 2,
+   "won": 1,
+   "winPct": 50,
+   "pointsFor": 52,
+   "avgPoints": 26.0,
+   "avgDiff": -2.0
+  },
+  {
+   "rank": 56,
    "id": "339512",
    "name": "Anders Franck Berger Christensen",
    "teams": [
@@ -610,231 +792,7 @@
    "avgDiff": -1.0
   },
   {
-   "rank": 44,
-   "id": "357024",
-   "name": "Ella Baldvinsson Frewald",
-   "teams": [
-    "U11 C"
-   ],
-   "played": 6,
-   "won": 3,
-   "winPct": 50,
-   "pointsFor": 156,
-   "avgPoints": 26.0,
-   "avgDiff": 0.5
-  },
-  {
-   "rank": 45,
-   "id": "92804",
-   "name": "Jack Søgaard",
-   "teams": [
-    "Serie 2"
-   ],
-   "played": 8,
-   "won": 3,
-   "winPct": 38,
-   "pointsFor": 216,
-   "avgPoints": 27.0,
-   "avgDiff": -1.5
-  },
-  {
-   "rank": 46,
-   "id": "156777",
-   "name": "Jonas Aarup Iversen",
-   "teams": [
-    "Serie 2"
-   ],
-   "played": 2,
-   "won": 2,
-   "winPct": 100,
-   "pointsFor": 60,
-   "avgPoints": 30.0,
-   "avgDiff": 12.5
-  },
-  {
-   "rank": 47,
-   "id": "46285",
-   "name": "Maria O. Arildsen",
-   "teams": [
-    "Serie 2"
-   ],
-   "played": 2,
-   "won": 2,
-   "winPct": 100,
-   "pointsFor": 33,
-   "avgPoints": 33.0,
-   "avgDiff": 6.0
-  },
-  {
-   "rank": 48,
-   "id": "318476",
-   "name": "Valdemar Bæhrenz Peetz",
-   "teams": [
-    "4 Spillere"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 103,
-   "avgPoints": 34.3,
-   "avgDiff": 2.3
-  },
-  {
-   "rank": 49,
-   "id": "158737",
-   "name": "Michael Schutt Nielsen",
-   "teams": [
-    "4 Spillere A-række"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 96,
-   "avgPoints": 32.0,
-   "avgDiff": 2.7
-  },
-  {
-   "rank": 50,
-   "id": "352483",
-   "name": "Birk Lund Dujardin",
-   "teams": [
-    "U15 A"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 94,
-   "avgPoints": 31.3,
-   "avgDiff": 5.3
-  },
-  {
-   "rank": 51,
-   "id": "358565",
-   "name": "Vincent Ziyu Ding",
-   "teams": [
-    "MOT 4+4 Serie 3-4"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 91,
-   "avgPoints": 30.3,
-   "avgDiff": 0.3
-  },
-  {
-   "rank": 52,
-   "id": "361298",
-   "name": "Stine Lund Nielsen",
-   "teams": [
-    "MOT 4+4 Serie 3-4"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 88,
-   "avgPoints": 29.3,
-   "avgDiff": 4.7
-  },
-  {
-   "rank": 53,
-   "id": "337294",
-   "name": "Julie Bille Rannes",
-   "teams": [
-    "MOT 4+4 Serie 3-4"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 74,
-   "avgPoints": 37.0,
-   "avgDiff": 6.5
-  },
-  {
-   "rank": 54,
-   "id": "348034",
-   "name": "Dorte Glintborg",
-   "teams": [
-    "MOT 4+4 Serie 3-4"
-   ],
-   "played": 3,
-   "won": 2,
-   "winPct": 67,
-   "pointsFor": 60,
-   "avgPoints": 30.0,
-   "avgDiff": 14.5
-  },
-  {
-   "rank": 55,
-   "id": "336079",
-   "name": "Stefanie Flamand",
-   "teams": [
-    "U13 C-D"
-   ],
-   "played": 4,
-   "won": 2,
-   "winPct": 50,
-   "pointsFor": 127,
-   "avgPoints": 31.8,
-   "avgDiff": 9.2
-  },
-  {
-   "rank": 56,
-   "id": "346992",
-   "name": "Carl Grønfeldt",
-   "teams": [
-    "U15 B"
-   ],
-   "played": 4,
-   "won": 2,
-   "winPct": 50,
-   "pointsFor": 110,
-   "avgPoints": 27.5,
-   "avgDiff": -4.0
-  },
-  {
    "rank": 57,
-   "id": "357481",
-   "name": "Nikolaj Feodor Nilsson",
-   "teams": [
-    "U15 B"
-   ],
-   "played": 5,
-   "won": 2,
-   "winPct": 40,
-   "pointsFor": 178,
-   "avgPoints": 35.6,
-   "avgDiff": 2.0
-  },
-  {
-   "rank": 58,
-   "id": "337844",
-   "name": "Ellen Krogh-Larsen",
-   "teams": [
-    "U15 B"
-   ],
-   "played": 5,
-   "won": 2,
-   "winPct": 40,
-   "pointsFor": 171,
-   "avgPoints": 34.2,
-   "avgDiff": -2.2
-  },
-  {
-   "rank": 59,
-   "id": "366570",
-   "name": "Malthe Hommel",
-   "teams": [
-    "U11 Dx"
-   ],
-   "played": 5,
-   "won": 2,
-   "winPct": 40,
-   "pointsFor": 108,
-   "avgPoints": 27.0,
-   "avgDiff": -5.8
-  },
-  {
-   "rank": 60,
    "id": "11745",
    "name": "Steffen Bille Rannes",
    "teams": [
@@ -848,49 +806,77 @@
    "avgDiff": -3.5
   },
   {
-   "rank": 61,
-   "id": "330569",
-   "name": "Anders Johannessen",
+   "rank": 58,
+   "id": "357481",
+   "name": "Nikolaj Feodor Nilsson",
    "teams": [
-    "4 Spillere"
+    "U15 B"
    ],
-   "played": 2,
-   "won": 1,
-   "winPct": 50,
-   "pointsFor": 52,
-   "avgPoints": 26.0,
-   "avgDiff": -2.0
+   "played": 5,
+   "won": 2,
+   "winPct": 40,
+   "pointsFor": 178,
+   "avgPoints": 35.6,
+   "avgDiff": 2.0
+  },
+  {
+   "rank": 59,
+   "id": "337844",
+   "name": "Ellen Krogh-Larsen",
+   "teams": [
+    "U15 B"
+   ],
+   "played": 5,
+   "won": 2,
+   "winPct": 40,
+   "pointsFor": 171,
+   "avgPoints": 34.2,
+   "avgDiff": -2.2
+  },
+  {
+   "rank": 60,
+   "id": "366570",
+   "name": "Malthe Hommel",
+   "teams": [
+    "U11 Dx"
+   ],
+   "played": 5,
+   "won": 2,
+   "winPct": 40,
+   "pointsFor": 108,
+   "avgPoints": 27.0,
+   "avgDiff": -5.8
+  },
+  {
+   "rank": 61,
+   "id": "92804",
+   "name": "Jack Søgaard",
+   "teams": [
+    "Serie 2"
+   ],
+   "played": 8,
+   "won": 3,
+   "winPct": 38,
+   "pointsFor": 216,
+   "avgPoints": 27.0,
+   "avgDiff": -1.5
   },
   {
    "rank": 62,
-   "id": "314546",
-   "name": "Andreas Tønnesen",
+   "id": "268924",
+   "name": "Marianne Seydel Jørgensen",
    "teams": [
-    "4 Spillere A-række"
+    "MOT 4+4 Serie 3-4"
    ],
    "played": 3,
    "won": 1,
    "winPct": 33,
-   "pointsFor": 82,
-   "avgPoints": 27.3,
-   "avgDiff": -1.3
+   "pointsFor": 78,
+   "avgPoints": 26.0,
+   "avgDiff": -3.7
   },
   {
    "rank": 63,
-   "id": "330871",
-   "name": "Peter Østergaard",
-   "teams": [
-    "MOT 4+4 Elite/Mester"
-   ],
-   "played": 3,
-   "won": 1,
-   "winPct": 33,
-   "pointsFor": 82,
-   "avgPoints": 27.3,
-   "avgDiff": -3.3
-  },
-  {
-   "rank": 64,
    "id": "355614",
    "name": "Kent bisgaard",
    "teams": [
@@ -904,18 +890,32 @@
    "avgDiff": -1.0
   },
   {
-   "rank": 65,
-   "id": "268924",
-   "name": "Marianne Seydel Jørgensen",
+   "rank": 64,
+   "id": "314546",
+   "name": "Andreas Tønnesen",
    "teams": [
-    "MOT 4+4 Serie 3-4"
+    "4 Spillere A-række"
    ],
    "played": 3,
    "won": 1,
    "winPct": 33,
-   "pointsFor": 78,
-   "avgPoints": 26.0,
-   "avgDiff": -3.7
+   "pointsFor": 82,
+   "avgPoints": 27.3,
+   "avgDiff": -1.3
+  },
+  {
+   "rank": 65,
+   "id": "330871",
+   "name": "Peter Østergaard",
+   "teams": [
+    "MOT 4+4 Elite/Mester"
+   ],
+   "played": 3,
+   "won": 1,
+   "winPct": 33,
+   "pointsFor": 82,
+   "avgPoints": 27.3,
+   "avgDiff": -3.3
   },
   {
    "rank": 66,
@@ -961,20 +961,6 @@
   },
   {
    "rank": 69,
-   "id": "310855",
-   "name": "Emil Tvedergaard Blöndal",
-   "teams": [
-    "4 Spillere"
-   ],
-   "played": 4,
-   "won": 1,
-   "winPct": 25,
-   "pointsFor": 124,
-   "avgPoints": 31.0,
-   "avgDiff": -4.2
-  },
-  {
-   "rank": 70,
    "id": "362142",
    "name": "Maximilian Vessel Nielsen",
    "teams": [
@@ -986,6 +972,20 @@
    "pointsFor": 101,
    "avgPoints": 25.2,
    "avgDiff": -4.5
+  },
+  {
+   "rank": 70,
+   "id": "310855",
+   "name": "Emil Tvedergaard Blöndal",
+   "teams": [
+    "4 Spillere"
+   ],
+   "played": 4,
+   "won": 1,
+   "winPct": 25,
+   "pointsFor": 124,
+   "avgPoints": 31.0,
+   "avgDiff": -4.2
   },
   {
    "rank": 71,
@@ -1004,20 +1004,6 @@
   },
   {
    "rank": 72,
-   "id": "308293",
-   "name": "Henrik Lund Frandsen",
-   "teams": [
-    "4 Spillere"
-   ],
-   "played": 5,
-   "won": 1,
-   "winPct": 20,
-   "pointsFor": 115,
-   "avgPoints": 23.0,
-   "avgDiff": -9.0
-  },
-  {
-   "rank": 73,
    "id": "365636",
    "name": "Bertram Stenbæk Bro",
    "teams": [
@@ -1029,6 +1015,20 @@
    "pointsFor": 111,
    "avgPoints": 22.2,
    "avgDiff": -10.0
+  },
+  {
+   "rank": 73,
+   "id": "308293",
+   "name": "Henrik Lund Frandsen",
+   "teams": [
+    "4 Spillere"
+   ],
+   "played": 5,
+   "won": 1,
+   "winPct": 20,
+   "pointsFor": 115,
+   "avgPoints": 23.0,
+   "avgDiff": -9.0
   },
   {
    "rank": 74,
@@ -1047,34 +1047,6 @@
   },
   {
    "rank": 75,
-   "id": "352441",
-   "name": "Nolan Jing",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 5,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 107,
-   "avgPoints": 21.4,
-   "avgDiff": -11.0
-  },
-  {
-   "rank": 76,
-   "id": "362602",
-   "name": "Marvin Nørmark",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 5,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 104,
-   "avgPoints": 20.8,
-   "avgDiff": -10.4
-  },
-  {
-   "rank": 77,
    "id": "245961",
    "name": "Jesper Østergaard",
    "teams": [
@@ -1088,35 +1060,7 @@
    "avgDiff": -6.3
   },
   {
-   "rank": 78,
-   "id": "345764",
-   "name": "Emilie Drescher",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 5,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 96,
-   "avgPoints": 19.2,
-   "avgDiff": -11.0
-  },
-  {
-   "rank": 79,
-   "id": "348494",
-   "name": "Mathilde Dahl Plougmann",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 5,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 83,
-   "avgPoints": 16.6,
-   "avgDiff": -13.6
-  },
-  {
-   "rank": 80,
+   "rank": 76,
    "id": "339513",
    "name": "Camilla Engel Post",
    "teams": [
@@ -1130,7 +1074,35 @@
    "avgDiff": -9.0
   },
   {
-   "rank": 81,
+   "rank": 77,
+   "id": "362602",
+   "name": "Marvin Nørmark",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 5,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 104,
+   "avgPoints": 20.8,
+   "avgDiff": -10.4
+  },
+  {
+   "rank": 78,
+   "id": "352441",
+   "name": "Nolan Jing",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 5,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 107,
+   "avgPoints": 21.4,
+   "avgDiff": -11.0
+  },
+  {
+   "rank": 79,
    "id": "330795",
    "name": "Brit Johannessen",
    "teams": [
@@ -1144,21 +1116,7 @@
    "avgDiff": -7.7
   },
   {
-   "rank": 82,
-   "id": "352356",
-   "name": "Carl Emil Jensen",
-   "teams": [
-    "U13 B"
-   ],
-   "played": 4,
-   "won": 0,
-   "winPct": 0,
-   "pointsFor": 67,
-   "avgPoints": 16.8,
-   "avgDiff": -13.2
-  },
-  {
-   "rank": 83,
+   "rank": 80,
    "id": "364196",
    "name": "Fie B. Kobberup",
    "teams": [
@@ -1172,21 +1130,21 @@
    "avgDiff": -10.3
   },
   {
-   "rank": 84,
-   "id": "367264",
-   "name": "Pulin Dhar",
+   "rank": 81,
+   "id": "345764",
+   "name": "Emilie Drescher",
    "teams": [
-    "4 Spillere"
+    "U13 B"
    ],
-   "played": 3,
+   "played": 5,
    "won": 0,
    "winPct": 0,
-   "pointsFor": 40,
-   "avgPoints": 13.3,
-   "avgDiff": -16.7
+   "pointsFor": 96,
+   "avgPoints": 19.2,
+   "avgDiff": -11.0
   },
   {
-   "rank": 85,
+   "rank": 82,
    "id": "336560",
    "name": "Tue Krogh-Larsen",
    "teams": [
@@ -1200,7 +1158,35 @@
    "avgDiff": -13.0
   },
   {
-   "rank": 86,
+   "rank": 83,
+   "id": "352356",
+   "name": "Carl Emil Jensen",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 4,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 67,
+   "avgPoints": 16.8,
+   "avgDiff": -13.2
+  },
+  {
+   "rank": 84,
+   "id": "348494",
+   "name": "Mathilde Dahl Plougmann",
+   "teams": [
+    "U13 B"
+   ],
+   "played": 5,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 83,
+   "avgPoints": 16.6,
+   "avgDiff": -13.6
+  },
+  {
+   "rank": 85,
    "id": "277780",
    "name": "Mathilde Peetz",
    "teams": [
@@ -1212,6 +1198,20 @@
    "pointsFor": 29,
    "avgPoints": 14.5,
    "avgDiff": -15.5
+  },
+  {
+   "rank": 86,
+   "id": "367264",
+   "name": "Pulin Dhar",
+   "teams": [
+    "4 Spillere"
+   ],
+   "played": 3,
+   "won": 0,
+   "winPct": 0,
+   "pointsFor": 40,
+   "avgPoints": 13.3,
+   "avgDiff": -16.7
   }
  ],
  "players": [
