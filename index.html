@@ -3156,8 +3156,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (!keepScroll) scrollBottom();
       markSeen(sroom);
     }
-    var mt = document.querySelector('.mtabs [aria-pressed="true"]');   // valgt fane i Min side altid synlig
-    if (mt && mt.parentNode.scrollWidth > mt.parentNode.clientWidth) mt.parentNode.scrollLeft = Math.max(0, mt.offsetLeft - mt.parentNode.clientWidth / 2 + mt.offsetWidth / 2);
+    var selTab = document.querySelector('.mtabs [aria-pressed="true"]');   // valgt fane i Min side altid synlig
+    if (selTab && selTab.parentNode.scrollWidth > selTab.parentNode.clientWidth) selTab.parentNode.scrollLeft = Math.max(0, selTab.offsetLeft - selTab.parentNode.clientWidth / 2 + selTab.offsetWidth / 2);
     if (document.getElementById('afName')) bindActForm();
     if (document.getElementById('kq')) {
       renderKidList();
