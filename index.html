@@ -1823,7 +1823,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     var P = D.players[ME.id], parent = isParentId(ME.id);
     var myTeams = P ? P.teams : [];
     if (parent) myTeams = kidTeams();
-    if (!ME.groups) { ME.groups = defaultGroups(myTeams); saveMe(); }
+    if (!ME.groups) { ME.groups = parent ? [] : defaultGroups(myTeams); saveMe(); }
+    if (parent && !ME.grpPick && !ME.grpReset) { ME.groups = []; ME.holds = []; ME.grpReset = 1; saveMe(); SNAK.at = 0; }   // forældre følger ingen træning, før de selv vælger
     setHeader('Min side', ME.name, false);
     loadRooms(false); loadActs(false);
     // Faner: Program og Chat for alle, derefter én pr. rolle man har
@@ -1920,6 +1921,8 @@ textarea.inp{resize:vertical;line-height:1.45}
         '<span class="xs ellip">' + esc(x.a.name + ' · ' + (x.t.from ? taskTime(x.t, x.a).replace(/^kl\. /, dTxt(x.a.start.slice(0, 10)) + ' kl. ') : rangeTxt(x.a))) + '</span></span><span class="xs">›</span></button>'; }).join('');
     h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Dit program den næste måned</span><button class="pl xs" data-go="#/kalender/uge/' + today + '">Kalender ›</button></div>';
     h += '<p class="note" style="margin-top:-4px">Viser hold og turneringer du følger, kampe du er udtaget til' + ((ME.kids || []).length ? ', dine børns hold' : '') + ', dine træningshold og aktiviteter for dem.</p>';
+    if (parent) h += '<button class="card row" style="min-height:52px;border-left:5px solid ' + PARENT.bg + '" data-act="pickgroups"><span class="col"><b style="font-size:14px">' + (ME.groups.length ? 'Ret den træning du følger' : 'Vælg træning du vil følge') + '</b>' +
+      '<span class="xs">' + (ME.groups.length ? 'Du følger: ' + esc(ME.groups.join(', ')) + ((ME.holds || []).length ? ' (' + esc(ME.holds.join(', ')) + ')' : '') : 'Træning står ikke i dit program, før du vælger den — fx dit barns træningshold') + '</span></span><span class="h" style="font-size:20px">›</span></button>';
     if (!items.length) {
       return h + parentCard() + '<p class="empty">Intet i dit program den næste måned.</p><p class="note">Følg hold og turneringer og vælg dine træningshold under <button class="pl" style="font-size:inherit;text-decoration:underline" data-go="#/tilmeld/' + (isParentId(ME.id) ? 'foraelder' : 'spiller') + '">' + (isParentId(ME.id) ? 'Forælder' : 'Spiller') + '</button>. Kampe du bliver udtaget til kommer også her.</p>';
     }
@@ -1961,14 +1964,14 @@ textarea.inp{resize:vertical;line-height:1.45}
   }
   // ---- Min side · fælles blokke ----
   function groupsBlock() {
-    var h = '<span class="lbl">Mine træningshold</span><div class="chips" role="group" aria-label="Mine træningsgrupper" style="flex-wrap:wrap">' + GROUPS.map(function (g) {
+    var h = '<span class="lbl" id="grpBlock" style="scroll-margin-top:12px">' + (isParentId(ME.id) ? 'Træning jeg følger' : 'Mine træningshold') + '</span><div class="chips" role="group" aria-label="Mine træningsgrupper" style="flex-wrap:wrap">' + GROUPS.map(function (g) {
       return '<button class="chip" aria-pressed="' + (ME.groups.indexOf(g) >= 0) + '" data-group="' + g + '">' + g + '</button>'; }).join('') + '</div>';
     GROUPS.forEach(function (g) {
       var hs = ME.groups.indexOf(g) >= 0 ? trHolds(g) : [];
-      if (hs.length > 1) h += '<span class="xs" style="display:block;margin:2px 4px 0">' + esc(g) + ': vælg dit hold (ingen valgt = alle)</span><div class="chips" role="group" aria-label="Mine hold – ' + esc(g) + '" style="flex-wrap:wrap">' +
+      if (hs.length > 1) h += '<span class="xs" style="display:block;margin:2px 4px 0">' + esc(g) + ': ' + (isParentId(ME.id) ? 'vælg dit barns hold' : 'vælg dit hold') + ' (ingen valgt = alle)</span><div class="chips" role="group" aria-label="Mine hold – ' + esc(g) + '" style="flex-wrap:wrap">' +
         hs.map(function (x) { return '<button class="chip" aria-pressed="' + ((ME.holds || []).indexOf(x) >= 0) + '" data-mhold="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</div>';
     });
-    return h + '<p class="note">Bestemmer hvilken træning der står i dit program og hvilke træningsgruppers chat du er med i.</p>';
+    return h + '<p class="note">' + (isParentId(ME.id) ? 'Vælg den træning dine børn går til — så kommer den i dit program, og du kommer med i træningsgruppens chat. Vælg gerne det konkrete hold, ellers får du al træning i gruppen.' : 'Bestemmer hvilken træning der står i dit program og hvilke træningsgruppers chat du er med i.') + '</p>';
   }
   function followBlock(myTeams) {
     var fb = followedBlock();
@@ -2010,7 +2013,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       if (!res || !res.ok) throw new Error((res && res.error) || 'Forkert kode');
       var p = res.player;
       ME = { id: p.id, name: p.name, email: p.email, token: res.token, role: res.role || null, follows: res.follows || [], kids: res.kids || [] };
-      ME.groups = defaultGroups(isParentId(p.id) ? kidTeams() : D.players[p.id] ? D.players[p.id].teams : []);
+      ME.groups = isParentId(p.id) ? [] : defaultGroups(D.players[p.id] ? D.players[p.id].teams : []);
       saveMe(); UI.step = 'name'; UI.devOpen = false;
       toast('Hej ' + p.name.split(' ')[0] + '! Du er logget ind'); route(); loadRooms(true); PLAN.list = null; loadActs(true); refreshRole();
     }).catch(function (err) { toast(err.message); if (btn) btn.disabled = false; });
@@ -2133,7 +2136,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         if (!res || !res.ok) throw new Error((res && res.error) || 'Forkert kode');
         var p = res.player;
         ME = { id: p.id, name: p.name, email: p.email, token: res.token, role: res.role || null, follows: res.follows || [], kids: res.kids || [] };
-        ME.groups = defaultGroups(isParentId(p.id) ? kidTeams() : D.players[p.id] ? D.players[p.id].teams : []);
+        ME.groups = isParentId(p.id) ? [] : defaultGroups(D.players[p.id] ? D.players[p.id].teams : []);
         UI.kids = {}; UI.pname = '';
         saveMe(); UI.step = 'name'; UI.pending = null;
         toast('Hej ' + p.name.split(' ')[0] + '!'); route(); loadRooms(true); PLAN.list = null; loadActs(true);
@@ -3748,6 +3751,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (parts[0] === 'hold' && parts.length === 2 && !(prevHash || '').startsWith('#/hold/' + parts[1])) UI.seg = 'kampe';
     prevHash = location.hash;
     route(); $main.scrollTop = 0;
+    if (UI.scrollGrp) { UI.scrollGrp = 0; var gb = document.getElementById('grpBlock'); if (gb) gb.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     if (UI.calScrollTo) { var cs = document.getElementById('cald-' + UI.calScrollTo); UI.calScrollTo = ''; if (cs) cs.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
   document.getElementById('back').addEventListener('click', function () {
@@ -3811,11 +3815,12 @@ textarea.inp{resize:vertical;line-height:1.45}
       api({ action: 'notPlayer', token: ME.token }).then(function (r) {
         if (r && r.error === 'Ukendt handling') throw new Error('Klubbens server skal opdateres først');
         if (!r || !r.ok) throw new Error((r && r.error) || 'Kunne ikke ændre');
-        ME.id = r.id; ME.name = r.name; if (Array.isArray(r.kids)) ME.kids = r.kids; ME.groups = defaultGroups(kidTeams()); saveMe();
+        ME.id = r.id; ME.name = r.name; if (Array.isArray(r.kids)) ME.kids = r.kids; ME.groups = []; ME.holds = []; ME.grpReset = 1; saveMe();
         toast('Du står nu kun som forælder'); location.hash = '#/tilmeld/' + (ME.kids && ME.kids.length ? 'foraelder' : 'program');
       }).catch(function (err) { toast(err.message); b.disabled = false; });
       return;
     }
+    if (b.dataset.act === 'pickgroups') { UI.scrollGrp = 1; location.hash = '#/tilmeld/foraelder'; return; }
     if (b.dataset.act === 'devcode') { makeDeviceCode(); return; }
     if (b.dataset.act === 'devopen') { UI.devOpen = true; route(true); var di = document.getElementById('devin'); if (di) di.focus(); return; }
     if (b.dataset.act === 'parentstart') { UI.step = 'parent'; route(); return; }
@@ -3891,7 +3896,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (b.dataset.group) {
       var gi = ME.groups.indexOf(b.dataset.group);
       if (gi >= 0) ME.groups.splice(gi, 1); else ME.groups.push(b.dataset.group);
-      saveMe(); route(true); SNAK.at = 0; loadRooms(true); return;
+      ME.grpPick = 1; saveMe(); route(true); SNAK.at = 0; loadRooms(true); return;
     }
     if (b.dataset.go) { location.hash = b.dataset.go; return; }
     if (b.dataset.seg) UI.seg = b.dataset.seg;
