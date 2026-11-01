@@ -202,6 +202,8 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .news.new{border-left:5px solid var(--accent)}
 .news.plan{border-left:5px solid var(--plan)}
 .news.web{border-left:5px solid var(--akt)}
+.planev b.ellip::before,.news.plan>b::before{content:'◆ ';color:var(--plan);font-size:.85em}
+.bar.planbar::before{content:'◆';margin-right:2px}
 .mseg button{display:flex;align-items:center;justify-content:center;gap:6px}
 .badge.sm{min-width:18px;height:18px;font-size:11px;padding:0 5px}
 .alert{border-left:5px solid #F3B35B;background:#FFF7EC}
@@ -1201,7 +1203,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       for (var d4 = parseD(a.start.slice(0, 10)), l4 = parseD(a.end.slice(0, 10)), first = true; d4 <= l4; d4 = addDays(d4, 1), first = false) {
         var ds4 = iso(d4), last4 = ds4 === a.end.slice(0, 10);
         add({ kind: 'plan', date: ds4, time: first ? a.start.slice(11, 16) : '', end: last4 ? a.end.slice(11, 16) : '', team: 'Aktivitet', title: a.name,
-              place: a.tasks.length ? (openSlots(a) ? openSlots(a) + ' ledige pladser på opgaverne' : 'Alle opgaver er taget') : '', bg: 'var(--plan)', fg: '#FFFFFF', go: '#/aktivitet/' + encodeURIComponent(a.id) });
+              place: a.tasks.length ? (openSlots(a) ? openSlots(a) + ' ledige pladser på opgaverne' : 'Alle opgaver er taget') : '', bg: actColor(a).bg, fg: actColor(a).fg, go: '#/aktivitet/' + encodeURIComponent(a.id) });
       }
     });
     Object.keys(EVENTS).forEach(function (k) { EVENTS[k].sort(function (a, b) { return (a.time || '99').localeCompare(b.time || '99') || (a.kind === 'match' ? -1 : 1); }); });
@@ -1227,7 +1229,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span class="xs ellip">' + esc(e.kind === 'match' ? e.teamName + ' · ' + e.place : e.place) + '</span></span>' + right;
     var style = 'border-left-color:' + (e.kind === 'match' ? e.bg : '#9AA6B1');
     if (e.kind === 'plan') {
-      return '<button class="ev" style="border-left-color:var(--plan);width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="' + esc(e.go) + '">' +
+      return '<button class="ev planev" style="border-left-color:' + e.bg + ';width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="' + esc(e.go) + '">' +
         '<span class="tm">' + esc(e.time || '–') + '</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(e.title) + '</b><span class="xs ellip">Aktivitet i appen' + (e.place ? ' · ' + esc(e.place) : '') + '</span></span>' +
         (e.end ? '<span class="xs">til ' + esc(e.end) + '</span>' : '<span></span>') + '</button>';
     }
@@ -1309,7 +1311,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span><i class="sw" style="background:#E58A2E"></i>Motion</span><span><i class="sw" style="background:#D4F25A"></i>Ungdom</span>' +
       '<span><i class="sw" style="border:1px dashed #9AA6B1"></i>Træning (3× = 3 hold)</span>' +
       (CAL.tours ? '<span><i class="sw" style="background:var(--tour)"></i>Turnering</span>' : '') +
-      (CAL.plan ? '<span><i class="sw" style="background:var(--plan)"></i>Appens aktiviteter</span>' : '') +
+      (CAL.plan ? '<span><i class="sw" style="background:var(--plan)"></i>Appens aktiviteter for alle (for et hold/en gruppe: holdets farve, ◆)</span>' : '') +
       (CAL.akt ? '<span><i class="sw" style="background:var(--akt)"></i>Aktiviteter fra hoebk.dk</span>' : '') + '</div>' +
       (CAL.akt && ACT.failed && !ACT.events.length ? '<p class="note">Klubbens aktivitetskalender kunne ikke hentes fra Conventus lige nu.</p>' : '');
     return h;
@@ -1382,7 +1384,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         var tus = ge.filter(function (e) { return e.kind === 'tour'; });
         if (tus.length) bars += '<span class="bar" style="background:var(--tour);color:#fff" title="' + tus.length + ' turneringer">' + tus.length + ' turn.</span>';
         var pls = ge.filter(function (e) { return e.kind === 'plan'; });
-        if (pls.length) bars += '<span class="bar" style="background:var(--plan);color:#fff" title="' + esc(pls.map(function (x) { return x.title; }).join(', ')) + '">' + esc(pls[0].title) + '</span>' + (pls.length > 1 ? '<span class="more">+' + (pls.length - 1) + '</span>' : '');
+        if (pls.length) bars += '<span class="bar planbar" style="background:' + pls[0].bg + ';color:' + pls[0].fg + '" title="' + esc(pls.map(function (x) { return x.title; }).join(', ')) + '">' + esc(pls[0].title) + '</span>' + (pls.length > 1 ? '<span class="more">+' + (pls.length - 1) + '</span>' : '');
         var aks = ge.filter(function (e) { return e.kind === 'akt'; });
         if (aks.length) bars += '<span class="bar" style="background:var(--akt);color:#fff" title="' + esc(aks.map(function (x) { return x.title; }).join(', ')) + '">' + esc(aks[0].title) + '</span>' + (aks.length > 1 ? '<span class="more">+' + (aks.length - 1) + '</span>' : '');
         var fe = ge.filter(function (e) { return e.kind === 'ferie'; });
@@ -1608,7 +1610,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         '<button class="card tile" data-go="#/aktiviteter/oversigt" style="text-align:left;font-size:inherit"><span class="lbl" style="margin:0">Dine opgaver</span><b>' + tasks.length + '</b></button></div>';
     }
     if (tasks.length) h += tasks.slice(0, 3).map(function (x) {
-      return '<button class="card row" style="min-height:48px;border-left:5px solid var(--plan)" data-go="#/aktivitet/' + encodeURIComponent(x.a.id) + '"><span class="col"><b style="font-size:14px">' + esc(x.t.title) + '</b>' +
+      return '<button class="card row" style="min-height:48px;border-left:5px solid ' + actColor(x.a).bg + '" data-go="#/aktivitet/' + encodeURIComponent(x.a.id) + '"><span class="col"><b style="font-size:14px">' + esc(x.t.title) + '</b>' +
         '<span class="xs ellip">' + esc(x.a.name + ' · ' + (x.t.from ? taskTime(x.t, x.a).replace(/^kl\. /, dTxt(x.a.start.slice(0, 10)) + ' kl. ') : rangeTxt(x.a))) + '</span></span><span class="xs">›</span></button>'; }).join('');
     h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Dit program de næste 14 dage</span><button class="pl xs" data-go="#/kalender/uge/' + today + '">Kalender ›</button></div>';
     if (!items.length) {
@@ -1631,7 +1633,7 @@ textarea.inp{resize:vertical;line-height:1.45}
           regBlock('training', e.eid, e.title + ' ' + e.date + ' ' + e.time, false) + '</div>';
       } else {
         var a = x.a, my = a.tasks.filter(function (t) { return t.mine; }), free = openSlots(a);
-        h += '<button class="ev" style="border-left-color:var(--plan);width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '">' +
+        h += '<button class="ev planev" style="border-left-color:' + actColor(a).bg + ';width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '">' +
           '<span class="tm">' + esc(a.start.slice(11, 16)) + '</span><span class="col"><b style="font-size:14px" class="ellip">' + esc(a.name) + '</b><span class="xs ellip">' +
           (my.length ? 'Din opgave: ' + esc(my.map(function (t) { return t.title; }).join(', ')) : free ? free + ' ledige pladser på opgaverne' : 'Aktivitet i appen') + '</span></span><span></span></button>';
       }
@@ -2613,6 +2615,20 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (a.start.slice(0, 10) === a.end.slice(0, 10)) return dTxt(a.start.slice(0, 10)) + ' · ' + a.start.slice(11, 16) + (a.end > a.start ? '–' + a.end.slice(11, 16) : '');
     return dtTxt(a.start) + ' – ' + dtTxt(a.end);
   }
+  // Farve på en aktivitet ud fra hvem den er for — samme farver som spillerne/holdene.
+  // Alle i klubben eller blandede rækker: appens hindbærfarve.
+  var GROUP_TEAM = { Ungdom: 'U15', Senior: 'Serie', Senior2: 'Serie', Voksenfjer: 'MOT', Veteran: '4 Spillere' };
+  function actColor(a) {
+    var to = (a && a.to) || ['*'];
+    if (to.indexOf('*') >= 0) return { bg: 'var(--plan)', fg: '#FFFFFF', all: true };
+    var cols = to.map(function (x) {
+      if (/^g:/.test(x)) return teamColor(GROUP_TEAM[x.slice(2)] || 'Serie');
+      var t = D.teams.filter(function (tt) { return 'h:' + tt.leagueGroupTeamID === x; })[0];
+      return t ? teamColor(t.label) : null;
+    }).filter(Boolean);
+    if (!cols.length || cols.some(function (c) { return c.bg !== cols[0].bg; })) return { bg: 'var(--plan)', fg: '#FFFFFF', all: true };
+    return cols[0];
+  }
   function multiDay(a) { return a.start.slice(0, 10) !== a.end.slice(0, 10); }
   function taskTime(t, a) {
     if (!t.from) return '';
@@ -2629,7 +2645,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function openSlots(a) { return a.tasks.reduce(function (s, t) { return s + (t.need ? Math.max(0, t.need - t.n) : 0); }, 0); }
   function actCard(a) {
     var mine = a.tasks.filter(function (t) { return t.mine; }), free = openSlots(a), past = a.end < nowLocal();
-    return '<button class="card news' + (past ? '' : ' plan') + '" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '">' +
+    return '<button class="card news' + (past ? '' : ' plan') + '" style="' + (past ? '' : 'border-left-color:' + actColor(a).bg) + '" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '">' +
       '<span class="xs">' + esc(rangeTxt(a)) + (a.to && a.to[0] !== '*' ? ' · ' + esc(a.to.map(audLabel).join(', ')) : '') + '</span>' +
       '<b>' + esc(a.name) + '</b>' +
       (a.tasks.length ? '<span class="xs">' + a.tasks.length + ' opgave' + (a.tasks.length === 1 ? '' : 'r') + (free ? ' · <b class="need">' + free + ' plads' + (free === 1 ? '' : 'er') + ' ledig' + (free === 1 ? '' : 'e') + '</b>' : '') +
@@ -2661,7 +2677,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       });
     });
     items.sort(function (x, y) { return (x.d + (x.t || '99')).localeCompare(y.d + (y.t || '99')); });
-    var h = '<div class="legend"><span><i style="background:var(--plan)"></i>Appens aktiviteter — med opgaver du kan tage</span><span><i style="background:var(--akt)"></i>Fra hoebk.dk</span></div>';
+    var h = '<div class="legend"><span><i style="background:var(--plan)"></i>Appens aktiviteter for alle</span><span><i style="background:#D4F25A"></i><i style="background:#2F6FB3;margin-left:-2px"></i><i style="background:#E58A2E;margin-left:-2px"></i><i style="background:#7FD3F7;margin-left:-2px"></i>For et hold/en gruppe ◆</span><span><i style="background:var(--akt)"></i>Fra hoebk.dk</span></div>';
     if (PLAN.canEdit) h += '<button class="rb ja" aria-pressed="true" style="align-self:flex-start;min-height:44px" data-act="actnew">+ Ny aktivitet</button>';
     if ((PLAN.list || []).some(function (a) { return a.end >= now && a.tasks.length; })) h += '<button class="card row" style="min-height:52px;border-left:5px solid var(--plan)" data-go="#/aktiviteter/oversigt"><span class="col"><b style="font-size:14px">Oversigt over opgaver</b><span class="xs">Alle aktiviteter og opgaver — hvem har taget hvad, og hvad mangler</span></span><span class="xs">›</span></button>';
     if (!PLAN.list && REG.url && !PLAN.off && !items.length) return h + '<p class="empty">Henter …</p>';
@@ -2687,7 +2703,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!a) { setHeader('Aktivitet', '', true); loadActs(!PLAN.list || Date.now() - PLAN.at > 5000); return '<p class="empty">' + (PLAN.list ? 'Aktiviteten findes ikke længere.' : 'Henter …') + '</p>'; }
     setHeader(a.name, rangeTxt(a), true);
     var past = a.end < nowLocal(), logged = ME && ME.token;
-    var h = '<article class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px">' +
+    var h = '<article class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px;border-top:6px solid ' + actColor(a).bg + '">' +
       '<span class="xs">' + esc(a.start.slice(0, 10) === a.end.slice(0, 10) ? DAY_FULL[parseD(a.start.slice(0, 10)).getDay()] + ' ' + rangeTxt(a).replace(/^\S+ /, '') : rangeTxt(a)) + '</span>' +
       '<h2 class="h" style="margin:0;font-size:20px;line-height:1.2">' + esc(a.name) + '</h2>' +
       (a.desc ? '<div style="font-size:15px;line-height:1.5">' + fmtText(a.desc) + '</div>' : '') +
@@ -2731,7 +2747,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         return PLAN.ov === 'alle' || (PLAN.ov === 'mine' ? t.mine : st === 'none' || st === 'part'); });
       if (!ts.length) return;
       shown++;
-      h += '<button class="card ovhead" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '"><span class="col"><b style="font-size:15px">' + esc(a.name) + '</b><span class="xs">' + esc(rangeTxt(a)) +
+      h += '<button class="card ovhead" style="border-left-color:' + actColor(a).bg + '" data-go="#/aktivitet/' + encodeURIComponent(a.id) + '"><span class="col"><b style="font-size:15px">' + esc(a.name) + '</b><span class="xs">' + esc(rangeTxt(a)) +
         (a.to[0] !== '*' ? ' · ' + esc(a.to.map(audLabel).join(', ')) : '') + '</span></span><span class="xs">Åbn ›</span></button>' +
         '<div class="card ovtasks">' + ts.map(function (t) {
           var st = taskState(t);
