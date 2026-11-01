@@ -537,8 +537,14 @@ textarea.inp{resize:vertical;line-height:1.45}
         routeBtn(mapsDest(m)) + '</div>' +
         (function () {
           var lab = t.label + ' ' + (m.isHome ? 'mod ' : '@ ') + m.opponent + ' ' + m.date, kk = kidsOnTeam(t.label);
-          var mineBlock = ME && isParentId(ME.id) && kk.length ? '' : '<span class="lbl">Kan du spille?</span>' + regBlock('match', eid, lab, true);
-          return mineBlock + (kk.length ? '<span class="lbl">Kan ' + esc(kk.map(function (k) { return k.name.split(' ')[0]; }).join(' / ')) + ' spille?</span>' + kidRegBlocks('match', eid, lab, true, t.label) : '');
+          var me = onTeamOrSelected(t.label, m);
+          var mineBlock = me ? '<span class="lbl">Kan du spille?</span>' + regBlock('match', eid, lab, true, kk.length ? { id: ME.id, name: ME.name, noSummary: true } : undefined) : '';
+          if (!ME || !ME.token) return '<span class="lbl">Kan du spille?</span>' + regBlock('match', eid, lab, true);   // logget ud: "Log ind for at svare"
+          if (!me && !kk.length) {   // hverken på holdet eller forælder til en på holdet: vis kun hvem der har svaret
+            var w0 = who(eid), n0 = w0.ja.length + w0.maaske.length + w0.nej.length;
+            return n0 ? '<span class="lbl">Svar fra holdet</span>' + regBlock('match', eid, lab, true, { id: '__none', name: '', viewOnly: true }) : '';
+          }
+          return mineBlock + (kk.length ? '<span class="lbl">Kan ' + esc(kk.map(function (k) { return k.name.split(' ')[0]; }).join(' / ')) + ' spille?</span>' + kidRegBlocks('match', eid, lab, true, t.label, false) : '');
         })() +
         lineupSection(ti, mi);
     }
@@ -1620,13 +1626,15 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!REG.url && !Object.keys(REG.map).length) {
       h += '<p class="note" style="margin:0">Tilmelding åbner, når klubben har koblet Google Sheet på.</p>';
     }
-    if (ME && ME.token) {
+    if (forWho && forWho.viewOnly) { /* kun listen over svar */ }
+    else if (ME && ME.token) {
       h += '<div class="reg">' + OPTS[type].map(function (o) {
         return '<button class="rb ' + o[0] + '" aria-pressed="' + (m === o[0]) + '" data-reg="' + type + '" data-eid="' + esc(eid) + '" data-status="' + o[0] + '" data-label="' + esc(label) + '"' + fw + (REG.url ? '' : ' disabled') + '>' + o[1] + '</button>';
       }).join('') + '</div>' + (m && open ? '<span class="xs">Tryk på dit svar igen for at fjerne det.</span>' : '');
     } else {
       h += '<button class="rb" data-go="#/tilmeld">Log ind for at svare</button>';
     }
+    if (forWho && forWho.noSummary) return h + '</div>';
     var total = w.ja.length + w.maaske.length + w.nej.length;
     var summary = w.ja.length + ' ' + WORD.ja[type] + (w.maaske.length ? ' · ' + w.maaske.length + ' måske' : '') + (w.nej.length ? ' · ' + w.nej.length + ' ' + WORD.nej[type] : '');
     if (total) {
@@ -1783,7 +1791,7 @@ textarea.inp{resize:vertical;line-height:1.45}
         if (!fol && !me && !kidSel.length && !kidOn.length) return;
         var fn = function (l) { return l.map(function (k) { return k.name.split(' ')[0]; }).join(' og '); };
         var why = me ? '✓ Du er udtaget' : kidSel.length ? '✓ ' + fn(kidSel) + ' er udtaget' : kidOn.length ? fn(kidOn) + 's hold' : '★ Hold du følger';
-        items.push({ k: 'match', d: m.date, t: m.time || '', team: t, ti: ti, m: m, mi: mi, eid: me || (!parent && !kidOn.length) ? matchEid(m) : '', kidEid: kidOn.length ? matchEid(m) : '', why: why, sel: me || kidSel.length > 0 });
+        items.push({ k: 'match', d: m.date, t: m.time || '', team: t, ti: ti, m: m, mi: mi, eid: me || onTeamOrSelected(t.label, m) ? matchEid(m) : '', kidEid: kidOn.length ? matchEid(m) : '', why: why, sel: me || kidSel.length > 0 });
       });
     });
     (D.tours || []).forEach(function (t) {   // turneringer man følger
@@ -1833,7 +1841,7 @@ textarea.inp{resize:vertical;line-height:1.45}
           '<span class="col"><b class="ellip" style="font-size:14px">' + esc(u.team.label) + ' <span style="font-weight:500">' + (u.m.isHome ? 'mod ' : '@ ') + esc(u.m.opponent) + '</span></b><span class="xs ellip">' + esc((driveShort(u.m) ? driveShort(u.m) + ' · ' : '') + u.m.venue) + '</span></span>' +
           '<span class="pill" style="background:var(--soft)">' + (u.m.isHome ? 'Hjemme' : 'Ude') + '</span></button>' +
           '<div style="display:flex;gap:6px;flex-wrap:wrap;padding:0 2px"><span class="why' + (u.sel ? ' sel' : '') + '">' + esc(u.why) + '</span></div>' +
-          (u.eid ? regBlock('match', u.eid, label, false) : '') + (u.kidEid ? kidRegBlocks('match', u.kidEid, label, false, u.team.label) : '') + '</div>';
+          (u.eid ? regBlock('match', u.eid, label, false, u.kidEid ? { id: ME.id, name: ME.name, noSummary: true } : undefined) : '') + (u.kidEid ? kidRegBlocks('match', u.kidEid, label, false, u.team.label, false) : '') + '</div>';
       } else if (x.k === 'tour') {
         var tt = x.tour;
         h += '<button class="ev" style="border-left-color:var(--tour);width:100%;text-align:left;font-size:inherit;background:var(--card)" data-go="#/turnering/' + encodeURIComponent(tt.id) + '">' +
@@ -2521,10 +2529,18 @@ textarea.inp{resize:vertical;line-height:1.45}
     return '<button class="card row" style="min-height:56px;border-left:5px solid ' + PARENT.bg + '" data-go="' + (logged ? '#/boern' : '#/tilmeld/foraelder') + '"><span class="col"><b style="font-size:14px">' +
       (logged ? 'Er du også forælder?' : 'Registrér dig som forælder') + '</b><span class="xs">' + (logged ? 'Tilføj dine børn — så kommer du med i deres holds chat og program' : 'Med dit eget navn — vælg dit barn og følg dets kampe, træning og chat') + '</span></span><span class="h" style="font-size:20px">›</span></button>';
   }
+  // Må jeg svare for mig selv på en holdkamp? Kun hvis jeg er på holdet (har spillet for det) eller er udtaget til kampen
+  function onTeamOrSelected(label, m) {
+    if (!ME || !ME.token || isParentId(ME.id)) return false;
+    var P = D.players[ME.id];
+    return !!(P && P.teams.indexOf(label) >= 0) || (m ? inSquad(m, ME.id) : false);
+  }
   function kidsOnTeam(label) { return ((ME && ME.kids) || []).filter(function (k) { var kp = D.players[k.id]; return kp && kp.teams.indexOf(label) >= 0; }); }
-  function kidRegBlocks(type, eid, label, open, teamLabel) {   // én svarrække pr. barn på holdet
-    return kidsOnTeam(teamLabel).map(function (k) {
-      return '<div class="kidreg"><span class="xs" style="font-weight:700;color:var(--ink)">' + esc(k.name.split(' ')[0]) + ':</span>' + regBlock(type, eid, label, open, k) + '</div>'; }).join('');
+  function kidRegBlocks(type, eid, label, open, teamLabel, summaryShown) {   // én svarrække pr. barn på holdet; listen over svar kun én gang
+    var kk = kidsOnTeam(teamLabel);
+    return kk.map(function (k, i) {
+      var w = { id: k.id, name: k.name, noSummary: summaryShown || i < kk.length - 1 };
+      return '<div class="kidreg"><span class="xs" style="font-weight:700;color:var(--ink)">' + esc(k.name.split(' ')[0]) + ':</span>' + regBlock(type, eid, label, open, w) + '</div>'; }).join('');
   }
   function kidTeams() {
     var t = [];
