@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T00:33:00+00:00",
+ "updated": "2026-11-02T10:46:46+00:00",
  "season": "2026",
  "app": "https://christoffergroenfeldt-cyber.github.io/Hoebk/",
  "teams": 15,
@@ -86,6 +86,19 @@
   }
  ],
  "results": [
+  {
+   "team": "MOT 4+4 Elite/Mester",
+   "club": "Hørsholm 2",
+   "date": "2026-11-01",
+   "time": "10:00",
+   "opponent": "Holte 3",
+   "home": true,
+   "venue": "Hørsholm Badminton Hal 1-4",
+   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510455,1151,",
+   "result": "2-10",
+   "outcome": "T",
+   "walkover": ""
+  },
   {
    "team": "U11 Dx",
    "club": "Hørsholm 2",
@@ -175,19 +188,6 @@
    "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19092,4,10,,513975,1151,",
    "result": "8-0",
    "outcome": "T",
-   "walkover": ""
-  },
-  {
-   "team": "U11 C",
-   "club": "Hørsholm 1",
-   "date": "2026-10-25",
-   "time": "10:30",
-   "opponent": "Slangerup/Skibby 1",
-   "home": false,
-   "venue": "Hørsholm Badminton Hal 1-4",
-   "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,19079,3,10,,513402,1151,",
-   "result": "3-5",
-   "outcome": "V",
    "walkover": ""
   }
  ]

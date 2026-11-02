@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-02T10:16:46+00:00",
+  "updated": "2026-11-02T10:46:46+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -11438,6 +11438,17 @@
         },
         {
           "pos": "3",
+          "team": "Holte 3",
+          "teamID": "122724",
+          "isUs": false,
+          "played": "2",
+          "won": "1",
+          "score": "13-11",
+          "sets": "31-24",
+          "points": "3"
+        },
+        {
+          "pos": "4",
           "team": "Hareskov 2",
           "teamID": "122726",
           "isUs": false,
@@ -11448,7 +11459,7 @@
           "points": "1"
         },
         {
-          "pos": "4",
+          "pos": "5",
           "team": "Lillerød 2",
           "teamID": "122722",
           "isUs": false,
@@ -11459,25 +11470,14 @@
           "points": "1"
         },
         {
-          "pos": "5",
-          "team": "Holte 3",
-          "teamID": "122724",
-          "isUs": false,
-          "played": "1",
-          "won": "0",
-          "score": "3-9",
-          "sets": "9-19",
-          "points": "0"
-        },
-        {
           "pos": "6",
           "team": "Hørsholm 2",
           "teamID": "122847",
           "isUs": true,
-          "played": "1",
+          "played": "2",
           "won": "0",
-          "score": "1-11",
-          "sets": "4-22",
+          "score": "3-21",
+          "sets": "9-44",
           "points": "0"
         }
       ],
@@ -11960,14 +11960,447 @@
           "opponent": "Holte 3",
           "organiser": "",
           "venue": "Hørsholm Badminton Hal 1-4",
-          "result": null,
-          "points": null,
-          "outcome": null,
+          "result": "2-10",
+          "points": "0-3",
+          "outcome": "T",
           "walkover": "",
-          "played": false,
+          "played": true,
           "matchID": "510455",
           "url": "https://badmintonplayer.dk/DBF/HoldTurnering/Stilling/#5,2026,18971,16,19,,510455,1151,",
-          "games": [],
+          "games": [
+            {
+              "discipline": "1. MD",
+              "home": [
+                {
+                  "id": "330871",
+                  "name": "Peter Østergaard"
+                },
+                {
+                  "id": "361298",
+                  "name": "Stine Lund Nielsen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "29342",
+                  "name": "Jeppe Jaque"
+                },
+                {
+                  "id": "239940",
+                  "name": "Ann Skou"
+                }
+              ],
+              "sets": [
+                [
+                  2,
+                  15
+                ],
+                [
+                  15,
+                  17
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. MD",
+              "home": [
+                {
+                  "id": "364056",
+                  "name": "Mikkel Honoré Hansen"
+                },
+                {
+                  "id": "339513",
+                  "name": "Camilla Engel Post"
+                }
+              ],
+              "away": [
+                {
+                  "id": "256219",
+                  "name": "Alan Boyd"
+                },
+                {
+                  "id": "274598",
+                  "name": "Tine Soelberg"
+                }
+              ],
+              "sets": [
+                [
+                  16,
+                  18
+                ],
+                [
+                  15,
+                  13
+                ],
+                [
+                  4,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. MD",
+              "home": [
+                {
+                  "id": "344356",
+                  "name": "Malthe Kiilerich"
+                },
+                {
+                  "id": "337891",
+                  "name": "Ina Finlander"
+                }
+              ],
+              "away": [
+                {
+                  "id": "206659",
+                  "name": "Mikkel Westenholz"
+                },
+                {
+                  "id": "210829",
+                  "name": "Marie-Louise Hassan"
+                }
+              ],
+              "sets": [
+                [
+                  12,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. MD",
+              "home": [
+                {
+                  "id": "339512",
+                  "name": "Anders Franck Berger Christensen"
+                },
+                {
+                  "id": "330795",
+                  "name": "Brit Johannessen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "272199",
+                  "name": "Jonas Warming"
+                },
+                {
+                  "id": "158011",
+                  "name": "Lisbeth Rathsach"
+                }
+              ],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  2,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. DD",
+              "home": [
+                {
+                  "id": "339513",
+                  "name": "Camilla Engel Post"
+                },
+                {
+                  "id": "337891",
+                  "name": "Ina Finlander"
+                }
+              ],
+              "away": [
+                {
+                  "id": "239940",
+                  "name": "Ann Skou"
+                },
+                {
+                  "id": "274598",
+                  "name": "Tine Soelberg"
+                }
+              ],
+              "sets": [
+                [
+                  15,
+                  10
+                ],
+                [
+                  13,
+                  15
+                ],
+                [
+                  15,
+                  9
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. DD",
+              "home": [
+                {
+                  "id": "361298",
+                  "name": "Stine Lund Nielsen"
+                },
+                {
+                  "id": "277780",
+                  "name": "Mathilde Peetz"
+                }
+              ],
+              "away": [
+                {
+                  "id": "210829",
+                  "name": "Marie-Louise Hassan"
+                },
+                {
+                  "id": "158011",
+                  "name": "Lisbeth Rathsach"
+                }
+              ],
+              "sets": [
+                [
+                  8,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "1. HD",
+              "home": [
+                {
+                  "id": "344356",
+                  "name": "Malthe Kiilerich"
+                },
+                {
+                  "id": "339512",
+                  "name": "Anders Franck Berger Christensen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "29342",
+                  "name": "Jeppe Jaque"
+                },
+                {
+                  "id": "256219",
+                  "name": "Alan Boyd"
+                }
+              ],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "2. HD",
+              "home": [
+                {
+                  "id": "330871",
+                  "name": "Peter Østergaard"
+                },
+                {
+                  "id": "364056",
+                  "name": "Mikkel Honoré Hansen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "206659",
+                  "name": "Mikkel Westenholz"
+                },
+                {
+                  "id": "272199",
+                  "name": "Jonas Warming"
+                }
+              ],
+              "sets": [
+                [
+                  11,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. DD",
+              "home": [
+                {
+                  "id": "339513",
+                  "name": "Camilla Engel Post"
+                },
+                {
+                  "id": "277780",
+                  "name": "Mathilde Peetz"
+                }
+              ],
+              "away": [
+                {
+                  "id": "239940",
+                  "name": "Ann Skou"
+                },
+                {
+                  "id": "210829",
+                  "name": "Marie-Louise Hassan"
+                }
+              ],
+              "sets": [
+                [
+                  5,
+                  15
+                ],
+                [
+                  15,
+                  13
+                ],
+                [
+                  15,
+                  11
+                ]
+              ],
+              "winner": "home",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. DD",
+              "home": [
+                {
+                  "id": "361298",
+                  "name": "Stine Lund Nielsen"
+                },
+                {
+                  "id": "330795",
+                  "name": "Brit Johannessen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "274598",
+                  "name": "Tine Soelberg"
+                },
+                {
+                  "id": "158011",
+                  "name": "Lisbeth Rathsach"
+                }
+              ],
+              "sets": [
+                [
+                  14,
+                  16
+                ],
+                [
+                  7,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "3. HD",
+              "home": [
+                {
+                  "id": "330871",
+                  "name": "Peter Østergaard"
+                },
+                {
+                  "id": "339512",
+                  "name": "Anders Franck Berger Christensen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "29342",
+                  "name": "Jeppe Jaque"
+                },
+                {
+                  "id": "206659",
+                  "name": "Mikkel Westenholz"
+                }
+              ],
+              "sets": [
+                [
+                  10,
+                  15
+                ],
+                [
+                  9,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            },
+            {
+              "discipline": "4. HD",
+              "home": [
+                {
+                  "id": "344356",
+                  "name": "Malthe Kiilerich"
+                },
+                {
+                  "id": "364056",
+                  "name": "Mikkel Honoré Hansen"
+                }
+              ],
+              "away": [
+                {
+                  "id": "256219",
+                  "name": "Alan Boyd"
+                },
+                {
+                  "id": "272199",
+                  "name": "Jonas Warming"
+                }
+              ],
+              "sets": [
+                [
+                  7,
+                  15
+                ],
+                [
+                  11,
+                  15
+                ]
+              ],
+              "winner": "away",
+              "walkover": ""
+            }
+          ],
           "travel": {
             "min": 0,
             "km": 0,
@@ -12190,7 +12623,7 @@
         {
           "id": "339512",
           "name": "Anders Franck Berger Christensen",
-          "games": 3,
+          "games": 6,
           "won": 0,
           "disciplines": [
             "MD",
@@ -12199,9 +12632,42 @@
           "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#339512"
         },
         {
+          "id": "339513",
+          "name": "Camilla Engel Post",
+          "games": 6,
+          "won": 2,
+          "disciplines": [
+            "MD",
+            "DD"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#339513"
+        },
+        {
+          "id": "344356",
+          "name": "Malthe Kiilerich",
+          "games": 6,
+          "won": 0,
+          "disciplines": [
+            "MD",
+            "HD"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#344356"
+        },
+        {
+          "id": "330871",
+          "name": "Peter Østergaard",
+          "games": 6,
+          "won": 1,
+          "disciplines": [
+            "MD",
+            "HD"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#330871"
+        },
+        {
           "id": "330795",
           "name": "Brit Johannessen",
-          "games": 3,
+          "games": 5,
           "won": 0,
           "disciplines": [
             "MD",
@@ -12210,15 +12676,15 @@
           "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#330795"
         },
         {
-          "id": "339513",
-          "name": "Camilla Engel Post",
-          "games": 3,
-          "won": 0,
+          "id": "337891",
+          "name": "Ina Finlander",
+          "games": 5,
+          "won": 1,
           "disciplines": [
             "MD",
             "DD"
           ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#339513"
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#337891"
         },
         {
           "id": "364196",
@@ -12232,26 +12698,15 @@
           "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#364196"
         },
         {
-          "id": "337891",
-          "name": "Ina Finlander",
-          "games": 3,
-          "won": 0,
-          "disciplines": [
-            "MD",
-            "DD"
-          ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#337891"
-        },
-        {
-          "id": "344356",
-          "name": "Malthe Kiilerich",
+          "id": "364056",
+          "name": "Mikkel Honoré Hansen",
           "games": 3,
           "won": 0,
           "disciplines": [
             "MD",
             "HD"
           ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#344356"
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#364056"
         },
         {
           "id": "341039",
@@ -12265,15 +12720,25 @@
           "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#341039"
         },
         {
-          "id": "330871",
-          "name": "Peter Østergaard",
+          "id": "361298",
+          "name": "Stine Lund Nielsen",
           "games": 3,
-          "won": 1,
+          "won": 0,
           "disciplines": [
             "MD",
-            "HD"
+            "DD"
           ],
-          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#330871"
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#361298"
+        },
+        {
+          "id": "277780",
+          "name": "Mathilde Peetz",
+          "games": 2,
+          "won": 1,
+          "disciplines": [
+            "DD"
+          ],
+          "url": "https://badmintonplayer.dk/DBF/Spiller/VisSpiller/#277780"
         }
       ]
     },
