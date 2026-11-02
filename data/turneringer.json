@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T05:03:46+00:00",
+ "updated": "2026-11-02T13:31:56+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -13080,9 +13080,11 @@
   {
    "id": "119994",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#119994,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119994"
    },
    "entryOpen": true,
@@ -14334,9 +14336,11 @@
   {
    "id": "116964",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#116964,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#116964"
    },
    "entryOpen": true,
@@ -14423,9 +14427,11 @@
   {
    "id": "116973",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#116973,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#116973"
    },
    "entryOpen": true,
@@ -16141,9 +16147,11 @@
   {
    "id": "117495",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#117495,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#117495"
    },
    "entryOpen": true,
@@ -16155,11 +16163,12 @@
    "organiser": "DGI Sønderjylland",
    "classes": [
     {
-     "raw": "U09 D",
+     "raw": "U09 C,D",
      "ages": [
       "U09"
      ],
      "levels": [
+      "C",
       "D"
      ],
      "days": "lø 09-sø 10"
@@ -16864,6 +16873,39 @@
     "region": "Nordjylland",
     "min": 274,
     "roadKm": 425
+   }
+  },
+  {
+   "id": "123597",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#123597"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-01-09",
+   "end": "2027-01-10",
+   "week": "1",
+   "deadline": "2026-04-30",
+   "organiser": "TCS (Greve) 2026/2027",
+   "classes": [
+    {
+     "raw": "Andet E",
+     "ages": [],
+     "levels": [],
+     "days": "lø 09-sø 10"
+    }
+   ],
+   "place": {
+    "name": "(Greve)",
+    "lat": 55.5834,
+    "lon": 12.2999,
+    "km": 35,
+    "region": "Sjælland",
+    "min": 38,
+    "roadKm": 45
    }
   },
   {

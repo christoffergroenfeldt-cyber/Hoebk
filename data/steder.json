@@ -1904,6 +1904,15 @@
   "min": 265,
   "roadKm": 385
  },
+ "TCS (Greve) 2026/2027": {
+  "sted": "(Greve)",
+  "lat": 55.5834,
+  "lon": 12.2999,
+  "region": "Sjælland",
+  "via": "nominatim",
+  "min": 38,
+  "roadKm": 45
+ },
  "TPI Badminton Monrad stævne": {
   "ukendt": true,
   "prøvet": []

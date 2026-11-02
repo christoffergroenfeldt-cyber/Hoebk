@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T10:46:46+00:00",
+ "updated": "2026-11-02T13:49:37+00:00",
  "season": "2026",
  "clubRanking": [
   {
@@ -1008,8 +1008,8 @@
    "id": "277780",
    "name": "Mathilde Peetz",
    "teams": [
-    "4 Spillere",
-    "MOT 4+4 Elite/Mester"
+    "MOT 4+4 Elite/Mester",
+    "4 Spillere"
    ],
    "played": 4,
    "won": 1,
@@ -19072,7 +19072,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "",
+    "level": "1053",
     "rankings": [
      {
       "list": "Single",
@@ -22086,8 +22086,8 @@
    "id": "277780",
    "name": "Mathilde Peetz",
    "teams": [
-    "4 Spillere",
-    "MOT 4+4 Elite/Mester"
+    "MOT 4+4 Elite/Mester",
+    "4 Spillere"
    ],
    "adult": true,
    "games": [
@@ -22488,7 +22488,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "",
+    "level": "1073",
     "rankings": [
      {
       "list": "Single",
@@ -22511,6 +22511,31 @@
   {
    "id": "366006",
    "name": "Max Lehmann Bøgel",
+   "teams": [],
+   "adult": false,
+   "games": [],
+   "played": 0,
+   "won": 0,
+   "lost": 0,
+   "winPct": 0,
+   "pointsFor": 0,
+   "pointsAgainst": 0,
+   "avgPoints": 0,
+   "avgDiff": 0,
+   "setsWon": 0,
+   "setsLost": 0,
+   "byDiscipline": {},
+   "clubMember": true,
+   "gender": "M",
+   "profile": {
+    "level": "",
+    "rankings": [],
+    "license": "Ingen"
+   }
+  },
+  {
+   "id": "368311",
+   "name": "Max Walther Thallaug Rahbek",
    "teams": [],
    "adult": false,
    "games": [],
@@ -26263,7 +26288,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "",
+    "level": "1073",
     "rankings": [
      {
       "list": "Single",
@@ -30478,7 +30503,7 @@
    "clubMember": true,
    "gender": "M",
    "profile": {
-    "level": "",
+    "level": "1014",
     "rankings": [],
     "license": "Ingen"
    }
