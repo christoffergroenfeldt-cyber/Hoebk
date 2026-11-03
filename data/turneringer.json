@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T20:04:02+00:00",
+ "updated": "2026-11-03T05:04:03+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -13227,73 +13227,6 @@
       "D"
      ],
      "days": "sø 29"
-    }
-   ],
-   "place": {
-    "name": "Grindsted",
-    "lat": 55.7571,
-    "lon": 8.9278,
-    "km": 224,
-    "region": "Syddanmark",
-    "min": 208,
-    "roadKm": 296
-   }
-  },
-  {
-   "id": "118058",
-   "links": [
-    "tilmelding"
-   ],
-   "urls": {
-    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#118058"
-   },
-   "entryOpen": true,
-   "hasResults": false,
-   "start": "2026-12-06",
-   "end": "2026-12-06",
-   "week": "49",
-   "deadline": "2026-11-19",
-   "organiser": "Grindsted BK: Begynder",
-   "classes": [
-    {
-     "raw": "U09 D",
-     "ages": [
-      "U09"
-     ],
-     "levels": [
-      "D"
-     ],
-     "days": "sø 06"
-    },
-    {
-     "raw": "U11 D",
-     "ages": [
-      "U11"
-     ],
-     "levels": [
-      "D"
-     ],
-     "days": "sø 06"
-    },
-    {
-     "raw": "U13 D",
-     "ages": [
-      "U13"
-     ],
-     "levels": [
-      "D"
-     ],
-     "days": "sø 06"
-    },
-    {
-     "raw": "U15 D",
-     "ages": [
-      "U15"
-     ],
-     "levels": [
-      "D"
-     ],
-     "days": "sø 06"
     }
    ],
    "place": {
