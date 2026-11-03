@@ -434,6 +434,14 @@
   ],
   "119994": [
    {
+    "d": "2026-11-03",
+    "t": "Nye rækker: U11 A,X"
+   },
+   {
+    "d": "2026-11-03",
+    "t": "Rækker fjernet: U11 A"
+   },
+   {
     "d": "2026-11-02",
     "t": "Invitationen er lagt ud"
    }
@@ -469,6 +477,16 @@
     "d": "2026-11-02",
     "t": "Datoen er ændret til fre 16. apr–søn 18. apr (var lør 17. apr–søn 18. apr)"
    }
+  ],
+  "115488": [
+   {
+    "d": "2026-11-03",
+    "t": "Invitationen er lagt ud"
+   },
+   {
+    "d": "2026-11-03",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   }
   ]
  },
  "alias": {
@@ -476,5 +494,5 @@
   "xe5b31052e6": "119983",
   "x6461fd35a5": "119984"
  },
- "updated": "2026-11-03T05:25:25+00:00"
+ "updated": "2026-11-03T13:08:18+00:00"
 }

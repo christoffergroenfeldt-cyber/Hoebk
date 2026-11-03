@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T05:04:03+00:00",
+ "updated": "2026-11-03T12:50:09+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -13106,13 +13106,9 @@
    "organiser": "Vestmesterskaber i Middelfart",
    "classes": [
     {
-     "raw": "U11 A",
-     "ages": [
-      "U11"
-     ],
-     "levels": [
-      "A"
-     ],
+     "raw": "U11 A,X",
+     "ages": [],
+     "levels": [],
      "days": "lø 28-sø 29"
     },
     {
@@ -15190,9 +15186,15 @@
   {
    "id": "115488",
    "links": [
+    "invitation",
+    "program",
+    "resultater",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#115488,",
+    "program": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#115488,-8",
+    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#115488,-8",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#115488"
    },
    "entryOpen": true,
