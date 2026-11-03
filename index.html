@@ -246,6 +246,10 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .upill{font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px}
 .regcta{min-height:64px;background:var(--hi);border-color:#DCEBA5;border-left:5px solid var(--accent)}
 .regtwo{display:flex;flex-direction:column;gap:8px}
+.wlc{min-height:70px;border-left:6px solid var(--accent);text-align:left}
+.wlc b{font-size:16px}
+.wlc.guest{min-height:60px;border-left-color:var(--line);background:var(--soft)}
+.wlc.guest b{font-size:15px}
 .regtwo .regcta{width:100%}
 .regpar{border-left-color:#5F7D0F}
 .helpcard{width:100%;text-align:left;font-size:inherit;padding:12px 14px;display:flex;flex-direction:column;gap:8px;background:#FFF7EC;border:2px solid #F3B35B}
@@ -1773,6 +1777,29 @@ textarea.inp{resize:vertical;line-height:1.45}
     });
     return g.filter(function (x, i) { return g.indexOf(x) === i; });
   }
+  // ---- Første besøg: vælg Spiller / Spiller og forælder / Forælder / Gæst (gemmes på telefonen) ----
+  function lsGet(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+  function lsSet(k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} }
+  function needWelcome() { return !!REG.url && !(ME && ME.token) && !lsGet('hoebk_welcome'); }
+  function viewWelcome() {
+    setTab('nyt'); setHeader('Velkommen til HØBK', 'Hvordan vil du bruge appen?', false);
+    var opt = function (k, title, sub, col) {
+      return '<button class="card row wlc" style="border-left-color:' + col + '" data-welcome="' + k + '"><span class="col"><b>' + title + '</b><span class="xs">' + sub + '</span></span><span class="h" style="font-size:20px">›</span></button>';
+    };
+    return '<p class="s" style="margin:4px 4px 2px">Registrér dig, så får du dit eget program, kan melde til og fra kampe og træning og er med i holdets chat.</p>' +
+      opt('player', 'Spiller', 'Jeg spiller i HØBK — vælg dit navn på listen', 'var(--accent)') +
+      opt('both', 'Spiller og forælder', 'Jeg spiller selv og har børn, der spiller — først dig selv, så dine børn', '#2F6FB3') +
+      opt('parent', 'Forælder', 'Mit barn spiller i HØBK — opret dig med dit eget navn og din e-mail', PARENT.bg) +
+      '<button class="card row wlc guest" data-welcome="guest"><span class="col"><b>Fortsæt som gæst</b><span class="xs">Kig rundt i hold, kalender og resultater. Du kan registrere dig senere fra forsiden eller Min side.</span></span><span class="h" style="font-size:20px">›</span></button>';
+  }
+  function chooseWelcome(k) {
+    lsSet('hoebk_welcome', k);
+    lsSet('hoebk_after', k === 'both' ? 'boern' : '');
+    if (k === 'guest') { route(); return; }
+    UI.step = k === 'parent' ? 'parent' : 'name';
+    location.hash = k === 'parent' ? '#/tilmeld/foraelder' : '#/tilmeld/spiller';
+    route();
+  }
   function viewTilmeld(sub) {
     setTab('tilmeld');
     if (!ME || !ME.token) {
@@ -1809,15 +1836,17 @@ textarea.inp{resize:vertical;line-height:1.45}
       }
       setHeader('Log ind', 'Vælg dit navn', false);
       loadPub();
-      return '<button class="card row" style="min-height:64px;border-left:5px solid ' + PARENT.bg + '" data-act="parentstart"><span class="col"><b style="font-size:15px">Registrér dig som forælder</b>' +
-        '<span class="xs">Er du forælder til en spiller? Opret dig med dit eget navn og vælg dit barn</span></span><span class="h" style="font-size:20px">›</span></button>' +
+      var both = lsGet('hoebk_after') === 'boern';
+      return (both ? '' : '<button class="card row" style="min-height:64px;border-left:5px solid ' + PARENT.bg + '" data-act="parentstart"><span class="col"><b style="font-size:15px">Registrér dig som forælder</b>' +
+        '<span class="xs">Er du forælder til en spiller? Opret dig med dit eget navn og vælg dit barn</span></span><span class="h" style="font-size:20px">›</span></button>') +
         (UI.devOpen ? '<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px"><b style="font-size:14px">Kode fra en anden enhed</b>' +
           '<span class="xs">Lav koden på den enhed, hvor du allerede er logget ind: <b>Min side → Spiller</b> (eller <b>Forælder</b>) <b>→ Log ind på en anden enhed</b>.</span>' +
           '<div class="card search"><input id="devin" type="text" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" maxlength="9" placeholder="ABCD-1234" aria-label="Kode fra en anden enhed" style="font-size:19px;letter-spacing:.1em;text-transform:uppercase;min-width:0">' +
           '<button class="rb ja" id="devok" aria-pressed="true" style="min-height:36px;white-space:nowrap;flex:0 0 auto">Log ind</button></div></div>'
           : '<button class="pl s" data-act="devopen" style="align-self:flex-start;margin:0 4px;text-decoration:underline">Har du en kode fra en anden enhed?</button>') +
+        (lsGet('hoebk_after') === 'boern' ? '<div class="card" style="padding:10px 14px;background:var(--hi)"><b style="font-size:14px">Trin 1 af 2: Vælg dig selv</b><span class="xs" style="display:block">Når du er logget ind, vælger du dine børn.</span></div>' : '') +
         '<span class="lbl">Spiller? Vælg dit navn</span>' +
-        '<p class="s" style="margin:0 4px">Vælg dit eget navn, så sender vi en kode til din e-mail. Forældre skal bruge knappen ovenfor.</p><label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
+        '<p class="s" style="margin:0 4px">Vælg dit eget navn, så sender vi en kode til din e-mail.' + (both ? '' : ' Forældre skal bruge knappen ovenfor.') + '</p><label class="card search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5866" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' +
         '<input id="mq" type="search" value="' + esc(UI.mq || '') + '" placeholder="Søg dit navn" aria-label="Søg dit navn" autocomplete="off"></label>' +
         '<div id="mlist" class="col" style="gap:6px"></div>' +
         '<span class="lbl">Ikke på listen?</span><div class="card search"><input id="newname" type="text" placeholder="Skriv dit fulde navn" aria-label="Dit fulde navn" autocomplete="name" maxlength="60">' +
@@ -2145,7 +2174,11 @@ textarea.inp{resize:vertical;line-height:1.45}
         ME.groups = isParentId(p.id) ? [] : defaultGroups(D.players[p.id] ? D.players[p.id].teams : []);
         UI.kids = {}; UI.pname = '';
         saveMe(); UI.step = 'name'; UI.pending = null;
-        toast('Hej ' + p.name.split(' ')[0] + '!'); route(); loadRooms(true); PLAN.list = null; loadActs(true);
+        var toKids = lsGet('hoebk_after') === 'boern' && !isParentId(p.id); lsSet('hoebk_after', '');
+        toast('Hej ' + p.name.split(' ')[0] + '!' + (toKids ? ' Vælg nu dine børn' : ''));
+        UI.bothStep = toKids;
+        if (toKids) { UI.kidsEdit = false; location.hash = '#/boern'; }
+        route(); loadRooms(true); PLAN.list = null; loadActs(true);
       })
       .catch(function (err) { toast(err.message || 'Forkert kode'); if (btn) btn.disabled = false; });
   }
@@ -2745,7 +2778,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     setTab('tilmeld'); setHeader('Mine børn', ME ? ME.name : '', true);
     if (!ME || !ME.token) return '<p class="empty">Log ind på Min side først.</p>';
     if (!UI.kidsEdit) { UI.kids = {}; (ME.kids || []).forEach(function (k) { UI.kids[k.id] = k.name; }); UI.kidsEdit = true; }
-    return (isParentId(ME.id) ? '' : '<p class="s" style="margin:0 4px">Du er logget ind som spiller. Vælg dine børn her, så kommer du også med i deres holds chat og får nyheder til deres hold — uden at logge ud.</p>') +
+    return (!UI.bothStep ? '' : '<div class="card" style="padding:10px 14px;background:var(--hi)"><b style="font-size:14px">Trin 2 af 2: Vælg dine børn</b><span class="xs" style="display:block">Du kan springe over og gøre det senere under Min side.</span></div>') +
+      (isParentId(ME.id) ? '' : '<p class="s" style="margin:0 4px">Du er logget ind som spiller. Vælg dine børn her, så kommer du også med i deres holds chat og får nyheder til deres hold — uden at logge ud.</p>') +
       kidPicker('Du er forælder til') +
       '<button class="rb ja" aria-pressed="true" data-act="kidsave" style="min-height:48px;font-size:15px">Gem</button>' +
       '<p class="note">Du kommer med i chatten for dine børns hold og får nyheder til holdene.</p>';
@@ -2755,7 +2789,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (isParentId(ME.id) && !kids.length) { toast('Vælg mindst ét barn'); return; }
     api({ action: 'children', token: ME.token, children: kids }).then(function (r) {
       if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
-      ME.kids = r.kids || kids; saveMe(); UI.kidsEdit = false; toast(ME.kids.length ? 'Gemt' : 'Børn fjernet'); SNAK.at = 0; loadRooms(true); location.hash = '#/tilmeld';
+      ME.kids = r.kids || kids; saveMe(); UI.kidsEdit = false; UI.bothStep = false; toast(ME.kids.length ? 'Gemt' : 'Børn fjernet'); SNAK.at = 0; loadRooms(true); location.hash = '#/tilmeld';
     }).catch(function (err) { toast(err.message); });
   }
 
@@ -3601,7 +3635,8 @@ textarea.inp{resize:vertical;line-height:1.45}
       var hmi = hti >= 0 && parts[3] ? D.teams[hti].matches.map(function (m) { return m.matchID; }).indexOf(parts[3]) : -1;
       location.replace(hti < 0 ? '#/hold' : '#/hold/' + hti + (hmi >= 0 ? '/kamp/' + hmi : '')); return;
     }
-    if (parts[0] === 'hold' && parts[1] !== undefined && parts[2] === 'kamp') html = viewMatch(+parts[1], +parts[3]);
+    if (needWelcome()) { lastTab = 'nyt'; html = viewWelcome(); }
+    else if (parts[0] === 'hold' && parts[1] !== undefined && parts[2] === 'kamp') html = viewMatch(+parts[1], +parts[3]);
     else if (parts[0] === 'hold' && parts[1] !== undefined) html = viewTeam(+parts[1]);
     else if (parts[0] === 'rangliste') { lastTab = 'spillere'; html = viewRang(); }
     else if (parts[0] === 'nyt') { lastTab = 'nyt'; html = viewNyt(); }
@@ -3779,7 +3814,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf],[data-toparent],[data-ride],[data-ridetake],[data-ridesave],[data-ridecancel],[data-rpm]');
+    var b = e.target.closest('[data-go],[data-welcome],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf],[data-toparent],[data-ride],[data-ridetake],[data-ridesave],[data-ridecancel],[data-rpm]');
     if (b) { UI.calPick = !!b.dataset.calpick; if (b.dataset.calpick) UI.calScrollTo = (b.dataset.go || '').split('/').pop(); }
     if (!b) return;
     if (b.dataset.act === 'pnamesave') {
@@ -3841,6 +3876,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (b.dataset.act === 'pickgroups') { UI.scrollGrp = 1; location.hash = '#/tilmeld/foraelder'; return; }
     if (b.dataset.act === 'devcode') { makeDeviceCode(); return; }
     if (b.dataset.act === 'devopen') { UI.devOpen = true; route(true); var di = document.getElementById('devin'); if (di) di.focus(); return; }
+    if (b.dataset.welcome) { chooseWelcome(b.dataset.welcome); return; }
     if (b.dataset.act === 'parentstart') { UI.step = 'parent'; route(); return; }
     if (b.dataset.act === 'parentnext') { parentNext(); return; }
     if (b.dataset.act === 'kidsave') { saveKids(); return; }
