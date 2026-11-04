@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T05:21:39+00:00",
+  "updated": "2026-11-04T13:21:03+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -7686,19 +7686,19 @@
         },
         {
           "pos": "3",
-          "team": "Slangerup 1",
-          "teamID": "124661",
+          "team": "Rudersdal 1",
+          "teamID": "124660",
           "isUs": false,
-          "played": "1",
-          "won": "0",
-          "score": "4-4",
-          "sets": "8-8",
-          "points": "2"
+          "played": "2",
+          "won": "1",
+          "score": "9-7",
+          "sets": "20-15",
+          "points": "5"
         },
         {
           "pos": "4",
-          "team": "Rudersdal 1",
-          "teamID": "124660",
+          "team": "Slangerup 1",
+          "teamID": "124661",
           "isUs": false,
           "played": "1",
           "won": "0",
@@ -7711,14 +7711,14 @@
           "team": "Hornbæk 1",
           "teamID": "124659",
           "isUs": false,
-          "played": "0",
+          "played": "1",
           "won": "0",
-          "score": "0-0",
-          "sets": "0-0",
-          "points": "0"
+          "score": "3-5",
+          "sets": "7-12",
+          "points": "1"
         },
         {
-          "pos": "5",
+          "pos": "6",
           "team": "Nivå-Kokkedal 1",
           "teamID": "124582",
           "isUs": false,

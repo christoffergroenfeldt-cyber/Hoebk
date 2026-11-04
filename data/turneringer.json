@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T05:03:47+00:00",
+ "updated": "2026-11-04T13:01:28+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -13959,9 +13959,11 @@
   {
    "id": "116310",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#116310,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#116310"
    },
    "entryOpen": true,
@@ -14291,11 +14293,12 @@
    "organiser": "DGI Midtjylland i Kjellerup",
    "classes": [
     {
-     "raw": "U09 D",
+     "raw": "U09 C,D",
      "ages": [
       "U09"
      ],
      "levels": [
+      "C",
       "D"
      ],
      "days": "lø 19"
@@ -15813,11 +15816,12 @@
    "organiser": "Nr. Lyndelse",
    "classes": [
     {
-     "raw": "U09 D",
+     "raw": "U09 C,D",
      "ages": [
       "U09"
      ],
      "levels": [
+      "C",
       "D"
      ],
      "days": "ti 29"
@@ -18710,6 +18714,53 @@
     "region": "Sjælland",
     "min": 53,
     "roadKm": 68
+   }
+  },
+  {
+   "id": "123613",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#123613"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2027-01-30",
+   "end": "2027-01-30",
+   "week": "4",
+   "deadline": "2027-01-14",
+   "organiser": "Begynderturnering i Graasten",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 30"
+    },
+    {
+     "raw": "U11 D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 30"
+    }
+   ],
+   "place": {
+    "name": "Graasten",
+    "lat": 54.9289,
+    "lon": 9.5964,
+    "km": 212,
+    "region": "Syddanmark",
+    "min": 214,
+    "roadKm": 330
    }
   },
   {

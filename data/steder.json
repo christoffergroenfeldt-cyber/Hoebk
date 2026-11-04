@@ -227,6 +227,15 @@
   "min": 283,
   "roadKm": 436
  },
+ "Begynderturnering i Graasten": {
+  "sted": "Graasten",
+  "lat": 54.9289,
+  "lon": 9.5964,
+  "region": "Syddanmark",
+  "via": "nominatim",
+  "min": 214,
+  "roadKm": 330
+ },
  "Begynderturnering i Horn-Fårvang": {
   "sted": "Horn",
   "lat": 56.2523,
