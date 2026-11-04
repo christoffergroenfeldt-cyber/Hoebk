@@ -288,6 +288,10 @@ nav.tabs a .dot{position:absolute;top:8px;left:calc(50% + 8px);width:9px;height:
 .ovrow.st-open{border-left-color:#B9D6F2} .ovrow.st-open .ovcount{background:#E3EEF9}
 .news b{font-size:15px;color:var(--ink)}
 .newtag{color:var(--ink);background:var(--accent);border-radius:6px;padding:0 6px}
+.nimg{width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin:2px 0 4px;background:#eee}
+.nimgfull{width:100%;height:auto;border-radius:10px;display:block;background:#eee}
+.nbody ul{margin:4px 0;padding-left:22px}
+.tpls{display:flex;flex-wrap:wrap;gap:6px}
 .clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .snakbar{display:flex;align-items:center;gap:10px}
 .chip.mute.on{background:#1E8A4C;border-color:#1E8A4C;color:#fff}
@@ -2842,6 +2846,21 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (iso(new Date(t)) === iso(addDays(new Date(), -1))) return 'i går ' + hhmm(t);
     return dTxt(iso(new Date(t)));
   }
+  function newsImgUrl(id, w) { return /^data:/.test(id) ? id : 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(id) + '&sz=w' + (w || 1200); }
+  function newsPlain(s) { return String(s || '').replace(/\*\*/g, '').replace(/^\s*[-•*]\s+/gm, '• '); }
+  // Nyheder: links, **fed** og linjer der starter med "-" eller "•" bliver punkter
+  function fmtNews(s) {
+    var inl = function (t) { return fmtText(t).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>'); };
+    var out = '', list = false;
+    String(s || '').split('\n').forEach(function (ln) {
+      var m = /^\s*[-•*]\s+(.*)$/.exec(ln);
+      if (m) { if (!list) { out = out.replace(/<br>$/, ''); out += '<ul>'; list = true; } out += '<li>' + inl(m[1]) + '</li>'; return; }
+      if (list) { out += '</ul>'; list = false; }
+      out += inl(ln) + '<br>';
+    });
+    if (list) out += '</ul>';
+    return '<div class="nbody" style="font-size:15px;line-height:1.5">' + out.replace(/(<br>)+$/, '') + '</div>';
+  }
   function fmtText(s) {
     return esc(s).replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)\]]/g, function (u) { return '<a href="' + u + '" target="_blank" rel="noopener">' + u + '</a>'; }).replace(/\n/g, '<br>');
   }
@@ -2886,14 +2905,16 @@ textarea.inp{resize:vertical;line-height:1.45}
     var isNew = !NSEEN[n.id];
     return '<button class="card news' + (isNew ? ' new' : '') + '" data-go="#/nyhed/' + encodeURIComponent(n.id) + '">' +
       '<span class="xs">' + esc(ago(n.t)) + (n.to && n.to[0] !== '*' ? ' · ' + esc(n.to.map(audLabel).join(', ')) : '') + (isNew ? ' · <b class="newtag">Ny</b>' : '') + '</span>' +
-      '<b>' + esc(n.title) + '</b><span class="s clamp">' + esc(n.text) + '</span></button>';
+      (n.img ? '<img class="nimg" loading="lazy" alt="" src="' + esc(newsImgUrl(n.img, 800)) + '">' : '') +
+      '<b>' + esc(n.title) + '</b><span class="s clamp">' + esc(newsPlain(n.text)) + '</span></button>';
   }
   function newsBlock() {
     var list = allNews();
     if (!REG.url || (!list.length && !SNAK.canNews)) return '';
     var fresh = list.filter(function (n) { return !NSEEN[n.id]; }), show = (fresh.length ? fresh : list).slice(0, 3);
-    return '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Nyheder fra klubben</span>' +
-      (list.length ? '<button class="pl xs" data-go="#/nyheder">Alle ›</button>' : '') + '</div>' +
+    return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span class="lbl">Nyheder fra klubben</span><span style="display:flex;gap:6px">' +
+      (SNAK.canNews ? '<button class="pl xs" data-go="#/nyheder/ny">+ Skriv</button>' : '') +
+      (list.length ? '<button class="pl xs" data-go="#/nyheder">Alle ›</button>' : '') + '</span></div>' +
       show.map(newsCard).join('') +
       (SNAK.canNews ? '<button class="rb" style="align-self:flex-start;min-height:42px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>' : '');
   }
@@ -3037,9 +3058,30 @@ textarea.inp{resize:vertical;line-height:1.45}
     return '<article class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px">' +
       '<span class="xs">' + esc(dTxt(iso(new Date(n.t)))) + ' kl. ' + hhmm(n.t) + (n.by ? ' · ' + esc(n.by) : '') + '</span>' +
       '<h2 class="h" style="margin:0;font-size:20px;line-height:1.2">' + esc(n.title) + '</h2>' +
-      '<div style="font-size:15px;line-height:1.5">' + fmtText(n.text) + '</div>' +
+      (n.img ? '<a href="' + esc(newsImgUrl(n.img, 2000)) + '" target="_blank" rel="noopener"><img class="nimgfull" alt="" src="' + esc(newsImgUrl(n.img)) + '"></a>' : '') +
+      fmtNews(n.text) +
       '<span class="xs">Til: ' + esc((n.to || ['*']).map(audLabel).join(', ')) + '</span></article>' +
       (SNAK.canNews ? '<button class="rb" style="align-self:flex-start;min-height:42px" data-newsdel="' + esc(n.id) + '">Slet nyheden</button>' : '');
+  }
+  var NEWS_TPL = {
+    'Arrangement': ['', '**Hvad:** \n**Hvornår:** \n**Hvor:** \n**Tilmelding:** \n\nVi glæder os til at se jer!'],
+    'Aflysning': ['Aflyst: ', 'Desværre er … aflyst.\n\n**Hvorfor:** \n**Næste gang:** \n\nVi beklager.'],
+    'Resultater': ['Flotte resultater ', 'Stort tillykke til:\n- \n- \n- \n\nGodt gået alle sammen!'],
+    'Påmindelse': ['Husk: ', 'Husk at …\n\n**Sidste frist:** \n\nSpørgsmål? Skriv til '],
+    'Praktisk info': ['', 'Kort om …\n\n- \n- \n\nLæs mere her: ']
+  };
+  function shrinkImg(file, cb) {   // formindsk til højst 1280 px og gem som JPEG, så det kan sendes til klubbens server
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function () {
+      var k = Math.min(1, 1280 / Math.max(im.naturalWidth, im.naturalHeight)), c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(im.naturalWidth * k)); c.height = Math.max(1, Math.round(im.naturalHeight * k));
+      var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      var d = c.toDataURL('image/jpeg', 0.82); if (d.length > 1500000) d = c.toDataURL('image/jpeg', 0.6);
+      cb(d.length > 1900000 ? null : d);
+    };
+    im.onerror = function () { URL.revokeObjectURL(url); cb(null); };
+    im.src = url;
   }
   function viewNewsNew() {
     setTab('tilmeld'); setHeader('Skriv en nyhed', 'Til alle eller udvalgte hold', true);
@@ -3048,14 +3090,26 @@ textarea.inp{resize:vertical;line-height:1.45}
     var chip = function (k, l) { return '<button class="chip" data-newsto="' + esc(k) + '" aria-pressed="' + !!F.to[k] + '">' + esc(l) + '</button>'; };
     var teams = D.teams.slice().sort(function (a, b) { return a.label.localeCompare(b.label, 'da', { numeric: true }); });
     var sel = Object.keys(F.to);
-    return '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px">' +
+    return '<span class="lbl">Hjælp til opsætning — start fra en skabelon</span><div class="tpls">' +
+      Object.keys(NEWS_TPL).map(function (k) { return '<button class="chip" data-act="nwtpl" data-tpl="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '</div>' +
+      '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px">' +
       '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Overskrift</span><input id="nwTitle" class="inp" maxlength="100" value="' + esc(F.title) + '" placeholder="Fx Generalforsamling 24. november"></label>' +
-      '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Tekst</span><textarea id="nwText" class="inp" rows="7" maxlength="3000" placeholder="Skriv nyheden her. Links virker.">' + esc(F.text) + '</textarea></label></div>' +
+      '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Tekst</span><textarea id="nwText" class="inp" rows="7" maxlength="3000" placeholder="Skriv nyheden her.">' + esc(F.text) + '</textarea></label>' +
+      '<span class="xs">Tip: **fed tekst** · linjer der starter med - bliver punkter · links virker</span>' +
+      (F.img ? '<img class="nimgfull" alt="" src="' + esc(F.img) + '"><button class="rb" style="align-self:flex-start" data-act="nwimgdel">Fjern billedet</button>'
+             : '<label class="rb" style="align-self:flex-start;display:inline-flex;align-items:center;cursor:pointer">' + (SNAK.imgBusy ? 'Forbereder billede …' : '📷 Tilføj billede') +
+               '<input type="file" id="nwImg" accept="image/*" style="display:none"></label>') +
+      '</div>' +
       '<span class="lbl">Hvem er nyheden til?</span><div style="display:flex;flex-wrap:wrap;gap:6px">' + chip('*', 'Alle i klubben') + '</div>' +
       '<span class="xs" style="margin:0 4px">Træningsgrupper</span><div style="display:flex;flex-wrap:wrap;gap:6px">' + GROUPS.map(function (g) { return chip('g:' + g, g); }).join('') + '</div>' +
       '<span class="xs" style="margin:0 4px">Hold</span><div style="display:flex;flex-wrap:wrap;gap:6px">' + teams.map(function (t) { return chip('h:' + t.leagueGroupTeamID, t.label); }).join('') + '</div>' +
       '<p class="note">' + (F.to['*'] ? 'Alle kan se nyheden — også før de logger ind.' : sel.length ? 'Kun ' + esc(sel.map(audLabel).join(', ')) + ' ser nyheden: spillere på holdene, holdledere, dem der følger holdene og dem der har valgt træningsgrupperne.' : 'Vælg mindst én modtager.') + '</p>' +
       '<label class="card" style="padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="nwPush"' + (F.push ? ' checked' : '') + ' style="width:20px;height:20px"><span>Send også som notifikation til dem, der har slået notifikationer til</span></label>' +
+      '<button class="rb" style="min-height:44px" data-act="nwprev">' + (F.prev ? 'Skjul forhåndsvisning' : 'Forhåndsvis nyheden') + '</button>' +
+      (F.prev ? '<span class="lbl">Sådan ser nyheden ud</span><article class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px">' +
+        '<h2 class="h" style="margin:0;font-size:20px;line-height:1.2">' + esc(F.title || 'Overskrift') + '</h2>' +
+        (F.img ? '<img class="nimgfull" alt="" src="' + esc(F.img) + '">' : '') + fmtNews(F.text || 'Tekst') +
+        '<span class="xs">Til: ' + esc(sel.length ? sel.map(audLabel).join(', ') : '—') + '</span></article>' : '') +
       '<button class="rb ja" aria-pressed="true" data-act="newssave" style="min-height:48px;font-size:15px"' + (SNAK.saving ? ' disabled' : '') + '>' + (SNAK.saving ? 'Sender …' : 'Udgiv nyheden') + '</button>';
   }
   function saveNews() {
@@ -3065,9 +3119,14 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (!F.title.trim()) { toast('Skriv en overskrift'); return; }
     if (!F.text.trim()) { toast('Skriv en tekst'); return; }
     if (!to.length) { toast('Vælg hvem nyheden er til'); return; }
-    if (!confirm('Udgiv "' + F.title.trim() + '" til ' + to.map(audLabel).join(', ') + (F.push ? ' og send notifikation' : '') + '?')) return;
+    if (!confirm('Udgiv "' + F.title.trim() + '"' + (F.img ? ' med billede' : '') + ' til ' + to.map(audLabel).join(', ') + (F.push ? ' og send notifikation' : '') + '?')) return;
     SNAK.saving = true; route(true);
-    api({ action: 'newsSave', token: ME.token, title: F.title, text: F.text, to: to, push: F.push }).then(function (r) {
+    // Billeder kræver scriptversion 2026-11-04 eller nyere — ældre versioner ville udgive nyheden uden billedet
+    (F.img ? fetch(REG.url + '?action=version').then(function (r) { return r.json(); }).then(function (v) {
+      if (!v || !(String(v.version) >= '2026-11-04')) throw new Error('Billeder virker først når klubbens server er opdateret — fjern billedet eller vent');
+    }) : Promise.resolve()).then(function () {
+      return api({ action: 'newsSave', token: ME.token, title: F.title, text: F.text, to: to, push: F.push, img: F.img || undefined });
+    }).then(function (r) {
       if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
       SNAK.nf = null; NSEEN[r.id] = 1; saveSeen();
       toast('Nyheden er udgivet' + (r.pushed ? ' · notifikation til ' + r.pushed + ' telefon' + (r.pushed === 1 ? '' : 'er') : ''));
@@ -3564,7 +3623,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span class="xs">Find dit navn på listen</span></span><span class="h" style="font-size:20px">›</span></button>' +
       '<button class="card row regcta regpar" data-go="#/tilmeld/foraelder"><span class="col"><b style="font-size:15px">Registrér dig som forælder</b>' +
       '<span class="xs">Med dit eget navn og din e-mail</span></span><span class="h" style="font-size:20px">›</span></button></div>';
-    h += '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Nyheder fra klubben</span>' + (news.length ? '<button class="pl xs" data-go="#/nyheder">Alle ›</button>' : '') + '</div>';
+    h += '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span class="lbl">Nyheder fra klubben</span><span style="display:flex;gap:6px">' + (SNAK.canNews ? '<button class="pl xs" data-go="#/nyheder/ny">+ Skriv</button>' : '') + (news.length ? '<button class="pl xs" data-go="#/nyheder">Alle ›</button>' : '') + '</span></div>';
     h += news.length ? news.slice(0, 3).map(newsCard).join('') : '<p class="empty">' + ((ME && ME.token ? SNAK.rooms : SNAK.pub) || !REG.url ? 'Ingen nyheder lige nu.' : 'Henter …') + '</p>';
     if (SNAK.canNews) h += '<button class="rb" style="align-self:flex-start;min-height:42px" data-go="#/nyheder/ny">+ Skriv en nyhed</button>';
     var next = []; for (var i = 0; i < 14; i++) next.push(iso(addDays(new Date(), i)));
@@ -3737,6 +3796,12 @@ textarea.inp{resize:vertical;line-height:1.45}
       document.getElementById('nwTitle').addEventListener('input', function (e) { SNAK.nf.title = e.target.value; });
       document.getElementById('nwText').addEventListener('input', function (e) { SNAK.nf.text = e.target.value; });
       document.getElementById('nwPush').addEventListener('change', function (e) { SNAK.nf.push = e.target.checked; });
+      var nwImg = document.getElementById('nwImg');
+      if (nwImg) nwImg.addEventListener('change', function (e) {
+        var f = e.target.files && e.target.files[0]; if (!f) return;
+        SNAK.imgBusy = true; route(true);
+        shrinkImg(f, function (d) { SNAK.imgBusy = false; if (d) SNAK.nf.img = d; else toast('Billedet kunne ikke bruges — prøv et andet'); route(true); });
+      });
     }
     if (parts[0] === 'kalender' && CAL.sheet) {
       var bindC = function (id, k) { var el = document.getElementById(id); if (el) el.addEventListener('change', function (e) { CAL[k] = e.target.checked; calSave(true); route(true); }); };
@@ -3883,6 +3948,15 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (b.dataset.act === 'send') { sendMsg(); return; }
     if (b.dataset.act === 'mute') { toggleMute(); return; }
     if (b.dataset.act === 'newssave') { saveNews(); return; }
+    if (b.dataset.act === 'nwprev') { SNAK.nf.prev = !SNAK.nf.prev; route(true); return; }
+    if (b.dataset.act === 'nwimgdel') { SNAK.nf.img = ''; route(true); return; }
+    if (b.dataset.act === 'nwtpl') {
+      var NF = SNAK.nf, tp = NEWS_TPL[b.dataset.tpl]; if (!NF || !tp) return;
+      if ((NF.text.trim() || NF.title.trim()) && !confirm('Erstat det du har skrevet med skabelonen "' + b.dataset.tpl + '"?')) return;
+      NF.title = tp[0]; NF.text = tp[1]; route(true);
+      var ti = document.getElementById('nwTitle'); if (ti) { ti.focus(); ti.setSelectionRange(ti.value.length, ti.value.length); }
+      return;
+    }
     if (b.dataset.msgdel) { delMsg(b.dataset.msgdel); return; }
     if (b.dataset.newsdel) { delNews(b.dataset.newsdel); return; }
     if (b.dataset.newsto) {

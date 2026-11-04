@@ -13,6 +13,7 @@ The repo is **public**, so everything committed to it can be read by anyone. Thi
 | **Email addresses** | Google Sheet tabs *Spillere*, *Koder*, *Sessioner* | **No** — never leaves Google | Players themselves |
 | **Chat messages** (*Chat*) | Google Sheet tab *Beskeder* | **No** — shown only to logged-in members of that team/training group | Players themselves |
 | News from the board | Google Sheet tab *Nyheder* | Shown in the app; news for everyone is public | Administrators |
+| Images in news | Google Drive folder *HØBK nyhedsbilleder* (file id in *Nyheder*) | Anyone with the link can view; trashed when the news item is deleted | Administrators |
 | **Car pool** (who drives, seats, meeting point, *hvor kan jeg hentes*, who rides with whom) | Google Sheet tab *Kørsel* | **No** — shown only to logged-in users on the match/tournament page | Drivers, players and parents |
 | Activity tasks taken (name per task) | Google Sheet tab *Opgavetilmeldinger* | Only to logged-in users (counts without names when logged out) | Players and parents |
 | Login codes, device codes (*Log ind på en anden enhed*) and session tokens | Google Sheet (*Koder*, *Sessioner*), as salted SHA-256 hashes only | No | Generated |

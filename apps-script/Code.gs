@@ -45,13 +45,13 @@
  *  rooms    {token, groups[]}                    → mine snak-rum (hold + træningsgrupper) med seneste aktivitet + nyheder til mig
  *  messages {token, room}                        → beskeder i et rum (kun medlemmer) · post {token, room, text} · delMsg {token, id}
  *  mute     {token, room, on}                    → ingen push for et rum
- *  newsSave {token, title, text, to[], push} / newsDel {token, id} / newsList {token} → administrator skriver nyheder
+ *  newsSave {token, title, text, to[], push, img?} (img = data:image/jpeg;base64,… → gemmes i Drive-mappen "HØBK nyhedsbilleder") / newsDel {token, id} / newsList {token} → administrator skriver nyheder
  *  GET ?action=news            → offentlige nyheder (til alle) · GET ?action=pushqueue&key=NØGLE → push-køen (tømmes)
  *  GET ?action=status          → seneste svar pr. (begivenhed, spiller) — offentlig, uden e-mails
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-01.14';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-04.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -66,7 +66,7 @@ var SHEETS = {
   Push: ['email', 'playerId', 'endpoint', 'p256dh', 'auth', 'tidspunkt', 'enhed'],
   Indstillinger: ['email', 'mail'],
   Beskeder: ['id', 'tidspunkt', 'rum', 'playerId', 'playerName', 'email', 'tekst', 'slettet'],
-  Nyheder: ['id', 'tidspunkt', 'titel', 'tekst', 'til', 'af', 'slettet'],
+  Nyheder: ['id', 'tidspunkt', 'titel', 'tekst', 'til', 'af', 'slettet', 'billede'],
   Grupper: ['email', 'playerId', 'grupper'],
   'Lydløs': ['email', 'rum'],
   'Forældre': ['email', 'forælderId', 'forælderNavn', 'barnId', 'barnNavn', 'tidspunkt'],
@@ -128,6 +128,7 @@ function setup() {
   // Fjern standardfanen "Ark1"/"Sheet1" hvis arket lige er oprettet og fanen er tom
   ['Ark1', 'Sheet1'].forEach(function (n) { var x = ss.getSheetByName(n); if (x && x.getLastRow() === 0 && ss.getSheets().length > 1) ss.deleteSheet(x); });
   fixParentNames_();
+  Logger.log('Mappe til nyhedsbilleder: ' + imgFolder_().getUrl());   // beder også om adgang til Google Drive første gang
   Logger.log('Google Sheet: ' + ss.getUrl());
   Logger.log('E-mails tilbage i dag (Google-kvote): ' + MailApp.getRemainingDailyQuota());
 }
@@ -770,7 +771,7 @@ function saveGroups_(ses, groups) {
 function newsRows_() {
   return data_('Nyheder').filter(function (r) { return r[0] && !bool_(r[6]); }).map(function (r) {
     return { id: String(r[0]), t: ts_(r[1]), title: String(r[2]), text: String(r[3]),
-             to: String(r[4]).split(',').map(function (x) { return x.trim(); }).filter(String), by: String(r[5]) };
+             to: String(r[4]).split(',').map(function (x) { return x.trim(); }).filter(String), by: String(r[5]), img: String(r[7] || '') };
   }).sort(function (a, b) { return b.t - a.t; });
 }
 function newsFor_(rooms, all) {
@@ -896,8 +897,14 @@ function newsSave_(b) {
   });
   if (!to.length) return { ok: false, error: 'Vælg hvem nyheden er til' };
   if (to.indexOf('*') >= 0) to = ['*'];
+  var img = '';
+  if (b.img) {
+    var saved = newsImg_(b.img);
+    if (!saved.ok) return saved;
+    img = saved.id;
+  }
   var id = newId_('n');
-  withLock_(function () { sh_('Nyheder').appendRow([id, new Date(), safe_(title), safe_(text), to.join(','), safe_(ses.playerName), false]); });
+  withLock_(function () { sh_('Nyheder').appendRow([id, new Date(), safe_(title), safe_(text), to.join(','), safe_(ses.playerName), false, img]); });
   var pushed = 0;
   if (b.push) {
     var jobs = pushTargets_(cx, function (e, pid) {
@@ -909,7 +916,31 @@ function newsSave_(b) {
     });
     pushed = jobs.length; queuePush_(jobs);
   }
-  return { ok: true, id: id, pushed: pushed };
+  return { ok: true, id: id, pushed: pushed, img: img };
+}
+// Billede til en nyhed: appen sender et formindsket JPEG (data-URL). Det gemmes i Drive og deles med "alle med linket",
+// så appen kan vise det (https://drive.google.com/thumbnail?id=…). Slettes nyheden, lægges billedet i papirkurven.
+var NEWS_IMG_MAX = 2000000;   // tegn base64 ≈ 1,5 MB
+function imgFolder_() {
+  var props = PropertiesService.getScriptProperties(), id = props.getProperty('IMG_FOLDER');
+  if (id) { try { return DriveApp.getFolderById(id); } catch (e) { /* mappen er slettet — opret en ny */ } }
+  var f = DriveApp.createFolder('HØBK nyhedsbilleder');
+  props.setProperty('IMG_FOLDER', f.getId());
+  return f;
+}
+function newsImg_(data) {
+  var m = /^data:image\/(jpeg|png|webp);base64,([A-Za-z0-9+\/=]+)$/.exec(String(data));
+  if (!m) return { ok: false, error: 'Billedet kunne ikke læses' };
+  if (m[2].length > NEWS_IMG_MAX) return { ok: false, error: 'Billedet er for stort' };
+  try {
+    var ext = m[1] === 'jpeg' ? 'jpg' : m[1];
+    var blob = Utilities.newBlob(Utilities.base64Decode(m[2]), 'image/' + m[1], 'nyhed-' + Utilities.formatDate(new Date(), 'Europe/Copenhagen', 'yyyy-MM-dd-HHmmss') + '.' + ext);
+    var f = imgFolder_().createFile(blob);
+    f.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    return { ok: true, id: f.getId() };
+  } catch (e) {
+    return { ok: false, error: 'Billedet kunne ikke gemmes — kør setup i Apps Script og giv adgang til Google Drive' };
+  }
 }
 function newsDel_(b) {
   var ses = session_(b.token);
@@ -917,7 +948,11 @@ function newsDel_(b) {
   var id = clean_(b.id, 40);
   return withLock_(function () {
     var rows = data_('Nyheder');
-    for (var i = 0; i < rows.length; i++) if (String(rows[i][0]) === id) { sh_('Nyheder').getRange(i + 2, 7).setValue(true); return { ok: true }; }
+    for (var i = 0; i < rows.length; i++) if (String(rows[i][0]) === id) {
+      sh_('Nyheder').getRange(i + 2, 7).setValue(true);
+      if (rows[i][7]) { try { DriveApp.getFileById(String(rows[i][7])).setTrashed(true); } catch (e) { /* billedet er allerede væk */ } }
+      return { ok: true };
+    }
     return { ok: false, error: 'Nyheden findes ikke' };
   });
 }
