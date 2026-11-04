@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T13:01:28+00:00",
+ "updated": "2026-11-04T20:04:09+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -13975,11 +13975,12 @@
    "organiser": "Kerteminde",
    "classes": [
     {
-     "raw": "U09 D",
+     "raw": "U09 C,D",
      "ages": [
       "U09"
      ],
      "levels": [
+      "C",
       "D"
      ],
      "days": "lø 12"
@@ -14969,9 +14970,11 @@
   {
    "id": "115971",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#115971,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#115971"
    },
    "entryOpen": true,
@@ -15435,9 +15438,11 @@
   {
    "id": "115970",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#115970,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#115970"
    },
    "entryOpen": true,
@@ -16009,9 +16014,11 @@
   {
    "id": "115981",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#115981,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#115981"
    },
    "entryOpen": true,
@@ -16694,9 +16701,11 @@
   {
    "id": "117329",
    "links": [
+    "invitation",
     "tilmelding"
    ],
    "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#117329,",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#117329"
    },
    "entryOpen": true,
