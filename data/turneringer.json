@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T05:03:57+00:00",
+ "updated": "2026-11-05T13:14:30+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -7151,71 +7151,6 @@
    "place": {
     "abroad": true,
     "region": "Udland"
-   }
-  },
-  {
-   "id": "116782",
-   "links": [
-    "deltagere",
-    "resultater"
-   ],
-   "urls": {
-    "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/116782",
-    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#116782,"
-   },
-   "entryOpen": false,
-   "hasResults": true,
-   "start": "2026-10-31",
-   "end": "2026-10-31",
-   "week": "44",
-   "deadline": "2026-10-15",
-   "organiser": "Aflyst - DGI Midtjylland - Kjellerup",
-   "classes": [
-    {
-     "raw": "SEN+30 B,C,D",
-     "ages": [
-      "SEN+30"
-     ],
-     "levels": [
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 31"
-    },
-    {
-     "raw": "SEN+40 B,C,D",
-     "ages": [
-      "SEN+40"
-     ],
-     "levels": [
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 31"
-    },
-    {
-     "raw": "SEN+50 B,C,D",
-     "ages": [
-      "SEN+50"
-     ],
-     "levels": [
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 31"
-    }
-   ],
-   "place": {
-    "name": "Midtjylland Kjellerup",
-    "lat": 56.2835,
-    "lon": 9.44,
-    "km": 195,
-    "region": "Midtjylland",
-    "min": 231,
-    "roadKm": 331
    }
   },
   {
