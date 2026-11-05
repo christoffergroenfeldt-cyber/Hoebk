@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T20:04:09+00:00",
+ "updated": "2026-11-05T05:03:57+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -8802,14 +8802,16 @@
    "id": "119980",
    "links": [
     "deltagere",
-    "invitation"
+    "invitation",
+    "resultater"
    ],
    "urls": {
     "invitation": "https://badmintonpeople.dk/Clubs/CommonDrive/Components/GetWWWFile.aspx?fileID=101504",
-    "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/119980"
+    "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/119980",
+    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#119980,"
    },
    "entryOpen": false,
-   "hasResults": false,
+   "hasResults": true,
    "start": "2026-11-05",
    "end": "2026-11-08",
    "week": "45",

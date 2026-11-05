@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T20:25:14+00:00",
+  "updated": "2026-11-05T05:42:38+00:00",
   "season": "2026",
   "clubID": "1151",
   "source": "badmintonplayer.dk",
@@ -14040,22 +14040,22 @@
           "team": "Slangerup 3",
           "teamID": "122645",
           "isUs": false,
-          "played": "2",
-          "won": "1",
-          "score": "8-4",
-          "sets": "17-10",
-          "points": "4"
+          "played": "3",
+          "won": "2",
+          "score": "12-6",
+          "sets": "25-15",
+          "points": "6"
         },
         {
           "pos": "4",
           "team": "Grantoften 1",
           "teamID": "122646",
           "isUs": false,
-          "played": "2",
+          "played": "3",
           "won": "1",
-          "score": "5-7",
-          "sets": "11-16",
-          "points": "3"
+          "score": "7-11",
+          "sets": "16-24",
+          "points": "4"
         },
         {
           "pos": "5",
