@@ -48,6 +48,11 @@ Persondata bliver i Google — kommer aldrig i GitHub.
 
 ## 3. Holdlederne bestemmer holdene (`APPROVAL.teamsFromLeaders`)
 
+**Slået til 5. nov 2026 (script 2026-11-05.1)** — pr. hold/gruppe: så længe listen for et hold eller en træningsgruppe er **tom**, virker det som før
+(holdet = dem der har spillet; træningsgruppen = dem der selv har valgt den). Når en holdleder sætter den første spiller på, bestemmer listen.
+Appen: **Holdlister** (`#/holdliste/<gruppe>`) fra Holdleder-fanen og Administration — vælg hold/træningsgruppe, *+ Sæt alle N på listen*
+(forslag: har spillet for holdet / spiller på et hold i aldersgruppen), søg og tilføj, ✕ fjerner. Kald: `groupList`, `groupMember` (også `players[]` i ét kald).
+
 I dag kommer holdenes spillere fra badmintonplayer.dk (dem der har spillet), og spillerne vælger selv træningsgrupper.
 Med flaget slået til styres det af **fanen Holdmedlemmer**, som kun holdlederne kan ændre (`action: groupMember`):
 

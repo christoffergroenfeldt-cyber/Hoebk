@@ -221,6 +221,7 @@ Trainers can sort and filter the *Tilmeldinger* tab directly, or use the SQLite 
 | `POST {action:"messages" / "post" / "delMsg" / "mute", token, room, …}` | Read / write / delete messages in a room; push on/off per room — members only |
 | `POST {action:"newsSave" / "newsDel" / "newsList", token, …}` | Write / delete / list news — administrator only |
 | `POST {action:"acts" / "taskSign", token, …}` | Activities I can see with tasks and who took them / take or withdraw from a task (stops when full) |
+| `POST {action:"groupList", token}` / `{action:"groupMember", token, group, players[{id,name}], on}` | Team lists (tab *Holdmedlemmer*): the lists I may edit / put players on or off a team (`h:<id>`) or training group (`g:<name>`) — leaders for their teams and age group, administrators for all. An empty list = old behaviour |
 | `POST {action:"notPlayer", token}` | "Jeg spiller ikke i Hørsholm" (Min side → Spiller, for users with children or administrators): the login becomes a parent (`p:` id) with the same name. Children, follows, push and sessions are kept |
 | `POST {action:"deviceCode", token}` / `{action:"deviceLogin", code}` | One-time 8-character code (10 min) to log in on another device / log in with it → same response as `verify` |
 | `POST {action:"rides" / "rideSet" / "rideTake", token, event, …}` | Car pool for a match (`m:<matchID>`) or tournament (`t:<id>`): list / set my (or my child's) choice: drive + seats + pick-up + time, need a lift, own car, or clear / take or free a seat in a car (stops when full; pushes the driver) |

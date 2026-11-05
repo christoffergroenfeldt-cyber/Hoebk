@@ -2116,7 +2116,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   // ---- Min side · Holdleder ----
   function minHoldleder() {
     if (!isLeader()) return '<p class="empty">Kun for holdledere.</p>';
-    var h = '', n = missingSelections();
+    var h = '<button class="card row" style="min-height:56px;border-left:5px solid var(--accent)" data-go="#/holdliste"><span class="col"><b style="font-size:15px">Holdlister</b><span class="xs">Sæt spillere på dine hold og træningsgrupper — styrer chat og nyheder</span></span><span class="h" style="font-size:20px">›</span></button>', n = missingSelections();
     if (n) h += '<div class="card row alert" style="cursor:default"><span class="col"><b style="font-size:14px">' + n + ' kamp' + (n === 1 ? '' : 'e') + ' mangler udtagelse</b><span class="xs">Tryk på kampen for at udtage spillere</span></span></div>';
     var order = leaderTeams().filter(function (ti) { return nextMatchIdx(D.teams[ti]) >= 0; }).sort(function (a, b) {
       var ma = D.teams[a].matches[nextMatchIdx(D.teams[a])], mb = D.teams[b].matches[nextMatchIdx(D.teams[b])];
@@ -2187,6 +2187,97 @@ textarea.inp{resize:vertical;line-height:1.45}
       .catch(function (err) { toast(err.message || 'Forkert kode'); if (btn) btn.disabled = false; });
   }
 
+
+  // ---------- Holdlister (holdledere sætter spillere på deres hold og træningsgrupper) ----------
+  // Fanen Holdmedlemmer i Code.gs. En tom liste = som før (holdet: dem der har spillet; træningsgruppen: dem der selv har valgt den).
+  var HL = { lists: null, at: 0, busy: false, q: '', err: '' };
+  function hlGroups() {   // de hold og træningsgrupper man må ændre — serveren tjekker det samme (canManageGroup_)
+    var r = ME && ME.role; if (!r) return [];
+    var out = [], all = r.admin || r.all;
+    D.teams.slice().sort(function (a, b) { return a.label.localeCompare(b.label, 'da', { numeric: true }); }).forEach(function (t) {
+      if (all || (r.teams || []).indexOf(t.label) >= 0) out.push({ k: 'h:' + t.leagueGroupTeamID, l: t.label, t: t });
+    });
+    var gs = all ? GROUPS : defaultGroups(r.teams || []);
+    if (!all && gs.indexOf('Senior') >= 0) gs = gs.concat(['Senior2']);
+    GROUPS.forEach(function (g) { if (gs.indexOf(g) >= 0) out.push({ k: 'g:' + g, l: 'Træning · ' + g, g: g }); });
+    return out;
+  }
+  function loadHL(force) {
+    if (!ME || !ME.token || HL.busy && !force) return;
+    if (!force && HL.lists && Date.now() - HL.at < 60000) return;
+    HL.busy = true;
+    api({ action: 'groupList', token: ME.token }).then(function (r) {
+      HL.busy = false;
+      if (!r || !r.ok) { HL.err = r && r.error === 'Ukendt handling' ? 'Klubbens server skal opdateres først (script 2026-11-05.1).' : (r && (r.message || r.error)) || 'Kunne ikke hente holdlisterne'; HL.lists = HL.lists || {}; }
+      else { HL.err = r.on ? '' : 'Holdlisterne er ikke slået til på serveren endnu.'; HL.lists = r.lists || {}; }
+      HL.at = Date.now(); if (/^#\/holdliste/.test(location.hash)) route(true);
+    }).catch(function () { HL.busy = false; HL.err = 'Ingen forbindelse'; HL.lists = HL.lists || {}; route(true); });
+  }
+  function hlSuggest(G, have) {   // forslag: dem der har spillet for holdet / spillere på hold i samme aldersgruppe
+    var ids = G.t ? G.t.players.map(function (p) { return p.id; })
+      : G.g === 'Senior2' ? [] : D.ids.filter(function (id) { return defaultGroups(D.players[id].teams).indexOf(G.g) >= 0; });
+    return ids.filter(function (id) { return D.players[id] && !have[id]; })
+      .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); });
+  }
+  function viewHoldliste(key) {
+    setTab('tilmeld');
+    setHeader('Holdlister', 'Hvem er på holdet', true);
+    if (!ME || !ME.token || !isLeader()) return '<p class="empty">Kun for holdledere og administratorer.</p>';
+    var gs = hlGroups();
+    if (!gs.length) return '<p class="empty">Du er ikke holdleder for et hold.</p>';
+    var G = gs.filter(function (x) { return x.k === key; })[0];
+    if (!G) { location.replace('#/holdliste/' + encodeURIComponent(gs[0].k)); return ''; }
+    loadHL(false);
+    var h = '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Hold eller træningsgruppe</span><select id="hlSel" class="inp">' +
+      gs.map(function (x) { return '<option value="' + esc(x.k) + '"' + (x.k === G.k ? ' selected' : '') + '>' + esc(x.l) + '</option>'; }).join('') + '</select></label>';
+    if (!HL.lists) return h + '<p class="empty">Henter …</p>';
+    if (HL.err) h += '<div class="card row alert" style="cursor:default"><span class="col"><b style="font-size:14px">' + esc(HL.err) + '</b></span></div>';
+    var list = (HL.lists[G.k] || []).slice().sort(function (a, b) { return a.name.localeCompare(b.name, 'da'); }), have = {};
+    list.forEach(function (x) { have[x.id] = 1; });
+    h += '<p class="note">' + (list.length
+      ? 'Listen bestemmer, hvem der er med i ' + (G.t ? 'holdets chat og får holdets nyheder' : 'træningsgruppens chat og får gruppens nyheder') + '. Dem der følger holdet, kan stadig læse med.'
+      : 'Listen er tom, så appen bruger ' + (G.t ? 'dem der har spillet for holdet (fra badmintonplayer.dk)' : 'dem der selv har valgt ' + esc(G.g) + ' under Træning på Min side') + '. Så snart du sætter én spiller på, bestemmer listen.') + '</p>';
+    h += '<span class="lbl">På listen (' + list.length + ')</span>';
+    h += list.length ? list.map(function (x) {
+      var P = D.players[x.id];
+      return '<div class="card row" style="min-height:48px;padding:6px 10px;cursor:default"><span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(P ? P.name : x.name) + '</b>' +
+        (P && P.teams.length ? '<span class="xs ellip">' + esc(P.teams.join(', ')) + '</span>' : '') + '</span>' +
+        '<button class="pl" data-act="hldel" data-id="' + esc(x.id) + '" data-name="' + esc(x.name) + '" aria-label="Fjern ' + esc(x.name) + '" style="min-width:40px;min-height:40px;font-size:18px">✕</button></div>';
+    }).join('') : '<p class="empty">Ingen på listen endnu.</p>';
+    var sug = hlSuggest(G, have);
+    if (sug.length) h += '<span class="lbl">Forslag · ' + (G.t ? 'har spillet for holdet' : 'spiller på et hold i gruppen') + '</span>' +
+      '<button class="rb ja" aria-pressed="true" data-act="hlall" style="min-height:44px">+ Sæt alle ' + sug.length + ' på listen</button>' +
+      sug.map(function (id) { return hlRow(id); }).join('');
+    h += '<span class="lbl">Tilføj en anden spiller</span><label class="card search"><input id="hlq" type="search" value="' + esc(HL.q) + '" placeholder="Søg spiller" aria-label="Søg spiller" autocomplete="off"></label><div id="hlres" class="col" style="gap:6px"></div>';
+    return h;
+  }
+  function hlRow(id) {
+    var P = D.players[id];
+    return '<div class="card row" style="min-height:48px;padding:6px 10px;cursor:default"><span class="col" style="flex:1 1 auto"><b style="font-size:14px">' + esc(P.name) + '</b><span class="xs ellip">' + esc(P.teams.join(', ')) + '</span></span>' +
+      '<button class="rb" data-act="hladd" data-id="' + esc(id) + '" style="min-height:40px">+ Tilføj</button></div>';
+  }
+  function renderHLSearch() {
+    var el = document.getElementById('hlres'); if (!el) return;
+    var key = decodeURIComponent(location.hash.split('/')[2] || ''), have = {};
+    ((HL.lists || {})[key] || []).forEach(function (x) { have[x.id] = 1; });
+    var q = (HL.q || '').toLowerCase().trim();
+    if (q.length < 2) { el.innerHTML = '<span class="xs">Skriv mindst 2 bogstaver.</span>'; return; }
+    var res = D.ids.filter(function (id) { return !have[id] && D.players[id].name.toLowerCase().indexOf(q) >= 0; })
+      .sort(function (a, b) { return D.players[a].name.localeCompare(D.players[b].name, 'da'); }).slice(0, 25);
+    el.innerHTML = res.map(hlRow).join('') || '<p class="empty">Ingen spiller fundet. Spillere kommer med, når de har spillet en holdkamp eller turnering.</p>';
+  }
+  function hlSet(players, on) {
+    var key = decodeURIComponent(location.hash.split('/')[2] || '');
+    if (!players.length || HL.saving) return;
+    HL.saving = true;
+    api({ action: 'groupMember', token: ME.token, group: key, players: players, on: on }).then(function (r) {
+      HL.saving = false;
+      if (!r || !r.ok) throw new Error(r && r.error === 'Ukendt handling' ? 'Klubbens server skal opdateres først' : (r && (r.message || r.error)) || 'Kunne ikke gemme');
+      HL.lists = HL.lists || {}; HL.lists[key] = r.members || [];
+      toast(on ? (players.length === 1 ? players[0].name.split(' ')[0] + ' er sat på listen' : players.length + ' spillere er sat på listen') : players[0].name.split(' ')[0] + ' er fjernet fra listen');
+      route(true);
+    }).catch(function (err) { HL.saving = false; toast(err.message); });
+  }
 
   // ---------- Holdopstilling (holdledere) ----------
   var LU = { team: null, mi: null, sel: null, selKey: '', q: '', onlyTeam: false, eligible: true, hideNo: false };
@@ -2312,6 +2403,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       h += '<span class="lbl">Udvikling af appen</span>' +
         card('#/snak/x%3Aadmin', 'Admin-chat' + (au ? ' <span class="badge sm">' + au + '</span>' : ''), ar && ar.last ? esc(ar.by.split(' ')[0] + ': ' + ar.x) : 'Foreslå nye funktioner og ændringer — kun for administratorer', '#5B6B7A');
       h += '<span class="lbl">Personer</span>' +
+        card('#/holdliste', 'Holdlister', 'Hvem er på hvert hold og i hver træningsgruppe', 'var(--accent)') +
         card('#/brugere', 'Registrerede brugere', 'Alle der har logget ind — søg, se roller, børn og sidst aktiv', 'var(--ink)') +
         '<a class="card row" style="min-height:56px;border-left:5px solid var(--ink);text-decoration:none;color:inherit" href="https://claude.ai/artifact/EpD317eMUbCD5uFZwNUPwu" target="_blank" rel="noopener"><span class="col"><b style="font-size:15px">Oversigt over appen</b><span class="xs">Alle skærme, roller, farver og vejledning — kan deles med udvalgte</span></span><span class="h" style="font-size:20px">↗</span></a>' +
         card('#/ledere', 'Administratorer og holdledere', (ME.role.owner ? 'Udnævn administratorer og holdledere' : 'Udnævn holdledere') + ' · brugerstatistik', 'var(--ink)');
@@ -3437,6 +3529,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       '<span class="xs">' + esc(a.start.slice(0, 10) === a.end.slice(0, 10) ? DAY_FULL[parseD(a.start.slice(0, 10)).getDay()] + ' ' + rangeTxt(a).replace(/^\S+ /, '') : rangeTxt(a)) + '</span>' +
       '<h2 class="h" style="margin:0;font-size:20px;line-height:1.2">' + esc(a.name) + '</h2>' +
       (a.desc ? '<div style="font-size:15px;line-height:1.5">' + fmtText(a.desc) + '</div>' : '') +
+      (/^https:\/\//i.test(a.link || '') ? '<a class="rb ja" aria-pressed="true" style="min-height:44px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px" href="' + esc(a.link) + '" target="_blank" rel="noopener">Tilmelding og betaling ↗</a>' : '') +
       '<span class="xs">For: ' + esc(a.to.map(audLabel).join(', ')) + (a.cal ? ' · står i kalenderen' : '') + '</span>' +
       (a.cal ? '<button class="pl xs" style="align-self:flex-start" data-go="#/kalender/dag/' + a.start.slice(0, 10) + '">Se dagen i kalenderen ›</button>' : '') + '</article>';
     if (a.tasks.length) {
@@ -3505,9 +3598,9 @@ textarea.inp{resize:vertical;line-height:1.45}
   // ---- formular (administrator) ----
   function actForm(a, nav) {
     var d = iso(addDays(new Date(), 7));
-    PLAN.form = a ? { id: a.id, name: a.name, desc: a.desc, start: a.start, end: a.end, cal: a.cal, push: false, help: !!a.help,
+    PLAN.form = a ? { id: a.id, name: a.name, desc: a.desc, link: a.link || '', start: a.start, end: a.end, cal: a.cal, push: false, help: !!a.help,
                       to: a.to.reduce(function (o, x) { o[x] = 1; return o; }, {}), tasks: a.tasks.map(function (t) { return { id: t.id, title: t.title, need: t.need, n: t.n, from: t.from || '', to: t.to || '' }; }) }
-                  : { id: '', name: '', desc: '', start: d + 'T10:00', end: d + 'T14:00', cal: true, push: true, help: false, to: { '*': 1 }, tasks: [{ title: '', need: 1 }] };
+                  : { id: '', name: '', desc: '', link: '', start: d + 'T10:00', end: d + 'T14:00', cal: true, push: true, help: false, to: { '*': 1 }, tasks: [{ title: '', need: 1 }] };
     if (nav !== false) location.hash = a ? '#/aktivitet/' + encodeURIComponent(a.id) + '/ret' : '#/aktiviteter/ny';
   }
   function audChips(F, attr) {
@@ -3531,6 +3624,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     return '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px">' +
       '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Navn</span><input id="afName" class="inp" maxlength="100" value="' + esc(F.name) + '" placeholder="Fx Juleafslutning for ungdom"></label>' +
       '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Beskrivelse</span><textarea id="afDesc" class="inp" rows="4" maxlength="3000" placeholder="Hvad, hvor og praktisk info. Links virker.">' + esc(F.desc) + '</textarea></label>' +
+      '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Link til tilmelding og betaling (valgfrit)</span><input id="afLink" class="inp" type="url" inputmode="url" maxlength="500" value="' + esc(F.link || '') + '" placeholder="https://… fx siden i Conventus / på hoebk.dk"><span class="xs">Vises som knappen <b>Tilmelding og betaling</b> på aktiviteten.</span></label>' +
       '<div style="display:grid;grid-template-columns:1fr;gap:10px">' +
       '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Start</span><input id="afStart" class="inp" type="datetime-local" value="' + esc(F.start) + '"></label>' +
       '<label class="col" style="gap:4px"><span class="lbl" style="margin:0">Slut</span><input id="afEnd" class="inp" type="datetime-local" value="' + esc(F.end) + '"></label></div>' +
@@ -3559,7 +3653,7 @@ textarea.inp{resize:vertical;line-height:1.45}
   function bindActForm() {
     var F = PLAN.form; if (!F) return;
     var on = function (id, k, prop) { var el = document.getElementById(id); if (el) el.addEventListener(prop || 'input', function () { F[k] = el.type === 'checkbox' ? el.checked : el.value; }); };
-    on('afName', 'name'); on('afDesc', 'desc'); on('afStart', 'start', 'change'); on('afEnd', 'end', 'change'); on('afCal', 'cal', 'change'); on('afPush', 'push', 'change'); on('afHelp', 'help', 'change');
+    on('afName', 'name'); on('afDesc', 'desc'); on('afLink', 'link'); on('afStart', 'start', 'change'); on('afEnd', 'end', 'change'); on('afCal', 'cal', 'change'); on('afPush', 'push', 'change'); on('afHelp', 'help', 'change');
     var st = document.getElementById('afStart');
     if (st) st.addEventListener('change', function () { if (!F.end || F.end < F.start) { F.end = F.start.slice(0, 11) + String(Math.min(23, +F.start.slice(11, 13) + 2)).padStart(2, '0') + F.start.slice(13); var en = document.getElementById('afEnd'); if (en) en.value = F.end; } });
     document.querySelectorAll('[data-tt]').forEach(function (el) { el.addEventListener('input', function () { F.tasks[+el.dataset.tt].title = el.value; }); });
@@ -3582,8 +3676,12 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (F.end < F.start) { toast('Slut er før start'); return; }
     if (!Object.keys(F.to).length) { toast('Vælg hvem aktiviteten er for'); return; }
     if (F.help && !F.tasks.some(function (t) { return (t.title || '').trim(); })) { toast('Tilføj mindst én opgave, når I søger hjælp'); return; }
+    F.link = (F.link || '').trim();
+    if (F.link && !/^https?:\/\//i.test(F.link)) F.link = 'https://' + F.link;
+    if (F.link && !/^https:\/\/[^\s"'<>]+$/i.test(F.link)) { toast('Linket skal starte med https://'); return; }
+    if (F.link && REG.ver && REG.ver < '2026-11-05') { toast('Klubbens server skal opdateres, før links kan gemmes (script 2026-11-05.1)'); return; }
     PLAN.saving = true; route(true);
-    api({ action: 'actSave', token: ME.token, id: F.id, name: F.name, desc: F.desc, start: F.start.slice(0, 16), end: F.end.slice(0, 16), cal: F.cal, push: F.push, help: !!F.help,
+    api({ action: 'actSave', token: ME.token, id: F.id, name: F.name, desc: F.desc, link: F.link || '', start: F.start.slice(0, 16), end: F.end.slice(0, 16), cal: F.cal, push: F.push, help: !!F.help,
           to: Object.keys(F.to), tasks: F.tasks.map(function (t) { return { id: t.id, title: t.title, need: +t.need || 0, from: t.from || '', to: t.to || '' }; }) }).then(function (r) {
       if (!r || !r.ok) throw new Error((r && r.error === 'Ukendt handling') ? 'Klubbens server skal opdateres først' : (r && r.error) || 'Kunne ikke gemme');
       PLAN.form = null; PLAN.saving = false;
@@ -3708,6 +3806,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     else if (parts[0] === 'opstilling') { html = viewOpstilling(+parts[1], +parts[2]); }
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
+    else if (parts[0] === 'holdliste') { lastTab = 'tilmeld'; html = viewHoldliste(decodeURIComponent(parts[1] || '')); }
     else if (parts[0] === 'brugere') { lastTab = 'tilmeld'; html = viewBrugere(); }
     else if (parts[0] === 'holdleder' || parts[0] === 'admin') { html = viewHoldleder(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'oversigt') { lastTab = 'tilmeld'; html = viewOversigt(); }
@@ -3784,6 +3883,10 @@ textarea.inp{resize:vertical;line-height:1.45}
     }
     var pne = document.getElementById('pnameEdit'); if (pne) pne.addEventListener('input', function () { UI.pnameEdit = pne.value; });
     if (document.getElementById('afName')) bindActForm();
+    if (parts[0] === 'holdliste') {
+      var hs = document.getElementById('hlSel'); if (hs) hs.addEventListener('change', function () { location.hash = '#/holdliste/' + encodeURIComponent(hs.value); });
+      var hq = document.getElementById('hlq'); if (hq) { renderHLSearch(); hq.addEventListener('input', function () { HL.q = hq.value; renderHLSearch(); }); }
+    }
     if (document.getElementById('kq')) {
       renderKidList();
       var kq = document.getElementById('kq');
@@ -3918,6 +4021,15 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (b.dataset.ov) { PLAN.ov = b.dataset.ov; route(true); return; }
     if (b.dataset.actto) { toggleAud(PLAN.form, b.dataset.actto); route(true); return; }
     if (b.dataset.taskdel !== undefined) { PLAN.form.tasks.splice(+b.dataset.taskdel, 1); route(true); return; }
+    if (b.dataset.act === 'hladd') { var hp = D.players[b.dataset.id]; if (hp) hlSet([{ id: b.dataset.id, name: hp.name }], true); return; }
+    if (b.dataset.act === 'hldel') { if (confirm('Fjern ' + b.dataset.name + ' fra listen?')) hlSet([{ id: b.dataset.id, name: b.dataset.name }], false); return; }
+    if (b.dataset.act === 'hlall') {
+      var hk = decodeURIComponent(location.hash.split('/')[2] || ''), hg = hlGroups().filter(function (x) { return x.k === hk; })[0], hv = {};
+      ((HL.lists || {})[hk] || []).forEach(function (x) { hv[x.id] = 1; });
+      var hsug = hg ? hlSuggest(hg, hv) : [];
+      if (hsug.length && confirm('Sæt alle ' + hsug.length + ' på listen for ' + hg.l + '?')) hlSet(hsug.map(function (id) { return { id: id, name: D.players[id].name }; }), true);
+      return;
+    }
     if (b.dataset.act === 'taskadd') { PLAN.form.tasks.push({ title: '', need: 1 }); route(true); var tt = document.querySelectorAll('[data-tt]'); if (tt.length) tt[tt.length - 1].focus(); return; }
     if (b.dataset.act === 'actnew') { actForm(null); return; }
     if (b.dataset.act === 'actedit') { actForm(actById(b.dataset.id)); return; }
