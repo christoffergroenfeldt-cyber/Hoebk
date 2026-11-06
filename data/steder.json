@@ -675,6 +675,9 @@
   "min": 158,
   "roadKm": 235
  },
+ "Estonia Junior": {
+  "abroad": true
+ },
  "Farsø": {
   "sted": "Farsø",
   "lat": 56.7722,

@@ -58,6 +58,10 @@
   ],
   "116212": [
    {
+    "d": "2026-11-06",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   },
+   {
     "d": "2026-11-02",
     "t": "Nye rækker: U09 C,D, U15 B,C,D, U15 A"
    },
@@ -217,12 +221,6 @@
    }
   ],
   "117666": [
-   {
-    "d": "2026-10-30",
-    "t": "Deltagerlisten er offentliggjort"
-   }
-  ],
-  "117114": [
    {
     "d": "2026-10-30",
     "t": "Deltagerlisten er offentliggjort"
@@ -396,6 +394,14 @@
   ],
   "115683": [
    {
+    "d": "2026-11-06",
+    "t": "Nye rækker: U09 C,D"
+   },
+   {
+    "d": "2026-11-06",
+    "t": "Rækker fjernet: U09 D"
+   },
+   {
     "d": "2026-10-31",
     "t": "Invitationen er lagt ud"
    },
@@ -563,13 +569,56 @@
     "d": "2026-11-06",
     "t": "Rækker fjernet: U13 A,B,C,D"
    }
+  ],
+  "116325": [
+   {
+    "d": "2026-11-06",
+    "t": "Rækker fjernet: U09 D, U11 C,D"
+   }
+  ],
+  "x0532541790": [
+   {
+    "d": "2026-11-06",
+    "t": "Rækker fjernet: U13 B,C,D, U15 B,C,D, U17/U19 B,C,D"
+   }
+  ],
+  "119657": [
+   {
+    "d": "2026-11-06",
+    "t": "Programmet er klar (lodtrækning og spilletider)"
+   }
+  ],
+  "123645": [
+   {
+    "d": "2026-11-06",
+    "t": "Ny turnering i kalenderen"
+   }
+  ],
+  "117732": [
+   {
+    "d": "2026-11-06",
+    "t": "Datoen er ændret til man 28. dec–tir 29. dec (var tir 29. dec)"
+   },
+   {
+    "d": "2026-11-06",
+    "t": "Nye rækker: SEN A,B, SEN C,D"
+   },
+   {
+    "d": "2026-11-06",
+    "t": "Rækker fjernet: SEN A,B,C,D"
+   },
+   {
+    "d": "2026-11-06",
+    "t": "Invitationen er lagt ud"
+   }
   ]
  },
  "alias": {
   "x78de95bc44": "119982",
   "xe5b31052e6": "119983",
   "x6461fd35a5": "119984",
-  "116880": "116886"
+  "116880": "116886",
+  "116325": "x0532541790"
  },
- "updated": "2026-11-06T05:24:18+00:00"
+ "updated": "2026-11-06T13:19:13+00:00"
 }

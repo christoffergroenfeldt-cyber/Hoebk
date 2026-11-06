@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T05:03:58+00:00",
+ "updated": "2026-11-06T12:59:31+00:00",
  "season": "2026",
  "source": "badmintonplayer.dk sæsonplan",
  "levels": [
@@ -9472,87 +9472,6 @@
    }
   },
   {
-   "id": "117114",
-   "links": [
-    "deltagere",
-    "invitation",
-    "program",
-    "resultater"
-   ],
-   "urls": {
-    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#117114,",
-    "program": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#117114,-8",
-    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#117114,-8",
-    "deltagere": "https://www.badmintonplayer.dk/DBF/Turnering/DeltagerListe/117114"
-   },
-   "entryOpen": false,
-   "hasResults": false,
-   "start": "2026-11-07",
-   "end": "2026-11-07",
-   "week": "45",
-   "deadline": "2026-10-22",
-   "organiser": "Højslev",
-   "classes": [
-    {
-     "raw": "U11 C,D",
-     "ages": [
-      "U11"
-     ],
-     "levels": [
-      "C",
-      "D"
-     ],
-     "days": "lø 07"
-    },
-    {
-     "raw": "U13 B,C,D",
-     "ages": [
-      "U13"
-     ],
-     "levels": [
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 07"
-    },
-    {
-     "raw": "U15 B,C,D",
-     "ages": [
-      "U15"
-     ],
-     "levels": [
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 07"
-    },
-    {
-     "raw": "U17/U19 B,C,D",
-     "ages": [
-      "U17",
-      "U19"
-     ],
-     "levels": [
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "lø 07"
-    }
-   ],
-   "place": {
-    "name": "Højslev",
-    "lat": 56.5855,
-    "lon": 9.1362,
-    "km": 222,
-    "region": "Midtjylland",
-    "min": 264,
-    "roadKm": 383
-   }
-  },
-  {
    "id": "119204",
    "links": [
     "deltagere",
@@ -10874,27 +10793,6 @@
    "organiser": "Brande",
    "classes": [
     {
-     "raw": "U09 D",
-     "ages": [
-      "U09"
-     ],
-     "levels": [
-      "D"
-     ],
-     "days": "lø 21"
-    },
-    {
-     "raw": "U11 C,D",
-     "ages": [
-      "U11"
-     ],
-     "levels": [
-      "C",
-      "D"
-     ],
-     "days": "lø 21"
-    },
-    {
      "raw": "U13 B,C,D",
      "ages": [
       "U13"
@@ -10926,6 +10824,50 @@
      ],
      "levels": [
       "B",
+      "C",
+      "D"
+     ],
+     "days": "lø 21"
+    }
+   ],
+   "place": {
+    "name": "Brande",
+    "lat": 55.9445,
+    "lon": 9.1283,
+    "km": 210,
+    "region": "Midtjylland",
+    "min": 196,
+    "roadKm": 301
+   }
+  },
+  {
+   "id": "x0532541790",
+   "links": [],
+   "urls": {},
+   "entryOpen": false,
+   "hasResults": false,
+   "start": "2026-11-21",
+   "end": "2026-11-21",
+   "week": "47",
+   "deadline": "2026-11-05",
+   "organiser": "Brande",
+   "classes": [
+    {
+     "raw": "U09 D",
+     "ages": [
+      "U09"
+     ],
+     "levels": [
+      "D"
+     ],
+     "days": "lø 21"
+    },
+    {
+     "raw": "U11 C,D",
+     "ages": [
+      "U11"
+     ],
+     "levels": [
       "C",
       "D"
      ],
@@ -12306,10 +12248,14 @@
    "id": "119657",
    "links": [
     "invitation",
+    "program",
+    "resultater",
     "tilmelding"
    ],
    "urls": {
     "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#119657,",
+    "program": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#119657,-8",
+    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#119657,-8",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#119657"
    },
    "entryOpen": true,
@@ -12524,10 +12470,14 @@
    "id": "116212",
    "links": [
     "invitation",
+    "program",
+    "resultater",
     "tilmelding"
    ],
    "urls": {
     "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#116212,",
+    "program": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#116212,-8",
+    "resultater": "https://www.badmintonplayer.dk/DBF/Turnering/VisResultater/#116212,-8",
     "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#116212"
    },
    "entryOpen": true,
@@ -13131,6 +13081,38 @@
     "region": "Syddanmark",
     "min": 208,
     "roadKm": 296
+   }
+  },
+  {
+   "id": "123645",
+   "links": [
+    "tilmelding"
+   ],
+   "urls": {
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#123645"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2026-12-10",
+   "end": "2026-12-12",
+   "week": "50",
+   "deadline": "2026-11-08",
+   "organiser": "Estonia Junior",
+   "classes": [
+    {
+     "raw": "U19 E",
+     "ages": [
+      "U19"
+     ],
+     "levels": [
+      "E"
+     ],
+     "days": "to 10-lø 12"
+    }
+   ],
+   "place": {
+    "abroad": true,
+    "region": "Udland"
    }
   },
   {
@@ -15534,11 +15516,12 @@
    "organiser": "St. Restrup",
    "classes": [
     {
-     "raw": "U09 D",
+     "raw": "U09 C,D",
      "ages": [
       "U09"
      ],
      "levels": [
+      "C",
       "D"
      ],
      "days": "ma 28"
@@ -15591,6 +15574,57 @@
     "region": "Nordjylland",
     "min": 282,
     "roadKm": 432
+   }
+  },
+  {
+   "id": "117732",
+   "links": [
+    "invitation",
+    "tilmelding"
+   ],
+   "urls": {
+    "invitation": "https://www.badmintonplayer.dk/DBF/Turnering/VisInvitation/#117732,",
+    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#117732"
+   },
+   "entryOpen": true,
+   "hasResults": false,
+   "start": "2026-12-28",
+   "end": "2026-12-29",
+   "week": "53",
+   "deadline": "2026-12-10",
+   "organiser": "Svenstrup",
+   "classes": [
+    {
+     "raw": "SEN A,B",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "A",
+      "B"
+     ],
+     "days": "ma 28-ti 29"
+    },
+    {
+     "raw": "SEN C,D",
+     "ages": [
+      "SEN"
+     ],
+     "levels": [
+      "C",
+      "D"
+     ],
+     "days": "ti 29"
+    }
+   ],
+   "place": {
+    "name": "Svenstrup",
+    "lat": 56.9773,
+    "lon": 9.8526,
+    "km": 203,
+    "region": "Nordjylland",
+    "min": 274,
+    "roadKm": 425
    }
   },
   {
@@ -15799,46 +15833,6 @@
     "region": "Syddanmark",
     "min": 127,
     "roadKm": 186
-   }
-  },
-  {
-   "id": "117732",
-   "links": [
-    "tilmelding"
-   ],
-   "urls": {
-    "tilmelding": "https://www.badmintonplayer.dk/DBF/Turnering/TilmeldTurnering/#117732"
-   },
-   "entryOpen": true,
-   "hasResults": false,
-   "start": "2026-12-29",
-   "end": "2026-12-29",
-   "week": "53",
-   "deadline": "2026-12-10",
-   "organiser": "Svenstrup",
-   "classes": [
-    {
-     "raw": "SEN A,B,C,D",
-     "ages": [
-      "SEN"
-     ],
-     "levels": [
-      "A",
-      "B",
-      "C",
-      "D"
-     ],
-     "days": "ti 29"
-    }
-   ],
-   "place": {
-    "name": "Svenstrup",
-    "lat": 56.9773,
-    "lon": 9.8526,
-    "km": 203,
-    "region": "Nordjylland",
-    "min": 274,
-    "roadKm": 425
    }
   },
   {
