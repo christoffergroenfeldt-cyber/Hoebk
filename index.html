@@ -38,6 +38,16 @@ a{color:var(--ink)}
 .top .adminbtn.on{background:rgba(255,255,255,.16);color:var(--accent)}
 .top .adminbtn:focus-visible{outline:2px solid var(--accent)}
 .top .adminbtn:not([hidden])+.refresh{margin-left:0}
+.top .helpbtn{margin-left:auto;width:40px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;position:relative}
+.top .helpbtn:focus-visible{outline:2px solid var(--accent)}
+.top .helpbtn.on{background:rgba(255,255,255,.16);color:var(--accent)}
+.top .helpbtn .dot{position:absolute;top:9px;right:7px;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--ink)}
+.top .homebtn:not([hidden])~.helpbtn,.top .adminbtn:not([hidden])+.helpbtn,.top .helpbtn+.refresh{margin-left:0}
+.fbitem{padding:12px 14px;display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line)}
+.fbitem:first-child{border-top:0}
+.fbtext{white-space:pre-wrap;font-size:14px;line-height:1.45;margin:0}
+.fbreply{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.45;white-space:pre-wrap}
+.fbst{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700}
 .top .refresh{margin-left:auto;width:44px;height:44px;flex:0 0 auto;border:0;border-radius:999px;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center}
 .top .refresh:focus-visible{outline:2px solid var(--accent)}
 .top .refresh.spin svg{animation:spin .8s linear infinite}
@@ -348,6 +358,7 @@ textarea.inp{resize:vertical;line-height:1.45}
 <div class="t"><h1 id="title">HØBK</h1><span class="sub" id="subtitle">Henter data …</span></div>
 <button class="homebtn" id="homeBtn" aria-label="Gør til min forside" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></button>
 <button class="adminbtn" id="adminBtn" aria-label="Administration" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></button>
+<button class="helpbtn" id="helpBtn" aria-label="Hjælp og feedback"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2.3-2.5 3.8"/><path d="M12 17.2h.01"/></svg></button>
 <button class="refresh" id="refresh" aria-label="Opdater data"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></button>
 </header>
 <main id="main"><div class="loading">Henter holdkampe …</div></main>
@@ -495,6 +506,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     updHomeBtn();
     var ab = document.getElementById('adminBtn');   // administration — kun for holdledere og administratorer
     if (ab) { ab.hidden = !(typeof isLeader === 'function' && isLeader()); ab.classList.toggle('on', /^#\/(admin|holdleder|ledere|tilmeld\/(admin|holdleder))/.test(location.hash)); }
+    if (typeof updHelpBtn === 'function') updHelpBtn();
   }
   // "Gør til min forside": en logget-ind bruger kan vælge den side appen åbner på (gemmes på telefonen)
   function myHome() { try { return localStorage.getItem('hoebk_home') || ''; } catch (e) { return ''; } }
@@ -1871,7 +1883,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (sub === 'profil') sub = roles.length ? roles[0][0] : 'program';   // gammel adresse
     if (!tabs.some(function (t) { return t[0] === sub; })) sub = 'program';
     var unreadRooms = (SNAK.rooms || []).reduce(function (n, r) { return n + (r.muted || r.extra ? 0 : unread(r)); }, 0);
-    var badge = { snak: unreadRooms, holdleder: missingSelections(), admin: adminChatUnread() };
+    var badge = { snak: unreadRooms, holdleder: missingSelections(), admin: adminChatUnread() + fbOpen() };
     var h = '<nav class="chips mtabs" aria-label="Min side">' + tabs.map(function (x) {
       var on = sub === x[0], n = badge[x[0]] || 0;
       return '<button class="chip' + (x[0] === 'foraelder' ? ' par' : '') + '" aria-pressed="' + on + '" data-go="#/tilmeld' + (x[0] === 'program' ? '' : '/' + x[0]) + '">' + x[1] +
@@ -2402,6 +2414,10 @@ textarea.inp{resize:vertical;line-height:1.45}
       var ar = (SNAK.rooms || []).filter(function (r) { return r.id === 'x:admin'; })[0], au = ar ? unread(ar) : 0;
       h += '<span class="lbl">Udvikling af appen</span>' +
         card('#/snak/x%3Aadmin', 'Admin-chat' + (au ? ' <span class="badge sm">' + au + '</span>' : ''), ar && ar.last ? esc(ar.by.split(' ')[0] + ': ' + ar.x) : 'Foreslå nye funktioner og ændringer — kun for administratorer', '#5B6B7A');
+      loadFbAll(false);
+      var fo = fbOpen(), fl = FB.all && !FB.all.error ? FB.all : null;
+      h += card('#/feedback', 'Feedback fra brugerne' + (fo ? ' <span class="badge sm warnb">' + fo + '</span>' : ''),
+        fl ? (fo ? fo + ' ubesvaret' + ' · ' : '') + fl.length + ' i alt — svar, luk eller send videre til admin-chatten' : 'Spørgsmål, fejl og idéer sendt fra spørgsmålstegnet øverst', '#8A6FD1');
       h += '<span class="lbl">Personer</span>' +
         card('#/holdliste', 'Holdlister', 'Hvem er på hvert hold og i hver træningsgruppe', 'var(--accent)') +
         card('#/brugere', 'Registrerede brugere', 'Alle der har logget ind — søg, se roller, børn og sidst aktiv', 'var(--ink)') +
@@ -3777,6 +3793,133 @@ textarea.inp{resize:vertical;line-height:1.45}
     return h;
   }
 
+  // ---------- Hjælp og feedback (spørgsmålstegnet øverst) ----------
+  var GUIDE_URL = 'https://claude.ai/artifact/EpD317eMUbCD5uFZwNUPwu';   // "Oversigt over appen" — skal være delt med "alle med linket"
+  var FB = { type: 'idé', text: '', mine: null, all: null, f: 'aabne', from: '', busy: false, loadingMine: false, loadingAll: false, reply: {}, open: {} };
+  var FB_TYPES = [['idé', '💡 Idé'], ['fejl', '🐞 Fejl'], ['spørgsmål', '❓ Spørgsmål'], ['andet', 'Andet']];
+  var FB_ST = { ny: ['Ny', '#FFE3C2', 'var(--ink)'], besvaret: ['Besvaret', 'var(--accent)', 'var(--ink)'], lukket: ['Lukket', 'var(--soft)', 'var(--muted)'] };
+  function fbErr(r, what) { return r && r.error === 'Ukendt handling' ? 'Klubbens server skal opdateres først (script 2026-11-06.1)' : (r && (r.message || r.error)) || what; }
+  function fbSeen() { try { return Number(localStorage.getItem('hoebk_fbseen') || 0); } catch (e) { return 0; } }
+  function fbNewReplies() { return (FB.mine && !FB.mine.error ? FB.mine : []).filter(function (x) { return x.svar && x.st2 > fbSeen(); }).length; }
+  function fbOpen() { return ME && ME.role && ME.role.admin && FB.all && !FB.all.error ? FB.all.filter(function (x) { return x.st === 'ny'; }).length : 0; }
+  function updHelpBtn() {
+    var b = document.getElementById('helpBtn'); if (!b) return;
+    var n = (ME && ME.token ? fbNewReplies() : 0) + fbOpen();
+    b.classList.toggle('on', /^#\/(hjaelp|feedback)/.test(location.hash));
+    b.innerHTML = b.innerHTML.replace(/<span class="dot"><\/span>/, '') + (n ? '<span class="dot"></span>' : '');
+    b.setAttribute('aria-label', 'Hjælp og feedback' + (n ? ' (' + n + ' nye)' : ''));
+  }
+  function loadFbMine(force) {
+    if (!ME || !ME.token || !REG.url || FB.loadingMine || (FB.mine && !force)) return;
+    FB.loadingMine = true;
+    api({ action: 'fbMine', token: ME.token }).then(function (r) { FB.mine = r && r.ok ? r.items : { error: fbErr(r, 'Kunne ikke hente dine henvendelser') }; })
+      .catch(function () { FB.mine = FB.mine || { error: 'Ingen forbindelse' }; })
+      .then(function () { FB.loadingMine = false; updHelpBtn(); if (/^#\/hjaelp/.test(location.hash)) route(true); });
+  }
+  function loadFbAll(force) {
+    if (!ME || !ME.role || !ME.role.admin || !REG.url || FB.loadingAll || (FB.all && !force)) return;
+    FB.loadingAll = true;
+    api({ action: 'fbList', token: ME.token }).then(function (r) { FB.all = r && r.ok ? r.items : { error: fbErr(r, 'Kunne ikke hente feedback') }; })
+      .catch(function () { FB.all = FB.all || { error: 'Ingen forbindelse' }; })
+      .then(function () { FB.loadingAll = false; updHelpBtn(); if (/^#\/(feedback|tilmeld\/admin)/.test(location.hash)) route(true); });
+  }
+  function fbStPill(st) { var x = FB_ST[st] || FB_ST.ny; return '<span class="fbst" style="background:' + x[1] + ';color:' + x[2] + '">' + x[0] + '</span>'; }
+  function fbTypeLbl(t) { var x = FB_TYPES.filter(function (y) { return y[0] === t; })[0]; return x ? x[1] : t; }
+  function viewHjaelp() {
+    setHeader('Hjælp og feedback', 'Guide til appen · skriv til klubbens administratorer', true);
+    var logged = ME && ME.token;
+    if (logged) loadFbMine(false);
+    var h = '<a class="card row" style="min-height:64px;border-left:5px solid var(--ink);text-decoration:none;color:inherit" href="' + GUIDE_URL + '" target="_blank" rel="noopener">' +
+      '<span class="col"><b style="font-size:15px">📖 Guide til appen</b><span class="xs">Alle skærme forklaret — hvad du kan som spiller, forælder, holdleder og administrator</span></span><span class="h" style="font-size:20px">↗</span></a>';
+    h += '<span class="lbl">Skriv til administratorerne</span>';
+    if (!logged) return h + '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px">Log ind på Min side for at sende feedback — så kan vi svare dig direkte i appen.</span>' +
+      '<button class="rb ja" aria-pressed="true" data-go="#/tilmeld" style="align-self:flex-start;min-height:44px">Gå til Min side</button></div>';
+    h += '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px">' +
+      '<div class="chips" role="group" aria-label="Hvad handler det om" style="flex-wrap:wrap">' + FB_TYPES.map(function (t) {
+        return '<button class="chip" data-fbtype="' + esc(t[0]) + '" aria-pressed="' + (FB.type === t[0]) + '">' + esc(t[1]) + '</button>'; }).join('') + '</div>' +
+      '<textarea id="fbText" class="inp" rows="5" maxlength="2000" placeholder="' + esc({ 'idé': 'Hvad kunne gøre appen bedre for dig?', fejl: 'Hvad skete der, og hvad forventede du? Hvilken skærm var du på?', 'spørgsmål': 'Hvad vil du gerne vide?', andet: 'Skriv din besked her.' }[FB.type]) + '">' + esc(FB.text) + '</textarea>' +
+      (FB.from ? '<span class="xs">Vi sender med, at du kom fra skærmen ' + esc(FB.from) + '.</span>' : '') +
+      '<button class="rb ja" aria-pressed="true" data-act="fbsend" style="min-height:46px;font-size:15px"' + (FB.busy ? ' disabled' : '') + '>' + (FB.busy ? 'Sender …' : 'Send til administratorerne') + '</button></div>' +
+      '<p class="note">Kun klubbens administratorer kan se det, du skriver. Du får besked her (og som notifikation, hvis den er slået til), når der kommer svar.</p>';
+    var mine = FB.mine;
+    h += '<span class="lbl">Dine henvendelser</span>';
+    if (!mine) h += '<p class="empty">Henter …</p>';
+    else if (mine.error) h += '<div class="warn">' + esc(mine.error) + '</div>';
+    else if (!mine.length) h += '<p class="empty">Du har ikke skrevet endnu.</p>';
+    else {
+      var seen = fbSeen();
+      h += '<div class="card" style="overflow:hidden">' + mine.map(function (x) {
+        var fresh = x.svar && x.st2 > seen;
+        return '<div class="fbitem"><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><b style="font-size:13px">' + esc(fbTypeLbl(x.type)) + '</b>' + fbStPill(x.st) +
+          (fresh ? '<span class="badge sm">Nyt svar</span>' : '') + '<span class="xs" style="margin-left:auto">' + esc(ago(x.t)) + '</span></div>' +
+          '<p class="fbtext">' + esc(x.x) + '</p>' +
+          (x.svar ? '<div class="fbreply"><b class="xs" style="display:block;color:var(--ink)">Svar fra ' + esc((x.by || 'administrator').split(' ')[0]) + ' · ' + esc(ago(x.st2)) + '</b>' + esc(x.svar) + '</div>' : '') + '</div>';
+      }).join('') + '</div>';
+      var newest = mine.reduce(function (m, x) { return Math.max(m, x.st2 || 0); }, 0);   // svarene er nu set
+      if (newest > seen) setTimeout(function () { try { localStorage.setItem('hoebk_fbseen', String(newest)); } catch (e) {} updHelpBtn(); }, 1500);
+    }
+    if (ME.role && ME.role.admin) h += '<button class="card row" style="min-height:52px;border-left:5px solid #8A6FD1" data-go="#/feedback"><span class="col"><b style="font-size:14px">Administration: al feedback' +
+      (fbOpen() ? ' <span class="badge sm warnb">' + fbOpen() + '</span>' : '') + '</b><span class="xs">Svar brugerne og send idéer videre til admin-chatten</span></span><span class="h" style="font-size:20px">›</span></button>';
+    return h;
+  }
+  function sendFb() {
+    if (FB.busy) return;
+    var ta = document.getElementById('fbText'); FB.text = ta ? ta.value : FB.text;
+    if (FB.text.trim().length < 3) { toast('Skriv lidt mere'); return; }
+    FB.busy = true; route(true);
+    api({ action: 'fbSend', token: ME.token, type: FB.type, text: FB.text.trim(), side: FB.from, dev: (navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches) ? 'app · ' : 'browser · ') + navigator.userAgent.slice(0, 120) })
+      .then(function (r) {
+        if (r && r.error === 'login') { ME = null; saveMe(); throw new Error('Log ind igen'); }
+        if (!r || !r.ok) throw new Error(fbErr(r, 'Kunne ikke sende'));
+        FB.text = ''; if (FB.mine && !FB.mine.error) FB.mine.unshift(r.item); else FB.mine = null;
+        if (FB.all && !FB.all.error && ME.role && ME.role.admin) FB.all.unshift(r.item);
+        toast('Tak! Administratorerne har fået din besked');
+      }).catch(function (err) { toast(err.message || 'Kunne ikke sende'); })
+      .then(function () { FB.busy = false; route(true); });
+  }
+  function viewFeedback() {
+    setTab('tilmeld'); setHeader('Feedback', 'Fra brugerne af appen', true);
+    if (!ME || !ME.role || !ME.role.admin) return '<p class="empty">Kun for administratorer.</p>';
+    loadFbAll(false);
+    if (!FB.all) return '<p class="empty">Henter feedback …</p>';
+    if (FB.all.error) return '<div class="warn">' + esc(FB.all.error) + '</div>';
+    var all = FB.all, F = { aabne: ['Ubesvarede', function (x) { return x.st === 'ny'; }], besvaret: ['Besvarede', function (x) { return x.st === 'besvaret'; }],
+      lukket: ['Lukkede', function (x) { return x.st === 'lukket'; }], alle: ['Alle', function () { return true; }] };
+    var list = all.filter(F[FB.f][1]);
+    var h = '<div class="chips" role="group" aria-label="Vis">' + Object.keys(F).map(function (k) {
+      return '<button class="chip" data-fbf="' + k + '" aria-pressed="' + (FB.f === k) + '">' + F[k][0] + ' <span class="xs">' + all.filter(F[k][1]).length + '</span></button>'; }).join('') + '</div>';
+    if (!list.length) return h + '<p class="empty">' + (FB.f === 'aabne' ? 'Ingen ubesvarede henvendelser. 🎉' : 'Ingen henvendelser her.') + '</p>';
+    h += list.map(function (x) {
+      var P = D.players[x.pid], open = FB.open[x.id], draft = FB.reply[x.id] || '';
+      return '<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:8px">' +
+        '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><b style="font-size:13px">' + esc(fbTypeLbl(x.type)) + '</b>' + fbStPill(x.st) +
+          (x.chat ? '<span class="fbst" style="background:#5B6B7A;color:#fff">I admin-chat</span>' : '') + '<span class="xs" style="margin-left:auto">' + esc(ago(x.t)) + '</span></div>' +
+        '<span class="xs"><b style="color:var(--ink)">' + esc(x.n) + '</b>' + (P && P.teams && P.teams.length ? ' · ' + esc(P.teams.join(', ')) : /^p:/.test(x.pid) ? ' · forælder' : '') +
+          (x.email ? ' · <a href="mailto:' + esc(x.email) + '">' + esc(x.email) + '</a>' : '') + '</span>' +
+        '<p class="fbtext">' + esc(x.x) + '</p>' +
+        (x.side || x.dev ? '<span class="xs ellip" title="' + esc(x.dev) + '">' + esc([x.side ? 'Skærm: ' + x.side : '', x.dev ? x.dev.split(' · ')[0] : ''].filter(String).join(' · ')) + '</span>' : '') +
+        (x.svar ? '<div class="fbreply"><b class="xs" style="display:block;color:var(--ink)">Svar fra ' + esc(x.by.split(' ')[0]) + ' · ' + esc(ago(x.st2)) + '</b>' + esc(x.svar) + '</div>' : '') +
+        (open ? '<textarea class="inp" rows="3" maxlength="2000" data-fbreply="' + esc(x.id) + '" placeholder="Svar til ' + esc(x.n.split(' ')[0]) + ' — sendes som notifikation">' + esc(draft) + '</textarea>' +
+          '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="rb ja" aria-pressed="true" data-fbsendreply="' + esc(x.id) + '"' + (FB.busy ? ' disabled' : '') + '>Send svar</button><button class="rb" data-fbopen="' + esc(x.id) + '">Annullér</button></div>'
+        : '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+          '<button class="rb" data-fbopen="' + esc(x.id) + '">' + (x.svar ? 'Svar igen' : 'Svar') + '</button>' +
+          '<button class="rb" data-fbchat="' + esc(x.id) + '"' + (FB.busy ? ' disabled' : '') + '>' + (x.chat ? 'Send til admin-chat igen' : '→ Admin-chat') + '</button>' +
+          '<button class="rb" data-fbst="' + (x.st === 'lukket' ? 'ny' : 'lukket') + '" data-id="' + esc(x.id) + '">' + (x.st === 'lukket' ? 'Genåbn' : 'Luk') + '</button></div>') +
+        '</div>';
+    }).join('');
+    h += '<p class="note">"→ Admin-chat" lægger henvendelsen i admin-chatten, så den kommer med i forslagene til nye funktioner. Svar sendes til brugeren i appen og som notifikation.</p>';
+    return h;
+  }
+  function fbUpdate(item) { if (!item || !FB.all || FB.all.error) return; FB.all = FB.all.map(function (x) { return x.id === item.id ? item : x; }); }
+  function fbAct(body, ok) {
+    if (FB.busy) return; FB.busy = true; route(true);
+    api(Object.assign({ token: ME.token }, body)).then(function (r) {
+      if (!r || !r.ok) throw new Error(fbErr(r, 'Kunne ikke gemme'));
+      fbUpdate(r.item); toast(ok); if (body.action === 'fbToChat') { if (SNAK.msgs['x:admin']) fetchMsgs('x:admin', true); loadRooms(true); }
+      return r;
+    }).catch(function (err) { toast(err.message); }).then(function () { FB.busy = false; updHelpBtn(); route(true); });
+  }
+
   // ---------- Router ----------
   var lastTab = 'hold';
   function route(keepScroll) {
@@ -3807,6 +3950,8 @@ textarea.inp{resize:vertical;line-height:1.45}
     else if (parts[0] === 'eksport') { html = viewEksport(+parts[1], +parts[2]); }
     else if (parts[0] === 'ledere') { html = viewLedere(); }
     else if (parts[0] === 'holdliste') { lastTab = 'tilmeld'; html = viewHoldliste(decodeURIComponent(parts[1] || '')); }
+    else if (parts[0] === 'hjaelp') { html = viewHjaelp(); }
+    else if (parts[0] === 'feedback') { lastTab = 'tilmeld'; html = viewFeedback(); }
     else if (parts[0] === 'brugere') { lastTab = 'tilmeld'; html = viewBrugere(); }
     else if (parts[0] === 'holdleder' || parts[0] === 'admin') { html = viewHoldleder(); }
     else if (parts[0] === 'aktiviteter' && parts[1] === 'oversigt') { lastTab = 'tilmeld'; html = viewOversigt(); }
@@ -3982,7 +4127,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (history.length > 1) history.back(); else location.hash = '#/hold';
   });
   $main.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-go],[data-welcome],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf],[data-toparent],[data-ride],[data-ridetake],[data-ridesave],[data-ridecancel],[data-rpm]');
+    var b = e.target.closest('[data-go],[data-welcome],[data-seg],[data-metric],[data-filter],[data-reg],[data-me],[data-act],[data-group],[data-tuage],[data-pick],[data-lustatus],[data-lufilter],[data-admpick],[data-admedit],[data-admemail],[data-admteam],[data-admcancel],[data-follow],[data-tfreg],[data-tulvl],[data-pf],[data-trg],[data-trh],[data-mhold],[data-calpre],[data-calteam],[data-calx],[data-msgdel],[data-newsto],[data-newsdel],[data-kid],[data-sign],[data-actto],[data-taskdel],[data-ov],[data-admdel],[data-usrf],[data-toparent],[data-ride],[data-ridetake],[data-ridesave],[data-ridecancel],[data-rpm],[data-fbtype],[data-fbf],[data-fbopen],[data-fbsendreply],[data-fbchat],[data-fbst]');
     if (b) { UI.calPick = !!b.dataset.calpick; if (b.dataset.calpick) UI.calScrollTo = (b.dataset.go || '').split('/').pop(); }
     if (!b) return;
     if (b.dataset.act === 'pnamesave') {
@@ -3995,6 +4140,26 @@ textarea.inp{resize:vertical;line-height:1.45}
       return;
     }
     if (b.dataset.usrf) { USR.f = b.dataset.usrf; route(true); return; }
+    if (b.dataset.fbtype) { var fta = document.getElementById('fbText'); if (fta) FB.text = fta.value; FB.type = b.dataset.fbtype; route(true); return; }
+    if (b.dataset.act === 'fbsend') { sendFb(); return; }
+    if (b.dataset.fbf) { FB.f = b.dataset.fbf; route(true); return; }
+    if (b.dataset.fbopen) { FB.open[b.dataset.fbopen] = !FB.open[b.dataset.fbopen]; route(true); var fr = document.querySelector('[data-fbreply="' + b.dataset.fbopen + '"]'); if (fr) fr.focus(); return; }
+    if (b.dataset.fbsendreply) {
+      var rid = b.dataset.fbsendreply, rtx = (FB.reply[rid] || '').trim();
+      if (!rtx) { toast('Skriv et svar'); return; }
+      var ri = (FB.all || []).filter(function (x) { return x.id === rid; })[0];
+      if (!confirm('Send svaret til ' + (ri ? ri.n : 'brugeren') + '?')) return;
+      FB.open[rid] = false; delete FB.reply[rid];
+      fbAct({ action: 'fbReply', id: rid, text: rtx }, 'Svaret er sendt');
+      return;
+    }
+    if (b.dataset.fbchat) {
+      var note = prompt('Sendes til admin-chatten. Vil du tilføje en kommentar? (kan være tom)', '');
+      if (note === null) return;
+      fbAct({ action: 'fbToChat', id: b.dataset.fbchat, note: note }, 'Lagt i admin-chatten');
+      return;
+    }
+    if (b.dataset.fbst) { fbAct({ action: 'fbStatus', id: b.dataset.id, status: b.dataset.fbst }, b.dataset.fbst === 'lukket' ? 'Lukket' : 'Genåbnet'); return; }
     if (b.dataset.toparent) {
       var cn = b.dataset.childname, nn = cn.split(' ')[0] + ' forælder';
       if (!confirm(b.dataset.toparent + ' er registreret som spilleren ' + cn + '.\n\nGør brugeren til forælder til ' + cn + '? Navnet bliver "' + nn + '" (forælderen kan selv rette det).')) return;
@@ -4146,6 +4311,11 @@ textarea.inp{resize:vertical;line-height:1.45}
   });
 
   $main.addEventListener('change', function (e) { if (e.target && e.target.id === 'mailpref') setMailPref(e.target.checked); });
+  $main.addEventListener('input', function (e) {
+    var t = e.target; if (!t) return;
+    if (t.id === 'fbText') FB.text = t.value;
+    else if (t.dataset && t.dataset.fbreply) FB.reply[t.dataset.fbreply] = t.value;
+  });
 
   document.getElementById('homeBtn').addEventListener('click', function () {
     var h = homeKey(location.hash), on = homeKey(myHome() || '#/nyt') === h;
@@ -4154,6 +4324,12 @@ textarea.inp{resize:vertical;line-height:1.45}
     updHomeBtn();
   });
   document.getElementById('adminBtn').addEventListener('click', function () { location.hash = ME && ME.role && ME.role.admin ? '#/tilmeld/admin' : '#/tilmeld/holdleder'; });
+  document.getElementById('helpBtn').addEventListener('click', function () {
+    if (/^#\/hjaelp/.test(location.hash)) { history.back(); return; }
+    var cur = (location.hash || '#/nyt').replace(/^#\/?/, '');
+    FB.from = /^(feedback|tilmeld\/?$)/.test(cur) ? '' : cur.split('/').slice(0, 2).map(function (x) { try { return decodeURIComponent(x); } catch (e) { return x; } }).join('/');
+    location.hash = '#/hjaelp';
+  });
   document.getElementById('refresh').addEventListener('click', function () {
     var btn = this; if (btn.classList.contains('spin')) return;
     btn.classList.add('spin'); FORCE = Date.now();
@@ -4162,7 +4338,7 @@ textarea.inp{resize:vertical;line-height:1.45}
       loadActivities(true);
       return load();
     }).then(function () { return loadReg(); })
-      .then(function () { route(true); SNAK.pub = null; USR.data = null; loadPub(); var rm = curRoom(); if (rm && ME && ME.token) fetchMsgs(rm, true); loadActs(true); return loadRooms(true); })
+      .then(function () { route(true); SNAK.pub = null; USR.data = null; FB.mine = null; FB.all = null; loadFbMine(true); loadFbAll(true); loadPub(); var rm = curRoom(); if (rm && ME && ME.token) fetchMsgs(rm, true); loadActs(true); return loadRooms(true); })
       .then(function () { toast('Opdateret'); })
       .catch(function () { toast('Kunne ikke opdatere — tjek forbindelsen'); })
       .then(function () { btn.classList.remove('spin'); FORCE = 0; });
@@ -4187,7 +4363,7 @@ textarea.inp{resize:vertical;line-height:1.45}
     if (location.hash !== START) { try { history.replaceState(null, '', location.pathname + location.search + START); } catch (e) { location.hash = START; } }
   }
 
-  load().then(function () { prevHash = location.hash; route(); loadActivities(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).then(function () { loadActs(true); return loadRooms(true); }).catch(function () {
+  load().then(function () { prevHash = location.hash; route(); loadActivities(); return loadReg(); }).then(function () { route(true); return refreshRole(); }).then(function () { loadActs(true); loadFbMine(false); loadFbAll(false); return loadRooms(true); }).catch(function () {
     $main.innerHTML = '<p class="empty">Kunne ikke hente data. Prøv igen om lidt.</p>';
     document.getElementById('subtitle').textContent = 'Fejl ved hentning';
   });

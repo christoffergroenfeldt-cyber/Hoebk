@@ -52,7 +52,7 @@
  *  GET ?action=all&key=NØGLE   → alle svar (til GitHub-synkronisering) — uden e-mails
  */
 
-var SCRIPT_VERSION = '2026-11-05.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
+var SCRIPT_VERSION = '2026-11-06.1';   // vises af ?action=version — så GitHub kan se om den nye version er implementeret
 var CLUB = 'Hørsholm Badminton Klub';
 var TYPES = { match: ['ja', 'nej', 'maaske', 'ryd'], training: ['ja', 'nej', 'ryd'] };   // ryd = fjern sit svar
 var SHEETS = {
@@ -80,7 +80,9 @@ var SHEETS = {
   Holdmedlemmer: ['playerId', 'navn', 'gruppe', 'tilføjetAf', 'tidspunkt'],
   'PushKø': ['tidspunkt', 'endpoint', 'p256dh', 'auth', 'titel', 'tekst', 'url', 'tag'],
   // Samkørsel til holdkampe og turneringer: én række pr. person pr. kamp/turnering
-  'Kørsel': ['tidspunkt', 'begivenhed', 'titel', 'playerId', 'navn', 'email', 'valg', 'pladser', 'opsamling', 'afgang', 'chauffør', 'note']
+  'Kørsel': ['tidspunkt', 'begivenhed', 'titel', 'playerId', 'navn', 'email', 'valg', 'pladser', 'opsamling', 'afgang', 'chauffør', 'note'],
+  // Hjælp og feedback: brugernes henvendelser til administratorerne (status: ny | besvaret | lukket)
+  Feedback: ['id', 'tidspunkt', 'email', 'playerId', 'navn', 'type', 'tekst', 'side', 'enhed', 'status', 'svar', 'svaretAf', 'svaret', 'adminChat']
 };
 // Administrator(er): må udnævne holdledere i appen. Badmintonplayer-spiller-id'er.
 // Den FØRSTE e-mail der bekræfter navnet (fanen Spillere) ejer rollen — en anden e-mail med samme navn bliver ikke admin.
@@ -1440,6 +1442,12 @@ function doPost(e) {
       case 'newsSave': return json_(newsSave_(b));
       case 'newsDel': return json_(newsDel_(b));
       case 'newsList': return json_(newsList_(b));
+      case 'fbSend': return json_(fbSend_(b));
+      case 'fbMine': return json_(fbMine_(b));
+      case 'fbList': return json_(fbList_(b));
+      case 'fbReply': return json_(fbReply_(b));
+      case 'fbStatus': return json_(fbStatus_(b));
+      case 'fbToChat': return json_(fbToChat_(b));
       case 'me': var s = session_(b.token); return json_(s ? { ok: true, player: { id: s.playerId, name: s.playerName, email: s.email }, role: role_(s.email, s.playerId), follows: follows_(s.email), settings: settings_(s.email), kids: kids_(s.email) } : { ok: false, error: 'login' });
       case 'logout':
         var se = session_(b.token); if (se) sh_('Sessioner').getRange(se.row, 7).setValue(false);
@@ -1492,6 +1500,112 @@ function doGet(e) {
   });
   return json_({ ok: true, updated: new Date().toISOString(),
                  status: Object.keys(latest).map(function (k) { return latest[k]; }).filter(function (x) { return x.s !== 'ryd'; }), lineups: lineups_() });
+}
+
+// ======================================================================================
+// HJÆLP OG FEEDBACK — brugerne skriver til administratorerne (spørgsmålstegnet øverst i appen).
+// Administratorerne ser alt under Min side → Admin → Feedback, kan svare (med push til afsenderen)
+// og sende en henvendelse videre til admin-chatten, hvis den skal laves.
+// ======================================================================================
+var FB_TYPES = ['idé', 'fejl', 'spørgsmål', 'andet'], FB_MAX = 2000, FB_PER_HOUR = 6;
+function fbOut_(r, admin) {
+  var o = { id: String(r[0]), t: ts_(r[1]), pid: String(r[3]), n: String(r[4]), type: String(r[5]), x: String(r[6]), side: String(r[7]),
+            st: String(r[9] || 'ny'), svar: String(r[10] || ''), by: String(r[11] || ''), st2: ts_(r[12]), chat: ts_(r[13]) };
+  if (admin) { o.email = String(r[2]); o.dev = String(r[8]); }
+  return o;
+}
+function fbAdmin_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { err: { ok: false, error: 'login', message: 'Log ind igen' } };
+  if (!isAdmin_(ses.email, ses.playerId)) return { err: { ok: false, error: 'Kun for administratorer' } };
+  return { ses: ses };
+}
+function fbRow_(id) {   // [rækkenummer, række] eller null
+  var rows = data_('Feedback');
+  for (var i = rows.length - 1; i >= 0; i--) if (String(rows[i][0]) === id) return [i + 2, rows[i]];
+  return null;
+}
+function fbSend_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var type = FB_TYPES.indexOf(clean_(b.type, 20)) >= 0 ? clean_(b.type, 20) : 'andet';
+  var text = text_(b.text, FB_MAX);
+  if (text.length < 3) return { ok: false, error: 'Skriv lidt mere' };
+  var side = clean_(b.side, 120), dev = clean_(b.dev, 160), em = ses.email.toLowerCase();
+  var out = withLock_(function () {
+    var hour = Date.now() - 3600000;
+    if (data_('Feedback').filter(function (r) { return String(r[2]).toLowerCase() === em && ts_(r[1]) > hour; }).length >= FB_PER_HOUR) return null;
+    var id = newId_('f'), now = new Date();
+    var row = [id, now, em, safe_(ses.playerId), safe_(ses.playerName), type, safe_(text), safe_(side), safe_(dev), 'ny', '', '', '', ''];
+    sh_('Feedback').appendRow(row);
+    return fbOut_(row, false);
+  });
+  if (!out) return { ok: false, error: 'Du har sendt mange henvendelser den sidste time — prøv igen senere' };
+  try {   // push til administratorerne
+    var cx = ctx_();
+    queuePush_(pushTargets_(cx, function (e, pid) { return e !== em && roleIn_(cx, e, pid).admin; }).map(function (r) {
+      return [new Date(), r.endpoint, r.p256dh, r.auth, clean_('Ny feedback · ' + type + ' · ' + ses.playerName.split(' ')[0], 80), clean_(text, 140), APP_URL + '#/feedback', 'fb'];
+    }));
+  } catch (e) {}
+  return { ok: true, item: out };
+}
+function fbMine_(b) {
+  var ses = session_(b.token);
+  if (!ses) return { ok: false, error: 'login', message: 'Log ind igen' };
+  var em = ses.email.toLowerCase();
+  return { ok: true, items: data_('Feedback').filter(function (r) { return String(r[2]).toLowerCase() === em; })
+    .map(function (r) { return fbOut_(r, false); }).reverse().slice(0, 50) };
+}
+function fbList_(b) {
+  var a = fbAdmin_(b); if (a.err) return a.err;
+  return { ok: true, items: data_('Feedback').map(function (r) { return fbOut_(r, true); }).reverse().slice(0, 300) };
+}
+function fbReply_(b) {
+  var a = fbAdmin_(b); if (a.err) return a.err;
+  var id = clean_(b.id, 40), text = text_(b.text, FB_MAX);
+  if (!text) return { ok: false, error: 'Skriv et svar' };
+  var res = withLock_(function () {
+    var f = fbRow_(id); if (!f) return null;
+    var now = new Date();
+    sh_('Feedback').getRange(f[0], 10, 1, 4).setValues([['besvaret', safe_(text), safe_(a.ses.playerName), now]]);
+    f[1][9] = 'besvaret'; f[1][10] = text; f[1][11] = a.ses.playerName; f[1][12] = now;
+    return f[1];
+  });
+  if (!res) return { ok: false, error: 'Henvendelsen findes ikke' };
+  try {   // push til den der skrev
+    var to = String(res[2]).toLowerCase();
+    queuePush_(pushTargets_(ctx_(), function (e) { return e === to; }).map(function (r) {
+      return [new Date(), r.endpoint, r.p256dh, r.auth, 'Svar på din feedback', clean_(text, 140), APP_URL + '#/hjaelp', 'fb:' + id];
+    }));
+  } catch (e) {}
+  return { ok: true, item: fbOut_(res, true) };
+}
+function fbStatus_(b) {
+  var a = fbAdmin_(b); if (a.err) return a.err;
+  var id = clean_(b.id, 40), st = clean_(b.status, 20);
+  if (['ny', 'besvaret', 'lukket'].indexOf(st) < 0) return { ok: false, error: 'Ugyldig status' };
+  var res = withLock_(function () {
+    var f = fbRow_(id); if (!f) return null;
+    sh_('Feedback').getRange(f[0], 10).setValue(st); f[1][9] = st; return f[1];
+  });
+  return res ? { ok: true, item: fbOut_(res, true) } : { ok: false, error: 'Henvendelsen findes ikke' };
+}
+function fbToChat_(b) {   // send henvendelsen videre til admin-chatten (som en almindelig besked fra administratoren)
+  var a = fbAdmin_(b); if (a.err) return a.err;
+  var id = clean_(b.id, 40), f = fbRow_(id);
+  if (!f) return { ok: false, error: 'Henvendelsen findes ikke' };
+  var r = f[1], note = text_(b.note, 400);
+  var head = '💡 Feedback fra ' + String(r[4]) + ' (' + String(r[5]) + (r[7] ? ', skærm ' + String(r[7]) : '') + '):\n';
+  var tail = note ? '\n\n' + a.ses.playerName.split(' ')[0] + ': ' + note : '';
+  var body = String(r[6]);
+  if ((head + body + tail).length > MSG_MAX) body = body.slice(0, Math.max(50, MSG_MAX - head.length - tail.length - 2)) + ' …';
+  var p = post_({ token: b.token, room: ADMIN_ROOM, text: head + body + tail });
+  if (!p.ok) return p;
+  var res = withLock_(function () {
+    var g = fbRow_(id); if (!g) return null;
+    sh_('Feedback').getRange(g[0], 14).setValue(new Date()); g[1][13] = new Date(); return g[1];
+  });
+  return { ok: true, item: res ? fbOut_(res, true) : null };
 }
 
 // ---------- Fast tidsplan for GitHub-kørslerne ----------
